@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 
-struct DetailRenderView: View {
+struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
 
     let title: String
@@ -81,7 +81,7 @@ struct DetailRenderView: View {
 #Preview("QRCode Loaded") {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
-            DetailRenderView(
+            LinkDetailRenderView(
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 image: .success(UIImage(systemName: "qrcode")!), // Placeholder image
@@ -95,7 +95,7 @@ struct DetailRenderView: View {
 #Preview("QRCode Loading") {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
-            DetailRenderView(
+            LinkDetailRenderView(
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 image: nil,
@@ -109,7 +109,7 @@ struct DetailRenderView: View {
 #Preview("QRCode Failed") {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
-            DetailRenderView(
+            LinkDetailRenderView(
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 image: .failure(NSError(domain: "QR Code generation failed", code: 0, userInfo: nil)),

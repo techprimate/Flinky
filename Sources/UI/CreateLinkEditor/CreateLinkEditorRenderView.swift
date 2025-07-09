@@ -24,7 +24,6 @@ struct CreateLinkEditorRenderView: View {
         self.saveAction = saveAction
     }
 
-
     var body: some View {
         Form {
             TextField("Title", text: $title)
@@ -52,12 +51,15 @@ struct CreateLinkEditorRenderView: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    guard let url = URL(string: url), !title.isEmpty else {
-                        // TODO: Handle invalid input
+                    if title.isEmpty {
+                        return
+                    }
+                    guard let url = URL(string: url) else {
                         return
                     }
                     saveAction(FormData(title: title, url: url))
                 }
+                .disabled(title.isEmpty || URL(string: url) == nil)
             }
         }
         .onAppear {

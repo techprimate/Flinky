@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DetailContainerView: View {
+struct LinkDetailContainerView: View {
     @Environment(\.qrcodeCache) private var qrcodeCache
 
     let item: LinkModel
@@ -8,12 +8,12 @@ struct DetailContainerView: View {
     @State private var image: Result<UIImage, Error>?
 
     var body: some View {
-        DetailRenderView(
+        LinkDetailRenderView(
             title: item.title,
             url: item.url,
             image: image,
             editAction: {
-
+                // TODO: Action to edit the link can be implemented here
             }
         )
         .task(priority: .utility) {

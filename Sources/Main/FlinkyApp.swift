@@ -2,9 +2,10 @@ import SwiftUI
 import SwiftData
 
 @main
-struct LinkManagerApp: App {
+struct FlinkyApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
+            LinkListModel.self,
             LinkModel.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

@@ -26,7 +26,7 @@ final class LinkModel {
     ///   - updatedAt: Date when the link was last updated. Defaults to the current date.
     ///   - title: Title of the link.
     ///   - url: URL of the link.
-    init(id: UUID = UUID(), createdAt: Date = Date(), updatedAt: Date = Date(), title: String, url: URL) {
+    init(id: UUID, createdAt: Date, updatedAt: Date, title: String, url: URL) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
