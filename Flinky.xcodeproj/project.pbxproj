@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4B471882E1F12FA005099F3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4B471872E1F12FA005099F3 /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
 
@@ -28,16 +29,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
+				D4B471882E1F12FA005099F3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4B471862E1F12FA005099F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
 				D4D359DB2E1BDF540006226D /* Sources */,
+				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +74,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4B4718C2E1F1303005099F3 /* PBXTargetDependency */,
+				D4B4718A2E1F1300005099F3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D4D359DB2E1BDF540006226D /* Sources */,
@@ -71,6 +83,7 @@
 			name = Flinky;
 			packageProductDependencies = (
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
+				D4B471872E1F12FA005099F3 /* Sentry */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -102,6 +115,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
@@ -132,6 +146,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4B4718A2E1F1300005099F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4B471892E1F1300005099F3 /* SFSafeSymbols */;
+		};
+		D4B4718C2E1F1303005099F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4B4718B2E1F1303005099F3 /* Sentry */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D4D359E42E1BDF560006226D /* Debug */ = {
@@ -339,6 +364,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.53.2;
+			};
+		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
@@ -350,6 +383,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D4B471872E1F12FA005099F3 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		D4B471892E1F1300005099F3 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		D4B4718B2E1F1303005099F3 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
 		D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;

@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Sentry
 
 @main
 struct FlinkyApp: App {
@@ -16,6 +17,19 @@ struct FlinkyApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+
+    init() {
+        SentrySDK.start { options in
+            options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
+            options.debug = true
+
+            options.sendDefaultPii = true
+            options.tracesSampleRate = 1.0
+
+            options.sessionReplay.onErrorSampleRate = 1.0
+            options.sessionReplay.sessionSampleRate = 0.1
+        }
+    }
 
     var body: some Scene {
         WindowGroup {
