@@ -1,4 +1,4 @@
-.PHONY: format lint generate generate-licenses
+.PHONY: format lint generate generate-licenses generate-localization
 
 format:
 	swiftformat Sources
@@ -7,7 +7,10 @@ format:
 lint:
 	swiftlint --config .swiftlint.yml --strict
 
-generate: generate-licenses generate-version-in-settings
+generate: generate-licenses generate-version-in-settings generate-localization
+
+generate-localization:
+	./Scripts/generate-localization.sh
 
 generate-licenses:
 	license-plist \

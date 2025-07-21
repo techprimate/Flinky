@@ -39,13 +39,13 @@ struct LinkListsRenderView<Destination: View>: View {
             }
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Flinky")
+        .navigationTitle(L10n.App.title)
         .overlay {
             if pinnedLists.isEmpty && unpinnedLists.isEmpty {
                 ContentUnavailableView(
-                    "No lists available",
+                    L10n.Lists.noListsTitle,
                     systemSymbol: .trayFill,
-                    description: Text("Crteate a new list to get started")
+                    description: Text(L10n.Lists.noListsDescription)
                 )
             }
         }

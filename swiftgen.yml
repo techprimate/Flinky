@@ -1,0 +1,13 @@
+json:
+  inputs: Sources/Resources/Localizable.xcstrings
+  filter: .+\.xcstrings$
+  outputs:
+    templatePath: ./Templates/en-strings.stencil
+    output: Generated/generated-en.strings
+strings:
+  inputs: Generated/generated-en.strings
+  outputs:
+    templatePath: ./Templates/l21strings.stencil
+    output: Sources/Utils/Localization.swift
+    params:
+      enumName: L10n

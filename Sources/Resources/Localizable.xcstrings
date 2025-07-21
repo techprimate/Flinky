@@ -1,0 +1,841 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "accessibility.delete_link" : {
+      "comment" : "Delete link accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %@"
+          }
+        }
+      }
+    },
+    "accessibility.edit_link" : {
+      "comment" : "Edit link accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit %@"
+          }
+        }
+      }
+    },
+    "accessibility.link_item" : {
+      "comment" : "Link item accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@"
+          }
+        }
+      }
+    },
+    "accessibility.link_item_hint" : {
+      "comment" : "Link item hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to view link details"
+          }
+        }
+      }
+    },
+    "accessibility.share_link" : {
+      "comment" : "Share link accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share %@"
+          }
+        }
+      }
+    },
+    "action.delete" : {
+      "comment" : "Delete action",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "action.edit" : {
+      "comment" : "Edit action",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "action.pin" : {
+      "comment" : "Pin action",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin"
+          }
+        }
+      }
+    },
+    "action.share" : {
+      "comment" : "Share action",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Link"
+          }
+        }
+      }
+    },
+    "action.share_hint" : {
+      "comment" : "Share action hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share this link with others"
+          }
+        }
+      }
+    },
+    "action.unpin" : {
+      "comment" : "Unpin action",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpin"
+          }
+        }
+      }
+    },
+    "Add a new link to get started" : {
+
+    },
+    "app.title" : {
+      "comment" : "App title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flinky"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+
+    },
+    "create_link.title" : {
+      "comment" : "Create link title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Link"
+          }
+        }
+      }
+    },
+    "create_link.url_validation" : {
+      "comment" : "URL validation message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a valid URL"
+          }
+        }
+      }
+    },
+    "create_list.title" : {
+      "comment" : "Create list title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New List"
+          }
+        }
+      }
+    },
+    "Delete" : {
+
+    },
+    "Delete %@" : {
+
+    },
+    "Delete List" : {
+
+    },
+    "Done" : {
+
+    },
+    "Double tap to view link details" : {
+
+    },
+    "Edit" : {
+
+    },
+    "Edit %@" : {
+
+    },
+    "Edit List" : {
+
+    },
+    "Error creating QRCode: %@" : {
+
+    },
+    "error.data_corruption" : {
+      "comment" : "Data corruption error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data Error: %@"
+          }
+        }
+      }
+    },
+    "error.network" : {
+      "comment" : "Network error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network Error: %@"
+          }
+        }
+      }
+    },
+    "error.ok" : {
+      "comment" : "Error alert OK button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "error.persistence" : {
+      "comment" : "Persistence error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Error: %@"
+          }
+        }
+      }
+    },
+    "error.qr_code" : {
+      "comment" : "QR code error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR Code Error: %@"
+          }
+        }
+      }
+    },
+    "error.recovery.data_corruption" : {
+      "comment" : "Data corruption recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please try restarting the app. If the problem persists, contact support."
+          }
+        }
+      }
+    },
+    "error.recovery.network" : {
+      "comment" : "Network error recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "error.recovery.persistence" : {
+      "comment" : "Persistence error recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save your changes. Please try again."
+          }
+        }
+      }
+    },
+    "error.recovery.qr_code" : {
+      "comment" : "QR code error recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to generate QR code for this link."
+          }
+        }
+      }
+    },
+    "error.recovery.unknown" : {
+      "comment" : "Unknown error recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please try again. If the problem persists, contact support."
+          }
+        }
+      }
+    },
+    "error.recovery.validation" : {
+      "comment" : "Validation error recovery",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your input and try again."
+          }
+        }
+      }
+    },
+    "error.title" : {
+      "comment" : "Error alert title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "error.unknown" : {
+      "comment" : "Unknown error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error: %@"
+          }
+        }
+      }
+    },
+    "error.validation" : {
+      "comment" : "Validation error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validation Error: %@"
+          }
+        }
+      }
+    },
+    "form.cancel" : {
+      "comment" : "Cancel button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "form.delete" : {
+      "comment" : "Delete button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "form.done" : {
+      "comment" : "Done button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "form.edit" : {
+      "comment" : "Edit button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "form.name" : {
+      "comment" : "Name field",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "form.save" : {
+      "comment" : "Save button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "form.title" : {
+      "comment" : "Title field",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        }
+      }
+    },
+    "form.url" : {
+      "comment" : "URL field",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
+    },
+    "Generating QR code" : {
+
+    },
+    "links.new_link" : {
+      "comment" : "New link button",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Link"
+          }
+        }
+      }
+    },
+    "links.no_links_description" : {
+      "comment" : "No links available description",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new link to get started"
+          }
+        }
+      }
+    },
+    "links.no_links_title" : {
+      "comment" : "No links available title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No links available"
+          }
+        }
+      }
+    },
+    "lists.my_lists_section" : {
+      "comment" : "My lists section title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Lists"
+          }
+        }
+      }
+    },
+    "lists.no_lists_description" : {
+      "comment" : "No lists available description",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new list to get started"
+          }
+        }
+      }
+    },
+    "lists.no_lists_title" : {
+      "comment" : "No lists available title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No lists available"
+          }
+        }
+      }
+    },
+    "lists.pinned_section" : {
+      "comment" : "Pinned lists section title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pinned"
+          }
+        }
+      }
+    },
+    "My Lists" : {
+
+    },
+    "Name" : {
+
+    },
+    "New Link" : {
+
+    },
+    "New List" : {
+
+    },
+    "No links available" : {
+
+    },
+    "persistence.error.delete_link_failed" : {
+      "comment" : "Delete link failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete link"
+          }
+        }
+      }
+    },
+    "persistence.error.delete_list_failed" : {
+      "comment" : "Delete list failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete list"
+          }
+        }
+      }
+    },
+    "persistence.error.delete_multiple_links_failed" : {
+      "comment" : "Delete multiple links failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to delete links"
+          }
+        }
+      }
+    },
+    "persistence.error.pin_list_failed" : {
+      "comment" : "Pin list failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to pin list"
+          }
+        }
+      }
+    },
+    "persistence.error.recovery_suggestion" : {
+      "comment" : "Persistence error recovery suggestion",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please try again. If the problem persists, restart the app."
+          }
+        }
+      }
+    },
+    "persistence.error.save_changes_after_deletion_failed" : {
+      "comment" : "Save changes after deletion failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save deletion changes"
+          }
+        }
+      }
+    },
+    "persistence.error.save_link_changes_failed" : {
+      "comment" : "Save link changes failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save link changes"
+          }
+        }
+      }
+    },
+    "persistence.error.save_link_failed" : {
+      "comment" : "Save link failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save link"
+          }
+        }
+      }
+    },
+    "persistence.error.save_list_changes_failed" : {
+      "comment" : "Save list changes failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save list changes"
+          }
+        }
+      }
+    },
+    "persistence.error.save_list_failed" : {
+      "comment" : "Save list failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save list"
+          }
+        }
+      }
+    },
+    "persistence.error.unpin_list_failed" : {
+      "comment" : "Unpin list failed error",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to unpin list"
+          }
+        }
+      }
+    },
+    "Pin" : {
+
+    },
+    "Pin List" : {
+
+    },
+    "QR code for %@" : {
+
+    },
+    "QR code generation failed" : {
+
+    },
+    "QR code that can be scanned to open this link" : {
+
+    },
+    "qr_code.accessibility_hint" : {
+      "comment" : "QR code accessibility hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code that can be scanned to open this link"
+          }
+        }
+      }
+    },
+    "qr_code.accessibility_label" : {
+      "comment" : "QR code accessibility label",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code for %@"
+          }
+        }
+      }
+    },
+    "qr_code.generating" : {
+      "comment" : "QR code generating",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generating QR code"
+          }
+        }
+      }
+    },
+    "qr_code.generation_failed" : {
+      "comment" : "QR code generation failed",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code generation failed"
+          }
+        }
+      }
+    },
+    "Save" : {
+
+    },
+    "search.links" : {
+      "comment" : "Search links",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search links"
+          }
+        }
+      }
+    },
+    "search.lists_and_links" : {
+      "comment" : "Search lists and links",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search lists and links"
+          }
+        }
+      }
+    },
+    "Share %@" : {
+
+    },
+    "Share Link" : {
+
+    },
+    "Share this link with others" : {
+
+    },
+    "Title" : {
+
+    },
+    "Unpin List" : {
+
+    },
+    "URL" : {
+
+    }
+  },
+  "version" : "1.0"
+}
