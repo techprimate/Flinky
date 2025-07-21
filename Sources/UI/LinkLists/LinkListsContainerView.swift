@@ -86,7 +86,7 @@ struct LinkListsContainerView: View {
         }
         .sheet(isPresented: $isCreateListPresented) {
             NavigationStack {
-                CreateListEditorContainerView()
+                CreateLinkListEditorContainerView()
             }
         }
         .sheet(item: $presentedInfoList) { list in

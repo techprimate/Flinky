@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CreateListEditorRenderView: View {
+struct CreateLinkListEditorRenderView: View {
     enum CreateField {
         case name
     }
