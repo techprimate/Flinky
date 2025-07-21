@@ -8,6 +8,7 @@ struct LinkListContainerView: View {
     @State private var isCreateEditorPresented = false
     @State private var selectedLink: LinkModel?
     @State private var editingLink: LinkModel?
+    @State private var searchText = ""
 
     var body: some View {
         LinkListRenderView(
@@ -47,6 +48,7 @@ struct LinkListContainerView: View {
                 selectedLink = list.links.first { $0.id == linkDisplayItem.id }
             }
         )
+        .searchable(text: $searchText, prompt: L10n.Search.links)
         .sheet(isPresented: $isCreateEditorPresented) {
             NavigationStack {
                 CreateLinkEditorContainerView(list: list)
@@ -68,8 +70,18 @@ struct LinkListContainerView: View {
         LinkListDisplayItem(id: list.id, title: list.name, symbol: .archiveBox, color: .gray, count: list.links.count)
     }
 
+    private var filteredLinks: [LinkModel] {
+        if searchText.isEmpty {
+            return links
+        }
+        return links.filter { link in
+            link.name.localizedCaseInsensitiveContains(searchText) ||
+            link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
     var linkDisplayItems: [LinkListDetailDisplayItem] {
-        links.map { link in
+        filteredLinks.map { link in
             LinkListDetailDisplayItem(
                 id: link.id,
                 title: link.name,

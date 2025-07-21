@@ -17,6 +17,7 @@ struct LinkListsContainerView: View {
 
     @State private var isCreateListPresented = false
     @State private var presentedInfoList: LinkListModel?
+    @State private var searchText = ""
 
     var body: some View {
         LinkListsRenderView(
@@ -84,6 +85,7 @@ struct LinkListsContainerView: View {
         ) { listDisplayItem in
             LinkListContainerView(list: (pinnedLists + unpinnedLists).first { $0.id == listDisplayItem.id }!)
         }
+        .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
         .sheet(isPresented: $isCreateListPresented) {
             NavigationStack {
                 CreateLinkListEditorContainerView()
@@ -97,14 +99,40 @@ struct LinkListsContainerView: View {
     }
 
     var pinnedListDisplayItems: [LinkListDisplayItem] {
-        pinnedLists.map { list in
+        filteredPinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
 
     var listDisplayItems: [LinkListDisplayItem] {
-        unpinnedLists.map { list in
+        filteredUnpinnedLists.map { list in
             mapToDisplayItem(list)
+        }
+    }
+    
+    private var filteredPinnedLists: [LinkListModel] {
+        if searchText.isEmpty {
+            return pinnedLists
+        }
+        return pinnedLists.filter { list in
+            list.name.localizedCaseInsensitiveContains(searchText) ||
+            list.links.contains { link in
+                link.name.localizedCaseInsensitiveContains(searchText) ||
+                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+    }
+    
+    private var filteredUnpinnedLists: [LinkListModel] {
+        if searchText.isEmpty {
+            return unpinnedLists
+        }
+        return unpinnedLists.filter { list in
+            list.name.localizedCaseInsensitiveContains(searchText) ||
+            list.links.contains { link in
+                link.name.localizedCaseInsensitiveContains(searchText) ||
+                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+            }
         }
     }
 
