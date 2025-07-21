@@ -5,12 +5,22 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<key>DefaultValue</key>
+			<string>1.0.0 (2)</string>
+			<key>Key</key>
+			<string>Version</string>
 			<key>Title</key>
-			<string>Licenses</string>
+			<string>Version</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+		</dict>
+		<dict>
 			<key>File</key>
 			<string>Licenses</string>
+			<key>Title</key>
+			<string>Licenses</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
 		</dict>
 	</array>
 </dict>
