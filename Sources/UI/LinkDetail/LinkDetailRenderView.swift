@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreImage.CIFilterBuiltins
+import SFSafeSymbols
 
 struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
@@ -25,7 +26,7 @@ struct LinkDetailRenderView: View {
             Spacer()
             HStack {
                 ShareLink(item: url) {
-                    Label("Share Link", systemImage: "square.and.arrow.up")
+                    Label("Share Link", systemSymbol: .squareAndArrowUp)
                         .padding(8)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
@@ -48,7 +49,7 @@ struct LinkDetailRenderView: View {
                 Button(action: {
                     editAction()
                 }) {
-                    Label("Edit", systemImage: "ellipsis.circle")
+                    Label("Edit", systemSymbol: .ellipsisCircle)
                 }
             }
         }

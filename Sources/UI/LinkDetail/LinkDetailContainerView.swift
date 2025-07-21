@@ -9,7 +9,7 @@ struct LinkDetailContainerView: View {
 
     var body: some View {
         LinkDetailRenderView(
-            title: item.title,
+            title: item.name,
             url: item.url,
             image: image,
             editAction: {
