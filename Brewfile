@@ -1,3 +1,5 @@
-brew "swiftlint"
-brew "swiftformat"
+brew "jq"
 brew "licenseplist"
+brew "swiftformat"
+brew "swiftgen"
+brew "swiftlint"

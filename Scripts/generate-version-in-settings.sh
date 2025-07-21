@@ -9,16 +9,13 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 PROJECT_FILE="$PROJECT_ROOT/Flinky.xcodeproj/project.pbxproj"
 SETTINGS_PLIST="$PROJECT_ROOT/Sources/Resources/Settings.bundle/Root.plist"
 
-# Function to extract version from project.pbxproj
-extract_version() {
-    local key="$1"
-    # Look for the key in the project file and extract its value
-    grep -m 1 "$key" "$PROJECT_FILE" | sed -E 's/.*'"$key"' = ([^;]+);.*/\1/' | tr -d '"'
-}
+# Convert project file to JSON and use jq to extract versions from main app target
+# This is the cleanest and most reliable approach
+VERSION_INFO=$(plutil -convert json "$PROJECT_FILE" -o - | jq -r '.objects | to_entries[] | select(.value.buildSettings.PRODUCT_BUNDLE_IDENTIFIER == "com.techprimate.Flinky") | .value.buildSettings | "\(.MARKETING_VERSION):\(.CURRENT_PROJECT_VERSION)"' | head -1)
 
-# Extract versions directly from project.pbxproj (much faster than xcodebuild)
-MARKETING_VERSION=$(extract_version "MARKETING_VERSION")
-BUILD_VERSION=$(extract_version "CURRENT_PROJECT_VERSION")
+# Parse the extracted version info
+MARKETING_VERSION=$(echo "$VERSION_INFO" | cut -d: -f1)
+BUILD_VERSION=$(echo "$VERSION_INFO" | cut -d: -f2)
 
 # Fallback to defaults if not found in project file
 if [[ -z "$MARKETING_VERSION" ]]; then
