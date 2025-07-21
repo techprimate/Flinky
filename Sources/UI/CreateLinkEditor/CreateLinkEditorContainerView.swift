@@ -12,13 +12,14 @@ struct CreateLinkEditorContainerView: View {
                 id: UUID(),
                 createdAt: Date(),
                 updatedAt: Date(),
-                title: data.title,
+                name: data.title,
                 color: nil,
                 symbol: nil,
                 url: data.url
             )
             modelContext.insert(newItem)
             list.links.append(newItem)
+            list.updatedAt = Date()
 
             // Save the context to persist the new link
             do {

@@ -11,11 +11,27 @@
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D40BEC1B2E2EE0C500391C5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D359D82E1BDF540006226D;
+			remoteInfo = Flinky;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		D40BEC172E2EE0C500391C5A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D40BEC182E2EE0C500391C5A /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Sources;
@@ -24,6 +40,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D40BEC142E2EE0C500391C5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4D359D62E1BDF540006226D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				D4D359DB2E1BDF540006226D /* Sources */,
+				D40BEC182E2EE0C500391C5A /* Tests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
 			);
@@ -56,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				D4D359D92E1BDF540006226D /* Flinky.app */,
+				D40BEC172E2EE0C500391C5A /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,6 +88,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D40BEC162E2EE0C500391C5A /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D40BEC1D2E2EE0C500391C5A /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				D40BEC132E2EE0C500391C5A /* Sources */,
+				D40BEC142E2EE0C500391C5A /* Frameworks */,
+				D40BEC152E2EE0C500391C5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D40BEC1C2E2EE0C500391C5A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D40BEC182E2EE0C500391C5A /* Tests */,
+			);
+			name = Tests;
+			packageProductDependencies = (
+			);
+			productName = Tests;
+			productReference = D40BEC172E2EE0C500391C5A /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D4D359D82E1BDF540006226D /* Flinky */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4D359E62E1BDF560006226D /* Build configuration list for PBXNativeTarget "Flinky" */;
@@ -99,6 +147,10 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					D40BEC162E2EE0C500391C5A = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D4D359D82E1BDF540006226D;
+					};
 					D4D359D82E1BDF540006226D = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -124,11 +176,19 @@
 			projectRoot = "";
 			targets = (
 				D4D359D82E1BDF540006226D /* Flinky */,
+				D40BEC162E2EE0C500391C5A /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D40BEC152E2EE0C500391C5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4D359D72E1BDF540006226D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,6 +199,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D40BEC132E2EE0C500391C5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4D359D52E1BDF540006226D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,6 +216,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D40BEC1C2E2EE0C500391C5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D359D82E1BDF540006226D /* Flinky */;
+			targetProxy = D40BEC1B2E2EE0C500391C5A /* PBXContainerItemProxy */;
+		};
 		D4B4718A2E1F1300005099F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = D4B471892E1F1300005099F3 /* SFSafeSymbols */;
@@ -160,6 +232,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		D40BEC1E2E2EE0C500391C5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BZ362SQ6AB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky";
+			};
+			name = Debug;
+		};
+		D40BEC1F2E2EE0C500391C5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BZ362SQ6AB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky";
+			};
+			name = Release;
+		};
 		D4D359E42E1BDF560006226D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -220,6 +328,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -277,6 +386,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -350,6 +460,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D40BEC1D2E2EE0C500391C5A /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D40BEC1E2E2EE0C500391C5A /* Debug */,
+				D40BEC1F2E2EE0C500391C5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D4D359D42E1BDF540006226D /* Build configuration list for PBXProject "Flinky" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
