@@ -15,6 +15,12 @@ final class LinkListModel {
     /// Name of the list.
     var name: String
 
+    /// Color of the list.
+    var color: ListColor?
+
+    /// Symbol of the list.
+    var symbol: ListSymbol?
+
     /// Links in the list.
     var links: [LinkModel]
 
@@ -28,12 +34,25 @@ final class LinkListModel {
     ///   - createdAt: Date when the link list was created.
     ///   - updatedAt: Date when the link list was last updated.
     ///   - name: Name of the list.
+    ///   - color: Optional color of the list.
+    ///   - symbol: Optional symbol of the list.
     ///   - links: Links in the list.
-    init(id: UUID, createdAt: Date, updatedAt: Date, name: String, links: [LinkModel], isPinned: Bool) {
+    init(
+        id: UUID,
+        createdAt: Date,
+        updatedAt: Date,
+        name: String,
+        color: ListColor?,
+        symbol: ListSymbol?,
+        links: [LinkModel],
+        isPinned: Bool
+    ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.color = color
+        self.symbol = symbol
         self.links = links
         self.isPinned = isPinned
     }
