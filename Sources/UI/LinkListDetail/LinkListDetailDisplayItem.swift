@@ -7,6 +7,6 @@ struct LinkListDetailDisplayItem: Identifiable {
     let title: String
     let url: URL
 
-    let icon: SFSymbol
-    let color: Color
+    let symbol: LinkSymbol
+    let color: LinkColor
 }

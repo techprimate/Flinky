@@ -8,46 +8,66 @@ struct LinkDetailItemView: View {
     let deleteAction: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Label(item.title, systemSymbol: item.icon)
-                .labelStyle(RoundedIconLabelStyle(color: item.color))
-                .foregroundStyle(.primary)
-            Text(item.url.absoluteString)
-                .lineLimit(1)
+        HStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
+                Label(item.title, symbol: item.symbol)
+                    .labelStyle(RoundedIconLabelStyle(color: item.color.color))
+                    .foregroundStyle(.primary)
+                Text(item.url.absoluteString)
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            }
+            Spacer()
+            Image(systemSymbol: .chevronRight)
                 .foregroundColor(.secondary)
         }
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 deleteAction()
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label("Delete", systemSymbol: .trash)
             }
             .tint(.red)
             Button {
                 editAction()
             } label: {
-                Label("Edit", systemImage: "pencil")
+                Label("Edit", systemSymbol: .pencil)
             }
             .tint(.blue)
         }
-
+        .contextMenu {
+            Button {
+                editAction()
+            } label: {
+                Label("Edit", systemSymbol: .pencil)
+            }
+            Button(role: .destructive) {
+                deleteAction()
+            } label: {
+                Label("Delete", systemSymbol: .trash)
+            }
+            .tint(.red)
+        }
     }
 }
 
 #Preview {
-    let items = [
+    let items: [LinkListDetailDisplayItem] = [
         LinkListDetailDisplayItem(
             id: UUID(),
             title: "Example Link",
             url: URL(string: "https://example.com")!,
-            icon: .link,
+            symbol: .house,
             color: .blue
         ),
         LinkListDetailDisplayItem(
             id: UUID(),
             title: "Another Link",
             url: URL(string: "https://another-example.com")!,
-            icon: .figureGolf,
+            symbol: .emoji("🌍"),
             color: .green
         )
     ]

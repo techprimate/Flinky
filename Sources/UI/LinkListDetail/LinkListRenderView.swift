@@ -1,27 +1,31 @@
 import SwiftUI
+import SFSafeSymbols
 
-struct LinkListRenderView<Destination: View>: View {
+struct LinkListRenderView: View {
     let list: LinkListDisplayItem
     let links: [LinkListDetailDisplayItem]
 
+    let editItem: (LinkListDetailDisplayItem) -> Void
+    let deleteItem: (LinkListDetailDisplayItem) -> Void
     let deleteItems: (_ offsets: IndexSet) -> Void
-    let presentCreateEditor: () -> Void
 
-    let destination: (LinkListDetailDisplayItem) -> Destination
+    let presentCreateEditor: () -> Void
+    let presentLinkDetail: (LinkListDetailDisplayItem) -> Void
 
     var body: some View {
         List {
             Section {
                 ForEach(links) { link in
-                    NavigationLink(destination: {
-                        destination(link)
+                    Button(action: {
+                        presentLinkDetail(link)
                     }, label: {
                         LinkDetailItemView(item: link, editAction: {
-
+                            editItem(link)
                         }, deleteAction: {
-
+                            deleteItem(link)
                         })
                     })
+                    .buttonStyle(.plain)
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -30,7 +34,7 @@ struct LinkListRenderView<Destination: View>: View {
             if links.isEmpty {
                 ContentUnavailableView(
                     "No links available",
-                    systemImage: "globe",
+                    systemSymbol: .globe,
                     description: Text("Add a new link to get started")
                 )
             }
@@ -44,15 +48,15 @@ struct LinkListRenderView<Destination: View>: View {
                 Button(action: {
                     presentCreateEditor()
                 }, label: {
-                    Label(
-                        "New Link",
-                        systemImage: "plus.circle.fill"
-                    )
-                    .bold()
-                    .imageScale(.large)
-                    .labelStyle(.titleAndIcon)
+                    Label("New Link", systemSymbol: .plusCircleFill)
+                        .bold()
+                        .imageScale(.large)
+                        .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
             }
         }
     }
@@ -61,34 +65,43 @@ struct LinkListRenderView<Destination: View>: View {
 #Preview {
     NavigationView {
         LinkListRenderView(
-            list: .init(title: "Favorites", icon: .starFill, color: .yellow, count: 4),
+            list: .init(
+                id: UUID(),
+                title: "Favorites",
+                symbol: .star,
+                color: .yellow,
+                count: 4
+            ),
             links: [
                 .init(
                     id: UUID(),
                     title: "Apple",
                     url: URL(string: "https://apple.com")!,
-                    icon: .appleLogo,
-                    color: .black
+                    symbol: .backpack,
+                    color: .green
                 ),
                 .init(
                     id: UUID(),
                     title: "SwiftUI",
                     url: URL(string: "https://developer.apple.com/swiftui/")!,
-                    icon: .swift,
-                    color: .orange
+                    symbol: .americanFootball,
+                    color: .blue
                 ),
                 .init(
                     id: UUID(),
                     title: "Flinky",
                     url: URL(string: "https://flinky.app")!,
-                    icon: .network,
+                    symbol: .creditcard,
                     color: .blue
                 )
             ],
+            editItem: { _ in },
+            deleteItem: { _ in },
             deleteItems: { _ in },
             presentCreateEditor: {},
-        ) { link in
-            Text(link.title)
-        }
+            presentLinkDetail: { link in
+                print("Presenting link detail for: \(link.title)")
+            }
+        )
     }
 }
