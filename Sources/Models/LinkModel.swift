@@ -27,20 +27,33 @@ final class LinkModel {
     /// Initializes a new instance of `LinkModel`.
     ///
     /// - Parameters:
-    ///   - id: Unique identifier for the link. Defaults to a new UUID.
-    ///   - createdAt: Date when the link was created. Defaults to the current date.
-    ///   - updatedAt: Date when the link was last updated. Defaults to the current date.
-    ///   - name: Title of the link.
+    ///   - id: Unique identifier for the link.
+    ///   - createdAt: Date when the link was created.
+    ///   - updatedAt: Date when the link was last updated.
+    ///   - name: Name of the link.
     ///   - color: Optional color of the link.
     ///   - symbol: Optional symbol of the link.
     ///   - url: URL of the link.
-    init(id: UUID, createdAt: Date, updatedAt: Date, title: String, color: LinkColor?, symbol: LinkSymbol?, url: URL) {
+    init(id: UUID, createdAt: Date, updatedAt: Date, name: String, color: LinkColor?, symbol: LinkSymbol?, url: URL) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        name = title
+        self.name = name
         self.color = color
         self.symbol = symbol
         self.url = url
+    }
+    
+    /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
+    convenience init(name: String, url: URL, color: LinkColor? = nil, symbol: LinkSymbol? = nil) {
+        self.init(
+            id: UUID(),
+            createdAt: Date(),
+            updatedAt: Date(),
+            name: name,
+            color: color,
+            symbol: symbol,
+            url: url
+        )
     }
 }

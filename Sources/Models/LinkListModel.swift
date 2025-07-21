@@ -37,6 +37,7 @@ final class LinkListModel {
     ///   - color: Optional color of the list.
     ///   - symbol: Optional symbol of the list.
     ///   - links: Links in the list.
+    ///   - isPinned: Flag to indicate that the list is pinned.
     init(
         id: UUID,
         createdAt: Date,
@@ -55,5 +56,19 @@ final class LinkListModel {
         self.symbol = symbol
         self.links = links
         self.isPinned = isPinned
+    }
+    
+    /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
+    convenience init(name: String, color: ListColor? = nil, symbol: ListSymbol? = nil, isPinned: Bool = false) {
+        self.init(
+            id: UUID(),
+            createdAt: Date(),
+            updatedAt: Date(),
+            name: name,
+            color: color,
+            symbol: symbol,
+            links: [],
+            isPinned: isPinned
+        )
     }
 }

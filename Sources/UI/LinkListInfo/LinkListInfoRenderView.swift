@@ -6,7 +6,6 @@ struct LinkListInfoRenderView: View {
     @Binding var color: ListColor
     @Binding var symbol: ListSymbol
 
-    let presentEmojiPickerAction: () -> Void
     let cancelAction: () -> Void
     let saveAction: () -> Void
 
@@ -187,7 +186,6 @@ private extension LinkListInfoRenderView {
             name: $name,
             color: $color,
             symbol: $icon,
-            presentEmojiPickerAction: {},
             cancelAction: {},
             saveAction: {}
         )
@@ -204,7 +202,6 @@ private extension LinkListInfoRenderView {
             name: $name,
             color: $color,
             symbol: $icon,
-            presentEmojiPickerAction: {},
             cancelAction: {},
             saveAction: {}
         )

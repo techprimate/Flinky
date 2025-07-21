@@ -15,7 +15,6 @@ struct LinkListInfoContainerView: View {
             name: $name,
             color: $color,
             symbol: $symbol,
-            presentEmojiPickerAction: {},
             cancelAction: {
                 dismiss()
             },
