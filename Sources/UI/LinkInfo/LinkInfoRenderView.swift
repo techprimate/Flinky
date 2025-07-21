@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkInfoRenderView: View {
     @Binding var name: String
@@ -35,8 +35,8 @@ struct LinkInfoRenderView: View {
     }
 }
 
-extension LinkInfoRenderView {
-    fileprivate struct NameSection: View {
+private extension LinkInfoRenderView {
+    struct NameSection: View {
         fileprivate struct IconPreview: View {
             let symbol: LinkSymbol
             let color: LinkColor
@@ -85,10 +85,10 @@ extension LinkInfoRenderView {
         }
     }
 
-    fileprivate struct ColorPickerSection: View {
+    struct ColorPickerSection: View {
         private struct ColorView: View {
             let color: LinkColor
-            
+
             var body: some View {
                 color.color
                     .aspectRatio(contentMode: .fill)
@@ -107,7 +107,7 @@ extension LinkInfoRenderView {
         }
     }
 
-    fileprivate struct SymbolPickerSection: View {
+    struct SymbolPickerSection: View {
         private struct SymbolView: View {
             let symbol: LinkSymbol
 
@@ -152,7 +152,7 @@ extension LinkInfoRenderView {
                         }
                         .buttonStyle(.plain)
                     },
-                    isWildcardItem: { $0.isEmoji },
+                    isWildcardItem: { $0.isEmoji }
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
                 }
@@ -162,7 +162,7 @@ extension LinkInfoRenderView {
                     .keyboardType(.emoji ?? .default)
                     .textInputAutocapitalization(.never)
                     .focused($isEmojiKeyboardFocused)
-                    .onChange(of: emojiInput) { oldValue, newValue in
+                    .onChange(of: emojiInput) { _, newValue in
                         // Accept only the first emoji, then dismiss
                         guard let first = newValue.first else {
                             return
@@ -210,5 +210,3 @@ extension LinkInfoRenderView {
         )
     }
 }
-
-

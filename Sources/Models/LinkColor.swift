@@ -46,8 +46,8 @@ enum LinkColor: String, CaseIterable, Identifiable, Codable {
     var gradient: LinearGradient {
         LinearGradient(
             colors: [
-                self.color.mix(with: Color.white, by: 0.4),
-                self.color
+                color.mix(with: Color.white, by: 0.4),
+                color
             ],
             startPoint: .top,
             endPoint: .bottom

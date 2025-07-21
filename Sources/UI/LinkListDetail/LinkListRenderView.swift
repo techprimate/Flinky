@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkListRenderView: View {
     let list: LinkListDisplayItem

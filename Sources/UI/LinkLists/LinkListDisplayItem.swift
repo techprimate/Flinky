@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkListDisplayItem: Hashable, Identifiable {
     let id: UUID
@@ -10,12 +10,4 @@ struct LinkListDisplayItem: Hashable, Identifiable {
     let color: ListColor
 
     let count: Int
-
-    init(id: UUID, title: String, symbol: ListSymbol, color: ListColor, count: Int) {
-        self.id = id
-        self.title = title
-        self.symbol = symbol
-        self.color = color
-        self.count = count
-    }
 }

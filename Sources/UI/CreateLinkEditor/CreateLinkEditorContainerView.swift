@@ -19,14 +19,14 @@ struct CreateLinkEditorContainerView: View {
             )
             modelContext.insert(newItem)
             list.links.append(newItem)
-            
+
             // Save the context to persist the new link
             do {
                 try modelContext.save()
             } catch {
                 print("Failed to save new link: \(error)")
             }
-            
+
             dismiss()
         }
     }

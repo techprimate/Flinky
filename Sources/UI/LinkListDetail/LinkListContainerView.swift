@@ -75,7 +75,7 @@ struct LinkListContainerView: View {
                 title: link.name,
                 url: link.url,
                 symbol: link.symbol ?? .default,
-                color: link.color ?? .default,
+                color: link.color ?? .default
             )
         }
     }

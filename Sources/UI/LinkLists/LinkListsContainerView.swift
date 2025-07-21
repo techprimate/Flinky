@@ -1,6 +1,6 @@
-import SwiftUI
-import SwiftData
 import SFSafeSymbols
+import SwiftData
+import SwiftUI
 
 struct LinkListsContainerView: View {
     @Environment(\.modelContext) private var modelContext

@@ -38,7 +38,7 @@ final class LinkModel {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.name = title
+        name = title
         self.color = color
         self.symbol = symbol
         self.url = url

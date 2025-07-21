@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkListInfoRenderView: View {
     @Binding var name: String
@@ -35,8 +35,8 @@ struct LinkListInfoRenderView: View {
     }
 }
 
-extension LinkListInfoRenderView {
-    fileprivate struct NameSection: View {
+private extension LinkListInfoRenderView {
+    struct NameSection: View {
         fileprivate struct IconPreview: View {
             let symbol: ListSymbol
             let color: ListColor
@@ -85,10 +85,10 @@ extension LinkListInfoRenderView {
         }
     }
 
-    fileprivate struct ColorPickerSection: View {
+    struct ColorPickerSection: View {
         private struct ColorView: View {
             let color: ListColor
-            
+
             var body: some View {
                 color.color
                     .aspectRatio(contentMode: .fill)
@@ -107,7 +107,7 @@ extension LinkListInfoRenderView {
         }
     }
 
-    fileprivate struct SymbolPickerSection: View {
+    struct SymbolPickerSection: View {
         private struct SymbolView: View {
             let symbol: ListSymbol
 
@@ -152,7 +152,7 @@ extension LinkListInfoRenderView {
                         }
                         .buttonStyle(.plain)
                     },
-                    isWildcardItem: { $0.isEmoji },
+                    isWildcardItem: { $0.isEmoji }
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
                 }
@@ -162,7 +162,7 @@ extension LinkListInfoRenderView {
                     .keyboardType(.emoji ?? .default)
                     .textInputAutocapitalization(.never)
                     .focused($isEmojiKeyboardFocused)
-                    .onChange(of: emojiInput) { oldValue, newValue in
+                    .onChange(of: emojiInput) { _, newValue in
                         // Accept only the first emoji, then dismiss
                         guard let first = newValue.first else {
                             return
@@ -210,5 +210,3 @@ extension LinkListInfoRenderView {
         )
     }
 }
-
-

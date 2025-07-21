@@ -225,7 +225,7 @@ enum LinkSymbol {
 
     var text: String? {
         switch self {
-        case .emoji(let emoji):
+        case let .emoji(emoji):
             return emoji
         default:
             return nil
@@ -398,7 +398,7 @@ extension LinkSymbol: RawRepresentable {
 
     var rawValue: String {
         switch self {
-        case .emoji(let emoji):
+        case let .emoji(emoji):
             return "emoji.\(emoji)"
         case .listBullet:
             return "list-bullet"
@@ -619,7 +619,7 @@ extension LinkSymbol: CaseIterable {
             .triangle,
             .diamond,
             .heart,
-            .star,
+            .star
         ]
     }
 }
@@ -647,7 +647,7 @@ extension LinkSymbol: Equatable {
 }
 
 extension LinkSymbol: Hashable {
-    public func hash(into hasher: inout Hasher) {
+    func hash(into hasher: inout Hasher) {
         String(describing: Self.self).hash(into: &hasher)
         0.hash(into: &hasher)
         rawValue.hash(into: &hasher)
@@ -656,6 +656,6 @@ extension LinkSymbol: Hashable {
 
 extension LinkSymbol: Identifiable {
     var id: String {
-        self.rawValue
+        rawValue
     }
 }

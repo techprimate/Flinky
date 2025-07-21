@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct PinnedLinkListsRenderView<T: View>: View {
     let items: [LinkListDisplayItem]
@@ -50,11 +50,11 @@ struct PinnedLinkListsRenderView<T: View>: View {
             items: [
                 .init(id: UUID(), title: "All", symbol: .backpack, color: .green, count: 5),
                 .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 15),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .red, count: 2),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .red, count: 2)
             ],
             editAction: { _ in },
             unpinAction: { _ in },
-            deleteAction: { _ in },
+            deleteAction: { _ in }
         ) { list in
             Text(list.title)
         }

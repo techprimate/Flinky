@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
     let pinnedLists: [LinkListDisplayItem]
@@ -59,7 +59,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 Button(action: {
                     presentCreateList()
                 }, label: {
-                    Label("New List",systemSymbol: .plusCircleFill)
+                    Label("New List", systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
@@ -96,12 +96,12 @@ struct LinkListsRenderView<Destination: View>: View {
             pinnedLists: [
                 .init(id: UUID(), title: "All", symbol: .archiveBox, color: .yellow, count: 5),
                 .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 5),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .yellow, count: 5),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .yellow, count: 5)
             ],
             unpinnedLists: [
                 .init(id: UUID(), title: "Personal", symbol: .house, color: .red, count: 4),
                 .init(id: UUID(), title: "Work", symbol: .suitcase, color: .blue, count: 4),
-                .init(id: UUID(), title: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4),
+                .init(id: UUID(), title: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4)
             ],
             presentCreateList: {},
             pinListAction: { _ in },

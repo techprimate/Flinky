@@ -1,6 +1,6 @@
-import SwiftUI
 import CoreImage.CIFilterBuiltins
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
@@ -59,12 +59,12 @@ struct LinkDetailRenderView: View {
         Group {
             if let image = image {
                 switch image {
-                case .success(let uiImage):
+                case let .success(uiImage):
                     Image(uiImage: uiImage)
                         .resizable()
                         .interpolation(.none)
                         .aspectRatio(contentMode: .fit)
-                case .failure(let error):
+                case let .failure(error):
                     Text("Error creating QRCode: \(error.localizedDescription)")
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)

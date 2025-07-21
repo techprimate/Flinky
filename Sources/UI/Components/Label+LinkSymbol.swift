@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LabelLinkSymbolIconView: View {
     let symbol: LinkSymbol
-    
+
     var body: some View {
         Group {
             if symbol.isEmoji {

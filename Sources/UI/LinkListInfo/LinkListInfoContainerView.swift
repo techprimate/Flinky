@@ -39,4 +39,3 @@ struct LinkListInfoContainerView: View {
         }
     }
 }
-

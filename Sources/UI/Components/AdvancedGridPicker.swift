@@ -8,7 +8,7 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
     let isWildcardItem: (_ item: Item) -> Bool
     @ViewBuilder let content: (_ item: Item) -> ItemView
 
-    let columns = (0..<6).map { _ in GridItem(.flexible()) }
+    let columns = (0 ..< 6).map { _ in GridItem(.flexible()) }
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 4) {

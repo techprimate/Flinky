@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkListItemView: View {
     let item: LinkListDisplayItem
@@ -18,44 +18,44 @@ struct LinkListItemView: View {
                     .foregroundColor(.secondary)
             }
         }, symbol: item.symbol)
-        .labelStyle(RoundedIconLabelStyle(color: item.color.color))
-        .foregroundStyle(.primary)
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button(role: .destructive) {
-                deleteAction(item)
-            } label: {
-                Label("Delete", systemSymbol: .trash)
+            .labelStyle(RoundedIconLabelStyle(color: item.color.color))
+            .foregroundStyle(.primary)
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                Button(role: .destructive) {
+                    deleteAction(item)
+                } label: {
+                    Label("Delete", systemSymbol: .trash)
+                }
+                Button {
+                    pinAction(item)
+                } label: {
+                    Label("Pin", systemSymbol: .pinFill)
+                }
+                .tint(.blue)
+                Button {
+                    editAction(item)
+                } label: {
+                    Label("Edit", systemSymbol: .pencil)
+                }
+                .tint(.gray)
             }
-            Button {
-                pinAction(item)
-            } label: {
-                Label("Pin", systemSymbol: .pinFill)
+            .contextMenu {
+                Button {
+                    editAction(item)
+                } label: {
+                    Label("Edit List", systemSymbol: .pencil)
+                }
+                Button {
+                    pinAction(item)
+                } label: {
+                    Label("Pin List", systemSymbol: .pinFill)
+                }
+                Button(role: .destructive) {
+                    deleteAction(item)
+                } label: {
+                    Label("Delete List", systemSymbol: .trash)
+                }
             }
-            .tint(.blue)
-            Button {
-                editAction(item)
-            } label: {
-                Label("Edit", systemSymbol: .pencil)
-            }
-            .tint(.gray)
-        }
-        .contextMenu {
-            Button {
-                editAction(item)
-            } label: {
-                Label("Edit List", systemSymbol: .pencil)
-            }
-            Button {
-                pinAction(item)
-            } label: {
-                Label("Pin List", systemSymbol: .pinFill)
-            }
-            Button(role: .destructive) {
-                deleteAction(item)
-            } label: {
-                Label("Delete List", systemSymbol: .trash)
-            }
-        }
     }
 }
 
@@ -68,14 +68,14 @@ struct LinkListItemView: View {
                     title: "Favorites",
                     symbol: .star,
                     color: .yellow,
-                    count: 15,
+                    count: 15
                 ),
                 .init(
                     id: UUID(),
                     title: "Favorites",
                     symbol: .emoji("⭐️"),
                     color: .green,
-                    count: 0,
+                    count: 0
                 )
             ]
             ForEach(items) { item in

@@ -17,13 +17,13 @@ struct CreateLinkListEditorContainerView: View {
                 isPinned: false
             )
             modelContext.insert(newItem)
-            
+
             do {
                 try modelContext.save()
             } catch {
                 print("Failed to save new list: \(error)")
             }
-            
+
             dismiss()
         }
     }
