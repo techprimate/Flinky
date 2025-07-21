@@ -33,6 +33,10 @@ struct PinnedLinkListCardView: View {
         .background(Color(.systemBackground))
         .cornerRadius(10)
         .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L10n.Accessibility.pinnedListCard(item.title, item.count))
+        .accessibilityHint(L10n.Accessibility.listItemHint)
+        .accessibilityAddTraits(.isButton)
     }
 }
 

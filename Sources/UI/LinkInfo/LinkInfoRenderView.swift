@@ -20,15 +20,18 @@ struct LinkInfoRenderView: View {
                 Button(role: .cancel) {
                     cancelAction()
                 } label: {
-                    Text("Cancel")
+                    Text(L10n.Form.cancel)
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.cancel)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     saveAction()
                 } label: {
-                    Text("Done")
+                    Text(L10n.Form.done)
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.done)
+                .accessibilityHint(L10n.Accessibility.Hint.saveLinkChanges)
             }
         }
     }
@@ -70,7 +73,7 @@ private extension LinkInfoRenderView {
                         Spacer()
                     }
                     .padding(.vertical, 8)
-                    TextField("", text: $name)
+                    TextField(L10n.Form.title, text: $name)
                         .textFieldStyle(.plain)
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .multilineTextAlignment(.center)
@@ -78,6 +81,8 @@ private extension LinkInfoRenderView {
                         .padding(.vertical, 16)
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(12)
+                        .accessibilityLabel(L10n.Accessibility.Form.titleField)
+                        .accessibilityHint(L10n.Accessibility.Hint.enterLinkTitle)
                 }
                 .padding(4)
             }
@@ -98,10 +103,30 @@ private extension LinkInfoRenderView {
         @Binding var selection: LinkColor
 
         var body: some View {
-            Section {
+            Section(L10n.Section.color) {
                 GridPicker(selection: $selection, items: LinkColor.allCases) { color in
                     ColorView(color: color)
+                        .accessibilityLabel(L10n.Accessibility.colorOption(colorName(for: color)))
                 }
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(L10n.Accessibility.colorPicker(colorName(for: selection)))
+        }
+        
+        private func colorName(for color: LinkColor) -> String {
+            switch color {
+            case .blue: return "Blue"
+            case .lightBlue: return "Light Blue"
+            case .green: return "Green"
+            case .red: return "Red"
+            case .orange: return "Orange"
+            case .yellow: return "Yellow"
+            case .purple: return "Purple"
+            case .pink: return "Pink"
+            case .gray: return "Gray"
+            case .brown: return "Brown"
+            case .indigo: return "Indigo"
+            case .mint: return "Mint"
             }
         }
     }
@@ -134,7 +159,7 @@ private extension LinkInfoRenderView {
         @State private var emojiInput = ""
 
         var body: some View {
-            Section {
+            Section(L10n.Section.symbol) {
                 AdvancedGridPicker(
                     selection: $selection,
                     items: LinkSymbol.allCases,
@@ -154,6 +179,7 @@ private extension LinkInfoRenderView {
                     isWildcardItem: { $0.isEmoji }
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
+                        .accessibilityLabel(L10n.Accessibility.symbolOption(symbolName(for: symbol)))
                 }
                 // Use an invisible textfield in the background to present the emoji keyboard
                 // without showing it on the screen.
@@ -171,6 +197,16 @@ private extension LinkInfoRenderView {
                     }
                     .frame(width: 0, height: 0)
                     .opacity(0))
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(L10n.Accessibility.symbolPicker(symbolName(for: selection)))
+        }
+        
+        private func symbolName(for symbol: LinkSymbol) -> String {
+            if symbol.isEmoji {
+                return symbol.text ?? "Custom emoji"
+            } else {
+                return symbol.sfsymbol.rawValue.replacingOccurrences(of: ".", with: " ").capitalized
             }
         }
     }

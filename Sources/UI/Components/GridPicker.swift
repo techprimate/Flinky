@@ -17,6 +17,9 @@ struct GridPicker<Item: Identifiable, ItemView: View>: View {
                             selectionOverlayView
                         }
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
+                    .accessibilityHint(L10n.Accessibility.Hint.doubleTapSelect)
                     .onTapGesture {
                         selection = item
                     }

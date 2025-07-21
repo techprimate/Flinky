@@ -4,21 +4,131 @@
     "" : {
 
     },
-    "%@, %@" : {
+    "%lld" : {
+
+    },
+    "accessibility.button.cancel" : {
+      "comment" : "Cancel button accessibility",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@, %2$@"
+            "state" : "translated",
+            "value" : "Cancel"
           }
         }
       }
     },
-    "%lld" : {
-
+    "accessibility.button.delete" : {
+      "comment" : "Delete button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "accessibility.button.done" : {
+      "comment" : "Done button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "accessibility.button.edit" : {
+      "comment" : "Edit button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "accessibility.button.new_link" : {
+      "comment" : "New link button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new link"
+          }
+        }
+      }
+    },
+    "accessibility.button.new_list" : {
+      "comment" : "New list button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create new list"
+          }
+        }
+      }
+    },
+    "accessibility.button.save" : {
+      "comment" : "Save button accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "accessibility.color_option" : {
+      "comment" : "Color option accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ color option"
+          }
+        }
+      }
+    },
+    "accessibility.color_picker" : {
+      "comment" : "Color picker accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color picker. Current selection: %@"
+          }
+        }
+      }
     },
     "accessibility.delete_link" : {
       "comment" : "Delete link accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %@"
+          }
+        }
+      }
+    },
+    "accessibility.delete_list" : {
+      "comment" : "Delete list accessibility",
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
@@ -37,6 +147,270 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit %@"
+          }
+        }
+      }
+    },
+    "accessibility.edit_list" : {
+      "comment" : "Edit list accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit %@"
+          }
+        }
+      }
+    },
+    "accessibility.emoji_picker" : {
+      "comment" : "Emoji picker accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select custom emoji"
+          }
+        }
+      }
+    },
+    "accessibility.form.name_field" : {
+      "comment" : "Name field accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name field"
+          }
+        }
+      }
+    },
+    "accessibility.form.title_field" : {
+      "comment" : "Title field accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title field"
+          }
+        }
+      }
+    },
+    "accessibility.form.url_field" : {
+      "comment" : "URL field accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL field"
+          }
+        }
+      }
+    },
+    "accessibility.hint.add_new_link_to_list" : {
+      "comment" : "Add new link to list hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new link to this list"
+          }
+        }
+      }
+    },
+    "accessibility.hint.create_new_list" : {
+      "comment" : "Create new list hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new list to organize your links"
+          }
+        }
+      }
+    },
+    "accessibility.hint.double_tap_edit" : {
+      "comment" : "Double tap to edit hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to edit"
+          }
+        }
+      }
+    },
+    "accessibility.hint.double_tap_select" : {
+      "comment" : "Double tap to select hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to select"
+          }
+        }
+      }
+    },
+    "accessibility.hint.double_tap_select_emoji" : {
+      "comment" : "Double tap to select custom emoji hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to select custom emoji"
+          }
+        }
+      }
+    },
+    "accessibility.hint.double_tap_view_details" : {
+      "comment" : "Double tap to view details hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to view details"
+          }
+        }
+      }
+    },
+    "accessibility.hint.edit_link_properties" : {
+      "comment" : "Edit link properties hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit link properties"
+          }
+        }
+      }
+    },
+    "accessibility.hint.enter_link_title" : {
+      "comment" : "Enter link title hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the link title"
+          }
+        }
+      }
+    },
+    "accessibility.hint.enter_list_name" : {
+      "comment" : "Enter list name hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the list name"
+          }
+        }
+      }
+    },
+    "accessibility.hint.enter_name_first" : {
+      "comment" : "Enter name first hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a name for the list first"
+          }
+        }
+      }
+    },
+    "accessibility.hint.enter_web_address" : {
+      "comment" : "Enter web address hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the web address"
+          }
+        }
+      }
+    },
+    "accessibility.hint.fill_required_fields" : {
+      "comment" : "Fill required fields hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill in all required fields first"
+          }
+        }
+      }
+    },
+    "accessibility.hint.save_link_changes" : {
+      "comment" : "Save link changes hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save changes to the link"
+          }
+        }
+      }
+    },
+    "accessibility.hint.save_list_changes" : {
+      "comment" : "Save list changes hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save changes to the list"
+          }
+        }
+      }
+    },
+    "accessibility.hint.save_new_link" : {
+      "comment" : "Save new link hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save the new link"
+          }
+        }
+      }
+    },
+    "accessibility.hint.save_new_list" : {
+      "comment" : "Save new list hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save the new list"
+          }
+        }
+      }
+    },
+    "accessibility.hint.triple_tap_actions" : {
+      "comment" : "Triple tap for actions hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use rotor to access edit and delete actions"
           }
         }
       }
@@ -65,6 +439,54 @@
         }
       }
     },
+    "accessibility.list_item" : {
+      "comment" : "List item accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %lld items"
+          }
+        }
+      }
+    },
+    "accessibility.list_item_hint" : {
+      "comment" : "List item hint",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double tap to open list"
+          }
+        }
+      }
+    },
+    "accessibility.pin_list" : {
+      "comment" : "Pin list accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin %@"
+          }
+        }
+      }
+    },
+    "accessibility.pinned_list_card" : {
+      "comment" : "Pinned list card accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pinned list: %@, %lld items"
+          }
+        }
+      }
+    },
     "accessibility.share_link" : {
       "comment" : "Share link accessibility",
       "extractionState" : "stale",
@@ -73,6 +495,90 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share %@"
+          }
+        }
+      }
+    },
+    "accessibility.symbol_option" : {
+      "comment" : "Symbol option accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ symbol option"
+          }
+        }
+      }
+    },
+    "accessibility.symbol_picker" : {
+      "comment" : "Symbol picker accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol picker. Current selection: %@"
+          }
+        }
+      }
+    },
+    "accessibility.toast.error" : {
+      "comment" : "Error toast accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error: %@"
+          }
+        }
+      }
+    },
+    "accessibility.toast.info" : {
+      "comment" : "Info toast accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Information: %@"
+          }
+        }
+      }
+    },
+    "accessibility.toast.success" : {
+      "comment" : "Success toast accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success: %@"
+          }
+        }
+      }
+    },
+    "accessibility.toast.warning" : {
+      "comment" : "Warning toast accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning: %@"
+          }
+        }
+      }
+    },
+    "accessibility.unpin_list" : {
+      "comment" : "Unpin list accessibility",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpin %@"
           }
         }
       }
@@ -149,9 +655,6 @@
         }
       }
     },
-    "Add a new link to get started" : {
-
-    },
     "app.title" : {
       "comment" : "App title",
       "extractionState" : "stale",
@@ -163,9 +666,6 @@
           }
         }
       }
-    },
-    "Cancel" : {
-
     },
     "create_link.title" : {
       "comment" : "Create link title",
@@ -206,22 +706,10 @@
     "Delete" : {
 
     },
-    "Delete %@" : {
-
-    },
     "Delete List" : {
 
     },
-    "Done" : {
-
-    },
-    "Double tap to view link details" : {
-
-    },
     "Edit" : {
-
-    },
-    "Edit %@" : {
 
     },
     "Edit List" : {
@@ -494,9 +982,6 @@
         }
       }
     },
-    "Generating QR code" : {
-
-    },
     "links.new_link" : {
       "comment" : "New link button",
       "extractionState" : "stale",
@@ -580,21 +1065,6 @@
           }
         }
       }
-    },
-    "My Lists" : {
-
-    },
-    "Name" : {
-
-    },
-    "New Link" : {
-
-    },
-    "New List" : {
-
-    },
-    "No links available" : {
-
     },
     "persistence.error.delete_link_failed" : {
       "comment" : "Delete link failed error",
@@ -728,21 +1198,6 @@
         }
       }
     },
-    "Pin" : {
-
-    },
-    "Pin List" : {
-
-    },
-    "QR code for %@" : {
-
-    },
-    "QR code generation failed" : {
-
-    },
-    "QR code that can be scanned to open this link" : {
-
-    },
     "qr_code.accessibility_hint" : {
       "comment" : "QR code accessibility hint",
       "extractionState" : "stale",
@@ -791,9 +1246,6 @@
         }
       }
     },
-    "Save" : {
-
-    },
     "search.links" : {
       "comment" : "Search links",
       "extractionState" : "stale",
@@ -818,22 +1270,34 @@
         }
       }
     },
-    "Share %@" : {
-
+    "section.color" : {
+      "comment" : "Color section title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color"
+          }
+        }
+      }
+    },
+    "section.symbol" : {
+      "comment" : "Symbol section title",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol"
+          }
+        }
+      }
     },
     "Share Link" : {
 
     },
-    "Share this link with others" : {
-
-    },
-    "Title" : {
-
-    },
     "Unpin List" : {
-
-    },
-    "URL" : {
 
     }
   },

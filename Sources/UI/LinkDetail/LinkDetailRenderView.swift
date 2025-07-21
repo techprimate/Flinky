@@ -33,6 +33,8 @@ struct LinkDetailRenderView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .accentColor(.green)
+                .accessibilityLabel(L10n.Accessibility.shareLink(title))
+                .accessibilityHint(L10n.Action.shareHint)
             }
             .frame(maxWidth: .infinity)
         }
@@ -42,15 +44,18 @@ struct LinkDetailRenderView: View {
                 Button(role: .cancel) {
                     dismiss()
                 } label: {
-                    Text("Done")
+                    Text(L10n.Form.done)
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.done)
             }
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button(action: {
                     editAction()
                 }) {
-                    Label("Edit", systemSymbol: .ellipsisCircle)
+                    Label(L10n.Action.edit, systemSymbol: .ellipsisCircle)
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.edit)
+                .accessibilityHint(L10n.Accessibility.Hint.editLinkProperties)
             }
         }
     }
@@ -64,14 +69,18 @@ struct LinkDetailRenderView: View {
                         .resizable()
                         .interpolation(.none)
                         .aspectRatio(contentMode: .fit)
+                        .accessibilityLabel(L10n.QrCode.accessibilityLabel(url.absoluteString))
+                        .accessibilityHint(L10n.QrCode.accessibilityHint)
                 case let .failure(error):
                     Text("Error creating QRCode: \(error.localizedDescription)")
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)
+                        .accessibilityLabel(L10n.QrCode.generationFailed)
                 }
             } else {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
+                    .accessibilityLabel(L10n.QrCode.generating)
             }
         }
         .frame(maxWidth: 200, maxHeight: 200)

@@ -19,6 +19,10 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
                         selectionOverlayView
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(isWildcardItem(selection) ? [.isSelected, .isButton] : [.isButton])
+                .accessibilityLabel(L10n.Accessibility.emojiPicker)
+                .accessibilityHint(L10n.Accessibility.Hint.doubleTapSelectEmoji)
             ForEach(items) { item in
                 content(item)
                     .padding(5)
@@ -28,6 +32,9 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
                         }
                     }
                     .contentShape(Circle())
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
+                                         .accessibilityHint(L10n.Accessibility.Hint.doubleTapSelect)
                     .onTapGesture {
                         selection = item
                     }

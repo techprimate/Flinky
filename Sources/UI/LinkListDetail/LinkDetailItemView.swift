@@ -24,6 +24,9 @@ struct LinkDetailItemView: View {
         }
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L10n.Accessibility.linkItem(item.title, item.url.absoluteString))
+        .accessibilityHint(L10n.Accessibility.linkItemHint)
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 deleteAction()
@@ -31,12 +34,15 @@ struct LinkDetailItemView: View {
                 Label("Delete", systemSymbol: .trash)
             }
             .tint(.red)
+            .accessibilityLabel(L10n.Accessibility.deleteLink(item.title))
+            
             Button {
                 editAction()
             } label: {
                 Label("Edit", systemSymbol: .pencil)
             }
             .tint(.blue)
+            .accessibilityLabel(L10n.Accessibility.editLink(item.title))
         }
         .contextMenu {
             Button {
@@ -44,12 +50,15 @@ struct LinkDetailItemView: View {
             } label: {
                 Label("Edit", systemSymbol: .pencil)
             }
+            .accessibilityLabel(L10n.Accessibility.editLink(item.title))
+            
             Button(role: .destructive) {
                 deleteAction()
             } label: {
                 Label("Delete", systemSymbol: .trash)
             }
             .tint(.red)
+            .accessibilityLabel(L10n.Accessibility.deleteLink(item.title))
         }
     }
 }

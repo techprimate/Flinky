@@ -11,23 +11,145 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   internal enum Accessibility {
+    /// %@ color option
+    internal static func colorOption(_ p1: Any) -> String {
+      return L10n.tr("accessibility.color_option", String(describing: p1), fallback: "%@ color option")
+    }
+    /// Color picker. Current selection: %@
+    internal static func colorPicker(_ p1: Any) -> String {
+      return L10n.tr("accessibility.color_picker", String(describing: p1), fallback: "Color picker. Current selection: %@")
+    }
     /// Delete %@
     internal static func deleteLink(_ p1: Any) -> String {
       return L10n.tr("accessibility.delete_link", String(describing: p1), fallback: "Delete %@")
+    }
+    /// Delete %@
+    internal static func deleteList(_ p1: Any) -> String {
+      return L10n.tr("accessibility.delete_list", String(describing: p1), fallback: "Delete %@")
     }
     /// Edit %@
     internal static func editLink(_ p1: Any) -> String {
       return L10n.tr("accessibility.edit_link", String(describing: p1), fallback: "Edit %@")
     }
+    /// Edit %@
+    internal static func editList(_ p1: Any) -> String {
+      return L10n.tr("accessibility.edit_list", String(describing: p1), fallback: "Edit %@")
+    }
+    /// Select custom emoji
+    internal static let emojiPicker = L10n.tr("accessibility.emoji_picker", fallback: "Select custom emoji")
     /// %@, %@
     internal static func linkItem(_ p1: Any, _ p2: Any) -> String {
       return L10n.tr("accessibility.link_item", String(describing: p1), String(describing: p2), fallback: "%@, %@")
     }
     /// Double tap to view link details
     internal static let linkItemHint = L10n.tr("accessibility.link_item_hint", fallback: "Double tap to view link details")
+    /// %@, %lld items
+    internal static func listItem(_ p1: Any, _ p2: Int) -> String {
+      return L10n.tr("accessibility.list_item", String(describing: p1), p2, fallback: "%@, %lld items")
+    }
+    /// Double tap to open list
+    internal static let listItemHint = L10n.tr("accessibility.list_item_hint", fallback: "Double tap to open list")
+    /// Pin %@
+    internal static func pinList(_ p1: Any) -> String {
+      return L10n.tr("accessibility.pin_list", String(describing: p1), fallback: "Pin %@")
+    }
+    /// Pinned list: %@, %lld items
+    internal static func pinnedListCard(_ p1: Any, _ p2: Int) -> String {
+      return L10n.tr("accessibility.pinned_list_card", String(describing: p1), p2, fallback: "Pinned list: %@, %lld items")
+    }
     /// Share %@
     internal static func shareLink(_ p1: Any) -> String {
       return L10n.tr("accessibility.share_link", String(describing: p1), fallback: "Share %@")
+    }
+    /// %@ symbol option
+    internal static func symbolOption(_ p1: Any) -> String {
+      return L10n.tr("accessibility.symbol_option", String(describing: p1), fallback: "%@ symbol option")
+    }
+    /// Symbol picker. Current selection: %@
+    internal static func symbolPicker(_ p1: Any) -> String {
+      return L10n.tr("accessibility.symbol_picker", String(describing: p1), fallback: "Symbol picker. Current selection: %@")
+    }
+    /// Unpin %@
+    internal static func unpinList(_ p1: Any) -> String {
+      return L10n.tr("accessibility.unpin_list", String(describing: p1), fallback: "Unpin %@")
+    }
+    internal enum Button {
+      /// Cancel
+      internal static let cancel = L10n.tr("accessibility.button.cancel", fallback: "Cancel")
+      /// Delete
+      internal static let delete = L10n.tr("accessibility.button.delete", fallback: "Delete")
+      /// Done
+      internal static let done = L10n.tr("accessibility.button.done", fallback: "Done")
+      /// Edit
+      internal static let edit = L10n.tr("accessibility.button.edit", fallback: "Edit")
+      /// Add new link
+      internal static let newLink = L10n.tr("accessibility.button.new_link", fallback: "Add new link")
+      /// Create new list
+      internal static let newList = L10n.tr("accessibility.button.new_list", fallback: "Create new list")
+      /// Save
+      internal static let save = L10n.tr("accessibility.button.save", fallback: "Save")
+    }
+    internal enum Form {
+      /// Name field
+      internal static let nameField = L10n.tr("accessibility.form.name_field", fallback: "Name field")
+      /// Title field
+      internal static let titleField = L10n.tr("accessibility.form.title_field", fallback: "Title field")
+      /// URL field
+      internal static let urlField = L10n.tr("accessibility.form.url_field", fallback: "URL field")
+    }
+    internal enum Hint {
+      /// Add a new link to this list
+      internal static let addNewLinkToList = L10n.tr("accessibility.hint.add_new_link_to_list", fallback: "Add a new link to this list")
+      /// Create a new list to organize your links
+      internal static let createNewList = L10n.tr("accessibility.hint.create_new_list", fallback: "Create a new list to organize your links")
+      /// Double tap to edit
+      internal static let doubleTapEdit = L10n.tr("accessibility.hint.double_tap_edit", fallback: "Double tap to edit")
+      /// Double tap to select
+      internal static let doubleTapSelect = L10n.tr("accessibility.hint.double_tap_select", fallback: "Double tap to select")
+      /// Double tap to select custom emoji
+      internal static let doubleTapSelectEmoji = L10n.tr("accessibility.hint.double_tap_select_emoji", fallback: "Double tap to select custom emoji")
+      /// Double tap to view details
+      internal static let doubleTapViewDetails = L10n.tr("accessibility.hint.double_tap_view_details", fallback: "Double tap to view details")
+      /// Edit link properties
+      internal static let editLinkProperties = L10n.tr("accessibility.hint.edit_link_properties", fallback: "Edit link properties")
+      /// Enter the link title
+      internal static let enterLinkTitle = L10n.tr("accessibility.hint.enter_link_title", fallback: "Enter the link title")
+      /// Enter the list name
+      internal static let enterListName = L10n.tr("accessibility.hint.enter_list_name", fallback: "Enter the list name")
+      /// Enter a name for the list first
+      internal static let enterNameFirst = L10n.tr("accessibility.hint.enter_name_first", fallback: "Enter a name for the list first")
+      /// Enter the web address
+      internal static let enterWebAddress = L10n.tr("accessibility.hint.enter_web_address", fallback: "Enter the web address")
+      /// Fill in all required fields first
+      internal static let fillRequiredFields = L10n.tr("accessibility.hint.fill_required_fields", fallback: "Fill in all required fields first")
+      /// Save changes to the link
+      internal static let saveLinkChanges = L10n.tr("accessibility.hint.save_link_changes", fallback: "Save changes to the link")
+      /// Save changes to the list
+      internal static let saveListChanges = L10n.tr("accessibility.hint.save_list_changes", fallback: "Save changes to the list")
+      /// Save the new link
+      internal static let saveNewLink = L10n.tr("accessibility.hint.save_new_link", fallback: "Save the new link")
+      /// Save the new list
+      internal static let saveNewList = L10n.tr("accessibility.hint.save_new_list", fallback: "Save the new list")
+      /// Use rotor to access edit and delete actions
+      internal static let tripleTapActions = L10n.tr("accessibility.hint.triple_tap_actions", fallback: "Use rotor to access edit and delete actions")
+    }
+    internal enum Toast {
+      /// Error: %@
+      internal static func error(_ p1: Any) -> String {
+        return L10n.tr("accessibility.toast.error", String(describing: p1), fallback: "Error: %@")
+      }
+      /// Information: %@
+      internal static func info(_ p1: Any) -> String {
+        return L10n.tr("accessibility.toast.info", String(describing: p1), fallback: "Information: %@")
+      }
+      /// Success: %@
+      internal static func success(_ p1: Any) -> String {
+        return L10n.tr("accessibility.toast.success", String(describing: p1), fallback: "Success: %@")
+      }
+      /// Warning: %@
+      internal static func warning(_ p1: Any) -> String {
+        return L10n.tr("accessibility.toast.warning", String(describing: p1), fallback: "Warning: %@")
+      }
     }
   }
   internal enum Action {
@@ -181,6 +303,12 @@ internal enum L10n {
     internal static let links = L10n.tr("search.links", fallback: "Search links")
     /// Search lists and links
     internal static let listsAndLinks = L10n.tr("search.lists_and_links", fallback: "Search lists and links")
+  }
+  internal enum Section {
+    /// Color
+    internal static let color = L10n.tr("section.color", fallback: "Color")
+    /// Symbol
+    internal static let symbol = L10n.tr("section.symbol", fallback: "Symbol")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

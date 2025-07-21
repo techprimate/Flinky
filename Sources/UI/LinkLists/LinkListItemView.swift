@@ -20,41 +20,51 @@ struct LinkListItemView: View {
         }, symbol: item.symbol)
             .labelStyle(RoundedIconLabelStyle(color: item.color.color))
             .foregroundStyle(.primary)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(L10n.Accessibility.listItem(item.title, item.count))
+            .accessibilityHint(L10n.Accessibility.listItemHint)
+            .accessibilityAddTraits(.isButton)
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                 Button(role: .destructive) {
                     deleteAction(item)
                 } label: {
-                    Label("Delete", systemSymbol: .trash)
+                    Label(L10n.Action.delete, systemSymbol: .trash)
                 }
+                .accessibilityLabel(L10n.Accessibility.deleteList(item.title))
                 Button {
                     pinAction(item)
                 } label: {
-                    Label("Pin", systemSymbol: .pinFill)
+                    Label(L10n.Action.pin, systemSymbol: .pinFill)
                 }
                 .tint(.blue)
+                .accessibilityLabel(L10n.Accessibility.pinList(item.title))
                 Button {
                     editAction(item)
                 } label: {
-                    Label("Edit", systemSymbol: .pencil)
+                    Label(L10n.Action.edit, systemSymbol: .pencil)
                 }
                 .tint(.gray)
+                .accessibilityLabel(L10n.Accessibility.editList(item.title))
             }
             .contextMenu {
                 Button {
                     editAction(item)
                 } label: {
-                    Label("Edit List", systemSymbol: .pencil)
+                    Label(L10n.Form.edit, systemSymbol: .pencil)
                 }
+                .accessibilityLabel(L10n.Accessibility.editList(item.title))
                 Button {
                     pinAction(item)
                 } label: {
-                    Label("Pin List", systemSymbol: .pinFill)
+                    Label(L10n.Action.pin, systemSymbol: .pinFill)
                 }
+                .accessibilityLabel(L10n.Accessibility.pinList(item.title))
                 Button(role: .destructive) {
                     deleteAction(item)
                 } label: {
-                    Label("Delete List", systemSymbol: .trash)
+                    Label(L10n.Form.delete, systemSymbol: .trash)
                 }
+                .accessibilityLabel(L10n.Accessibility.deleteList(item.title))
             }
     }
 }

@@ -33,9 +33,9 @@ struct LinkListRenderView: View {
         .overlay {
             if links.isEmpty {
                 ContentUnavailableView(
-                    "No links available",
+                    L10n.Links.noLinksTitle,
                     systemSymbol: .globe,
-                    description: Text("Add a new link to get started")
+                    description: Text(L10n.Links.noLinksDescription)
                 )
             }
         }
@@ -48,12 +48,14 @@ struct LinkListRenderView: View {
                 Button(action: {
                     presentCreateEditor()
                 }, label: {
-                    Label("New Link", systemSymbol: .plusCircleFill)
+                    Label(L10n.Links.newLink, systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
+                .accessibilityLabel(L10n.Accessibility.Button.newLink)
+                .accessibilityHint(L10n.Accessibility.Hint.addNewLinkToList)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

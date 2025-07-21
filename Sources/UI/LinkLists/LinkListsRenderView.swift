@@ -30,7 +30,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 destination: destination
             )
             List {
-                Section(!unpinnedLists.isEmpty ? "My Lists" : "") {
+                Section(!unpinnedLists.isEmpty ? L10n.Lists.myListsSection : "") {
                     ForEach(unpinnedLists, id: \.self) { list in
                         itemForList(list)
                     }
@@ -59,12 +59,14 @@ struct LinkListsRenderView<Destination: View>: View {
                 Button(action: {
                     presentCreateList()
                 }, label: {
-                    Label("New List", systemSymbol: .plusCircleFill)
+                    Label(L10n.CreateList.title, systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
+                .accessibilityLabel(L10n.Accessibility.Button.newList)
+                .accessibilityHint(L10n.Accessibility.Hint.createNewList)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

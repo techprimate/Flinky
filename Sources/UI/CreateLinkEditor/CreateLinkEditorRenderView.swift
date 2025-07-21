@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CreateLinkEditorRenderView: View {
-    enum CreateField {
+    private enum CreateField {
         case title
         case url
     }
@@ -26,45 +26,62 @@ struct CreateLinkEditorRenderView: View {
 
     var body: some View {
         Form {
-            TextField("Title", text: $title)
+            TextField(L10n.Form.title, text: $title)
                 .tag(CreateField.title)
                 .focused($focusedField, equals: .title)
+                .accessibilityLabel(L10n.Accessibility.Form.titleField)
+                .accessibilityHint(L10n.Accessibility.Hint.enterLinkTitle)
                 .onSubmit {
                     focusedField = .url
                 }
-            TextField("URL", text: $url)
+            TextField(L10n.Form.url, text: $url)
                 .tag(CreateField.url)
                 .focused($focusedField, equals: .url)
                 .textContentType(.URL)
                 .keyboardType(.URL)
                 .textInputAutocapitalization(.never)
+                .accessibilityLabel(L10n.Accessibility.Form.urlField)
+                .accessibilityHint(L10n.Accessibility.Hint.enterWebAddress)
                 .onSubmit {
                     focusedField = nil
                 }
         }
-        .navigationTitle("New Link")
+        .navigationTitle(L10n.CreateLink.title)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
+                Button(L10n.Form.cancel) {
                     dismiss()
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.cancel)
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    if title.isEmpty {
-                        return
-                    }
-                    guard let url = URL(string: url) else {
-                        return
-                    }
-                    saveAction(FormData(title: title, url: url))
+                Button(L10n.Form.save) {
+                    submit()
                 }
-                .disabled(title.isEmpty || URL(string: url) == nil)
+                .disabled(!isValid())
+                .accessibilityLabel(L10n.Accessibility.Button.save)
+                .accessibilityHint(isValid() ? L10n.Accessibility.Hint.saveNewLink : L10n.Accessibility.Hint.fillRequiredFields)
             }
         }
         .onAppear {
             focusedField = .title
         }
+    }
+    
+    private func isValid() -> Bool {
+        return !title.isEmpty && !url.isEmpty && URL(string: url) != nil
+    }
+    
+    private func submit() {
+        guard isValid() else {
+            return
+        }
+        
+        guard let validURL = URL(string: url) else {
+            return
+        }
+        
+        saveAction(FormData(title: title, url: validURL))
     }
 }
 

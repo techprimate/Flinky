@@ -34,6 +34,21 @@ public struct AlertToast: View {
             .foregroundColor(style.foregroundColor)
             .font(.system(size: 16, weight: .medium))
             .multilineTextAlignment(.center)
+            .accessibilityLabel(accessibilityLabel)
+            .accessibilityAddTraits(.isStaticText)
+    }
+    
+    private var accessibilityLabel: String {
+        switch item.status {
+        case .info:
+            return L10n.Accessibility.Toast.info(item.title)
+        case .error:
+            return L10n.Accessibility.Toast.error(item.title)
+        case .success:
+            return L10n.Accessibility.Toast.success(item.title)
+        case .warning:
+            return L10n.Accessibility.Toast.warning(item.title)
+        }
     }
     
     private var style: Style {

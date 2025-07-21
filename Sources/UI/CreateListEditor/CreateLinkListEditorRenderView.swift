@@ -22,25 +22,30 @@ struct CreateLinkListEditorRenderView: View {
 
     var body: some View {
         Form {
-            TextField("Name", text: $name)
+            TextField(L10n.Form.name, text: $name)
                 .tag(CreateField.name)
                 .focused($focusedField, equals: .name)
+                .accessibilityLabel(L10n.Accessibility.Form.nameField)
+                .accessibilityHint(L10n.Accessibility.Hint.enterListName)
                 .onSubmit {
                     submit()
                 }
         }
-        .navigationTitle("New List")
+        .navigationTitle(L10n.CreateList.title)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
+                Button(L10n.Form.cancel) {
                     dismiss()
                 }
+                .accessibilityLabel(L10n.Accessibility.Button.cancel)
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
+                Button(L10n.Form.save) {
                     submit()
                 }
                 .disabled(!isValid())
+                .accessibilityLabel(L10n.Accessibility.Button.save)
+                .accessibilityHint(isValid() ? L10n.Accessibility.Hint.saveNewList : L10n.Accessibility.Hint.enterNameFirst)
             }
         }
         .onAppear {
