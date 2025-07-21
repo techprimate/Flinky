@@ -116,6 +116,7 @@
 			packageReferences = (
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
@@ -370,6 +371,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = exactVersion;
+				version = 1.3.0;
+			};
+		};
 		D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
