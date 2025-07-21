@@ -1,8 +1,13 @@
 import SwiftUI
+import SFSafeSymbols
 
 struct PinnedLinkListsRenderView<T: View>: View {
     let items: [LinkListDisplayItem]
-    let unpinListAction: (LinkListDisplayItem) -> Void
+
+    let editAction: (_ item: LinkListDisplayItem) -> Void
+    let unpinAction: (_ item: LinkListDisplayItem) -> Void
+    let deleteAction: (_ item: LinkListDisplayItem) -> Void
+
     let destination: (LinkListDisplayItem) -> T
 
     var body: some View {
@@ -17,9 +22,19 @@ struct PinnedLinkListsRenderView<T: View>: View {
                     PinnedLinkListCardView(item: item)
                         .contextMenu {
                             Button {
-                                unpinListAction(item)
+                                editAction(item)
+                            } label: {
+                                Label("Edit List", systemSymbol: .pencil)
+                            }
+                            Button {
+                                unpinAction(item)
                             } label: {
                                 Label("Unpin List", systemSymbol: .pinSlashFill)
+                            }
+                            Button(role: .destructive) {
+                                deleteAction(item)
+                            } label: {
+                                Label("Delete List", systemSymbol: .trash)
                             }
                         }
                 }
@@ -31,11 +46,16 @@ struct PinnedLinkListsRenderView<T: View>: View {
 
 #Preview {
     NavigationStack {
-        PinnedLinkListsRenderView(items: [
-            .init(title: "All", icon: .trayCircleFill, color: .black, count: 5),
-            .init(title: "Favorites", icon: .starFill, color: .yellow, count: 15),
-            .init(title: "WeAreDevelopers", icon: .network, color: .red, count: 2),
-        ], unpinListAction: { _ in }) { list in
+        PinnedLinkListsRenderView(
+            items: [
+                .init(id: UUID(), title: "All", symbol: .backpack, color: .green, count: 5),
+                .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 15),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .red, count: 2),
+            ],
+            editAction: { _ in },
+            unpinAction: { _ in },
+            deleteAction: { _ in },
+        ) { list in
             Text(list.title)
         }
         .padding()

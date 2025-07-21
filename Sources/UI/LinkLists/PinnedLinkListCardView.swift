@@ -7,9 +7,15 @@ struct PinnedLinkListCardView: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                Image(systemSymbol: item.icon)
-                    .font(.title)
-                    .foregroundColor(item.color)
+                Group {
+                    if item.symbol.isEmoji {
+                        Text(item.symbol.text ?? "")
+                    } else {
+                        Image(systemSymbol: item.symbol.sfsymbol)
+                    }
+                }
+                .font(.title)
+                .foregroundColor(item.color.color)
                 Spacer()
                 Text("\(item.count)")
                     .font(.title)
@@ -31,7 +37,13 @@ struct PinnedLinkListCardView: View {
 }
 
 #Preview {
-    PinnedLinkListCardView(item: .init(title: "Favorites", icon: .starFill, color: .yellow, count: 15))
-        .padding()
-        .background(Color(.systemGroupedBackground))
+    PinnedLinkListCardView(item: .init(
+        id: UUID(),
+        title: "Favorites",
+        symbol: .star,
+        color: .yellow,
+        count: 15
+    ))
+    .padding()
+    .background(Color(.systemGroupedBackground))
 }

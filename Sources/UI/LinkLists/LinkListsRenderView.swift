@@ -1,12 +1,16 @@
 import SwiftUI
+import SFSafeSymbols
 
 struct LinkListsRenderView<Destination: View>: View {
     let pinnedLists: [LinkListDisplayItem]
-    let lists: [LinkListDisplayItem]
+    let unpinnedLists: [LinkListDisplayItem]
 
     let presentCreateList: () -> Void
     let pinListAction: (LinkListDisplayItem) -> Void
     let unpinListAction: (LinkListDisplayItem) -> Void
+    let deleteUnpinnedListAction: (LinkListDisplayItem) -> Void
+    let deleteUnpinnedListsAction: (_ offsets: IndexSet) -> Void
+    let editListAction: (LinkListDisplayItem) -> Void
 
     let destination: (LinkListDisplayItem) -> Destination
 
@@ -14,60 +18,74 @@ struct LinkListsRenderView<Destination: View>: View {
         VStack(spacing: 0) {
             PinnedLinkListsRenderView(
                 items: pinnedLists,
-                unpinListAction: { item in
+                editAction: { item in
+                    editListAction(item)
+                },
+                unpinAction: { item in
                     unpinListAction(item)
+                },
+                deleteAction: { item in
+                    deleteUnpinnedListAction(item)
                 },
                 destination: destination
             )
             List {
-                Section("My Lists") {
-                    ForEach(lists, id: \.self) { list in
+                Section(!unpinnedLists.isEmpty ? "My Lists" : "") {
+                    ForEach(unpinnedLists, id: \.self) { list in
                         itemForList(list)
                     }
+                    .onDelete(perform: deleteUnpinnedListsAction)
                 }
             }
         }
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Flinky")
+        .overlay {
+            if pinnedLists.isEmpty && unpinnedLists.isEmpty {
+                ContentUnavailableView(
+                    "No lists available",
+                    systemSymbol: .trayFill,
+                    description: Text("Crteate a new list to get started")
+                )
+            }
+        }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
+            if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
             }
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     presentCreateList()
                 }, label: {
-                    Label(
-                        "New List",
-                        systemImage: "plus.circle.fill"
-                    )
-                    .bold()
-                    .imageScale(.large)
-                    .labelStyle(.titleAndIcon)
+                    Label("New List",systemSymbol: .plusCircleFill)
+                        .bold()
+                        .imageScale(.large)
+                        .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
             }
         }
     }
 
     func itemForList(_ list: LinkListDisplayItem) -> some View {
         NavigationLink(destination: destination(list)) {
-            LinkListItemView(item: list)
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button {
-                        pinListAction(list)
-                    } label: {
-                        Label("Pin List", systemSymbol: .pinSlashFill)
-                    }
-                    .tint(.blue)
+            LinkListItemView(
+                item: list,
+                editAction: { item in
+                    editListAction(item)
+                },
+                pinAction: { item in
+                    pinListAction(item)
+                },
+                deleteAction: { item in
+                    deleteUnpinnedListAction(item)
                 }
-                .contextMenu {
-                    Button {
-                        pinListAction(list)
-                    } label: {
-                        Label("Pin List", systemSymbol: .pinFill)
-                    }
-                }
+            )
         }
     }
 }
@@ -76,20 +94,23 @@ struct LinkListsRenderView<Destination: View>: View {
     NavigationStack {
         LinkListsRenderView(
             pinnedLists: [
-                .init(title: "All", icon: .tray, color: .yellow, count: 5),
-                .init(title: "Favorites", icon: .starFill, color: .yellow, count: 5),
-                .init(title: "WeAreDevelopers", icon: .network, color: .yellow, count: 5),
+                .init(id: UUID(), title: "All", symbol: .archiveBox, color: .yellow, count: 5),
+                .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 5),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .yellow, count: 5),
             ],
-            lists: [
-                .init(title: "Personal", icon: .house, color: .red, count: 4),
-                .init(title: "Work", icon: .suitcase, color: .blue, count: 4),
-                .init(title: "Golf Club", icon: .figureGolf, color: .green, count: 4),
+            unpinnedLists: [
+                .init(id: UUID(), title: "Personal", symbol: .house, color: .red, count: 4),
+                .init(id: UUID(), title: "Work", symbol: .suitcase, color: .blue, count: 4),
+                .init(id: UUID(), title: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4),
             ],
             presentCreateList: {},
             pinListAction: { _ in },
-            unpinListAction: { _ in }
+            unpinListAction: { _ in },
+            deleteUnpinnedListAction: { _ in },
+            deleteUnpinnedListsAction: { _ in },
+            editListAction: { _ in }
         ) { list in
-                Text(list.title)
-            }
+            Text(list.title)
+        }
     }
 }
