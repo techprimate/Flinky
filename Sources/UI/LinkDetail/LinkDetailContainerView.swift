@@ -8,6 +8,7 @@ struct LinkDetailContainerView: View {
     let item: LinkModel
 
     @State private var image: Result<UIImage, Error>?
+    @State private var isEditing = false
     
     private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkDetailContainerView")
 
@@ -17,11 +18,16 @@ struct LinkDetailContainerView: View {
             url: item.url,
             image: image,
             editAction: {
-                // TODO: Action to edit the link can be implemented here
+                isEditing = true
             }
         )
         .task(priority: .utility) {
             await createQRCodeImageInBackground()
+        }
+        .sheet(isPresented: $isEditing) {
+            NavigationStack {
+                LinkInfoContainerView(link: item)
+            }
         }
     }
 
