@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */; };
 		D4B471882E1F12FA005099F3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4B471872E1F12FA005099F3 /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
 				D4B471882E1F12FA005099F3 /* Sentry in Frameworks */,
 			);
@@ -132,6 +134,7 @@
 			packageProductDependencies = (
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
 				D4B471872E1F12FA005099F3 /* Sentry */,
+				D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -517,6 +520,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
+		};
 		D4B471872E1F12FA005099F3 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
