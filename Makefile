@@ -1,4 +1,7 @@
-.PHONY: format lint generate generate-licenses generate-localization
+.PHONY: build-ios format lint generate generate-licenses generate-localization
+
+build-ios:
+	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | xcbeautify
 
 format:
 	swiftformat Sources
@@ -13,12 +16,7 @@ generate-localization:
 	./Scripts/generate-localization.sh
 
 generate-licenses:
-	license-plist \
-		--output-path Sources/Resources/Settings.bundle \
-		--prefix Licenses \
-		--add-version-numbers \
-		--suppress-opening-directory \
-		--fail-if-missing-license
+	./Scripts/generate-licenses.sh
 
 generate-version-in-settings:
 	./Scripts/generate-version-in-settings.sh

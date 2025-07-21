@@ -1,14 +1,31 @@
-#!/bin/bash
-
-# Generate Localization.swift from Localizable.xcstrings
-# This script performs a three-step process:
-# 1. Convert xcstrings to JSON format
-# 2. Convert JSON to strings format using SwiftGen
-# 3. Convert strings to Swift enum
-
+#!/bin/zsh
 set -e
 
+# Store current working directory
+pushd $(pwd) > /dev/null
+# Change to script directory
+cd "${0%/*}"
+
+# -- Begin Script --
+
 echo "🔄 Generating localization files..."
+
+# Set up PATH for Homebrew tools
+if [[ "$(uname -m)" == arm64 ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+else
+    export PATH="/usr/local/bin:$PATH"
+fi
+
+# Change to project root directory (one level up from Scripts)
+cd ..
+
+# Check if swiftgen is available
+if ! command -v swiftgen >/dev/null 2>&1; then
+    echo "❌ Error: swiftgen command not found"
+    echo "Please install swiftgen: brew install swiftgen"
+    exit 1
+fi
 
 # Step 1: Convert xcstrings to JSON
 echo "Step 1: Converting xcstrings to JSON..."
@@ -31,4 +48,9 @@ swiftgen strings Generated/generated-en.strings \
 rm Generated/temp.json
 
 echo "✅ Localization generation complete!"
-echo "📁 Generated: Sources/Utils/Localization.swift" 
+echo "📁 Generated: Sources/Utils/Localization.swift"
+
+# -- End Script --
+
+# Return to original working directory
+popd > /dev/null 

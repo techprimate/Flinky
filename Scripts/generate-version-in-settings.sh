@@ -1,13 +1,37 @@
-#!/bin/bash
-
+#!/bin/zsh
 set -e
 
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+# Store current working directory
+pushd $(pwd) > /dev/null
+# Change to script directory
+cd "${0%/*}"
 
-PROJECT_FILE="$PROJECT_ROOT/Flinky.xcodeproj/project.pbxproj"
-SETTINGS_PLIST="$PROJECT_ROOT/Sources/Resources/Settings.bundle/Root.plist"
+# -- Begin Script --
+
+# Set up PATH for Homebrew tools (for consistency)
+if [[ "$(uname -m)" == arm64 ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+else
+    export PATH="/usr/local/bin:$PATH"
+fi
+
+# Change to project root directory (one level up from Scripts)
+cd ..
+
+PROJECT_FILE="Flinky.xcodeproj/project.pbxproj"
+SETTINGS_PLIST="Sources/Resources/Settings.bundle/Root.plist"
+
+# Check if required commands are available
+if ! command -v plutil >/dev/null 2>&1; then
+    echo "❌ Error: plutil command not found"
+    exit 1
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    echo "❌ Error: jq command not found"
+    echo "Please install jq: brew install jq"
+    exit 1
+fi
 
 # Convert project file to JSON and use jq to extract versions from main app target
 # This is the cleanest and most reliable approach
@@ -33,4 +57,9 @@ echo "Setting version in Settings.bundle: $MARKETING_VERSION ($BUILD_VERSION)"
 # Update the Settings.bundle plist file
 plutil -replace PreferenceSpecifiers.0.DefaultValue -string "$MARKETING_VERSION ($BUILD_VERSION)" "$SETTINGS_PLIST"
 
-echo "✅ Version updated successfully" 
+echo "✅ Version updated successfully"
+
+# -- End Script --
+
+# Return to original working directory
+popd > /dev/null 

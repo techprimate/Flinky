@@ -24,6 +24,12 @@
 
 /* Begin PBXFileReference section */
 		D40BEC172E2EE0C500391C5A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D40BEEF42E2EFFC900391C5A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D40BEEF52E2EFFC900391C5A /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
+		D40BEEF62E2EFFC900391C5A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D40BEEF72E2EFFC900391C5A /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
+		D40BEF022E2EFFC900391C5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -31,6 +37,26 @@
 		D40BEC182E2EE0C500391C5A /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		D40BEF0E2E2EFFD400391C5A /* docs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = docs;
+			sourceTree = "<group>";
+		};
+		D40BEF142E2EFFD600391C5A /* Generated */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		D40BEF182E2EFFDD00391C5A /* Scripts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+		D40BEF1B2E2EFFE300391C5A /* Templates */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Templates;
 			sourceTree = "<group>";
 		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
@@ -61,6 +87,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D40BEF1C2E2EFFEC00391C5A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D40BEEF42E2EFFC900391C5A /* .gitignore */,
+				D40BEEF52E2EFFC900391C5A /* .swiftformat */,
+				D40BEEF62E2EFFC900391C5A /* .swiftlint.yml */,
+				D40BEEF72E2EFFC900391C5A /* Brewfile */,
+				D40BEF022E2EFFC900391C5A /* Makefile */,
+				D40BEF072E2EFFC900391C5A /* swiftgen.yml */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
 		D4B471862E1F12FA005099F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,7 +110,12 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
+				D40BEF1C2E2EFFEC00391C5A /* Config */,
+				D40BEF0E2E2EFFD400391C5A /* docs */,
+				D40BEF142E2EFFD600391C5A /* Generated */,
+				D40BEF182E2EFFDD00391C5A /* Scripts */,
 				D4D359DB2E1BDF540006226D /* Sources */,
+				D40BEF1B2E2EFFE300391C5A /* Templates */,
 				D40BEC182E2EE0C500391C5A /* Tests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
@@ -117,6 +161,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4D359E62E1BDF560006226D /* Build configuration list for PBXNativeTarget "Flinky" */;
 			buildPhases = (
+				D4D359DC2E1BDF540006226D /* Run Script - Generate Files */,
 				D4D359D52E1BDF540006226D /* Sources */,
 				D4D359D62E1BDF540006226D /* Frameworks */,
 				D4D359D72E1BDF540006226D /* Resources */,
@@ -200,6 +245,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D4D359DC2E1BDF540006226D /* Run Script - Generate Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Scripts/generate-licenses.sh",
+				"$(SRCROOT)/Scripts/generate-version-in-settings.sh",
+				"$(SRCROOT)/Scripts/generate-localization.sh",
+				"$(SRCROOT)/Sources/Resources/Localizable.xcstrings",
+				"$(SRCROOT)/Templates/en-strings.stencil",
+				"$(SRCROOT)/Templates/l21strings.stencil",
+				"$(SRCROOT)/Flinky.xcodeproj/project.pbxproj",
+				"$(SRCROOT)/Flinky.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+			);
+			name = "Run Script - Generate Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.plist",
+				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.latest_result.txt",
+				"$(SRCROOT)/Sources/Resources/Settings.bundle/Root.plist",
+				"$(SRCROOT)/Sources/Utils/Localization.swift",
+				"$(SRCROOT)/Generated/generated-en.strings",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D40BEC132E2EE0C500391C5A /* Sources */ = {
@@ -404,6 +483,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -437,6 +517,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
