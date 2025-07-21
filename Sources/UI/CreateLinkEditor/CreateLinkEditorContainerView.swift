@@ -13,10 +13,20 @@ struct CreateLinkEditorContainerView: View {
                 createdAt: Date(),
                 updatedAt: Date(),
                 title: data.title,
+                color: nil,
+                symbol: nil,
                 url: data.url
             )
             modelContext.insert(newItem)
             list.links.append(newItem)
+            
+            // Save the context to persist the new link
+            do {
+                try modelContext.save()
+            } catch {
+                print("Failed to save new link: \(error)")
+            }
+            
             dismiss()
         }
     }
