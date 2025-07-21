@@ -1,8 +1,13 @@
 import SwiftUI
+import os.log
+import Sentry
 
 struct CreateLinkListEditorContainerView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.toaster) private var toaster
+    
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "CreateLinkListEditorContainerView")
 
     var body: some View {
         CreateLinkListEditorRenderView { data in
@@ -20,11 +25,13 @@ struct CreateLinkListEditorContainerView: View {
 
             do {
                 try modelContext.save()
+                dismiss()
             } catch {
-                print("Failed to save new list: \(error)")
+                Self.logger.error("Failed to save list: \(error)")
+                let appError = AppError.persistenceError(.saveListFailed(underlyingError: error.localizedDescription))
+                SentrySDK.capture(error: appError)
+                toaster.show(error: appError)
             }
-
-            dismiss()
         }
     }
 }

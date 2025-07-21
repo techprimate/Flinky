@@ -4,6 +4,8 @@ import SwiftUI
 
 @main
 struct FlinkyApp: App {
+    @StateObject private var toastManager = ToastManager()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             LinkListModel.self,
@@ -37,6 +39,11 @@ struct FlinkyApp: App {
     var body: some Scene {
         WindowGroup {
             MainContainerView()
+                .environment(\.toaster, toastManager)
+                .overlay(
+                    // Direct overlay with the toast stack
+                    ToastStackView(toastManager: toastManager)
+                )
         }
         .modelContainer(sharedModelContainer)
     }

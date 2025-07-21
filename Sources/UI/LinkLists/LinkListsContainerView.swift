@@ -1,9 +1,14 @@
 import SFSafeSymbols
 import SwiftData
 import SwiftUI
+import os.log
+import Sentry
 
 struct LinkListsContainerView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.toaster) private var toaster
+    
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkListsContainerView")
     @Query(
         filter: #Predicate { (list: LinkListModel) in list.isPinned == true },
         sort: \.name
@@ -28,43 +33,61 @@ struct LinkListsContainerView: View {
             },
             pinListAction: { list in
                 guard let model = unpinnedLists.first(where: { $0.id == list.id }) else {
-                    print("List not found for pinning: \(list.title)")
+                    Self.logger.error("List not found for pinning: \(list.title)")
+                    let appError = AppError.dataCorruption("List not found for pinning: \(list.title)")
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                     return
                 }
                 model.isPinned = true
+                model.updatedAt = Date()
 
                 do {
                     try modelContext.save()
                 } catch {
-                    print("Failed to save pin change: \(error)")
+                    Self.logger.error("Failed to pin list: \(error)")
+                    let appError = AppError.persistenceError(.pinListFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             unpinListAction: { list in
                 guard let model = pinnedLists.first(where: { $0.id == list.id }) else {
-                    print("List not found for unpinning: \(list.title)")
+                    Self.logger.error("List not found for unpinning: \(list.title)")
+                    let appError = AppError.dataCorruption("List not found for unpinning: \(list.title)")
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                     return
                 }
                 model.isPinned = false
+                model.updatedAt = Date()
 
                 do {
                     try modelContext.save()
                 } catch {
-                    print("Failed to save unpin change: \(error)")
+                    Self.logger.error("Failed to unpin list: \(error)")
+                    let appError = AppError.persistenceError(.unpinListFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             deleteUnpinnedListAction: { list in
                 guard let model = unpinnedLists.first(where: { $0.id == list.id }) else {
-                    print("List not found for deletion: \(list.id)")
+                    Self.logger.error("List not found for deletion: \(list.id)")
+                    let appError = AppError.dataCorruption("List not found for deletion: \(list.id)")
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                     return
                 }
-                print("Deleting list: \(model.id)")
                 modelContext.delete(model)
 
                 do {
                     try modelContext.save()
-                    print("Deleted list: \(model.id)")
                 } catch {
-                    print("Failed to delete list: \(error)")
+                    Self.logger.error("Failed to delete list: \(error)")
+                    let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             deleteUnpinnedListsAction: { offsets in
@@ -76,7 +99,10 @@ struct LinkListsContainerView: View {
                 do {
                     try modelContext.save()
                 } catch {
-                    print("Failed to save unpin change: \(error)")
+                    Self.logger.error("Failed to save changes after deletion: \(error)")
+                    let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             editListAction: { item in

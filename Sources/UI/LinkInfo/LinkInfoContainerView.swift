@@ -1,21 +1,25 @@
 import SwiftUI
+import os.log
+import Sentry
 
 struct LinkInfoContainerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.toaster) private var toaster
 
     @State private var name = ""
     @State private var color: LinkColor = .default
     @State private var symbol: LinkSymbol = .default
 
     let link: LinkModel
+    
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkInfoContainerView")
 
     var body: some View {
         LinkInfoRenderView(
             name: $name,
             color: $color,
             symbol: $symbol,
-            presentEmojiPickerAction: {},
             cancelAction: {
                 dismiss()
             },
@@ -23,13 +27,17 @@ struct LinkInfoContainerView: View {
                 link.name = name
                 link.color = color
                 link.symbol = symbol
+                link.updatedAt = Date()
 
                 do {
                     try modelContext.save()
+                    dismiss()
                 } catch {
-                    print(error)
+                    Self.logger.error("Failed to save link changes: \(error)")
+                    let appError = AppError.persistenceError(.saveLinkChangesFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
-                dismiss()
             }
         )
         .onAppear {

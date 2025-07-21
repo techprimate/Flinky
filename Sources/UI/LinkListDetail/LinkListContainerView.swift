@@ -1,7 +1,10 @@
 import SwiftUI
+import os.log
+import Sentry
 
 struct LinkListContainerView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.toaster) private var toaster
 
     let list: LinkListModel
 
@@ -9,6 +12,8 @@ struct LinkListContainerView: View {
     @State private var selectedLink: LinkModel?
     @State private var editingLink: LinkModel?
     @State private var searchText = ""
+    
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkListContainerView")
 
     var body: some View {
         LinkListRenderView(
@@ -18,16 +23,21 @@ struct LinkListContainerView: View {
                 editingLink = list.links.first(where: { $0.id == item.id })
             },
             deleteItem: { item in
-                print("Delete link: \(item.id)")
                 guard let model = list.links.first(where: { $0.id == item.id }) else {
-                    print("Delete link failed: not found")
+                    Self.logger.error("Link not found for deletion: \(item.id)")
+                    let appError = AppError.dataCorruption("Link not found for deletion")
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                     return
                 }
                 modelContext.delete(model)
                 do {
                     try modelContext.save()
                 } catch {
-                    print("Delete link failed: \(error)")
+                    Self.logger.error("Failed to delete link: \(error)")
+                    let appError = AppError.persistenceError(.deleteLinkFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             deleteItems: { offsets in
@@ -38,7 +48,10 @@ struct LinkListContainerView: View {
                 do {
                     try modelContext.save()
                 } catch {
-                    print("Delete links failed: \(error)")
+                    Self.logger.error("Failed to delete multiple links: \(error)")
+                    let appError = AppError.persistenceError(.deleteMultipleLinksFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
                 }
             },
             presentCreateEditor: {
