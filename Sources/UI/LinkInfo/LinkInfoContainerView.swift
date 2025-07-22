@@ -8,8 +8,8 @@ struct LinkInfoContainerView: View {
     @Environment(\.toaster) private var toaster
 
     @State private var name = ""
-    @State private var color: LinkColor = .default
-    @State private var symbol: LinkSymbol = .default
+    @State private var color: ListColor = .default
+    @State private var symbol: ListSymbol = .defaultForLink
 
     let link: LinkModel
     
@@ -43,7 +43,7 @@ struct LinkInfoContainerView: View {
         .onAppear {
             name = link.name
             color = link.color ?? .default
-            symbol = link.symbol ?? .default
+            symbol = link.symbol ?? .defaultForLink
         }
     }
 }

@@ -166,7 +166,7 @@ struct LinkListsContainerView: View {
         LinkListDisplayItem(
             id: model.id,
             title: model.name,
-            symbol: model.symbol ?? .default,
+            symbol: model.symbol ?? .defaultForLink,
             color: model.color ?? .default,
             count: model.links.count
         )

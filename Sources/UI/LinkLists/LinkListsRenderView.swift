@@ -12,7 +12,7 @@ struct LinkListsRenderView<Destination: View>: View {
     let deleteUnpinnedListsAction: (_ offsets: IndexSet) -> Void
     let editListAction: (LinkListDisplayItem) -> Void
 
-    let destination: (LinkListDisplayItem) -> Destination
+    @ViewBuilder let destination: (LinkListDisplayItem) -> Destination
 
     var body: some View {
         VStack(spacing: 0) {
@@ -96,13 +96,13 @@ struct LinkListsRenderView<Destination: View>: View {
     NavigationStack {
         LinkListsRenderView(
             pinnedLists: [
-                .init(id: UUID(), title: "All", symbol: .archiveBox, color: .yellow, count: 5),
-                .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 5),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .yellow, count: 5)
+                .init(id: UUID(), title: "All", symbol: .object(.archiveBox), color: .yellow, count: 5),
+                .init(id: UUID(), title: "Favorites", symbol: .communication(.star), color: .yellow, count: 5),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .communication(.link), color: .yellow, count: 5)
             ],
             unpinnedLists: [
-                .init(id: UUID(), title: "Personal", symbol: .house, color: .red, count: 4),
-                .init(id: UUID(), title: "Work", symbol: .suitcase, color: .blue, count: 4),
+                .init(id: UUID(), title: "Personal", symbol: .placesBuildings(.house), color: .red, count: 4),
+                .init(id: UUID(), title: "Work", symbol: .object(.suitcase), color: .blue, count: 4),
                 .init(id: UUID(), title: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4)
             ],
             presentCreateList: {},

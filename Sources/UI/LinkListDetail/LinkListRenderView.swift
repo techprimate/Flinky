@@ -70,7 +70,7 @@ struct LinkListRenderView: View {
             list: .init(
                 id: UUID(),
                 title: "Favorites",
-                symbol: .star,
+                symbol: .communication(.star),
                 color: .yellow,
                 count: 4
             ),
@@ -79,21 +79,21 @@ struct LinkListRenderView: View {
                     id: UUID(),
                     title: "Apple",
                     url: URL(string: "https://apple.com")!,
-                    symbol: .backpack,
+                    symbol: .documentsReadingWriting(.backpack),
                     color: .green
                 ),
                 .init(
                     id: UUID(),
                     title: "SwiftUI",
                     url: URL(string: "https://developer.apple.com/swiftui/")!,
-                    symbol: .americanFootball,
+                    symbol: .sportRecreation(.americanFootball),
                     color: .blue
                 ),
                 .init(
                     id: UUID(),
                     title: "Flinky",
                     url: URL(string: "https://flinky.app")!,
-                    symbol: .creditcard,
+                    symbol: .currency(.euro),
                     color: .blue
                 )
             ],

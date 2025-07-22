@@ -76,7 +76,7 @@ struct LinkListItemView: View {
                 .init(
                     id: UUID(),
                     title: "Favorites",
-                    symbol: .star,
+                    symbol: .communication(.star),
                     color: .yellow,
                     count: 15
                 ),

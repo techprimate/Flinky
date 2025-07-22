@@ -3,76 +3,28 @@ import SFSafeSymbols
 enum ListSymbol {
     case emoji(String)
     case listBullet
-    case bookmark
-    case mapPin
-    case present
-    case birthdayCake
-    case graduationCap
-    case backpack
-    case pen
-    case paper
-    case book
-    case archiveBox
-    case creditcard
-    case money
-    case dumbBell
-    case run
-    case forkKnife
-    case wineGlass
-    case medication
-    case doctor
-    case chairLounge
-    case house
-    case office
-    case university
-    case tent
-    case tv
-    case musicNote
-    case computer
-    case joystick
-    case headphones
-    case leaf
-    case carrot
-    case person
-    case person2
-    case person3
-    case pawPrint
-    case teddyBear
-    case fish
-    case handcart
-    case cart
-    case shoppingBag
-    case shippingBox
-    case soccerBall
-    case tennisBall
-    case basketball
-    case americanFootball
-    case tennisRacket
-    case tram
-    case airplane
-    case sailboat
-    case car
-    case umbrella
-    case sun
-    case moon
-    case rainDrop
-    case snowflake
-    case flame
-    case suitcase
-    case tools
-    case scissors
-    case drawingCompass
-    case curlyBraces
-    case lightbulb
-    case message
-    case exclamataionmark
-    case asteriks
-    case square
-    case circle
-    case triangle
-    case diamond
-    case heart
-    case star
+
+    case number(ListSymbolNumber)
+    case letter(ListSymbolLetter)
+    case basicShape(ListSymbolBasicShape)
+    case arrows(ListSymbolArrow)
+    case math(ListSymbolMath)
+    case currency(ListSymbolCurrency)
+    case technology(ListSymbolTechnology)
+    case transportation(ListSymbolTransportation)
+    case sportRecreation(ListSymbolSportRecreation)
+    case figureSportsActivity(ListSymbolFigureSportsActivity)
+    case animal(ListSymbolAnimal)
+    case nature(ListSymbolNature)
+    case medical(ListSymbolMedical)
+    case food(ListSymbolFood)
+    case object(ListSymbolObject)
+    case communication(ListSymbolCommunication)
+    case human(ListSymbolHuman)
+    case placesBuildings(ListSymbolPlacesBuildings)
+    case entertainment(ListSymbolEntertainment)
+    case documentsReadingWriting(ListSymbolDocumentsReadingWriting)
+    case clothingAccessories(ListSymbolClothingAccessories)
 
     var sfsymbol: SFSymbol {
         switch self {
@@ -80,146 +32,48 @@ enum ListSymbol {
             return .faceSmiling
         case .listBullet:
             return .listBullet
-        case .bookmark:
-            return .bookmarkFill
-        case .mapPin:
-            return .mappin
-        case .present:
-            return .giftFill
-        case .birthdayCake:
-            return .birthdayCakeFill
-        case .graduationCap:
-            return .graduationcapFill
-        case .backpack:
-            return .backpackFill
-        case .pen:
-            return .pencilAndRuler
-        case .paper:
-            return .documentFill
-        case .book:
-            return .bookFill
-        case .archiveBox:
-            return .archiveboxFill
-        case .creditcard:
-            return .creditcardFill
-        case .money:
-            return .banknoteFill
-        case .dumbBell:
-            return .dumbbellFill
-        case .run:
-            return .figureRun
-        case .forkKnife:
-            return .forkKnife
-        case .wineGlass:
-            return .wineglassFill
-        case .medication:
-            return .pillsFill
-        case .doctor:
-            return ._2Brakesignal
-        case .chairLounge:
-            return .chairLoungeFill
-        case .house:
-            return .houseFill
-        case .office:
-            return .building2Fill
-        case .university:
-            return .buildingColumnsFill
-        case .tent:
-            return .tent
-        case .tv:
-            return .tv
-        case .musicNote:
-            return .musicNote
-        case .computer:
-            return .pc
-        case .joystick:
-            return .gamecontrollerFill
-        case .headphones:
-            return .headphones
-        case .leaf:
-            return .leaf
-        case .carrot:
-            return .carrot
-        case .person:
-            return .personFill
-        case .person2:
-            return .person2Fill
-        case .person3:
-            return .person3Fill
-        case .pawPrint:
-            return .pawprintFill
-        case .teddyBear:
-            return .teddybearFill
-        case .fish:
-            return .fish
-        case .handcart:
-            return .basketFill
-        case .cart:
-            return .cart
-        case .shoppingBag:
-            return .bagFill
-        case .shippingBox:
-            return .shippingboxFill
-        case .soccerBall:
-            return .soccerball
-        case .tennisBall:
-            return .tennisballFill
-        case .basketball:
-            return .basketball
-        case .americanFootball:
-            return .americanFootballFill
-        case .tennisRacket:
-            return .tennisRacket
-        case .tram:
-            return .tramFill
-        case .airplane:
-            return .airplane
-        case .sailboat:
-            return .sailboatFill
-        case .car:
-            return .carFill
-        case .umbrella:
-            return .umbrellaFill
-        case .sun:
-            return .sunMaxFill
-        case .moon:
-            return .moon
-        case .rainDrop:
-            return .dropFill
-        case .snowflake:
-            return .snowflake
-        case .flame:
-            return .flameFill
-        case .suitcase:
-            return .suitcaseFill
-        case .tools:
-            return .wrenchAndScrewdriverFill
-        case .scissors:
-            return .scissors
-        case .drawingCompass:
-            return .compassDrawing
-        case .curlyBraces:
-            return .curlybraces
-        case .lightbulb:
-            return .lightbulbFill
-        case .message:
-            return .messageFill
-        case .exclamataionmark:
-            return .exclamationmark2
-        case .asteriks:
-            return .asterisk
-        case .square:
-            return .squareFill
-        case .circle:
-            return .circleFill
-        case .triangle:
-            return .triangleFill
-        case .diamond:
-            return .diamondFill
-        case .heart:
-            return .heartFill
-        case .star:
-            return .starFill
+        case .number(let symbol):
+            return symbol.sfsymbol
+        case .letter(let symbol):
+            return symbol.sfsymbol
+        case .basicShape(let symbol):
+            return symbol.sfsymbol
+        case .arrows(let symbol):
+            return symbol.sfsymbol
+        case .math(let symbol):
+            return symbol.sfsymbol
+        case .currency(let symbol):
+            return symbol.sfsymbol
+        case .technology(let symbol):
+            return symbol.sfsymbol
+        case .transportation(let symbol):
+            return symbol.sfsymbol
+        case .sportRecreation(let symbol):
+            return symbol.sfsymbol
+        case .figureSportsActivity(let symbol):
+            return symbol.sfsymbol
+        case .animal(let symbol):
+            return symbol.sfsymbol
+        case .nature(let symbol):
+            return symbol.sfsymbol
+        case .medical(let symbol):
+            return symbol.sfsymbol
+        case .food(let symbol):
+            return symbol.sfsymbol
+        case .object(let symbol):
+            return symbol.sfsymbol
+        case .communication(let symbol):
+            return symbol.sfsymbol
+        case .human(let symbol):
+            return symbol.sfsymbol
+        case .placesBuildings(let symbol):
+            return symbol.sfsymbol
+        case .entertainment(let symbol):
+            return symbol.sfsymbol
+        case .documentsReadingWriting(let symbol):
+            return symbol.sfsymbol
+        case .clothingAccessories(let symbol):
+            return symbol.sfsymbol
         }
     }
 
@@ -239,8 +93,12 @@ enum ListSymbol {
         return true
     }
 
-    static var `default`: Self {
+    static var defaultForList: Self {
         .listBullet
+    }
+
+    static var defaultForLink: Self {
+        .communication(.link)
     }
 }
 
@@ -251,146 +109,48 @@ extension ListSymbol: RawRepresentable {
             self = .emoji(String(rawValue.dropFirst("emoji.".count)))
         case "list-bullet":
             self = .listBullet
-        case "bookmark":
-            self = .bookmark
-        case "map-pin":
-            self = .mapPin
-        case "gift":
-            self = .present
-        case "birthday-cake":
-            self = .birthdayCake
-        case "graduation-cap":
-            self = .graduationCap
-        case "backpack":
-            self = .backpack
-        case "pencil-and-ruler":
-            self = .pen
-        case "document":
-            self = .paper
-        case "book":
-            self = .book
-        case "archive-box":
-            self = .archiveBox
-        case "creditcard":
-            self = .creditcard
-        case "banknote":
-            self = .money
-        case "dumb-bell":
-            self = .dumbBell
-        case "run":
-            self = .run
-        case "fork-knife":
-            self = .forkKnife
-        case "wine-glass":
-            self = .wineGlass
-        case "medication":
-            self = .medication
-        case "doctor":
-            self = .doctor
-        case "chair-lounge":
-            self = .chairLounge
-        case "house":
-            self = .house
-        case "office":
-            self = .office
-        case "university":
-            self = .university
-        case "tent":
-            self = .tent
-        case "tv":
-            self = .tv
-        case "music-note":
-            self = .musicNote
-        case "computer":
-            self = .computer
-        case "joystick":
-            self = .joystick
-        case "headphones":
-            self = .headphones
-        case "leaf":
-            self = .leaf
-        case "carrot":
-            self = .carrot
-        case "person":
-            self = .person
-        case "person-2":
-            self = .person2
-        case "person-3":
-            self = .person3
-        case "paw-print":
-            self = .pawPrint
-        case "teddy-bear":
-            self = .teddyBear
-        case "fish":
-            self = .fish
-        case "basket":
-            self = .handcart
-        case "cart":
-            self = .cart
-        case "shopping-bag":
-            self = .shoppingBag
-        case "shipping-box":
-            self = .shippingBox
-        case "soccer-ball":
-            self = .soccerBall
-        case "tennis-ball":
-            self = .tennisBall
-        case "basketball":
-            self = .basketball
-        case "american-football":
-            self = .americanFootball
-        case "tennis-racket":
-            self = .tennisRacket
-        case "tram":
-            self = .tram
-        case "airplane":
-            self = .airplane
-        case "sailboat":
-            self = .sailboat
-        case "car":
-            self = .car
-        case "umbrella":
-            self = .umbrella
-        case "sun":
-            self = .sun
-        case "moon":
-            self = .moon
-        case "rain-drop":
-            self = .rainDrop
-        case "snowflake":
-            self = .snowflake
-        case "flame":
-            self = .flame
-        case "suitcase":
-            self = .suitcase
-        case "tools":
-            self = .tools
-        case "scissors":
-            self = .scissors
-        case "drawing-compass":
-            self = .drawingCompass
-        case "curly-braces":
-            self = .curlyBraces
-        case "lightbulb":
-            self = .lightbulb
-        case "message":
-            self = .message
-        case "exclamation-mark":
-            self = .exclamataionmark
-        case "asterisk":
-            self = .asteriks
-        case "square":
-            self = .square
-        case "circle":
-            self = .circle
-        case "triangle":
-            self = .triangle
-        case "diamond":
-            self = .diamond
-        case "heart":
-            self = .heart
-        case "star":
-            self = .star
+        case _ where rawValue.starts(with: "number."):
+            self = .number(ListSymbolNumber(rawValue: String(rawValue.dropFirst("number.".count)))!)
+        case _ where rawValue.starts(with: "letter."):
+            self = .letter(ListSymbolLetter(rawValue: String(rawValue.dropFirst("letter.".count)))!)
+        case _ where rawValue.starts(with: "basic-shape."):
+            self = .basicShape(ListSymbolBasicShape(rawValue: String(rawValue.dropFirst("basic-shape.".count)))!)
+        case _ where rawValue.starts(with: "arrows."):
+            self = .arrows(ListSymbolArrow(rawValue: String(rawValue.dropFirst("arrows.".count)))!)
+        case _ where rawValue.starts(with: "math."):
+            self = .math(ListSymbolMath(rawValue: String(rawValue.dropFirst("math.".count)))!)
+        case _ where rawValue.starts(with: "currency."):
+            self = .currency(ListSymbolCurrency(rawValue: String(rawValue.dropFirst("currency.".count)))!)
+        case _ where rawValue.starts(with: "technology."):
+            self = .technology(ListSymbolTechnology(rawValue: String(rawValue.dropFirst("technology.".count)))!)    
+        case _ where rawValue.starts(with: "transportation."):
+            self = .transportation(ListSymbolTransportation(rawValue: String(rawValue.dropFirst("transportation.".count)))!)
+        case _ where rawValue.starts(with: "sport-recreation."):
+            self = .sportRecreation(ListSymbolSportRecreation(rawValue: String(rawValue.dropFirst("sport-recreation.".count)))!)
+        case _ where rawValue.starts(with: "figure-sports-activity."):
+            self = .figureSportsActivity(ListSymbolFigureSportsActivity(rawValue: String(rawValue.dropFirst("figure-sports-activity.".count)))!)
+        case _ where rawValue.starts(with: "animal."):
+            self = .animal(ListSymbolAnimal(rawValue: String(rawValue.dropFirst("animal.".count)))!)
+        case _ where rawValue.starts(with: "nature."):
+            self = .nature(ListSymbolNature(rawValue: String(rawValue.dropFirst("nature.".count)))!)
+        case _ where rawValue.starts(with: "medical."):
+            self = .medical(ListSymbolMedical(rawValue: String(rawValue.dropFirst("medical.".count)))!)
+        case _ where rawValue.starts(with: "food."):
+            self = .food(ListSymbolFood(rawValue: String(rawValue.dropFirst("food.".count)))!)
+        case _ where rawValue.starts(with: "object."):
+            self = .object(ListSymbolObject(rawValue: String(rawValue.dropFirst("object.".count)))!)
+        case _ where rawValue.starts(with: "communication."):
+            self = .communication(ListSymbolCommunication(rawValue: String(rawValue.dropFirst("communication.".count)))!)
+        case _ where rawValue.starts(with: "human."):
+            self = .human(ListSymbolHuman(rawValue: String(rawValue.dropFirst("human.".count)))!)
+        case _ where rawValue.starts(with: "places-buildings."):
+            self = .placesBuildings(ListSymbolPlacesBuildings(rawValue: String(rawValue.dropFirst("places-buildings.".count)))!)
+        case _ where rawValue.starts(with: "entertainment."):
+            self = .entertainment(ListSymbolEntertainment(rawValue: String(rawValue.dropFirst("entertainment.".count)))!)
+        case _ where rawValue.starts(with: "documents-reading-writing."):
+            self = .documentsReadingWriting(ListSymbolDocumentsReadingWriting(rawValue: String(rawValue.dropFirst("documents-reading-writing.".count)))!)
+        case _ where rawValue.starts(with: "clothing-accessories."):
+            self = .clothingAccessories(ListSymbolClothingAccessories(rawValue: String(rawValue.dropFirst("clothing-accessories.".count)))!)
         default:
             return nil
         }
@@ -402,225 +162,77 @@ extension ListSymbol: RawRepresentable {
             return "emoji.\(emoji)"
         case .listBullet:
             return "list-bullet"
-        case .bookmark:
-            return "bookmark"
-        case .mapPin:
-            return "map-pin"
-        case .present:
-            return "gift"
-        case .birthdayCake:
-            return "birthday-cake"
-        case .graduationCap:
-            return "graduation-cap"
-        case .backpack:
-            return "backpack"
-        case .pen:
-            return "pencil-and-ruler"
-        case .paper:
-            return "document"
-        case .book:
-            return "book"
-        case .archiveBox:
-            return "archive-box"
-        case .creditcard:
-            return "creditcard"
-        case .money:
-            return "banknote"
-        case .dumbBell:
-            return "dumb-bell"
-        case .run:
-            return "run"
-        case .forkKnife:
-            return "fork-knife"
-        case .wineGlass:
-            return "wine-glass"
-        case .medication:
-            return "medication"
-        case .doctor:
-            return "doctor"
-        case .chairLounge:
-            return "chair-lounge"
-        case .house:
-            return "house"
-        case .office:
-            return "office"
-        case .university:
-            return "university"
-        case .tent:
-            return "tent"
-        case .tv:
-            return "tv"
-        case .musicNote:
-            return "music-note"
-        case .computer:
-            return "computer"
-        case .joystick:
-            return "joystick"
-        case .headphones:
-            return "headphones"
-        case .leaf:
-            return "leaf"
-        case .carrot:
-            return "carrot"
-        case .person:
-            return "person"
-        case .person2:
-            return "person-2"
-        case .person3:
-            return "person-3"
-        case .pawPrint:
-            return "paw-print"
-        case .teddyBear:
-            return "teddy-bear"
-        case .fish:
-            return "fish"
-        case .handcart:
-            return "basket"
-        case .cart:
-            return "cart"
-        case .shoppingBag:
-            return "shopping-bag"
-        case .shippingBox:
-            return "shipping-box"
-        case .soccerBall:
-            return "soccer-ball"
-        case .tennisBall:
-            return "tennis-ball"
-        case .basketball:
-            return "basketball"
-        case .americanFootball:
-            return "american-football"
-        case .tennisRacket:
-            return "tennis-racket"
-        case .tram:
-            return "tram"
-        case .airplane:
-            return "airplane"
-        case .sailboat:
-            return "sailboat"
-        case .car:
-            return "car"
-        case .umbrella:
-            return "umbrella"
-        case .sun:
-            return "sun"
-        case .moon:
-            return "moon"
-        case .rainDrop:
-            return "rain-drop"
-        case .snowflake:
-            return "snowflake"
-        case .flame:
-            return "flame"
-        case .suitcase:
-            return "suitcase"
-        case .tools:
-            return "tools"
-        case .scissors:
-            return "scissors"
-        case .drawingCompass:
-            return "drawing-compass"
-        case .curlyBraces:
-            return "curly-braces"
-        case .lightbulb:
-            return "lightbulb"
-        case .message:
-            return "message"
-        case .exclamataionmark:
-            return "exclamation-mark"
-        case .asteriks:
-            return "asterisk"
-        case .square:
-            return "square"
-        case .circle:
-            return "circle"
-        case .triangle:
-            return "triangle"
-        case .diamond:
-            return "diamond"
-        case .heart:
-            return "heart"
-        case .star:
-            return "star"
+        case .number(let symbol):
+            return "number." + symbol.rawValue
+        case .letter(let symbol):
+            return "letter." + symbol.rawValue
+        case .basicShape(let symbol):
+            return "basic-shape." + symbol.rawValue
+        case .arrows(let symbol):
+            return "arrows." + symbol.rawValue
+        case .math(let symbol):
+            return "math." + symbol.rawValue
+        case .currency(let symbol):
+            return "currency." + symbol.rawValue
+        case .technology(let symbol):
+            return "technology." + symbol.rawValue
+        case .transportation(let symbol):
+            return "transportation." + symbol.rawValue
+        case .sportRecreation(let symbol):
+            return "sport-recreation." + symbol.rawValue
+        case .figureSportsActivity(let symbol):
+            return "figure-sports-activity." + symbol.rawValue
+        case .animal(let symbol):
+            return "animal." + symbol.rawValue
+        case .nature(let symbol):
+            return "nature." + symbol.rawValue
+        case .medical(let symbol):
+            return "medical." + symbol.rawValue
+        case .food(let symbol):
+            return "food." + symbol.rawValue
+        case .object(let symbol):
+            return "object." + symbol.rawValue
+        case .communication(let symbol):
+            return "communication." + symbol.rawValue
+        case .human(let symbol):
+            return "human." + symbol.rawValue
+        case .placesBuildings(let symbol):
+            return "places-buildings." + symbol.rawValue
+        case .entertainment(let symbol):
+            return "entertainment." + symbol.rawValue
+        case .documentsReadingWriting(let symbol):
+            return "documents-reading-writing." + symbol.rawValue
+        case .clothingAccessories(let symbol):
+            return "clothing-accessories." + symbol.rawValue
         }
     }
 }
 
 extension ListSymbol: CaseIterable {
-    static var allCases: [Self] {
-        return [
-            .listBullet,
-            .bookmark,
-            .mapPin,
-            .present,
-            .birthdayCake,
-            .graduationCap,
-            .backpack,
-            .pen,
-            .paper,
-            .book,
-            .archiveBox,
-            .creditcard,
-            .money,
-            .dumbBell,
-            .run,
-            .forkKnife,
-            .wineGlass,
-            .medication,
-            .doctor,
-            .chairLounge,
-            .house,
-            .office,
-            .university,
-            .tent,
-            .tv,
-            .musicNote,
-            .computer,
-            .joystick,
-            .headphones,
-            .leaf,
-            .carrot,
-            .person,
-            .person2,
-            .person3,
-            .pawPrint,
-            .teddyBear,
-            .fish,
-            .handcart,
-            .cart,
-            .shoppingBag,
-            .shippingBox,
-            .soccerBall,
-            .tennisBall,
-            .basketball,
-            .americanFootball,
-            .tennisRacket,
-            .tram,
-            .airplane,
-            .sailboat,
-            .car,
-            .umbrella,
-            .sun,
-            .moon,
-            .rainDrop,
-            .snowflake,
-            .flame,
-            .suitcase,
-            .tools,
-            .scissors,
-            .drawingCompass,
-            .curlyBraces,
-            .lightbulb,
-            .message,
-            .exclamataionmark,
-            .asteriks,
-            .square,
-            .circle,
-            .triangle,
-            .diamond,
-            .heart,
-            .star
-        ]
+    static var allCases: [ListSymbol] {
+        var result: [ListSymbol] = []
+        result += ListSymbolNumber.allCases.map { .number($0) }
+        result += ListSymbolLetter.allCases.map { .letter($0) }
+        result += ListSymbolBasicShape.allCases.map { .basicShape($0) }
+        result += ListSymbolArrow.allCases.map { .arrows($0) }
+        result += ListSymbolMath.allCases.map { .math($0) }
+        result += ListSymbolCurrency.allCases.map { .currency($0) }
+        result += ListSymbolTechnology.allCases.map { .technology($0) }
+        result += ListSymbolTransportation.allCases.map { .transportation($0) }
+        result += ListSymbolSportRecreation.allCases.map { .sportRecreation($0) }
+        result += ListSymbolFigureSportsActivity.allCases.map { .figureSportsActivity($0) }
+        result += ListSymbolAnimal.allCases.map { .animal($0) }
+        result += ListSymbolNature.allCases.map { .nature($0) }
+        result += ListSymbolMedical.allCases.map { .medical($0) }
+        result += ListSymbolFood.allCases.map { .food($0) }
+        result += ListSymbolObject.allCases.map { .object($0) }
+        result += ListSymbolCommunication.allCases.map { .communication($0) }
+        result += ListSymbolHuman.allCases.map { .human($0) }
+        result += ListSymbolPlacesBuildings.allCases.map { .placesBuildings($0) }
+        result += ListSymbolEntertainment.allCases.map { .entertainment($0) }
+        result += ListSymbolDocumentsReadingWriting.allCases.map { .documentsReadingWriting($0) }
+        result += ListSymbolClothingAccessories.allCases.map { .clothingAccessories($0) }
+        return result
     }
 }
 

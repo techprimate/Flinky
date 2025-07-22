@@ -69,7 +69,7 @@ struct LinkDetailItemView: View {
             id: UUID(),
             title: "Example Link",
             url: URL(string: "https://example.com")!,
-            symbol: .house,
+            symbol: .placesBuildings(.house),
             color: .blue
         ),
         LinkListDetailDisplayItem(

@@ -44,7 +44,7 @@ struct PinnedLinkListCardView: View {
     PinnedLinkListCardView(item: .init(
         id: UUID(),
         title: "Favorites",
-        symbol: .star,
+        symbol: .communication(.star),
         color: .yellow,
         count: 15
     ))

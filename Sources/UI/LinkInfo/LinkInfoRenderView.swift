@@ -3,8 +3,8 @@ import SwiftUI
 
 struct LinkInfoRenderView: View {
     @Binding var name: String
-    @Binding var color: LinkColor
-    @Binding var symbol: LinkSymbol
+    @Binding var color: ListColor
+    @Binding var symbol: ListSymbol
 
     let cancelAction: () -> Void
     let saveAction: () -> Void
@@ -40,8 +40,8 @@ struct LinkInfoRenderView: View {
 private extension LinkInfoRenderView {
     struct NameSection: View {
         fileprivate struct IconPreview: View {
-            let symbol: LinkSymbol
-            let color: LinkColor
+            let symbol: ListSymbol
+            let color: ListColor
 
             var body: some View {
                 ZStack {
@@ -61,8 +61,8 @@ private extension LinkInfoRenderView {
         }
 
         @Binding var name: String
-        let color: LinkColor
-        let symbol: LinkSymbol
+        let color: ListColor
+        let symbol: ListSymbol
 
         var body: some View {
             Section {
@@ -91,7 +91,7 @@ private extension LinkInfoRenderView {
 
     struct ColorPickerSection: View {
         private struct ColorView: View {
-            let color: LinkColor
+            let color: ListColor
 
             var body: some View {
                 color.color
@@ -100,11 +100,11 @@ private extension LinkInfoRenderView {
             }
         }
 
-        @Binding var selection: LinkColor
+        @Binding var selection: ListColor
 
         var body: some View {
             Section(L10n.Section.color) {
-                GridPicker(selection: $selection, items: LinkColor.allCases) { color in
+                GridPicker(selection: $selection, items: ListColor.allCases) { color in
                     ColorView(color: color)
                         .accessibilityLabel(L10n.Accessibility.colorOption(colorName(for: color)))
                 }
@@ -113,7 +113,7 @@ private extension LinkInfoRenderView {
             .accessibilityLabel(L10n.Accessibility.colorPicker(colorName(for: selection)))
         }
         
-        private func colorName(for color: LinkColor) -> String {
+        private func colorName(for color: ListColor) -> String {
             switch color {
             case .blue: return "Blue"
             case .lightBlue: return "Light Blue"
@@ -133,7 +133,7 @@ private extension LinkInfoRenderView {
 
     struct SymbolPickerSection: View {
         private struct SymbolView: View {
-            let symbol: LinkSymbol
+            let symbol: ListSymbol
 
             var body: some View {
                 Image(systemSymbol: symbol.sfsymbol)
@@ -153,7 +153,7 @@ private extension LinkInfoRenderView {
             case emoji
         }
 
-        @Binding var selection: LinkSymbol
+        @Binding var selection: ListSymbol
 
         @FocusState private var isEmojiKeyboardFocused: Bool
         @State private var emojiInput = ""
@@ -162,7 +162,7 @@ private extension LinkInfoRenderView {
             Section(L10n.Section.symbol) {
                 AdvancedGridPicker(
                     selection: $selection,
-                    items: LinkSymbol.allCases,
+                    items: ListSymbol.allCases,
                     wildcardButton: {
                         Button {
                             // Select an emoji symbol to highlight it in the UI while the keyboard
@@ -202,7 +202,7 @@ private extension LinkInfoRenderView {
             .accessibilityLabel(L10n.Accessibility.symbolPicker(symbolName(for: selection)))
         }
         
-        private func symbolName(for symbol: LinkSymbol) -> String {
+        private func symbolName(for symbol: ListSymbol) -> String {
             if symbol.isEmoji {
                 return symbol.text ?? "Custom emoji"
             } else {
@@ -214,8 +214,8 @@ private extension LinkInfoRenderView {
 
 #Preview("Symbol") {
     @Previewable @State var name = "My Favorites"
-    @Previewable @State var color: LinkColor = .blue
-    @Previewable @State var icon: LinkSymbol = .bookmark
+    @Previewable @State var color: ListColor = .blue
+    @Previewable @State var icon: ListSymbol = .communication(.bolt)
 
     NavigationStack {
         LinkInfoRenderView(
@@ -230,8 +230,8 @@ private extension LinkInfoRenderView {
 
 #Preview("Emoji") {
     @Previewable @State var name = "My Favorites"
-    @Previewable @State var color: LinkColor = .indigo
-    @Previewable @State var icon: LinkSymbol = .emoji("😎")
+    @Previewable @State var color: ListColor = .indigo
+    @Previewable @State var icon: ListSymbol = .emoji("😎")
 
     NavigationStack {
         LinkInfoRenderView(

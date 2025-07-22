@@ -215,7 +215,7 @@ private extension LinkListInfoRenderView {
 #Preview("Symbol") {
     @Previewable @State var name = "My Favorites"
     @Previewable @State var color: ListColor = .blue
-    @Previewable @State var icon: ListSymbol = .bookmark
+    @Previewable @State var icon: ListSymbol = .object(.archiveBox)
 
     NavigationStack {
         LinkListInfoRenderView(

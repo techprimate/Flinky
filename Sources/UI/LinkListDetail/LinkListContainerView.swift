@@ -80,7 +80,13 @@ struct LinkListContainerView: View {
     }
 
     var listDisplayItem: LinkListDisplayItem {
-        LinkListDisplayItem(id: list.id, title: list.name, symbol: .archiveBox, color: .gray, count: list.links.count)
+        LinkListDisplayItem(
+            id: list.id,
+            title: list.name,
+            symbol: list.symbol ?? .defaultForList,
+            color: list.color ?? .default,
+            count: links.count
+        )
     }
 
     private var filteredLinks: [LinkModel] {
@@ -99,7 +105,7 @@ struct LinkListContainerView: View {
                 id: link.id,
                 title: link.name,
                 url: link.url,
-                symbol: link.symbol ?? .default,
+                symbol: link.symbol ?? .defaultForList,
                 color: link.color ?? .default
             )
         }

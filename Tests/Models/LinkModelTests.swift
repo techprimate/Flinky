@@ -20,9 +20,9 @@ final class LinkModelTests: XCTestCase {
         let updatedAt = Date()
         let name = "Test Link"
         let url = URL(string: "https://example.com")!
-        let color = LinkColor.blue
-        let symbol = LinkSymbol.bookmark
-        
+        let color = ListColor.blue
+        let symbol = ListSymbol.object(.archiveBox)
+
         // When
         let link = LinkModel(
             id: id,
@@ -48,9 +48,9 @@ final class LinkModelTests: XCTestCase {
         // Given
         let name = "Test Link"
         let url = URL(string: "https://example.com")!
-        let color = LinkColor.red
-        let symbol = LinkSymbol.star
-        
+        let color = ListColor.red
+        let symbol = ListSymbol.communication(.star)
+
         // When
         let link = LinkModel(name: name, url: url, color: color, symbol: symbol)
         

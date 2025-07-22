@@ -30,6 +30,8 @@
 		D40BEEF72E2EFFC900391C5A /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
 		D40BEF022E2EFFC900391C5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
+		D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Flinky.xctestplan; sourceTree = "<group>"; };
+		D41B47B12E2FA9F50092FE7A /* ListSymbolLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSymbolLetter.swift; sourceTree = "<group>"; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
+				D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */,
 				D40BEF1C2E2EFFEC00391C5A /* Config */,
 				D40BEF0E2E2EFFD400391C5A /* docs */,
 				D40BEF142E2EFFD600391C5A /* Generated */,
@@ -119,6 +122,7 @@
 				D40BEC182E2EE0C500391C5A /* Tests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
+				D41B47B12E2FA9F50092FE7A /* ListSymbolLetter.swift */,
 			);
 			sourceTree = "<group>";
 		};

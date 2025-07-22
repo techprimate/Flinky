@@ -19,10 +19,10 @@ final class LinkModel {
     var url: URL
 
     /// Color of the link.
-    var color: LinkColor?
+    var color: ListColor?
 
     /// Symbol of the link.
-    var symbol: LinkSymbol?
+    var symbol: ListSymbol?
 
     /// Initializes a new instance of `LinkModel`.
     ///
@@ -34,7 +34,7 @@ final class LinkModel {
     ///   - color: Optional color of the link.
     ///   - symbol: Optional symbol of the link.
     ///   - url: URL of the link.
-    init(id: UUID, createdAt: Date, updatedAt: Date, name: String, color: LinkColor?, symbol: LinkSymbol?, url: URL) {
+    init(id: UUID, createdAt: Date, updatedAt: Date, name: String, color: ListColor?, symbol: ListSymbol?, url: URL) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -45,7 +45,7 @@ final class LinkModel {
     }
     
     /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
-    convenience init(name: String, url: URL, color: LinkColor? = nil, symbol: LinkSymbol? = nil) {
+    convenience init(name: String, url: URL, color: ListColor? = nil, symbol: ListSymbol? = nil) {
         self.init(
             id: UUID(),
             createdAt: Date(),

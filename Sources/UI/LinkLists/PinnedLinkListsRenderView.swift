@@ -48,11 +48,18 @@ struct PinnedLinkListsRenderView<T: View>: View {
     NavigationStack {
         PinnedLinkListsRenderView(
             items: [
-                .init(id: UUID(), title: "All", symbol: .backpack, color: .green, count: 5),
-                .init(id: UUID(), title: "Favorites", symbol: .star, color: .yellow, count: 15),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .curlyBraces, color: .red, count: 2)
+                .init(id: UUID(), title: "All", symbol: .documentsReadingWriting(.backpack), color: .green, count: 5),
+                .init(
+                    id: UUID(),
+                    title: "Favorites",
+                    symbol: .communication(.star),
+                    color: .yellow,
+                    count: 15
+                ),
+                .init(id: UUID(), title: "WeAreDevelopers", symbol: .communication(.link), color: .red, count: 2)
             ],
-            editAction: { _ in },
+            editAction: { _ in
+ },
             unpinAction: { _ in },
             deleteAction: { _ in }
         ) { list in
