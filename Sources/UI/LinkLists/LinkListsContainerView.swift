@@ -11,12 +11,12 @@ struct LinkListsContainerView: View {
     private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkListsContainerView")
     @Query(
         filter: #Predicate { (list: LinkListModel) in list.isPinned == true },
-        sort: \.name
+        sort: [SortDescriptor(\.name, comparator: .localized)]
     )
     private var pinnedLists: [LinkListModel]
     @Query(
         filter: #Predicate { (list: LinkListModel) in list.isPinned == false },
-        sort: \.name
+        sort: [SortDescriptor(\.name, comparator: .localized)]
     )
     private var unpinnedLists: [LinkListModel]
 
