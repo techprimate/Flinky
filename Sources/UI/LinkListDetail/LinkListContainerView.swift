@@ -112,7 +112,7 @@ struct LinkListContainerView: View {
             id: list.id,
             title: list.name,
             symbol: list.symbol ?? .defaultForList,
-            color: list.color ?? .default,
+            color: list.color ?? .defaultForList,
             count: links.count
         )
     }
@@ -134,7 +134,7 @@ struct LinkListContainerView: View {
                 title: link.name,
                 url: link.url,
                 symbol: link.symbol ?? .defaultForList,
-                color: link.color ?? .default
+                color: link.color ?? .defaultForList
             )
         }
     }

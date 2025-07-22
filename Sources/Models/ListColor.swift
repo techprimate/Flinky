@@ -58,7 +58,11 @@ enum ListColor: String, CaseIterable, Identifiable, Codable {
         rawValue
     }
 
-    static var `default`: Self {
+    static var `defaultForList`: Self {
         .gray
+    }
+
+    static var `defaultForLink`: Self {
+        .blue
     }
 }
