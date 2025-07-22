@@ -24,6 +24,11 @@ struct LinkListsContainerView: View {
     @State private var presentedInfoList: LinkListModel?
     @State private var searchText = ""
 
+    @State private var listToDelete: LinkListModel?
+    @State private var isDeleteListPresented = false
+    @State private var listsToDelete: [LinkListModel]?
+    @State private var isDeleteListsPresented = false
+
     var body: some View {
         LinkListsRenderView(
             pinnedLists: pinnedListDisplayItems,
@@ -79,37 +84,24 @@ struct LinkListsContainerView: View {
                     toaster.show(error: appError)
                     return
                 }
-                modelContext.delete(model)
-
-                do {
-                    try modelContext.save()
-                } catch {
-                    Self.logger.error("Failed to delete list: \(error)")
-                    let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
-                    SentrySDK.capture(error: appError)
-                    toaster.show(error: appError)
-                }
+                listToDelete = model
+                isDeleteListPresented = true
             },
             deleteUnpinnedListsAction: { offsets in
-                // Map the indicies to the models first, as deleting models can cause indicies to be wrong
                 let models = offsets.map { unpinnedLists[$0] }
-                for model in models {
-                    modelContext.delete(model)
+                if models.isEmpty {
+                    return
                 }
-                do {
-                    try modelContext.save()
-                } catch {
-                    Self.logger.error("Failed to save changes after deletion: \(error)")
-                    let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
-                    SentrySDK.capture(error: appError)
-                    toaster.show(error: appError)
-                }
+                listsToDelete = models
+                isDeleteListsPresented = true
             },
             editListAction: { item in
                 presentedInfoList = (pinnedLists + unpinnedLists).first { $0.id == item.id }
             }
         ) { listDisplayItem in
-            LinkListContainerView(list: (pinnedLists + unpinnedLists).first { $0.id == listDisplayItem.id }!)
+            if let list = (pinnedLists + unpinnedLists).first(where: { $0.id == listDisplayItem.id }) {
+                LinkListContainerView(list: list)
+            }
         }
         .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
         .sheet(isPresented: $isCreateListPresented) {
@@ -121,6 +113,44 @@ struct LinkListsContainerView: View {
             NavigationStack {
                 LinkListInfoContainerView(list: list)
             }
+        }
+        .alert(L10n.Delete.List.alertTitle(listToDelete?.name ?? ""), isPresented: $isDeleteListPresented, presenting: listToDelete) { list in
+            Button(role: .destructive) {
+                modelContext.delete(list)
+
+                do {
+                    try modelContext.save()
+                } catch {
+                    Self.logger.error("Failed to delete list: \(error)")
+                    let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
+            } label: {
+                Text(L10n.Delete.button)
+            }
+        } message: { link in
+            Text(L10n.Delete.Warning.cannotUndo)
+        }
+        .alert(L10n.Delete.Lists.alertTitle, isPresented: $isDeleteListsPresented, presenting: listsToDelete) { lists in
+            Button(role: .destructive) {
+                for list in lists {
+                    modelContext.delete(list)
+                }
+
+                do {
+                    try modelContext.save()
+                } catch {
+                    Self.logger.error("Failed to save changes after deletion: \(error)")
+                    let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
+            } label: {
+                Text(L10n.Delete.button)
+            }
+        } message: { links in
+            Text(L10n.Delete.Lists.warningMessage(links.map(\.name).joined(separator: ", ")))
         }
     }
 

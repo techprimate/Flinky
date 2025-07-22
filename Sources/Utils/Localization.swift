@@ -180,6 +180,44 @@ internal enum L10n {
     /// New List
     internal static let title = L10n.tr("create_list.title", fallback: "New List")
   }
+  internal enum Delete {
+    /// Delete
+    internal static let button = L10n.tr("delete.button", fallback: "Delete")
+    internal enum Link {
+      /// Delete link "%@"?
+      internal static func alertTitle(_ p1: Any) -> String {
+        return L10n.tr("delete.link.alert_title", String(describing: p1), fallback: "Delete link \"%@\"?")
+      }
+    }
+    internal enum Links {
+      /// Delete selected links?
+      internal static let alertTitle = L10n.tr("delete.links.alert_title", fallback: "Delete selected links?")
+      /// This will delete the links "%@".
+      /// This can not be undone.
+      internal static func warningMessage(_ p1: Any) -> String {
+        return L10n.tr("delete.links.warning_message", String(describing: p1), fallback: "This will delete the links \"%@\".\nThis can not be undone.")
+      }
+    }
+    internal enum List {
+      /// Delete list "%@"?
+      internal static func alertTitle(_ p1: Any) -> String {
+        return L10n.tr("delete.list.alert_title", String(describing: p1), fallback: "Delete list \"%@\"?")
+      }
+    }
+    internal enum Lists {
+      /// Delete selected lists?
+      internal static let alertTitle = L10n.tr("delete.lists.alert_title", fallback: "Delete selected lists?")
+      /// This will delete the lists "%@" and their links.
+      /// This can not be undone.
+      internal static func warningMessage(_ p1: Any) -> String {
+        return L10n.tr("delete.lists.warning_message", String(describing: p1), fallback: "This will delete the lists \"%@\" and their links.\nThis can not be undone.")
+      }
+    }
+    internal enum Warning {
+      /// This can not be undone.
+      internal static let cannotUndo = L10n.tr("delete.warning.cannot_undo", fallback: "This can not be undone.")
+    }
+  }
   internal enum Error {
     /// Data Error: %@
     internal static func dataCorruption(_ p1: Any) -> String {

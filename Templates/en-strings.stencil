@@ -25,10 +25,10 @@
         {% set propertyValue %}{{data[key][propertyKey].localizations.en.stringUnit.value}}{% endset %}
         {% set propertyPluralValue %}{{data[key][propertyKey].localizations.en.variations.plural.other.stringUnit.value}}{% endset %}
         {% if propertyValue and propertyKey|swiftIdentifier:"pretty"|lowerFirstWord %}
-"{{propertyKey}}" = "{{propertyValue}}";
+"{{propertyKey}}" = "{{propertyValue|replace:'"','\"'}}";
         {% endif %}
         {% if propertyPluralValue and propertyKey|swiftIdentifier:"pretty"|lowerFirstWord %}
-"{{propertyKey}}" = "{{propertyPluralValue}}";
+"{{propertyKey}}" = "{{propertyPluralValue|replace:'"','\"'}}";
         {% endif %}
       {% endfor %}
     {% else %}

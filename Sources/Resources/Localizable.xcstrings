@@ -709,6 +709,102 @@
     "Delete List" : {
 
     },
+    "delete.button" : {
+      "comment" : "Delete button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "delete.link.alert_title" : {
+      "comment" : "Delete link confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete link \"%@\"?"
+          }
+        }
+      }
+    },
+    "delete.links.alert_title" : {
+      "comment" : "Delete multiple links confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete selected links?"
+          }
+        }
+      }
+    },
+    "delete.links.warning_message" : {
+      "comment" : "Warning message for deleting multiple links",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will delete the links \"%@\".\\nThis can not be undone."
+          }
+        }
+      }
+    },
+    "delete.list.alert_title" : {
+      "comment" : "Delete list confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete list \"%@\"?"
+          }
+        }
+      }
+    },
+    "delete.lists.alert_title" : {
+      "comment" : "Delete multiple lists confirmation alert title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete selected lists?"
+          }
+        }
+      }
+    },
+    "delete.lists.warning_message" : {
+      "comment" : "Warning message for deleting multiple lists",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will delete the lists \"%@\" and their links.\\nThis can not be undone."
+          }
+        }
+      }
+    },
+    "delete.warning.cannot_undo" : {
+      "comment" : "Warning that deletion cannot be undone",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This can not be undone."
+          }
+        }
+      }
+    },
     "Edit" : {
 
     },
