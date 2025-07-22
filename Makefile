@@ -1,7 +1,10 @@
-.PHONY: build-ios format lint generate generate-licenses generate-localization
+.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization
 
 build-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | xcbeautify
+
+test-ios:
+	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
 
 format:
 	swiftformat Sources
