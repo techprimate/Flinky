@@ -156,7 +156,7 @@ extension ListSymbolCommunication: RawRepresentable {
             self = .network
         case "link":
             self = .link
-        case "wifi":
+        case "wifi-2":
             self = .wifi2
         case "checkmark":
             self = .checkmark
@@ -223,7 +223,7 @@ extension ListSymbolCommunication: RawRepresentable {
         case "waveform":
             self = .waveform
         case "grid":
-            self = .circleHexagonPath
+            self = .grid
         case "circle-hexagon-path":
             self = .circleHexagonPath
         case "trash":
@@ -233,7 +233,7 @@ extension ListSymbolCommunication: RawRepresentable {
         case "gear":
             self = .gear
         case "wrench":
-            return nil
+            self = .wrench
         case "fire-extinguisher":
             self = .fireExtinguisher
         case "no-sign":
@@ -246,36 +246,6 @@ extension ListSymbolCommunication: RawRepresentable {
             self = .calendar
         case "chart":
             self = .chart
-        case "plus-forward-slash-minus":
-            return nil
-        case "headlight-high-beam":
-            return nil
-        case "hand-raised":
-            return nil
-        case "hand-wave":
-            return nil
-        case "thumbs-up":
-            return nil
-        case "thumbs-down":
-            return nil
-        case "person":
-            return nil
-        case "person-2":
-            return nil
-        case "person-3":
-            return nil
-        case "person-crop-square":
-            return nil
-        case "person-text-rectangle":
-            return nil
-        case "mustache":
-            return nil
-        case "person-2-badge":
-            return nil
-        case "person-3-badge":
-            return nil
-        case "person-crop-square-badge":
-            return nil
         default:
             return nil
         }
@@ -384,7 +354,7 @@ extension ListSymbolCommunication: RawRepresentable {
 extension ListSymbolCommunication: CaseIterable {
     static var allCases: [ListSymbolCommunication] {
         return [
-            .network, .link, .checkmark, .checkmarkSeal, .checkmarkSealTextPage, .questionMark, .questionMarkTextPage, .exclamationMark, .exclamationMarkBubble, .exclamationMarkShield, .exclamationMarkTriangle, .seal, .shield, .shieldLeftHalf, .shieldPatternCheckered, .crown, .flag, .flag2Crossed, .checkerFlag, .message, .bubble, .captionsBubble, .heart, .heartTextClipboard, .star, .asterisk, .lightbulb, .bolt, .boltHeart, .apple, .swirl, .swirlInverse, .beziercurve, .waveform, .grid, .circleHexagonPath, .trash, .gear, .fireExtinguisher, .noSign, .noteText, .number, .calendar, .chart,
+            .network, .link, .checkmark, .checkmarkSeal, .checkmarkSealTextPage, .questionMark, .questionMarkTextPage, .exclamationMark, .exclamationMarkBubble, .exclamationMarkShield, .exclamationMarkTriangle, .seal, .shield, .shieldLeftHalf, .shieldPatternCheckered, .crown, .flag, .flag2Crossed, .checkerFlag, .message, .bubble, .captionsBubble, .heart, .heartTextClipboard, .star, .asterisk, .lightbulb, .bolt, .boltHeart, .apple, .swirl, .swirlInverse, .beziercurve, .waveform, .grid, .circleHexagonPath, .trash, .gear, .fireExtinguisher, .noSign, .noteText, .number, .calendar, .chart, .archiveArrow, .wifi2, .wrench
         ]
     }
 }

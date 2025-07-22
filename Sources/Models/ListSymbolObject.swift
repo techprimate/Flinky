@@ -229,7 +229,7 @@ extension ListSymbolObject: RawRepresentable {
         case "tent":
             self = .tent
         case "tent-2":
-            self = .tent
+            self = .tent2
         case "wallet":
             self = .wallet
         default:

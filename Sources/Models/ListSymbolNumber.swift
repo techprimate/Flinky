@@ -1,26 +1,26 @@
 import SFSafeSymbols
 
 enum ListSymbolNumber {
-    case number00
     case number0
-    case number01
     case number1
-    case number02
     case number2
-    case number03
     case number3
-    case number04
     case number4
-    case number05
     case number5
-    case number06
     case number6
-    case number07
     case number7
-    case number08
     case number8
-    case number09
     case number9
+    case number00
+    case number01
+    case number02
+    case number03
+    case number04
+    case number05
+    case number06
+    case number07
+    case number08
+    case number09
     case number10
     case number11
     case number12
@@ -460,8 +460,8 @@ extension ListSymbolNumber: RawRepresentable {
 extension ListSymbolNumber: CaseIterable {
     static var allCases: [Self] {
         return [
-            .number0, .number1, .number2,  .number3, .number4, .number05, .number5, .number6, .number7, .number8, .number9, .number10,
-            .number00, .number01, .number02, .number03, .number04, .number05, .number06, .number07, .number08, .number09,
+            .number0, .number1, .number2,  .number3, .number4, .number5, .number6, .number7, .number8, .number9,
+            .number00, .number01, .number02, .number03, .number04, .number05, .number06, .number07, .number08, .number09, .number10,
             .number11, .number12, .number13, .number14, .number15, .number16, .number17, .number18, .number19, .number20,
             .number21, .number22, .number23, .number24, .number25, .number26, .number27, .number28, .number29, .number30,
             .number31, .number32, .number33, .number34, .number35, .number36, .number37, .number38, .number39, .number40,

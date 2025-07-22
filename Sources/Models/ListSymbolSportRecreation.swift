@@ -19,7 +19,7 @@ enum ListSymbolSportRecreation {
     case medal
     case medalStar
     case trophy
-    case run
+    case running
 
     var sfsymbol: SFSymbol {
         switch self {
@@ -59,7 +59,7 @@ enum ListSymbolSportRecreation {
             return .medalStarFill
         case .trophy:
             return .trophyFill
-        case .run:
+        case .running:
             return .figureRun
         }
     }
@@ -70,12 +70,14 @@ extension ListSymbolSportRecreation: RawRepresentable {
         switch rawValue {
         case "soccer-ball":
             self = .soccerBall
-        case "basketball":
-            self = .basketball
         case "american-football":
             self = .americanFootball
         case "baseball":
             self = .baseball
+        case "baseball-diamond":
+            self = .baseballDiamond
+        case "basketball":
+            self = .basketball
         case "rugby-ball":
             self = .rugbyBall
         case "tennis-ball":
@@ -102,6 +104,8 @@ extension ListSymbolSportRecreation: RawRepresentable {
             self = .medalStar
         case "trophy":
             self = .trophy
+        case "running":
+            self = .running
         default:
             return nil
         }
@@ -145,8 +149,8 @@ extension ListSymbolSportRecreation: RawRepresentable {
             return "medal-star"
         case .trophy:
             return "trophy"
-        case .run:
-            return "figure-running"
+        case .running:
+            return "running"
         }
     }
 }
@@ -154,7 +158,7 @@ extension ListSymbolSportRecreation: RawRepresentable {
 extension ListSymbolSportRecreation: CaseIterable {
     static var allCases: [ListSymbolSportRecreation] {
         return [
-            .soccerBall, .basketball, .americanFootball, .baseball, .baseballDiamond, .rugbyBall, .tennisBall, .tennisRacket, .volleyball, .hockeyPuck, .surfboard, .skis, .snowboard, .dumbBell, .oars, .medal, .medalStar, .trophy, .run,
+            .soccerBall, .basketball, .americanFootball, .baseball, .baseballDiamond, .rugbyBall, .tennisBall, .tennisRacket, .volleyball, .hockeyPuck, .surfboard, .skis, .snowboard, .dumbBell, .oars, .medal, .medalStar, .trophy, .running,
         ]
     }
 }

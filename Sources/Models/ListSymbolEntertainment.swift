@@ -43,13 +43,15 @@ extension ListSymbolEntertainment: RawRepresentable {
         case "balloon":
             self = .balloon
         case "balloon-2":
-            self = .balloon
+            self = .balloon2
         case "party-popper":
             self = .partyPopper
         case "dice":
             self = .dice
         case "play-button":
             self = .playButton
+        case "play-rectangle":
+            self = .playRectangle
         case "tv-play":
             self = .tvPlay
         case "music-note":

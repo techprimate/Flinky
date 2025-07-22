@@ -44,6 +44,8 @@ enum ListSymbolAnimal {
 extension ListSymbolAnimal: RawRepresentable {
     init?(rawValue: String) {
         switch rawValue {
+        case "ant":
+            self = .ant
         case "bird":
             self = .bird
         case "cat":
@@ -52,8 +54,6 @@ extension ListSymbolAnimal: RawRepresentable {
             self = .dog
         case "fish":
             self = .fish
-        case "ant2":
-            self = .ant
         case "ladybug":
             self = .ladybug
         case "lizard":

@@ -127,6 +127,8 @@ extension ListSymbolTechnology: RawRepresentable {
             self = .phone
         case "printer":
             self = .printer
+        case "computer":
+            self = .computer
         case "computer-mouse":
             self = .computerMouse
         case "cpu":
@@ -175,6 +177,10 @@ extension ListSymbolTechnology: RawRepresentable {
             self = .camera
         case "tv":
             self = .tv
+        case "game-controller":
+            self = .gameController
+        case "headlight-high-beam":
+            self = .headlightHighBeam
         default:
             return nil
         }
@@ -207,7 +213,7 @@ extension ListSymbolTechnology: RawRepresentable {
         case .externalDrive:
             return "external-drive"
         case .powerOutletB:
-            return "power-outlet"
+            return "power-outlet-b"
         case .powerOutletF:
             return "power-outlet-f"
         case .powerOutletJ:
@@ -257,10 +263,40 @@ extension ListSymbolTechnology: RawRepresentable {
 extension ListSymbolTechnology: CaseIterable {
     static var allCases: [ListSymbolTechnology] {
         return [
-            .airPurifier, .airpods, .alarm, .terminal, .arcadeStick, .phone, .printer, .computerMouse, .cpu, .wifi,
-            .icloud, .externalDrive, .powerOutletB, .powerOutletF, .powerOutletJ, .powerPlug, .powerPlugPortrait,
-            .speaker, .hifiSpeaker, .headphones, .headset, .microphone, .musicMicrophone, .recordingTape, .playstation,
-            .xbox, .video, .photo, .photoAngled, .camera, .tv, .headlightHighBeam,
+            .airPurifier,
+                .airpods,
+                .alarm,
+                .terminal,
+                .arcadeStick,
+                .phone,
+                .printer,
+                .computerMouse,
+                .cpu,
+                .wifi,
+                .icloud,
+                .externalDrive,
+                .powerOutletB,
+                .powerOutletF,
+                .powerOutletJ,
+                .powerPlug,
+                .powerPlugPortrait,
+                .speaker,
+                .hifiSpeaker,
+                .headphones,
+                .headset,
+                .microphone,
+                .musicMicrophone,
+                .recordingTape,
+                .playstation,
+                .xbox,
+                .video,
+                .photo,
+                .photoAngled,
+                .camera,
+                .computer,
+                .gameController,
+                .tv,
+                .headlightHighBeam,
         ]
     }
 }

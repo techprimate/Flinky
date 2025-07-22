@@ -31,7 +31,6 @@
 		D40BEF022E2EFFC900391C5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Flinky.xctestplan; sourceTree = "<group>"; };
-		D41B47B12E2FA9F50092FE7A /* ListSymbolLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSymbolLetter.swift; sourceTree = "<group>"; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +95,7 @@
 				D40BEEF52E2EFFC900391C5A /* .swiftformat */,
 				D40BEEF62E2EFFC900391C5A /* .swiftlint.yml */,
 				D40BEEF72E2EFFC900391C5A /* Brewfile */,
+				D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */,
 				D40BEF022E2EFFC900391C5A /* Makefile */,
 				D40BEF072E2EFFC900391C5A /* swiftgen.yml */,
 			);
@@ -112,7 +112,6 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
-				D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */,
 				D40BEF1C2E2EFFEC00391C5A /* Config */,
 				D40BEF0E2E2EFFD400391C5A /* docs */,
 				D40BEF142E2EFFD600391C5A /* Generated */,
@@ -122,7 +121,6 @@
 				D40BEC182E2EE0C500391C5A /* Tests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
-				D41B47B12E2FA9F50092FE7A /* ListSymbolLetter.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,7 +278,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n# ./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

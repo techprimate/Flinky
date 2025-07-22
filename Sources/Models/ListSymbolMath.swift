@@ -59,6 +59,8 @@ extension ListSymbolMath: RawRepresentable {
             self = .sum
         case "percent":
             self = .percent
+        case "plus-forward-slash-minus":
+            self = .plusForwardSlashMinus
         default:
             return nil
         }
