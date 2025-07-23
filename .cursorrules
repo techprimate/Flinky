@@ -1,0 +1,147 @@
+# Flinky iOS App Development Rules
+
+## Localization Strategy
+
+### Hierarchical Organization
+- Use **view-then-component** hierarchical structure with lowercase-dash-dot notation
+- Pattern: `view-name.component.property.accessibility.type` for view-specific strings
+- Pattern: `shared.component.property.accessibility.type` for reusable components
+
+### Key Categories
+
+**View-Specific Patterns:**
+- `app.*` - App-level strings
+- `create-link.*` - Link creation interface  
+- `create-list.*` - List creation interface
+- `link-detail.*` - Link detail view
+- `link-lists.*` - Lists overview
+- `link-list-detail.*` - Individual list view
+- `search.*` - Search functionality
+
+**Shared Component Patterns:**
+- `shared.button.*` - Reusable buttons (Save, Cancel, Done, Delete, Edit)
+- `shared.form.*` - Form fields (Title, Name, URL)
+- `shared.error.*` - Error messages and recovery
+- `shared.action.*` - Context menu/swipe actions (Edit, Delete, Pin, Share)
+- `shared.item.*` - List/link item accessibility
+- `shared.color-picker.*` - Color selection interface
+- `shared.symbol-picker.*` - Symbol selection interface
+- `shared.qr-code.*` - QR code generation and display
+- `shared.toast.*` - Toast notifications
+- `shared.delete-confirmation.*` - Deletion confirmation dialogs
+- `shared.persistence.*` - Persistence error messages
+
+### Usage Guidelines
+
+**Use View-Specific Keys When:**
+- The string is unique to a particular view or feature
+- The context matters for translation
+- The string has view-specific wording
+
+**Use Shared Keys When:**
+- The string appears in multiple views
+- It's a common UI element (buttons, form fields, errors)
+- It's a standard action or message
+
+### Accessibility Pattern
+Always follow this pattern for accessibility:
+```
+component.accessibility.label    // What the element is
+component.accessibility.hint     // What it does or how to use it
+```
+
+Examples:
+- `L10n.LinkDetail.EditLink.Accessibility.label` // "Edit link"
+- `L10n.LinkDetail.EditLink.Accessibility.hint` // "Edit link properties"
+
+### Development Workflow
+1. **Plan your keys**: Decide if strings are view-specific or shared
+2. **Follow the hierarchy**: Use the established patterns
+3. **Add to Xcode**: Add strings to `Sources/Resources/Localizable.xcstrings`
+4. **Generate**: Run `make generate-localization`
+5. **Use in code**: Reference the generated constants: `L10n.YourCategory.yourKey`
+6. **Build and test**: Use `make build-ios` to catch any localization issues
+
+## Error Handling Pattern
+
+Follow this consistent error handling pattern throughout the app:
+1. **Local string**: Use a descriptive local string (e.g. "Failed to save link: \(error)")
+2. **Capture exception**: Immediately capture with `Sentry.captureException(appError)`
+3. **User notification**: Propagate to user with `toaster.show(error: appError)`
+
+Example:
+```swift
+do {
+    try await saveLink()
+} catch {
+    let localDescription = "Failed to save link: \(error)"
+    let appError = AppError.persistence(.saveLinkFailed, underlyingError: error)
+    Sentry.captureException(appError)
+    toaster.show(error: appError)
+}
+```
+
+## SwiftUI Best Practices
+
+### Avoid @EnvironmentObject
+- Prefer explicit dependency injection over `@EnvironmentObject`
+- `@EnvironmentObject` can cause crashes if the ObservableObject isn't properly injected
+- Use direct parameter passing or `@StateObject` with explicit initialization
+
+### Complex Expression Handling
+- If SwiftUI compiler timeouts occur, break complex modifier chains into separate computed properties
+- Extract complex `ForEach` logic into individual view functions
+- Keep view body expressions simple and readable
+
+## Code Organization
+
+### File Structure
+- Follow the existing modular structure in `Sources/`
+- Place view-specific components in appropriate UI subdirectories
+- Keep shared utilities in `Utils/` and `Services/`
+- Store models in `Models/` directory
+
+### Naming Conventions
+- Use clear, descriptive names for all components
+- Follow Swift naming conventions (camelCase for variables/functions, PascalCase for types)
+- Use meaningful prefixes for related components (e.g. `LinkDetail*`, `CreateLink*`)
+
+## Build System
+
+### Available Commands
+- `make build-ios` - Build and test for compilation issues
+- `make generate-localization` - Regenerate localization files
+- `make generate` - Generate all auto-generated files (localization, licenses, version)
+
+### Development Cycle
+1. Make code changes
+2. Run `make generate-localization` if strings were added/modified
+3. Run `make build-ios` to verify compilation
+4. Test functionality in simulator/device
+
+## Accessibility
+
+### Required Practices
+- Always provide accessibility labels for interactive elements
+- Use accessibility hints to describe what actions do
+- Test with VoiceOver enabled
+- Follow the established `*.accessibility.label` and `*.accessibility.hint` patterns
+
+### Implementation
+- Use `L10n.Shared.*` for common accessibility strings
+- Use view-specific accessibility strings when context matters
+- Ensure all buttons, links, and interactive elements have proper accessibility support
+
+## Code Quality
+
+### Required Standards
+- No hardcoded strings - always use localized strings from `L10n`
+- Proper error handling with the established pattern
+- Clean, readable code with appropriate comments
+- Follow established architectural patterns in the codebase
+
+### Before Submitting
+- Run `make build-ios` to ensure compilation success
+- Verify all strings are properly localized
+- Test accessibility with VoiceOver
+- Check that error handling follows the established pattern 
