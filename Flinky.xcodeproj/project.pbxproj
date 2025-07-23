@@ -278,7 +278,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n# ./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

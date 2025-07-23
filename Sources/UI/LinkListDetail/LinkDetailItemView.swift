@@ -25,40 +25,40 @@ struct LinkDetailItemView: View {
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(L10n.Accessibility.linkItem(item.title, item.url.absoluteString))
-        .accessibilityHint(L10n.Accessibility.linkItemHint)
+        .accessibilityLabel(L10n.Shared.Item.Link.Accessibility.label(item.title, item.url.absoluteString))
+        .accessibilityHint(L10n.Shared.Item.Link.Accessibility.hint)
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 deleteAction()
             } label: {
-                Label("Delete", systemSymbol: .trash)
+                Label(L10n.Shared.Action.delete, systemSymbol: .trash)
             }
             .tint(.red)
-            .accessibilityLabel(L10n.Accessibility.deleteLink(item.title))
+            .accessibilityLabel(L10n.Shared.Item.Link.Delete.Accessibility.label(item.title))
             
             Button {
                 editAction()
             } label: {
-                Label("Edit", systemSymbol: .pencil)
+                Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
             }
             .tint(.blue)
-            .accessibilityLabel(L10n.Accessibility.editLink(item.title))
+            .accessibilityLabel(L10n.Shared.Item.Link.Edit.Accessibility.label(item.title))
         }
         .contextMenu {
             Button {
                 editAction()
             } label: {
-                Label("Edit", systemSymbol: .pencil)
+                Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
             }
-            .accessibilityLabel(L10n.Accessibility.editLink(item.title))
+            .accessibilityLabel(L10n.Shared.Item.Link.Edit.Accessibility.label(item.title))
             
             Button(role: .destructive) {
                 deleteAction()
             } label: {
-                Label("Delete", systemSymbol: .trash)
+                Label(L10n.Shared.Action.delete, systemSymbol: .trash)
             }
             .tint(.red)
-            .accessibilityLabel(L10n.Accessibility.deleteLink(item.title))
+            .accessibilityLabel(L10n.Shared.Item.Link.Delete.Accessibility.label(item.title))
         }
     }
 }

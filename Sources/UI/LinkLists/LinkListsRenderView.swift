@@ -30,7 +30,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 destination: destination
             )
             List {
-                Section(!unpinnedLists.isEmpty ? L10n.Lists.myListsSection : "") {
+                Section(!unpinnedLists.isEmpty ? L10n.LinkLists.myListsSection : "") {
                     ForEach(unpinnedLists, id: \.self) { list in
                         itemForList(list)
                     }
@@ -43,9 +43,9 @@ struct LinkListsRenderView<Destination: View>: View {
         .overlay {
             if pinnedLists.isEmpty && unpinnedLists.isEmpty {
                 ContentUnavailableView(
-                    L10n.Lists.noListsTitle,
+                    L10n.LinkLists.noListsTitle,
                     systemSymbol: .trayFill,
-                    description: Text(L10n.Lists.noListsDescription)
+                    description: Text(L10n.LinkLists.noListsDescription)
                 )
             }
         }
@@ -65,8 +65,8 @@ struct LinkListsRenderView<Destination: View>: View {
                         .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.Accessibility.Button.newList)
-                .accessibilityHint(L10n.Accessibility.Hint.createNewList)
+                .accessibilityLabel(L10n.Shared.Button.NewList.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.NewList.Accessibility.label)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

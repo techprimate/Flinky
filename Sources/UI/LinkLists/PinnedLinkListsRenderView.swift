@@ -24,17 +24,17 @@ struct PinnedLinkListsRenderView<T: View>: View {
                             Button {
                                 editAction(item)
                             } label: {
-                                Label("Edit List", systemSymbol: .pencil)
+                                Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
                             }
                             Button {
                                 unpinAction(item)
                             } label: {
-                                Label("Unpin List", systemSymbol: .pinSlashFill)
+                                Label(L10n.Shared.Action.unpin, systemSymbol: .pinSlashFill)
                             }
                             Button(role: .destructive) {
                                 deleteAction(item)
                             } label: {
-                                Label("Delete List", systemSymbol: .trash)
+                                Label(L10n.Shared.Action.delete, systemSymbol: .trash)
                             }
                         }
                 }

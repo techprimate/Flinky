@@ -22,11 +22,11 @@ struct CreateLinkListEditorRenderView: View {
 
     var body: some View {
         Form {
-            TextField(L10n.Form.name, text: $name)
+            TextField(L10n.Shared.Form.Name.label, text: $name)
                 .tag(CreateField.name)
                 .focused($focusedField, equals: .name)
-                .accessibilityLabel(L10n.Accessibility.Form.nameField)
-                .accessibilityHint(L10n.Accessibility.Hint.enterListName)
+                .accessibilityLabel(L10n.Shared.Form.Name.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
                 .onSubmit {
                     submit()
                 }
@@ -34,18 +34,18 @@ struct CreateLinkListEditorRenderView: View {
         .navigationTitle(L10n.CreateList.title)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(L10n.Form.cancel) {
+                Button(L10n.Shared.Button.Cancel.label) {
                     dismiss()
                 }
-                .accessibilityLabel(L10n.Accessibility.Button.cancel)
+                .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button(L10n.Form.save) {
+                Button(L10n.Shared.Button.Save.label) {
                     submit()
                 }
                 .disabled(!isValid())
-                .accessibilityLabel(L10n.Accessibility.Button.save)
-                .accessibilityHint(isValid() ? L10n.Accessibility.Hint.saveNewList : L10n.Accessibility.Hint.enterNameFirst)
+                .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                .accessibilityHint(isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Name.Accessibility.hint)
             }
         }
         .onAppear {

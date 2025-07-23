@@ -19,17 +19,82 @@ struct LinkListsContainerView: View {
         sort: [SortDescriptor(\.name, comparator: .localized)]
     )
     private var unpinnedLists: [LinkListModel]
-
+    
     @State private var isCreateListPresented = false
     @State private var presentedInfoList: LinkListModel?
     @State private var searchText = ""
-
+    
     @State private var listToDelete: LinkListModel?
     @State private var isDeleteListPresented = false
     @State private var listsToDelete: [LinkListModel]?
     @State private var isDeleteListsPresented = false
-
+    
     var body: some View {
+        viewWithAlerts
+    }
+    
+    var viewWithAlerts: some View {
+        viewWithSheets
+            .alert(L10n.Shared.DeleteConfirmation.List.alertTitle(listToDelete?.name ?? ""), isPresented: $isDeleteListPresented, presenting: listToDelete) { list in
+                Button(role: .destructive) {
+                    modelContext.delete(list)
+                    
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        Self.logger.error("Failed to delete list: \(error)")
+                        let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                        SentrySDK.capture(error: appError)
+                        toaster.show(error: appError)
+                    }
+                } label: {
+                    Text(L10n.Shared.Button.Delete.label)
+                }
+            } message: { link in
+                Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
+            }
+            .alert(L10n.Shared.DeleteConfirmation.Lists.alertTitle, isPresented: $isDeleteListsPresented, presenting: listsToDelete) { lists in
+                Button(role: .destructive) {
+                    for list in lists {
+                        modelContext.delete(list)
+                    }
+                    
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        Self.logger.error("Failed to save changes after deletion: \(error)")
+                        let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
+                        SentrySDK.capture(error: appError)
+                        toaster.show(error: appError)
+                    }
+                } label: {
+                    Text(L10n.Shared.Button.Delete.label)
+                }
+            } message: { links in
+                Text(L10n.Shared.DeleteConfirmation.Lists.warningMessage(links.map(\.name).joined(separator: ", ")))
+            }
+    }
+    
+    var viewWithSheets: some View {
+        searchableView
+            .sheet(isPresented: $isCreateListPresented) {
+                NavigationStack {
+                    CreateLinkListEditorContainerView()
+                }
+            }
+            .sheet(item: $presentedInfoList) { list in
+                NavigationStack {
+                    LinkListInfoContainerView(list: list)
+                }
+            }
+    }
+    
+    var searchableView: some View {
+        renderView
+            .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
+    }
+    
+    var renderView: some View {
         LinkListsRenderView(
             pinnedLists: pinnedListDisplayItems,
             unpinnedLists: listDisplayItems,
@@ -46,7 +111,7 @@ struct LinkListsContainerView: View {
                 }
                 model.isPinned = true
                 model.updatedAt = Date()
-
+                
                 do {
                     try modelContext.save()
                 } catch {
@@ -66,7 +131,7 @@ struct LinkListsContainerView: View {
                 }
                 model.isPinned = false
                 model.updatedAt = Date()
-
+                
                 do {
                     try modelContext.save()
                 } catch {
@@ -103,63 +168,14 @@ struct LinkListsContainerView: View {
                 LinkListContainerView(list: list)
             }
         }
-        .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
-        .sheet(isPresented: $isCreateListPresented) {
-            NavigationStack {
-                CreateLinkListEditorContainerView()
-            }
-        }
-        .sheet(item: $presentedInfoList) { list in
-            NavigationStack {
-                LinkListInfoContainerView(list: list)
-            }
-        }
-        .alert(L10n.Delete.List.alertTitle(listToDelete?.name ?? ""), isPresented: $isDeleteListPresented, presenting: listToDelete) { list in
-            Button(role: .destructive) {
-                modelContext.delete(list)
-
-                do {
-                    try modelContext.save()
-                } catch {
-                    Self.logger.error("Failed to delete list: \(error)")
-                    let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
-                    SentrySDK.capture(error: appError)
-                    toaster.show(error: appError)
-                }
-            } label: {
-                Text(L10n.Delete.button)
-            }
-        } message: { link in
-            Text(L10n.Delete.Warning.cannotUndo)
-        }
-        .alert(L10n.Delete.Lists.alertTitle, isPresented: $isDeleteListsPresented, presenting: listsToDelete) { lists in
-            Button(role: .destructive) {
-                for list in lists {
-                    modelContext.delete(list)
-                }
-
-                do {
-                    try modelContext.save()
-                } catch {
-                    Self.logger.error("Failed to save changes after deletion: \(error)")
-                    let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
-                    SentrySDK.capture(error: appError)
-                    toaster.show(error: appError)
-                }
-            } label: {
-                Text(L10n.Delete.button)
-            }
-        } message: { links in
-            Text(L10n.Delete.Lists.warningMessage(links.map(\.name).joined(separator: ", ")))
-        }
     }
-
+    
     var pinnedListDisplayItems: [LinkListDisplayItem] {
         filteredPinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
-
+    
     var listDisplayItems: [LinkListDisplayItem] {
         filteredUnpinnedLists.map { list in
             mapToDisplayItem(list)
@@ -191,7 +207,7 @@ struct LinkListsContainerView: View {
             }
         }
     }
-
+    
     func mapToDisplayItem(_ model: LinkListModel) -> LinkListDisplayItem {
         LinkListDisplayItem(
             id: model.id,

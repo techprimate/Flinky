@@ -7,39 +7,47 @@ enum AppError: LocalizedError, CustomStringConvertible {
     case validationError(String)
     case persistenceError(PersistenceError)
     case qrCodeGenerationError(String)
+    case failedToGenerateQRCode(reason: Error)
+    case failedToOpenURL(URL)
     case unknownError(String)
 
     var errorDescription: String? {
         switch self {
         case .dataCorruption(let message):
-            return L10n.Error.dataCorruption(message)
+            return L10n.Shared.Error.DataCorruption.description(message)
         case .networkError(let message):
-            return L10n.Error.network(message)
+            return L10n.Shared.Error.Network.description(message)
         case .validationError(let message):
-            return L10n.Error.validation(message)
+            return L10n.Shared.Error.Validation.description(message)
         case .persistenceError(let persistenceError):
             return persistenceError.errorDescription
         case .qrCodeGenerationError(let message):
-            return L10n.Error.qrCode(message)
+            return L10n.Shared.Error.QrCode.description(message)
+        case .failedToGenerateQRCode(let reason):
+            return L10n.Shared.Error.QrCode.description(reason.localizedDescription)
+        case .failedToOpenURL(let url):
+            return L10n.Shared.Error.FailedToOpenUrl.description(url.absoluteString)
         case .unknownError(let message):
-            return L10n.Error.unknown(message)
+            return L10n.Shared.Error.Unknown.description(message)
         }
     }
 
     var recoverySuggestion: String? {
         switch self {
         case .dataCorruption:
-            return L10n.Error.Recovery.dataCorruption
+            return L10n.Shared.Error.Recovery.dataCorruption
         case .networkError:
-            return L10n.Error.Recovery.network
+            return L10n.Shared.Error.Recovery.network
         case .validationError:
-            return L10n.Error.Recovery.validation
+            return L10n.Shared.Error.Recovery.validation
         case .persistenceError(let persistenceError):
             return persistenceError.recoverySuggestion
-        case .qrCodeGenerationError:
-            return L10n.Error.Recovery.qrCode
+        case .qrCodeGenerationError, .failedToGenerateQRCode:
+            return L10n.Shared.Error.Recovery.qrCode
+        case .failedToOpenURL:
+            return L10n.Shared.Error.FailedToOpenUrl.recoverySuggestion
         case .unknownError:
-            return L10n.Error.Recovery.unknown
+            return L10n.Shared.Error.Recovery.unknown
         }
     }
     
@@ -56,6 +64,10 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return persistenceError.description
         case .qrCodeGenerationError(let message):
             return "QR code generation error: \(message)"
+        case .failedToGenerateQRCode(let reason):
+            return "Failed to generate QR code: \(reason.localizedDescription)"
+        case .failedToOpenURL(let url):
+            return "Failed to open url: \(url)"
         case .unknownError(let message):
             return "Unknown error: \(message)"
         }
@@ -73,6 +85,10 @@ extension AppError: Identifiable {
             return "\(self)_\(message)"
         case .persistenceError(let persistenceError):
             return "\(self)_\(persistenceError.underlyingError)"
+        case .failedToGenerateQRCode(let reason):
+            return "\(self)_\(reason.localizedDescription)"
+        case .failedToOpenURL(let url):
+            return "\(self)_\(url)"
         }
     }
 }
@@ -90,6 +106,10 @@ extension AppError: Equatable {
             return lhsError == rhsError
         case (.qrCodeGenerationError(let lhsMessage), .qrCodeGenerationError(let rhsMessage)):
             return lhsMessage == rhsMessage
+        case (.failedToGenerateQRCode(let lhsReason), .failedToGenerateQRCode(let rhsReason)):
+            return lhsReason.localizedDescription == rhsReason.localizedDescription
+        case (.failedToOpenURL(let lhsURL), .failedToOpenURL(let rhsURL)):
+            return lhsURL == rhsURL
         case (.unknownError(let lhsMessage), .unknownError(let rhsMessage)):
             return lhsMessage == rhsMessage
         default:

@@ -69,7 +69,7 @@ struct LinkListContainerView: View {
                 LinkInfoContainerView(link: link)
             }
         }
-        .alert(L10n.Delete.Link.alertTitle(linkToDelete?.name ?? ""), isPresented: $isDeleteLinkPresented, presenting: linkToDelete) { link in
+        .alert(L10n.Shared.DeleteConfirmation.Link.alertTitle(linkToDelete?.name ?? ""), isPresented: $isDeleteLinkPresented, presenting: linkToDelete) { link in
             Button(role: .destructive) {
                 modelContext.delete(link)
                 do {
@@ -81,12 +81,12 @@ struct LinkListContainerView: View {
                     toaster.show(error: appError)
                 }
             } label: {
-                Text(L10n.Delete.button)
+                Text(L10n.Shared.Button.Delete.label)
             }
         } message: { link in
-            Text(L10n.Delete.Warning.cannotUndo)
+            Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
         }
-        .alert(L10n.Delete.Links.alertTitle, isPresented: $isDeleteLinksPresented, presenting: linksToDelete) { links in
+        .alert(L10n.Shared.DeleteConfirmation.Links.alertTitle, isPresented: $isDeleteLinksPresented, presenting: linksToDelete) { links in
             Button(role: .destructive) {
                 for model in links {
                     modelContext.delete(model)
@@ -100,10 +100,10 @@ struct LinkListContainerView: View {
                     toaster.show(error: appError)
                 }
             } label: {
-                Text(L10n.Delete.button)
+                Text(L10n.Shared.Button.Delete.label)
             }
         } message: { links in
-            Text(L10n.Delete.Links.warningMessage(links.map(\.name).joined(separator: ", ")))
+            Text(L10n.Shared.DeleteConfirmation.Links.warningMessage(links.map(\.name).joined(separator: ", ")))
         }
     }
 

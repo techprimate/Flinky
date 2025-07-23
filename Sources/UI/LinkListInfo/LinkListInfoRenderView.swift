@@ -20,18 +20,18 @@ struct LinkListInfoRenderView: View {
                 Button(role: .cancel) {
                     cancelAction()
                 } label: {
-                    Text(L10n.Form.cancel)
+                    Text(L10n.Shared.Button.Cancel.label)
                 }
-                .accessibilityLabel(L10n.Accessibility.Button.cancel)
+                .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     saveAction()
                 } label: {
-                    Text(L10n.Form.done)
+                    Text(L10n.Shared.Button.Done.label)
                 }
-                .accessibilityLabel(L10n.Accessibility.Button.done)
-                .accessibilityHint(L10n.Accessibility.Hint.saveListChanges)
+                .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.label)
             }
         }
     }
@@ -73,7 +73,7 @@ private extension LinkListInfoRenderView {
                         Spacer()
                     }
                     .padding(.vertical, 8)
-                    TextField(L10n.Form.name, text: $name)
+                    TextField(L10n.Shared.Form.Name.label, text: $name)
                         .textFieldStyle(.plain)
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .multilineTextAlignment(.center)
@@ -81,8 +81,8 @@ private extension LinkListInfoRenderView {
                         .padding(.vertical, 16)
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(12)
-                        .accessibilityLabel(L10n.Accessibility.Form.nameField)
-                        .accessibilityHint(L10n.Accessibility.Hint.enterListName)
+                        .accessibilityLabel(L10n.Shared.Form.Name.Accessibility.label)
+                        .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
                 }
                 .padding(4)
             }
@@ -103,14 +103,14 @@ private extension LinkListInfoRenderView {
         @Binding var selection: ListColor
 
         var body: some View {
-            Section(L10n.Section.color) {
+            Section(L10n.Shared.ColorPicker.Section.title) {
                 GridPicker(selection: $selection, items: ListColor.allCases) { color in
                     ColorView(color: color)
-                        .accessibilityLabel(L10n.Accessibility.colorOption(colorName(for: color)))
+                        .accessibilityLabel(L10n.Shared.ColorPicker.Option.Accessibility.label(colorName(for: color)))
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Accessibility.colorPicker(colorName(for: selection)))
+            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(colorName(for: selection)))
         }
         
         private func colorName(for color: ListColor) -> String {
@@ -159,7 +159,7 @@ private extension LinkListInfoRenderView {
         @State private var emojiInput = ""
 
         var body: some View {
-            Section(L10n.Section.symbol) {
+            Section(L10n.Shared.SymbolPicker.Section.title) {
                 AdvancedGridPicker(
                     selection: $selection,
                     items: ListSymbol.allCases,
@@ -179,7 +179,7 @@ private extension LinkListInfoRenderView {
                     isWildcardItem: { $0.isEmoji }
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
-                        .accessibilityLabel(L10n.Accessibility.symbolOption(symbolName(for: symbol)))
+                        .accessibilityLabel(L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))
                 }
                 // Use an invisible textfield in the background to present the emoji keyboard
                 // without showing it on the screen.
@@ -199,7 +199,7 @@ private extension LinkListInfoRenderView {
                     .opacity(0))
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Accessibility.symbolPicker(symbolName(for: selection)))
+            .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))
         }
         
         private func symbolName(for symbol: ListSymbol) -> String {

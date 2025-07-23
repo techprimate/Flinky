@@ -16,30 +16,30 @@ enum PersistenceError: LocalizedError, CustomStringConvertible {
     var errorDescription: String? {
         switch self {
         case .saveLinkFailed:
-            return L10n.Persistence.Error.saveLinkFailed
+            return L10n.Shared.Persistence.Error.saveLinkFailed
         case .saveListFailed:
-            return L10n.Persistence.Error.saveListFailed
+            return L10n.Shared.Persistence.Error.saveListFailed
         case .deleteLinkFailed:
-            return L10n.Persistence.Error.deleteLinkFailed
+            return L10n.Shared.Persistence.Error.deleteLinkFailed
         case .deleteMultipleLinksFailed:
-            return L10n.Persistence.Error.deleteMultipleLinksFailed
+            return L10n.Shared.Persistence.Error.deleteMultipleLinksFailed
         case .deleteListFailed:
-            return L10n.Persistence.Error.deleteListFailed
+            return L10n.Shared.Persistence.Error.deleteListFailed
         case .saveChangesAfterDeletionFailed:
-            return L10n.Persistence.Error.saveChangesAfterDeletionFailed
+            return L10n.Shared.Persistence.Error.saveChangesAfterDeletionFailed
         case .pinListFailed:
-            return L10n.Persistence.Error.pinListFailed
+            return L10n.Shared.Persistence.Error.pinListFailed
         case .unpinListFailed:
-            return L10n.Persistence.Error.unpinListFailed
+            return L10n.Shared.Persistence.Error.unpinListFailed
         case .saveLinkChangesFailed:
-            return L10n.Persistence.Error.saveLinkChangesFailed
+            return L10n.Shared.Persistence.Error.saveLinkChangesFailed
         case .saveListChangesFailed:
-            return L10n.Persistence.Error.saveListChangesFailed
+            return L10n.Shared.Persistence.Error.saveListChangesFailed
         }
     }
 
     var recoverySuggestion: String? {
-        return L10n.Persistence.Error.recoverySuggestion
+        return L10n.Shared.Persistence.Error.recoverySuggestion
     }
 
     var underlyingError: String {

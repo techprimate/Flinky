@@ -41,13 +41,13 @@ public struct AlertToast: View {
     private var accessibilityLabel: String {
         switch item.status {
         case .info:
-            return L10n.Accessibility.Toast.info(item.title)
+            return L10n.Shared.Toast.Info.Accessibility.label(item.title)
         case .error:
-            return L10n.Accessibility.Toast.error(item.title)
+            return L10n.Shared.Toast.Error.Accessibility.label(item.title)
         case .success:
-            return L10n.Accessibility.Toast.success(item.title)
+            return L10n.Shared.Toast.Success.Accessibility.label(item.title)
         case .warning:
-            return L10n.Accessibility.Toast.warning(item.title)
+            return L10n.Shared.Toast.Warning.Accessibility.label(item.title)
         }
     }
     

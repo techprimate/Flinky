@@ -33,9 +33,9 @@ struct LinkListRenderView: View {
         .overlay {
             if links.isEmpty {
                 ContentUnavailableView(
-                    L10n.Links.noLinksTitle,
+                    L10n.LinkListDetail.noLinksTitle,
                     systemSymbol: .globe,
-                    description: Text(L10n.Links.noLinksDescription)
+                    description: Text(L10n.LinkListDetail.noLinksDescription)
                 )
             }
         }
@@ -48,14 +48,14 @@ struct LinkListRenderView: View {
                 Button(action: {
                     presentCreateEditor()
                 }, label: {
-                    Label(L10n.Links.newLink, systemSymbol: .plusCircleFill)
+                    Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.Accessibility.Button.newLink)
-                .accessibilityHint(L10n.Accessibility.Hint.addNewLinkToList)
+                .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.label)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

@@ -26,22 +26,22 @@ struct CreateLinkEditorRenderView: View {
 
     var body: some View {
         Form {
-            TextField(L10n.Form.title, text: $title)
+            TextField(L10n.Shared.Form.Title.label, text: $title)
                 .tag(CreateField.title)
                 .focused($focusedField, equals: .title)
-                .accessibilityLabel(L10n.Accessibility.Form.titleField)
-                .accessibilityHint(L10n.Accessibility.Hint.enterLinkTitle)
+                .accessibilityLabel(L10n.Shared.Form.Title.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Form.Title.Accessibility.hint)
                 .onSubmit {
                     focusedField = .url
                 }
-            TextField(L10n.Form.url, text: $url)
+            TextField(L10n.Shared.Form.Url.label, text: $url)
                 .tag(CreateField.url)
                 .focused($focusedField, equals: .url)
                 .textContentType(.URL)
                 .keyboardType(.URL)
                 .textInputAutocapitalization(.never)
-                .accessibilityLabel(L10n.Accessibility.Form.urlField)
-                .accessibilityHint(L10n.Accessibility.Hint.enterWebAddress)
+                .accessibilityLabel(L10n.Shared.Form.Url.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Form.Url.Accessibility.hint)
                 .onSubmit {
                     focusedField = nil
                 }
@@ -49,18 +49,18 @@ struct CreateLinkEditorRenderView: View {
         .navigationTitle(L10n.CreateLink.title)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(L10n.Form.cancel) {
+                Button(L10n.Shared.Button.Cancel.label) {
                     dismiss()
                 }
-                .accessibilityLabel(L10n.Accessibility.Button.cancel)
+                .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button(L10n.Form.save) {
+                Button(L10n.Shared.Button.Save.label) {
                     submit()
                 }
                 .disabled(!isValid())
-                .accessibilityLabel(L10n.Accessibility.Button.save)
-                .accessibilityHint(isValid() ? L10n.Accessibility.Hint.saveNewLink : L10n.Accessibility.Hint.fillRequiredFields)
+                .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                .accessibilityHint(isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Title.Accessibility.hint)
             }
         }
         .onAppear {

@@ -10,343 +10,517 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
-  internal enum Accessibility {
-    /// %@ color option
-    internal static func colorOption(_ p1: Any) -> String {
-      return L10n.tr("accessibility.color_option", String(describing: p1), fallback: "%@ color option")
-    }
-    /// Color picker. Current selection: %@
-    internal static func colorPicker(_ p1: Any) -> String {
-      return L10n.tr("accessibility.color_picker", String(describing: p1), fallback: "Color picker. Current selection: %@")
-    }
-    /// Delete %@
-    internal static func deleteLink(_ p1: Any) -> String {
-      return L10n.tr("accessibility.delete_link", String(describing: p1), fallback: "Delete %@")
-    }
-    /// Delete %@
-    internal static func deleteList(_ p1: Any) -> String {
-      return L10n.tr("accessibility.delete_list", String(describing: p1), fallback: "Delete %@")
-    }
-    /// Edit %@
-    internal static func editLink(_ p1: Any) -> String {
-      return L10n.tr("accessibility.edit_link", String(describing: p1), fallback: "Edit %@")
-    }
-    /// Edit %@
-    internal static func editList(_ p1: Any) -> String {
-      return L10n.tr("accessibility.edit_list", String(describing: p1), fallback: "Edit %@")
-    }
-    /// Select custom emoji
-    internal static let emojiPicker = L10n.tr("accessibility.emoji_picker", fallback: "Select custom emoji")
-    /// %@, %@
-    internal static func linkItem(_ p1: Any, _ p2: Any) -> String {
-      return L10n.tr("accessibility.link_item", String(describing: p1), String(describing: p2), fallback: "%@, %@")
-    }
-    /// Double tap to view link details
-    internal static let linkItemHint = L10n.tr("accessibility.link_item_hint", fallback: "Double tap to view link details")
-    /// %@, %lld items
-    internal static func listItem(_ p1: Any, _ p2: Int) -> String {
-      return L10n.tr("accessibility.list_item", String(describing: p1), p2, fallback: "%@, %lld items")
-    }
-    /// Double tap to open list
-    internal static let listItemHint = L10n.tr("accessibility.list_item_hint", fallback: "Double tap to open list")
-    /// Pin %@
-    internal static func pinList(_ p1: Any) -> String {
-      return L10n.tr("accessibility.pin_list", String(describing: p1), fallback: "Pin %@")
-    }
-    /// Pinned list: %@, %lld items
-    internal static func pinnedListCard(_ p1: Any, _ p2: Int) -> String {
-      return L10n.tr("accessibility.pinned_list_card", String(describing: p1), p2, fallback: "Pinned list: %@, %lld items")
-    }
-    /// Share %@
-    internal static func shareLink(_ p1: Any) -> String {
-      return L10n.tr("accessibility.share_link", String(describing: p1), fallback: "Share %@")
-    }
-    /// %@ symbol option
-    internal static func symbolOption(_ p1: Any) -> String {
-      return L10n.tr("accessibility.symbol_option", String(describing: p1), fallback: "%@ symbol option")
-    }
-    /// Symbol picker. Current selection: %@
-    internal static func symbolPicker(_ p1: Any) -> String {
-      return L10n.tr("accessibility.symbol_picker", String(describing: p1), fallback: "Symbol picker. Current selection: %@")
-    }
-    /// Unpin %@
-    internal static func unpinList(_ p1: Any) -> String {
-      return L10n.tr("accessibility.unpin_list", String(describing: p1), fallback: "Unpin %@")
-    }
-    internal enum Button {
-      /// Cancel
-      internal static let cancel = L10n.tr("accessibility.button.cancel", fallback: "Cancel")
-      /// Delete
-      internal static let delete = L10n.tr("accessibility.button.delete", fallback: "Delete")
-      /// Done
-      internal static let done = L10n.tr("accessibility.button.done", fallback: "Done")
-      /// Edit
-      internal static let edit = L10n.tr("accessibility.button.edit", fallback: "Edit")
-      /// Add new link
-      internal static let newLink = L10n.tr("accessibility.button.new_link", fallback: "Add new link")
-      /// Create new list
-      internal static let newList = L10n.tr("accessibility.button.new_list", fallback: "Create new list")
-      /// Save
-      internal static let save = L10n.tr("accessibility.button.save", fallback: "Save")
-    }
-    internal enum Form {
-      /// Name field
-      internal static let nameField = L10n.tr("accessibility.form.name_field", fallback: "Name field")
-      /// Title field
-      internal static let titleField = L10n.tr("accessibility.form.title_field", fallback: "Title field")
-      /// URL field
-      internal static let urlField = L10n.tr("accessibility.form.url_field", fallback: "URL field")
-    }
-    internal enum Hint {
-      /// Add a new link to this list
-      internal static let addNewLinkToList = L10n.tr("accessibility.hint.add_new_link_to_list", fallback: "Add a new link to this list")
-      /// Create a new list to organize your links
-      internal static let createNewList = L10n.tr("accessibility.hint.create_new_list", fallback: "Create a new list to organize your links")
-      /// Double tap to edit
-      internal static let doubleTapEdit = L10n.tr("accessibility.hint.double_tap_edit", fallback: "Double tap to edit")
-      /// Double tap to select
-      internal static let doubleTapSelect = L10n.tr("accessibility.hint.double_tap_select", fallback: "Double tap to select")
-      /// Double tap to select custom emoji
-      internal static let doubleTapSelectEmoji = L10n.tr("accessibility.hint.double_tap_select_emoji", fallback: "Double tap to select custom emoji")
-      /// Double tap to view details
-      internal static let doubleTapViewDetails = L10n.tr("accessibility.hint.double_tap_view_details", fallback: "Double tap to view details")
-      /// Edit link properties
-      internal static let editLinkProperties = L10n.tr("accessibility.hint.edit_link_properties", fallback: "Edit link properties")
-      /// Enter the link title
-      internal static let enterLinkTitle = L10n.tr("accessibility.hint.enter_link_title", fallback: "Enter the link title")
-      /// Enter the list name
-      internal static let enterListName = L10n.tr("accessibility.hint.enter_list_name", fallback: "Enter the list name")
-      /// Enter a name for the list first
-      internal static let enterNameFirst = L10n.tr("accessibility.hint.enter_name_first", fallback: "Enter a name for the list first")
-      /// Enter the web address
-      internal static let enterWebAddress = L10n.tr("accessibility.hint.enter_web_address", fallback: "Enter the web address")
-      /// Fill in all required fields first
-      internal static let fillRequiredFields = L10n.tr("accessibility.hint.fill_required_fields", fallback: "Fill in all required fields first")
-      /// Save changes to the link
-      internal static let saveLinkChanges = L10n.tr("accessibility.hint.save_link_changes", fallback: "Save changes to the link")
-      /// Save changes to the list
-      internal static let saveListChanges = L10n.tr("accessibility.hint.save_list_changes", fallback: "Save changes to the list")
-      /// Save the new link
-      internal static let saveNewLink = L10n.tr("accessibility.hint.save_new_link", fallback: "Save the new link")
-      /// Save the new list
-      internal static let saveNewList = L10n.tr("accessibility.hint.save_new_list", fallback: "Save the new list")
-      /// Use rotor to access edit and delete actions
-      internal static let tripleTapActions = L10n.tr("accessibility.hint.triple_tap_actions", fallback: "Use rotor to access edit and delete actions")
-    }
-    internal enum Toast {
-      /// Error: %@
-      internal static func error(_ p1: Any) -> String {
-        return L10n.tr("accessibility.toast.error", String(describing: p1), fallback: "Error: %@")
-      }
-      /// Information: %@
-      internal static func info(_ p1: Any) -> String {
-        return L10n.tr("accessibility.toast.info", String(describing: p1), fallback: "Information: %@")
-      }
-      /// Success: %@
-      internal static func success(_ p1: Any) -> String {
-        return L10n.tr("accessibility.toast.success", String(describing: p1), fallback: "Success: %@")
-      }
-      /// Warning: %@
-      internal static func warning(_ p1: Any) -> String {
-        return L10n.tr("accessibility.toast.warning", String(describing: p1), fallback: "Warning: %@")
-      }
-    }
-  }
-  internal enum Action {
-    /// Delete
-    internal static let delete = L10n.tr("action.delete", fallback: "Delete")
-    /// Edit
-    internal static let edit = L10n.tr("action.edit", fallback: "Edit")
-    /// Pin
-    internal static let pin = L10n.tr("action.pin", fallback: "Pin")
-    /// Share Link
-    internal static let share = L10n.tr("action.share", fallback: "Share Link")
-    /// Share this link with others
-    internal static let shareHint = L10n.tr("action.share_hint", fallback: "Share this link with others")
-    /// Unpin
-    internal static let unpin = L10n.tr("action.unpin", fallback: "Unpin")
-  }
   internal enum App {
     /// Flinky
     internal static let title = L10n.tr("app.title", fallback: "Flinky")
   }
   internal enum CreateLink {
     /// New Link
-    internal static let title = L10n.tr("create_link.title", fallback: "New Link")
+    internal static let title = L10n.tr("create-link.title", fallback: "New Link")
     /// Please enter a valid URL
-    internal static let urlValidation = L10n.tr("create_link.url_validation", fallback: "Please enter a valid URL")
+    internal static let urlValidation = L10n.tr("create-link.url-validation", fallback: "Please enter a valid URL")
   }
   internal enum CreateList {
     /// New List
-    internal static let title = L10n.tr("create_list.title", fallback: "New List")
+    internal static let title = L10n.tr("create-list.title", fallback: "New List")
   }
-  internal enum Delete {
-    /// Delete
-    internal static let button = L10n.tr("delete.button", fallback: "Delete")
-    internal enum Link {
-      /// Delete link "%@"?
-      internal static func alertTitle(_ p1: Any) -> String {
-        return L10n.tr("delete.link.alert_title", String(describing: p1), fallback: "Delete link \"%@\"?")
+  internal enum LinkDetail {
+    internal enum EditLink {
+      /// Edit
+      internal static let label = L10n.tr("link-detail.edit-link.label", fallback: "Edit")
+      internal enum Accessibility {
+        /// Edit link properties
+        internal static let hint = L10n.tr("link-detail.edit-link.accessibility.hint", fallback: "Edit link properties")
+        /// Edit link
+        internal static let label = L10n.tr("link-detail.edit-link.accessibility.label", fallback: "Edit link")
       }
     }
-    internal enum Links {
-      /// Delete selected links?
-      internal static let alertTitle = L10n.tr("delete.links.alert_title", fallback: "Delete selected links?")
-      /// This will delete the links "%@".
-      /// This can not be undone.
-      internal static func warningMessage(_ p1: Any) -> String {
-        return L10n.tr("delete.links.warning_message", String(describing: p1), fallback: "This will delete the links \"%@\".\nThis can not be undone.")
+    internal enum MoreMenu {
+      /// More
+      internal static let label = L10n.tr("link-detail.more-menu.label", fallback: "More")
+      internal enum Accessibility {
+        /// Find additional actions for this link
+        internal static let hint = L10n.tr("link-detail.more-menu.accessibility.hint", fallback: "Find additional actions for this link")
+        /// More Actions
+        internal static let label = L10n.tr("link-detail.more-menu.accessibility.label", fallback: "More Actions")
       }
     }
-    internal enum List {
-      /// Delete list "%@"?
-      internal static func alertTitle(_ p1: Any) -> String {
-        return L10n.tr("delete.list.alert_title", String(describing: p1), fallback: "Delete list \"%@\"?")
+    internal enum OpenInSafari {
+      /// Open in Safari
+      internal static let label = L10n.tr("link-detail.open-in-safari.label", fallback: "Open in Safari")
+    }
+    internal enum ShareLink {
+      /// Share Link
+      internal static let label = L10n.tr("link-detail.share-link.label", fallback: "Share Link")
+      internal enum Accessibility {
+        /// Share this link with others
+        internal static let hint = L10n.tr("link-detail.share-link.accessibility.hint", fallback: "Share this link with others")
+        /// Share %@
+        internal static func label(_ p1: Any) -> String {
+          return L10n.tr("link-detail.share-link.accessibility.label", String(describing: p1), fallback: "Share %@")
+        }
       }
     }
-    internal enum Lists {
-      /// Delete selected lists?
-      internal static let alertTitle = L10n.tr("delete.lists.alert_title", fallback: "Delete selected lists?")
-      /// This will delete the lists "%@" and their links.
-      /// This can not be undone.
-      internal static func warningMessage(_ p1: Any) -> String {
-        return L10n.tr("delete.lists.warning_message", String(describing: p1), fallback: "This will delete the lists \"%@\" and their links.\nThis can not be undone.")
+    internal enum ShareViaNfc {
+      /// Share via NFC
+      internal static let label = L10n.tr("link-detail.share-via-nfc.label", fallback: "Share via NFC")
+      internal enum Accessibility {
+        /// Share this link using NFC
+        internal static let hint = L10n.tr("link-detail.share-via-nfc.accessibility.hint", fallback: "Share this link using NFC")
+        /// Share %@ via NFC
+        internal static func label(_ p1: Any) -> String {
+          return L10n.tr("link-detail.share-via-nfc.accessibility.label", String(describing: p1), fallback: "Share %@ via NFC")
+        }
       }
     }
-    internal enum Warning {
-      /// This can not be undone.
-      internal static let cannotUndo = L10n.tr("delete.warning.cannot_undo", fallback: "This can not be undone.")
-    }
   }
-  internal enum Error {
-    /// Data Error: %@
-    internal static func dataCorruption(_ p1: Any) -> String {
-      return L10n.tr("error.data_corruption", String(describing: p1), fallback: "Data Error: %@")
-    }
-    /// Network Error: %@
-    internal static func network(_ p1: Any) -> String {
-      return L10n.tr("error.network", String(describing: p1), fallback: "Network Error: %@")
-    }
-    /// OK
-    internal static let ok = L10n.tr("error.ok", fallback: "OK")
-    /// Save Error: %@
-    internal static func persistence(_ p1: Any) -> String {
-      return L10n.tr("error.persistence", String(describing: p1), fallback: "Save Error: %@")
-    }
-    /// QR Code Error: %@
-    internal static func qrCode(_ p1: Any) -> String {
-      return L10n.tr("error.qr_code", String(describing: p1), fallback: "QR Code Error: %@")
-    }
-    /// Error
-    internal static let title = L10n.tr("error.title", fallback: "Error")
-    /// Error: %@
-    internal static func unknown(_ p1: Any) -> String {
-      return L10n.tr("error.unknown", String(describing: p1), fallback: "Error: %@")
-    }
-    /// Validation Error: %@
-    internal static func validation(_ p1: Any) -> String {
-      return L10n.tr("error.validation", String(describing: p1), fallback: "Validation Error: %@")
-    }
-    internal enum Recovery {
-      /// Please try restarting the app. If the problem persists, contact support.
-      internal static let dataCorruption = L10n.tr("error.recovery.data_corruption", fallback: "Please try restarting the app. If the problem persists, contact support.")
-      /// Please check your internet connection and try again.
-      internal static let network = L10n.tr("error.recovery.network", fallback: "Please check your internet connection and try again.")
-      /// Failed to save your changes. Please try again.
-      internal static let persistence = L10n.tr("error.recovery.persistence", fallback: "Failed to save your changes. Please try again.")
-      /// Unable to generate QR code for this link.
-      internal static let qrCode = L10n.tr("error.recovery.qr_code", fallback: "Unable to generate QR code for this link.")
-      /// Please try again. If the problem persists, contact support.
-      internal static let unknown = L10n.tr("error.recovery.unknown", fallback: "Please try again. If the problem persists, contact support.")
-      /// Please check your input and try again.
-      internal static let validation = L10n.tr("error.recovery.validation", fallback: "Please check your input and try again.")
-    }
-  }
-  internal enum Form {
-    /// Cancel
-    internal static let cancel = L10n.tr("form.cancel", fallback: "Cancel")
-    /// Delete
-    internal static let delete = L10n.tr("form.delete", fallback: "Delete")
-    /// Done
-    internal static let done = L10n.tr("form.done", fallback: "Done")
-    /// Edit
-    internal static let edit = L10n.tr("form.edit", fallback: "Edit")
-    /// Name
-    internal static let name = L10n.tr("form.name", fallback: "Name")
-    /// Save
-    internal static let save = L10n.tr("form.save", fallback: "Save")
-    /// Title
-    internal static let title = L10n.tr("form.title", fallback: "Title")
-    /// URL
-    internal static let url = L10n.tr("form.url", fallback: "URL")
-  }
-  internal enum Links {
+  internal enum LinkListDetail {
     /// New Link
-    internal static let newLink = L10n.tr("links.new_link", fallback: "New Link")
+    internal static let newLink = L10n.tr("link-list-detail.new-link", fallback: "New Link")
     /// Add a new link to get started
-    internal static let noLinksDescription = L10n.tr("links.no_links_description", fallback: "Add a new link to get started")
+    internal static let noLinksDescription = L10n.tr("link-list-detail.no-links-description", fallback: "Add a new link to get started")
     /// No links available
-    internal static let noLinksTitle = L10n.tr("links.no_links_title", fallback: "No links available")
+    internal static let noLinksTitle = L10n.tr("link-list-detail.no-links-title", fallback: "No links available")
   }
-  internal enum Lists {
+  internal enum LinkLists {
     /// My Lists
-    internal static let myListsSection = L10n.tr("lists.my_lists_section", fallback: "My Lists")
+    internal static let myListsSection = L10n.tr("link-lists.my-lists-section", fallback: "My Lists")
     /// Create a new list to get started
-    internal static let noListsDescription = L10n.tr("lists.no_lists_description", fallback: "Create a new list to get started")
+    internal static let noListsDescription = L10n.tr("link-lists.no-lists-description", fallback: "Create a new list to get started")
     /// No lists available
-    internal static let noListsTitle = L10n.tr("lists.no_lists_title", fallback: "No lists available")
+    internal static let noListsTitle = L10n.tr("link-lists.no-lists-title", fallback: "No lists available")
     /// Pinned
-    internal static let pinnedSection = L10n.tr("lists.pinned_section", fallback: "Pinned")
-  }
-  internal enum Persistence {
-    internal enum Error {
-      /// Failed to delete link
-      internal static let deleteLinkFailed = L10n.tr("persistence.error.delete_link_failed", fallback: "Failed to delete link")
-      /// Failed to delete list
-      internal static let deleteListFailed = L10n.tr("persistence.error.delete_list_failed", fallback: "Failed to delete list")
-      /// Failed to delete links
-      internal static let deleteMultipleLinksFailed = L10n.tr("persistence.error.delete_multiple_links_failed", fallback: "Failed to delete links")
-      /// Failed to pin list
-      internal static let pinListFailed = L10n.tr("persistence.error.pin_list_failed", fallback: "Failed to pin list")
-      /// Please try again. If the problem persists, restart the app.
-      internal static let recoverySuggestion = L10n.tr("persistence.error.recovery_suggestion", fallback: "Please try again. If the problem persists, restart the app.")
-      /// Failed to save deletion changes
-      internal static let saveChangesAfterDeletionFailed = L10n.tr("persistence.error.save_changes_after_deletion_failed", fallback: "Failed to save deletion changes")
-      /// Failed to save link changes
-      internal static let saveLinkChangesFailed = L10n.tr("persistence.error.save_link_changes_failed", fallback: "Failed to save link changes")
-      /// Failed to save link
-      internal static let saveLinkFailed = L10n.tr("persistence.error.save_link_failed", fallback: "Failed to save link")
-      /// Failed to save list changes
-      internal static let saveListChangesFailed = L10n.tr("persistence.error.save_list_changes_failed", fallback: "Failed to save list changes")
-      /// Failed to save list
-      internal static let saveListFailed = L10n.tr("persistence.error.save_list_failed", fallback: "Failed to save list")
-      /// Failed to unpin list
-      internal static let unpinListFailed = L10n.tr("persistence.error.unpin_list_failed", fallback: "Failed to unpin list")
-    }
-  }
-  internal enum QrCode {
-    /// QR code that can be scanned to open this link
-    internal static let accessibilityHint = L10n.tr("qr_code.accessibility_hint", fallback: "QR code that can be scanned to open this link")
-    /// QR code for %@
-    internal static func accessibilityLabel(_ p1: Any) -> String {
-      return L10n.tr("qr_code.accessibility_label", String(describing: p1), fallback: "QR code for %@")
-    }
-    /// Generating QR code
-    internal static let generating = L10n.tr("qr_code.generating", fallback: "Generating QR code")
-    /// QR code generation failed
-    internal static let generationFailed = L10n.tr("qr_code.generation_failed", fallback: "QR code generation failed")
+    internal static let pinnedSection = L10n.tr("link-lists.pinned-section", fallback: "Pinned")
   }
   internal enum Search {
     /// Search links
     internal static let links = L10n.tr("search.links", fallback: "Search links")
     /// Search lists and links
-    internal static let listsAndLinks = L10n.tr("search.lists_and_links", fallback: "Search lists and links")
+    internal static let listsAndLinks = L10n.tr("search.lists-and-links", fallback: "Search lists and links")
   }
-  internal enum Section {
-    /// Color
-    internal static let color = L10n.tr("section.color", fallback: "Color")
-    /// Symbol
-    internal static let symbol = L10n.tr("section.symbol", fallback: "Symbol")
+  internal enum Shared {
+    internal enum Action {
+      /// Delete
+      internal static let delete = L10n.tr("shared.action.delete", fallback: "Delete")
+      /// Edit
+      internal static let edit = L10n.tr("shared.action.edit", fallback: "Edit")
+      /// Pin
+      internal static let pin = L10n.tr("shared.action.pin", fallback: "Pin")
+      /// Share Link
+      internal static let share = L10n.tr("shared.action.share", fallback: "Share Link")
+      /// Unpin
+      internal static let unpin = L10n.tr("shared.action.unpin", fallback: "Unpin")
+      internal enum Share {
+        internal enum Accessibility {
+          /// Share this link with others
+          internal static let hint = L10n.tr("shared.action.share.accessibility.hint", fallback: "Share this link with others")
+        }
+      }
+    }
+    internal enum Button {
+      internal enum Cancel {
+        /// Cancel
+        internal static let label = L10n.tr("shared.button.cancel.label", fallback: "Cancel")
+        internal enum Accessibility {
+          /// Cancel
+          internal static let label = L10n.tr("shared.button.cancel.accessibility.label", fallback: "Cancel")
+        }
+      }
+      internal enum Delete {
+        /// Delete
+        internal static let label = L10n.tr("shared.button.delete.label", fallback: "Delete")
+        internal enum Accessibility {
+          /// Delete
+          internal static let label = L10n.tr("shared.button.delete.accessibility.label", fallback: "Delete")
+        }
+      }
+      internal enum Done {
+        /// Done
+        internal static let label = L10n.tr("shared.button.done.label", fallback: "Done")
+        internal enum Accessibility {
+          /// Done
+          internal static let label = L10n.tr("shared.button.done.accessibility.label", fallback: "Done")
+        }
+      }
+      internal enum Edit {
+        /// Edit
+        internal static let label = L10n.tr("shared.button.edit.label", fallback: "Edit")
+        internal enum Accessibility {
+          /// Edit
+          internal static let label = L10n.tr("shared.button.edit.accessibility.label", fallback: "Edit")
+        }
+      }
+      internal enum NewLink {
+        internal enum Accessibility {
+          /// Add new link
+          internal static let label = L10n.tr("shared.button.new-link.accessibility.label", fallback: "Add new link")
+        }
+      }
+      internal enum NewList {
+        internal enum Accessibility {
+          /// Create new list
+          internal static let label = L10n.tr("shared.button.new-list.accessibility.label", fallback: "Create new list")
+        }
+      }
+      internal enum Save {
+        /// Save
+        internal static let label = L10n.tr("shared.button.save.label", fallback: "Save")
+        internal enum Accessibility {
+          /// Save
+          internal static let label = L10n.tr("shared.button.save.accessibility.label", fallback: "Save")
+        }
+      }
+    }
+    internal enum ColorPicker {
+      internal enum Accessibility {
+        /// Color picker. Current selection: %@
+        internal static func hint(_ p1: Any) -> String {
+          return L10n.tr("shared.color-picker.accessibility.hint", String(describing: p1), fallback: "Color picker. Current selection: %@")
+        }
+      }
+      internal enum Option {
+        internal enum Accessibility {
+          /// %@ color option
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.color-picker.option.accessibility.label", String(describing: p1), fallback: "%@ color option")
+          }
+        }
+      }
+      internal enum Section {
+        /// Color
+        internal static let title = L10n.tr("shared.color-picker.section.title", fallback: "Color")
+      }
+    }
+    internal enum DeleteConfirmation {
+      internal enum Link {
+        /// Delete link "%@"?
+        internal static func alertTitle(_ p1: Any) -> String {
+          return L10n.tr("shared.delete-confirmation.link.alert-title", String(describing: p1), fallback: "Delete link \"%@\"?")
+        }
+      }
+      internal enum Links {
+        /// Delete selected links?
+        internal static let alertTitle = L10n.tr("shared.delete-confirmation.links.alert-title", fallback: "Delete selected links?")
+        /// This will delete the links "%@".
+        /// This can not be undone.
+        internal static func warningMessage(_ p1: Any) -> String {
+          return L10n.tr("shared.delete-confirmation.links.warning-message", String(describing: p1), fallback: "This will delete the links \"%@\".\nThis can not be undone.")
+        }
+      }
+      internal enum List {
+        /// Delete list "%@"?
+        internal static func alertTitle(_ p1: Any) -> String {
+          return L10n.tr("shared.delete-confirmation.list.alert-title", String(describing: p1), fallback: "Delete list \"%@\"?")
+        }
+      }
+      internal enum Lists {
+        /// Delete selected lists?
+        internal static let alertTitle = L10n.tr("shared.delete-confirmation.lists.alert-title", fallback: "Delete selected lists?")
+        /// This will delete the lists "%@" and their links.
+        /// This can not be undone.
+        internal static func warningMessage(_ p1: Any) -> String {
+          return L10n.tr("shared.delete-confirmation.lists.warning-message", String(describing: p1), fallback: "This will delete the lists \"%@\" and their links.\nThis can not be undone.")
+        }
+      }
+      internal enum Warning {
+        /// This can not be undone.
+        internal static let cannotUndo = L10n.tr("shared.delete-confirmation.warning.cannot-undo", fallback: "This can not be undone.")
+      }
+    }
+    internal enum EmojiPicker {
+      internal enum Accessibility {
+        /// Select custom emoji
+        internal static let hint = L10n.tr("shared.emoji-picker.accessibility.hint", fallback: "Select custom emoji")
+      }
+    }
+    internal enum Error {
+      /// OK
+      internal static let okButton = L10n.tr("shared.error.ok-button", fallback: "OK")
+      /// Error
+      internal static let title = L10n.tr("shared.error.title", fallback: "Error")
+      internal enum DataCorruption {
+        /// Data Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.data-corruption.description", String(describing: p1), fallback: "Data Error: %@")
+        }
+      }
+      internal enum FailedToOpenUrl {
+        /// Failed to open URL: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.failed-to-open-url.description", String(describing: p1), fallback: "Failed to open URL: %@")
+        }
+        /// Make sure the URL you entered is valid, e.g. includes https:// at the beginning
+        internal static let recoverySuggestion = L10n.tr("shared.error.failed-to-open-url.recovery-suggestion", fallback: "Make sure the URL you entered is valid, e.g. includes https:// at the beginning")
+      }
+      internal enum Network {
+        /// Network Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.network.description", String(describing: p1), fallback: "Network Error: %@")
+        }
+      }
+      internal enum Persistence {
+        /// Save Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.persistence.description", String(describing: p1), fallback: "Save Error: %@")
+        }
+      }
+      internal enum QrCode {
+        /// QR Code Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.qr-code.description", String(describing: p1), fallback: "QR Code Error: %@")
+        }
+      }
+      internal enum Recovery {
+        /// Please try restarting the app. If the problem persists, contact support.
+        internal static let dataCorruption = L10n.tr("shared.error.recovery.data-corruption", fallback: "Please try restarting the app. If the problem persists, contact support.")
+        /// Please check your internet connection and try again.
+        internal static let network = L10n.tr("shared.error.recovery.network", fallback: "Please check your internet connection and try again.")
+        /// Failed to save your changes. Please try again.
+        internal static let persistence = L10n.tr("shared.error.recovery.persistence", fallback: "Failed to save your changes. Please try again.")
+        /// Unable to generate QR code for this link.
+        internal static let qrCode = L10n.tr("shared.error.recovery.qr-code", fallback: "Unable to generate QR code for this link.")
+        /// Please try again. If the problem persists, contact support.
+        internal static let unknown = L10n.tr("shared.error.recovery.unknown", fallback: "Please try again. If the problem persists, contact support.")
+        /// Please check your input and try again.
+        internal static let validation = L10n.tr("shared.error.recovery.validation", fallback: "Please check your input and try again.")
+      }
+      internal enum Unknown {
+        /// Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.unknown.description", String(describing: p1), fallback: "Error: %@")
+        }
+      }
+      internal enum Validation {
+        /// Validation Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.validation.description", String(describing: p1), fallback: "Validation Error: %@")
+        }
+      }
+    }
+    internal enum Form {
+      internal enum Name {
+        /// Name
+        internal static let label = L10n.tr("shared.form.name.label", fallback: "Name")
+        internal enum Accessibility {
+          /// Enter the list name
+          internal static let hint = L10n.tr("shared.form.name.accessibility.hint", fallback: "Enter the list name")
+          /// Name field
+          internal static let label = L10n.tr("shared.form.name.accessibility.label", fallback: "Name field")
+        }
+      }
+      internal enum Title {
+        /// Title
+        internal static let label = L10n.tr("shared.form.title.label", fallback: "Title")
+        internal enum Accessibility {
+          /// Enter the link title
+          internal static let hint = L10n.tr("shared.form.title.accessibility.hint", fallback: "Enter the link title")
+          /// Title field
+          internal static let label = L10n.tr("shared.form.title.accessibility.label", fallback: "Title field")
+        }
+      }
+      internal enum Url {
+        /// URL
+        internal static let label = L10n.tr("shared.form.url.label", fallback: "URL")
+        internal enum Accessibility {
+          /// Enter the web address
+          internal static let hint = L10n.tr("shared.form.url.accessibility.hint", fallback: "Enter the web address")
+          /// URL field
+          internal static let label = L10n.tr("shared.form.url.accessibility.label", fallback: "URL field")
+        }
+      }
+    }
+    internal enum Item {
+      internal enum Link {
+        internal enum Accessibility {
+          /// Double tap to view link details
+          internal static let hint = L10n.tr("shared.item.link.accessibility.hint", fallback: "Double tap to view link details")
+          /// %@, %@
+          internal static func label(_ p1: Any, _ p2: Any) -> String {
+            return L10n.tr("shared.item.link.accessibility.label", String(describing: p1), String(describing: p2), fallback: "%@, %@")
+          }
+        }
+        internal enum Delete {
+          internal enum Accessibility {
+            /// Delete %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.link.delete.accessibility.label", String(describing: p1), fallback: "Delete %@")
+            }
+          }
+        }
+        internal enum Edit {
+          internal enum Accessibility {
+            /// Edit %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.link.edit.accessibility.label", String(describing: p1), fallback: "Edit %@")
+            }
+          }
+        }
+        internal enum Share {
+          internal enum Accessibility {
+            /// Share %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.link.share.accessibility.label", String(describing: p1), fallback: "Share %@")
+            }
+          }
+        }
+      }
+      internal enum List {
+        internal enum Accessibility {
+          /// Double tap to open list
+          internal static let hint = L10n.tr("shared.item.list.accessibility.hint", fallback: "Double tap to open list")
+          /// %@, %lld items
+          internal static func label(_ p1: Any, _ p2: Int) -> String {
+            return L10n.tr("shared.item.list.accessibility.label", String(describing: p1), p2, fallback: "%@, %lld items")
+          }
+        }
+        internal enum Delete {
+          internal enum Accessibility {
+            /// Delete %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.list.delete.accessibility.label", String(describing: p1), fallback: "Delete %@")
+            }
+          }
+        }
+        internal enum Edit {
+          internal enum Accessibility {
+            /// Edit %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.list.edit.accessibility.label", String(describing: p1), fallback: "Edit %@")
+            }
+          }
+        }
+        internal enum Pin {
+          internal enum Accessibility {
+            /// Pin %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.list.pin.accessibility.label", String(describing: p1), fallback: "Pin %@")
+            }
+          }
+        }
+        internal enum PinnedCard {
+          internal enum Accessibility {
+            /// Pinned list: %@, %lld items
+            internal static func label(_ p1: Any, _ p2: Int) -> String {
+              return L10n.tr("shared.item.list.pinned-card.accessibility.label", String(describing: p1), p2, fallback: "Pinned list: %@, %lld items")
+            }
+          }
+        }
+        internal enum Unpin {
+          internal enum Accessibility {
+            /// Unpin %@
+            internal static func label(_ p1: Any) -> String {
+              return L10n.tr("shared.item.list.unpin.accessibility.label", String(describing: p1), fallback: "Unpin %@")
+            }
+          }
+        }
+      }
+    }
+    internal enum Persistence {
+      internal enum Error {
+        /// Failed to delete link
+        internal static let deleteLinkFailed = L10n.tr("shared.persistence.error.delete-link-failed", fallback: "Failed to delete link")
+        /// Failed to delete list
+        internal static let deleteListFailed = L10n.tr("shared.persistence.error.delete-list-failed", fallback: "Failed to delete list")
+        /// Failed to delete links
+        internal static let deleteMultipleLinksFailed = L10n.tr("shared.persistence.error.delete-multiple-links-failed", fallback: "Failed to delete links")
+        /// Failed to pin list
+        internal static let pinListFailed = L10n.tr("shared.persistence.error.pin-list-failed", fallback: "Failed to pin list")
+        /// Please try again. If the problem persists, restart the app.
+        internal static let recoverySuggestion = L10n.tr("shared.persistence.error.recovery-suggestion", fallback: "Please try again. If the problem persists, restart the app.")
+        /// Failed to save deletion changes
+        internal static let saveChangesAfterDeletionFailed = L10n.tr("shared.persistence.error.save-changes-after-deletion-failed", fallback: "Failed to save deletion changes")
+        /// Failed to save link changes
+        internal static let saveLinkChangesFailed = L10n.tr("shared.persistence.error.save-link-changes-failed", fallback: "Failed to save link changes")
+        /// Failed to save link
+        internal static let saveLinkFailed = L10n.tr("shared.persistence.error.save-link-failed", fallback: "Failed to save link")
+        /// Failed to save list changes
+        internal static let saveListChangesFailed = L10n.tr("shared.persistence.error.save-list-changes-failed", fallback: "Failed to save list changes")
+        /// Failed to save list
+        internal static let saveListFailed = L10n.tr("shared.persistence.error.save-list-failed", fallback: "Failed to save list")
+        /// Failed to unpin list
+        internal static let unpinListFailed = L10n.tr("shared.persistence.error.unpin-list-failed", fallback: "Failed to unpin list")
+      }
+    }
+    internal enum QrCode {
+      internal enum Accessibility {
+        /// QR code that can be scanned to open this link
+        internal static let hint = L10n.tr("shared.qr-code.accessibility.hint", fallback: "QR code that can be scanned to open this link")
+        /// QR code for %@
+        internal static func label(_ p1: Any) -> String {
+          return L10n.tr("shared.qr-code.accessibility.label", String(describing: p1), fallback: "QR code for %@")
+        }
+      }
+      internal enum Generating {
+        /// Generating QR code
+        internal static let label = L10n.tr("shared.qr-code.generating.label", fallback: "Generating QR code")
+        internal enum Accessibility {
+          /// Generating QR code
+          internal static let label = L10n.tr("shared.qr-code.generating.accessibility.label", fallback: "Generating QR code")
+        }
+      }
+      internal enum GenerationFailed {
+        /// QR code generation failed
+        internal static let label = L10n.tr("shared.qr-code.generation-failed.label", fallback: "QR code generation failed")
+        internal enum Accessibility {
+          /// QR code generation failed
+          internal static let label = L10n.tr("shared.qr-code.generation-failed.accessibility.label", fallback: "QR code generation failed")
+        }
+      }
+    }
+    internal enum SymbolPicker {
+      internal enum Accessibility {
+        /// Symbol picker. Current selection: %@
+        internal static func hint(_ p1: Any) -> String {
+          return L10n.tr("shared.symbol-picker.accessibility.hint", String(describing: p1), fallback: "Symbol picker. Current selection: %@")
+        }
+      }
+      internal enum Option {
+        internal enum Accessibility {
+          /// %@ symbol option
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.symbol-picker.option.accessibility.label", String(describing: p1), fallback: "%@ symbol option")
+          }
+        }
+      }
+      internal enum Section {
+        /// Symbol
+        internal static let title = L10n.tr("shared.symbol-picker.section.title", fallback: "Symbol")
+      }
+    }
+    internal enum Toast {
+      internal enum Error {
+        internal enum Accessibility {
+          /// Error: %@
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.toast.error.accessibility.label", String(describing: p1), fallback: "Error: %@")
+          }
+        }
+      }
+      internal enum Info {
+        internal enum Accessibility {
+          /// Information: %@
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.toast.info.accessibility.label", String(describing: p1), fallback: "Information: %@")
+          }
+        }
+      }
+      internal enum Success {
+        internal enum Accessibility {
+          /// Success: %@
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.toast.success.accessibility.label", String(describing: p1), fallback: "Success: %@")
+          }
+        }
+      }
+      internal enum Warning {
+        internal enum Accessibility {
+          /// Warning: %@
+          internal static func label(_ p1: Any) -> String {
+            return L10n.tr("shared.toast.warning.accessibility.label", String(describing: p1), fallback: "Warning: %@")
+          }
+        }
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

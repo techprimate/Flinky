@@ -10,21 +10,25 @@ struct GridPicker<Item: Identifiable, ItemView: View>: View {
     var body: some View {
         LazyVGrid(columns: columns, spacing: 4) {
             ForEach(items) { item in
-                content(item)
-                    .padding(5)
-                    .overlay {
-                        if item.id == selection.id {
-                            selectionOverlayView
-                        }
-                    }
-                    .accessibilityElement(children: .combine)
-                    .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
-                    .accessibilityHint(L10n.Accessibility.Hint.doubleTapSelect)
-                    .onTapGesture {
-                        selection = item
-                    }
+                itemView(for: item)
             }
         }
+    }
+
+    private func itemView(for item: Item) -> some View {
+        content(item)
+            .padding(5)
+            .overlay {
+                if item.id == selection.id {
+                    selectionOverlayView
+                }
+            }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
+            .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
+            .onTapGesture {
+                selection = item
+            }
     }
 
     private var selectionOverlayView: some View {
