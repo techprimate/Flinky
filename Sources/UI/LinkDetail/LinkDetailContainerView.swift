@@ -4,6 +4,7 @@ import Sentry
 
 struct LinkDetailContainerView: View {
     @Environment(\.qrcodeCache) private var qrcodeCache
+    @Environment(\.toaster) private var toaster
 
     let item: LinkModel
 
@@ -16,9 +17,42 @@ struct LinkDetailContainerView: View {
         LinkDetailRenderView(
             title: item.name,
             url: item.url,
+            color: item.color ?? .defaultForLink,
             image: image,
             editAction: {
                 isEditing = true
+            },
+            shareViaNFCAction: {
+                toaster.warning(description: "Coming soon!")
+            },
+            openInSafariAction: {
+                let url = item.url
+                guard UIApplication.shared.canOpenURL(url) else {
+                    Self.logger.warning("URL can not be opened: \(url)")
+                    let event = Event(level: .warning)
+                    event.message = .init(formatted: "URL can not be opened")
+                    event.context = [
+                        "link": [
+                            "url": url.absoluteString
+                        ]
+                    ]
+                    toaster.warning(description: "URL can not be opened")
+                    return
+                }
+                UIApplication.shared.open(url) { success in
+                    if !success {
+                        Self.logger.error("Failed to open URL in Safari: \(url)")
+                        let error = AppError.failedToOpenURL(url)
+                        SentrySDK.capture(error: error)
+                        toaster.show(error: error)
+                    }
+                }
+            },
+            copyURLAction: {
+                UIPasteboard.general.url = item.url
+                toaster.success(
+                    description: "Copied to clipboard"
+                )
             }
         )
         .task(priority: .utility) {
