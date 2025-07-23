@@ -1,6 +1,55 @@
 # SwiftGen Localization Setup
 
-This project uses SwiftGen to automatically generate Swift code from `Localizable.xcstrings` files.
+This project uses SwiftGen to automatically generate Swift code from `Localizable.xcstrings` files with a hierarchical organization strategy.
+
+## Localization Strategy
+
+### Hierarchical Organization Pattern
+
+We use a **view-then-component** hierarchical structure with lowercase-dash-dot notation:
+
+```
+view-name.component.property.accessibility.type
+shared.component.property.accessibility.type
+```
+
+### Key Patterns
+
+**View-Specific Keys:**
+- `link-detail.edit-link.label` → `L10n.LinkDetail.EditLink.label`
+- `link-detail.edit-link.accessibility.label` → `L10n.LinkDetail.EditLink.Accessibility.label`
+- `create-link.title` → `L10n.CreateLink.title`
+- `link-lists.no-lists-title` → `L10n.LinkLists.noListsTitle`
+
+**Shared Components:**
+- `shared.button.cancel.label` → `L10n.Shared.Button.Cancel.label`
+- `shared.error.network.description` → `L10n.Shared.Error.Network.description`
+- `shared.form.title.accessibility.hint` → `L10n.Shared.Form.Title.Accessibility.hint`
+- `shared.action.delete` → `L10n.Shared.Action.delete`
+
+### Organization Categories
+
+**View-Specific Patterns:**
+- `app.*` - App-level strings
+- `create-link.*` - Link creation interface
+- `create-list.*` - List creation interface
+- `link-detail.*` - Link detail view
+- `link-lists.*` - Lists overview
+- `link-list-detail.*` - Individual list view
+- `search.*` - Search functionality
+
+**Shared Component Patterns:**
+- `shared.button.*` - Reusable buttons (Save, Cancel, Done, Delete, Edit)
+- `shared.form.*` - Form fields (Title, Name, URL)
+- `shared.error.*` - Error messages and recovery
+- `shared.action.*` - Context menu/swipe actions (Edit, Delete, Pin, Share)
+- `shared.item.*` - List/link item accessibility
+- `shared.color-picker.*` - Color selection interface
+- `shared.symbol-picker.*` - Symbol selection interface
+- `shared.qr-code.*` - QR code generation and display
+- `shared.toast.*` - Toast notifications
+- `shared.delete-confirmation.*` - Deletion confirmation dialogs
+- `shared.persistence.*` - Persistence error messages
 
 ## Overview
 
@@ -15,10 +64,49 @@ The localization system works in three steps:
 The generated `L10n` enum follows the dot notation in your string keys to create nested enums:
 
 ```swift
-// String key: "app.title" -> L10n.App.title
-// String key: "error.network" -> L10n.Error.network  
-// String key: "accessibility.link_item" -> L10n.Accessibility.linkItem
-// String key: "search.lists_and_links" -> L10n.Search.listsAndLinks
+// View-specific examples:
+L10n.LinkDetail.EditLink.label                    // "Edit"
+L10n.LinkDetail.EditLink.Accessibility.label      // "Edit link"
+L10n.CreateLink.title                              // "New Link"
+
+// Shared component examples:
+L10n.Shared.Button.Cancel.label                   // "Cancel"
+L10n.Shared.Error.Network.description             // "Network Error: %@"
+L10n.Shared.Form.Title.Accessibility.hint         // "Enter the link title"
+L10n.Shared.Action.delete                         // "Delete"
+```
+
+## Usage Guidelines
+
+### When to Use View-Specific vs Shared
+
+**Use View-Specific Keys When:**
+- The string is unique to a particular view or feature
+- The context matters for translation
+- The string has view-specific wording
+
+**Use Shared Keys When:**
+- The string appears in multiple views
+- It's a common UI element (buttons, form fields, errors)
+- It's a standard action or message
+
+### Accessibility Pattern
+
+For accessibility, always follow this pattern:
+```
+component.accessibility.label    // What the element is
+component.accessibility.hint     // What it does or how to use it
+```
+
+Examples:
+```swift
+// Button with both label and hint
+L10n.LinkDetail.EditLink.Accessibility.label  // "Edit link"
+L10n.LinkDetail.EditLink.Accessibility.hint   // "Edit link properties"
+
+// Form field with both label and hint  
+L10n.Shared.Form.Title.Accessibility.label    // "Title field"
+L10n.Shared.Form.Title.Accessibility.hint     // "Enter the link title"
 ```
 
 ## Usage
@@ -40,6 +128,17 @@ make generate                    # Generates licenses, version info, AND localiz
 make generate-localization      # Generates only localization
 ```
 
+## Development Workflow
+
+When adding new features:
+
+1. **Plan your keys**: Decide if strings are view-specific or shared
+2. **Follow the hierarchy**: Use the established patterns
+3. **Add to Xcode**: Add strings to `Sources/Resources/Localizable.xcstrings` using Xcode's String Catalog editor
+4. **Generate**: Run `make generate-localization`
+5. **Use in code**: Reference the generated constants: `L10n.YourCategory.yourKey`
+6. **Build and test**: Use `make build-ios` to catch any localization issues
+
 ## Files Structure
 
 ```
@@ -55,12 +154,6 @@ make generate-localization      # Generates only localization
 └── Sources/Utils/
     └── Localization.swift             # Generated Swift code
 ```
-
-## Adding New Strings
-
-1. Add strings to `Sources/Resources/Localizable.xcstrings` using Xcode's String Catalog editor
-2. Run `make generate-localization` or `./Scripts/generate-localization.sh`
-3. Use the generated constants in your code: `L10n.YourCategory.yourKey`
 
 ## Template Details
 
@@ -80,5 +173,7 @@ make generate-localization      # Generates only localization
 - **Type Safety**: Compile-time checking of localization keys
 - **Auto-completion**: IDE support for all localized strings
 - **Structured Organization**: Nested enums mirror your string key hierarchy
+- **Consistency**: Enforced naming patterns prevent duplication
 - **Automatic Updates**: No manual maintenance of localization constants
-- **Consistency**: Single source of truth in Xcode's String Catalog 
+- **Accessibility First**: Built-in patterns for accessibility labels and hints
+- **Shared Components**: Reusable strings reduce duplication and translation costs 
