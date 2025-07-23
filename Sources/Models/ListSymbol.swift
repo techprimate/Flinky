@@ -211,14 +211,10 @@ extension ListSymbol: RawRepresentable {
 extension ListSymbol: CaseIterable {
     static var allCases: [ListSymbol] {
         var result: [ListSymbol] = []
-        result += ListSymbolNumber.allCases.map { .number($0) }
-        result += ListSymbolLetter.allCases.map { .letter($0) }
-        result += ListSymbolBasicShape.allCases.map { .basicShape($0) }
-        result += ListSymbolArrow.allCases.map { .arrows($0) }
-        result += ListSymbolMath.allCases.map { .math($0) }
-        result += ListSymbolCurrency.allCases.map { .currency($0) }
-        result += ListSymbolTechnology.allCases.map { .technology($0) }
+        result += ListSymbolEntertainment.allCases.map { .entertainment($0) }
         result += ListSymbolTransportation.allCases.map { .transportation($0) }
+        result += ListSymbolHuman.allCases.map { .human($0) }
+        result += ListSymbolTechnology.allCases.map { .technology($0) }
         result += ListSymbolSportRecreation.allCases.map { .sportRecreation($0) }
         result += ListSymbolFigureSportsActivity.allCases.map { .figureSportsActivity($0) }
         result += ListSymbolAnimal.allCases.map { .animal($0) }
@@ -227,11 +223,15 @@ extension ListSymbol: CaseIterable {
         result += ListSymbolFood.allCases.map { .food($0) }
         result += ListSymbolObject.allCases.map { .object($0) }
         result += ListSymbolCommunication.allCases.map { .communication($0) }
-        result += ListSymbolHuman.allCases.map { .human($0) }
         result += ListSymbolPlacesBuildings.allCases.map { .placesBuildings($0) }
-        result += ListSymbolEntertainment.allCases.map { .entertainment($0) }
         result += ListSymbolDocumentsReadingWriting.allCases.map { .documentsReadingWriting($0) }
         result += ListSymbolClothingAccessories.allCases.map { .clothingAccessories($0) }
+        result += ListSymbolCurrency.allCases.map { .currency($0) }
+        result += ListSymbolBasicShape.allCases.map { .basicShape($0) }
+        result += ListSymbolArrow.allCases.map { .arrows($0) }
+        result += ListSymbolMath.allCases.map { .math($0) }
+        result += ListSymbolNumber.allCases.map { .number($0) }
+        result += ListSymbolLetter.allCases.map { .letter($0) }
         return result
     }
 }
