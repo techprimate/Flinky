@@ -171,6 +171,32 @@ internal enum L10n {
         }
       }
     }
+    internal enum Color {
+      /// Blue
+      internal static let blue = L10n.tr("shared.color.blue", fallback: "Blue")
+      /// Brown
+      internal static let brown = L10n.tr("shared.color.brown", fallback: "Brown")
+      /// Gray
+      internal static let gray = L10n.tr("shared.color.gray", fallback: "Gray")
+      /// Green
+      internal static let green = L10n.tr("shared.color.green", fallback: "Green")
+      /// Indigo
+      internal static let indigo = L10n.tr("shared.color.indigo", fallback: "Indigo")
+      /// Light Blue
+      internal static let lightBlue = L10n.tr("shared.color.light-blue", fallback: "Light Blue")
+      /// Mint
+      internal static let mint = L10n.tr("shared.color.mint", fallback: "Mint")
+      /// Orange
+      internal static let orange = L10n.tr("shared.color.orange", fallback: "Orange")
+      /// Pink
+      internal static let pink = L10n.tr("shared.color.pink", fallback: "Pink")
+      /// Purple
+      internal static let purple = L10n.tr("shared.color.purple", fallback: "Purple")
+      /// Red
+      internal static let red = L10n.tr("shared.color.red", fallback: "Red")
+      /// Yellow
+      internal static let yellow = L10n.tr("shared.color.yellow", fallback: "Yellow")
+    }
     internal enum ColorPicker {
       internal enum Accessibility {
         /// Color picker. Current selection: %@
@@ -464,6 +490,28 @@ internal enum L10n {
         internal enum Accessibility {
           /// QR code generation failed
           internal static let label = L10n.tr("shared.qr-code.generation-failed.accessibility.label", fallback: "QR code generation failed")
+        }
+      }
+      internal enum SaveToPhotos {
+        /// Save to Photos
+        internal static let label = L10n.tr("shared.qr-code.save-to-photos.label", fallback: "Save to Photos")
+        /// QR code saved to Photos
+        internal static let success = L10n.tr("shared.qr-code.save-to-photos.success", fallback: "QR code saved to Photos")
+        internal enum Accessibility {
+          /// Save QR code image to Photos app
+          internal static let hint = L10n.tr("shared.qr-code.save-to-photos.accessibility.hint", fallback: "Save QR code image to Photos app")
+          /// Save to Photos
+          internal static let label = L10n.tr("shared.qr-code.save-to-photos.accessibility.label", fallback: "Save to Photos")
+        }
+      }
+      internal enum ShareAsImage {
+        /// Share as Image
+        internal static let label = L10n.tr("shared.qr-code.share-as-image.label", fallback: "Share as Image")
+        internal enum Accessibility {
+          /// Share QR code as Image
+          internal static let hint = L10n.tr("shared.qr-code.share-as-image.accessibility.hint", fallback: "Share QR code as Image")
+          /// Share as Image
+          internal static let label = L10n.tr("shared.qr-code.share-as-image.accessibility.label", fallback: "Share as Image")
         }
       }
     }

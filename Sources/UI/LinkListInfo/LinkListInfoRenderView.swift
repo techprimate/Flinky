@@ -106,28 +106,11 @@ private extension LinkListInfoRenderView {
             Section(L10n.Shared.ColorPicker.Section.title) {
                 GridPicker(selection: $selection, items: ListColor.allCases) { color in
                     ColorView(color: color)
-                        .accessibilityLabel(L10n.Shared.ColorPicker.Option.Accessibility.label(colorName(for: color)))
+                        .accessibilityLabel(L10n.Shared.ColorPicker.Option.Accessibility.label(color.name))
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(colorName(for: selection)))
-        }
-        
-        private func colorName(for color: ListColor) -> String {
-            switch color {
-            case .blue: return "Blue"
-            case .lightBlue: return "Light Blue"
-            case .green: return "Green"
-            case .red: return "Red"
-            case .orange: return "Orange"
-            case .yellow: return "Yellow"
-            case .purple: return "Purple"
-            case .pink: return "Pink"
-            case .gray: return "Gray"
-            case .brown: return "Brown"
-            case .indigo: return "Indigo"
-            case .mint: return "Mint"
-            }
+            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(selection.name))
         }
     }
 

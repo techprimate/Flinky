@@ -55,7 +55,6 @@
         }
       }
     },
-
     "Key" : {
       "extractionState" : "manual"
     },
@@ -574,6 +573,150 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Color"
+          }
+        }
+      }
+    },
+    "shared.color.blue" : {
+      "comment" : "Blue color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
+    "shared.color.brown" : {
+      "comment" : "Brown color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brown"
+          }
+        }
+      }
+    },
+    "shared.color.gray" : {
+      "comment" : "Gray color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gray"
+          }
+        }
+      }
+    },
+    "shared.color.green" : {
+      "comment" : "Green color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        }
+      }
+    },
+    "shared.color.indigo" : {
+      "comment" : "Indigo color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indigo"
+          }
+        }
+      }
+    },
+    "shared.color.light-blue" : {
+      "comment" : "Light blue color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light Blue"
+          }
+        }
+      }
+    },
+    "shared.color.mint" : {
+      "comment" : "Mint color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mint"
+          }
+        }
+      }
+    },
+    "shared.color.orange" : {
+      "comment" : "Orange color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        }
+      }
+    },
+    "shared.color.pink" : {
+      "comment" : "Pink color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        }
+      }
+    },
+    "shared.color.purple" : {
+      "comment" : "Purple color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
+          }
+        }
+      }
+    },
+    "shared.color.red" : {
+      "comment" : "Red color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        }
+      }
+    },
+    "shared.color.yellow" : {
+      "comment" : "Yellow color name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
           }
         }
       }
@@ -1322,6 +1465,90 @@
         }
       }
     },
+    "shared.qr-code.save-to-photos.accessibility.hint" : {
+      "comment" : "Save QR code to Photos accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save QR code image to Photos app"
+          }
+        }
+      }
+    },
+    "shared.qr-code.save-to-photos.accessibility.label" : {
+      "comment" : "Save QR code to Photos accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save to Photos"
+          }
+        }
+      }
+    },
+    "shared.qr-code.save-to-photos.label" : {
+      "comment" : "Save QR code to Photos",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save to Photos"
+          }
+        }
+      }
+    },
+    "shared.qr-code.save-to-photos.success" : {
+      "comment" : "QR code saved to Photos success message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code saved to Photos"
+          }
+        }
+      }
+    },
+    "shared.qr-code.share-as-image.accessibility.hint" : {
+      "comment" : "Share QR code as image accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share QR code as Image"
+          }
+        }
+      }
+    },
+    "shared.qr-code.share-as-image.accessibility.label" : {
+      "comment" : "Share QR code as image accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share as Image"
+          }
+        }
+      }
+    },
+    "shared.qr-code.share-as-image.label" : {
+      "comment" : "Share QR code as Image",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share as Image"
+          }
+        }
+      }
+    },
     "shared.symbol-picker.accessibility.hint" : {
       "comment" : "Symbol picker accessibility",
       "extractionState" : "manual",
@@ -1405,8 +1632,7 @@
           }
         }
       }
-    },
-
+    }
   },
   "version" : "1.0"
 }

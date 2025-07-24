@@ -110,24 +110,7 @@ private extension LinkInfoRenderView {
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(colorName(for: selection)))
-        }
-        
-        private func colorName(for color: ListColor) -> String {
-            switch color {
-            case .blue: return "Blue"
-            case .lightBlue: return "Light Blue"
-            case .green: return "Green"
-            case .red: return "Red"
-            case .orange: return "Orange"
-            case .yellow: return "Yellow"
-            case .purple: return "Purple"
-            case .pink: return "Pink"
-            case .gray: return "Gray"
-            case .brown: return "Brown"
-            case .indigo: return "Indigo"
-            case .mint: return "Mint"
-            }
+            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(selection.name))
         }
     }
 
