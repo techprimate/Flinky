@@ -10,7 +10,7 @@ struct LinkDetailContainerView: View {
         let image: UIImage
     }
 
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkDetailContainerView")
+    private static let logger = Logger.forType(Self.self)
 
     @Environment(\.qrcodeCache) private var qrcodeCache
     @Environment(\.toaster) private var toaster

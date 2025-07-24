@@ -4,6 +4,8 @@ import os.log
 import Sentry
 
 struct LinkDetailNFCSharingContainerView: View {
+    private static let logger = Logger.forType(Self.self)
+
     @Environment(\.toaster) private var toaster
 
     let link: LinkModel
@@ -11,8 +13,6 @@ struct LinkDetailNFCSharingContainerView: View {
     @State private var nfcState: NFCSharingState = .ready
     @State private var nfcSession: NFCNDEFReaderSession?
     
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkDetailNFCSharingContainerView")
-
     var body: some View {
         LinkDetailNFCSharingRenderView(
             state: nfcState,

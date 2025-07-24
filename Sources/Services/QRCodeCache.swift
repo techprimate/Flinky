@@ -3,9 +3,10 @@ import UIKit
 import os.log
 
 class QRCodeCache: NSObject {
+    private static let logger = Logger.forType(QRCodeCache.self)
+
     private let storage = NSCache<NSString, UIImage>()
-    private let logger = Logger(subsystem: "com.techprimate.Flinky", category: "QRCodeCache")
-    
+
     // Cache configuration
     private let maxCacheSize: Int = 100 // Maximum number of cached QR codes
     private let maxMemoryUsage: Int = 50 * 1024 * 1024 // 50MB maximum memory usage
@@ -23,7 +24,7 @@ class QRCodeCache: NSObject {
         // Set delegate to handle eviction
         storage.delegate = self
         
-        logger.info("QR Code cache configured with max size: \(self.maxCacheSize), max memory: \(self.maxMemoryUsage) bytes")
+        Self.logger.info("QR Code cache configured with max size: \(self.maxCacheSize), max memory: \(self.maxMemoryUsage) bytes")
     }
     
     private func setupMemoryWarningObserver() {
@@ -36,7 +37,7 @@ class QRCodeCache: NSObject {
     }
     
     @objc private func handleMemoryWarning() {
-        logger.warning("Received memory warning, clearing QR code cache")
+        Self.logger.warning("Received memory warning, clearing QR code cache")
         clearCache()
     }
     
@@ -45,9 +46,9 @@ class QRCodeCache: NSObject {
         let image = storage.object(forKey: key)
         
         if image != nil {
-            logger.debug("QR code cache hit for content")
+            Self.logger.debug("QR code cache hit for content")
         } else {
-            logger.debug("QR code cache miss for content")
+            Self.logger.debug("QR code cache miss for content")
         }
         
         return image
@@ -60,7 +61,7 @@ class QRCodeCache: NSObject {
         let cost = estimateImageMemoryUsage(image)
         
         storage.setObject(image, forKey: key, cost: cost)
-        logger.debug("Cached QR code with estimated cost: \(cost) bytes")
+        Self.logger.debug("Cached QR code with estimated cost: \(cost) bytes")
     }
     
     private func estimateImageMemoryUsage(_ image: UIImage) -> Int {
@@ -71,7 +72,7 @@ class QRCodeCache: NSObject {
     
     func clearCache() {
         storage.removeAllObjects()
-        logger.info("QR code cache cleared")
+        Self.logger.info("QR code cache cleared")
     }
     
     var cacheInfo: (count: Int, totalCost: Int) {
@@ -86,6 +87,6 @@ class QRCodeCache: NSObject {
 // MARK: - NSCacheDelegate
 extension QRCodeCache: NSCacheDelegate {
     func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
-        logger.debug("QR code cache evicting object due to memory pressure")
+        Self.logger.debug("QR code cache evicting object due to memory pressure")
     }
 }

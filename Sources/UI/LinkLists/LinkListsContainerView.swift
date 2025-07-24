@@ -5,7 +5,7 @@ import os.log
 import Sentry
 
 struct LinkListsContainerView: View {
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: String(describing: Self.self))
+    private static let logger = Logger.forType(Self.self)
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster
