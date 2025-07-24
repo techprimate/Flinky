@@ -74,6 +74,68 @@ internal enum L10n {
       }
     }
   }
+  internal enum LinkDetailNfcSharing {
+    /// Share via NFC
+    internal static let title = L10n.tr("link-detail-nfc-sharing.title", fallback: "Share via NFC")
+    internal enum Device {
+      /// Other Device
+      internal static let other = L10n.tr("link-detail-nfc-sharing.device.other", fallback: "Other Device")
+      /// Your Device
+      internal static let yours = L10n.tr("link-detail-nfc-sharing.device.yours", fallback: "Your Device")
+    }
+    internal enum Error {
+      /// Failed to share with device
+      internal static let message = L10n.tr("link-detail-nfc-sharing.error.message", fallback: "Failed to share with device")
+      /// Error
+      internal static let title = L10n.tr("link-detail-nfc-sharing.error.title", fallback: "Error")
+    }
+    internal enum Instructions {
+      /// Make sure the other device has NFC enabled and is ready to receive links
+      internal static let message = L10n.tr("link-detail-nfc-sharing.instructions.message", fallback: "Make sure the other device has NFC enabled and is ready to receive links")
+      /// Instructions:
+      internal static let title = L10n.tr("link-detail-nfc-sharing.instructions.title", fallback: "Instructions:")
+    }
+    internal enum LinkPreview {
+      /// Link to share:
+      internal static let title = L10n.tr("link-detail-nfc-sharing.link-preview.title", fallback: "Link to share:")
+    }
+    internal enum NfcSession {
+      /// Bring your device close to another NFC-capable device to share the link
+      internal static let alertMessage = L10n.tr("link-detail-nfc-sharing.nfc-session.alert-message", fallback: "Bring your device close to another NFC-capable device to share the link")
+    }
+    internal enum Ready {
+      /// Hold your device near another NFC-capable device to share the link
+      internal static let message = L10n.tr("link-detail-nfc-sharing.ready.message", fallback: "Hold your device near another NFC-capable device to share the link")
+      /// Ready to Share
+      internal static let title = L10n.tr("link-detail-nfc-sharing.ready.title", fallback: "Ready to Share")
+    }
+    internal enum Retry {
+      /// Try Again
+      internal static let label = L10n.tr("link-detail-nfc-sharing.retry.label", fallback: "Try Again")
+    }
+    internal enum Scanning {
+      /// Bring your device close to another NFC-capable device
+      internal static let message = L10n.tr("link-detail-nfc-sharing.scanning.message", fallback: "Bring your device close to another NFC-capable device")
+      /// Searching for nearby devices...
+      internal static let progress = L10n.tr("link-detail-nfc-sharing.scanning.progress", fallback: "Searching for nearby devices...")
+      /// Scanning...
+      internal static let title = L10n.tr("link-detail-nfc-sharing.scanning.title", fallback: "Scanning...")
+    }
+    internal enum Success {
+      /// Link successfully shared with device
+      internal static let message = L10n.tr("link-detail-nfc-sharing.success.message", fallback: "Link successfully shared with device")
+      /// Success!
+      internal static let title = L10n.tr("link-detail-nfc-sharing.success.title", fallback: "Success!")
+    }
+    internal enum Troubleshooting {
+      /// • Ensure both devices have NFC enabled
+      /// • Make sure the other device is ready to receive
+      /// • Try moving devices closer together
+      internal static let message = L10n.tr("link-detail-nfc-sharing.troubleshooting.message", fallback: "• Ensure both devices have NFC enabled\n• Make sure the other device is ready to receive\n• Try moving devices closer together")
+      /// Troubleshooting:
+      internal static let title = L10n.tr("link-detail-nfc-sharing.troubleshooting.title", fallback: "Troubleshooting:")
+    }
+  }
   internal enum LinkListDetail {
     /// New Link
     internal static let newLink = L10n.tr("link-list-detail.new-link", fallback: "New Link")
@@ -284,6 +346,12 @@ internal enum L10n {
           return L10n.tr("shared.error.network.description", String(describing: p1), fallback: "Network Error: %@")
         }
       }
+      internal enum Nfc {
+        /// NFC Error: %@
+        internal static func description(_ p1: Any) -> String {
+          return L10n.tr("shared.error.nfc.description", String(describing: p1), fallback: "NFC Error: %@")
+        }
+      }
       internal enum Persistence {
         /// Save Error: %@
         internal static func description(_ p1: Any) -> String {
@@ -301,6 +369,8 @@ internal enum L10n {
         internal static let dataCorruption = L10n.tr("shared.error.recovery.data-corruption", fallback: "Please try restarting the app. If the problem persists, contact support.")
         /// Please check your internet connection and try again.
         internal static let network = L10n.tr("shared.error.recovery.network", fallback: "Please check your internet connection and try again.")
+        /// Make sure NFC is enabled on both devices and the other device is ready to receive.
+        internal static let nfc = L10n.tr("shared.error.recovery.nfc", fallback: "Make sure NFC is enabled on both devices and the other device is ready to receive.")
         /// Failed to save your changes. Please try again.
         internal static let persistence = L10n.tr("shared.error.recovery.persistence", fallback: "Failed to save your changes. Please try again.")
         /// Unable to generate QR code for this link.

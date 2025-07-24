@@ -2,6 +2,7 @@ import SwiftUI
 import os.log
 import Sentry
 import Photos
+import CoreNFC
 
 struct LinkDetailContainerView: View {
     private struct ImageBox: Identifiable {
@@ -66,6 +67,7 @@ struct LinkDetailContainerView: View {
             saveQRCodeImageToPhotos: { image in
                 saveImageToPhotos(image)
             },
+            isNFCSharingSupported: NFCReaderSession.readingAvailable,
             shareViaNFCAction: {
                 isSharingViaNFCPresented = true
             }

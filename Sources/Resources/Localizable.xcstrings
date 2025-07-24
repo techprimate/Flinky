@@ -55,8 +55,233 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
+    "link-detail-nfc-sharing.device.other" : {
+      "comment" : "Label for other device in NFC sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Device"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.device.yours" : {
+      "comment" : "Label for your device in NFC sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Device"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.error.message" : {
+      "comment" : "NFC error state message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to share with device"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.error.title" : {
+      "comment" : "NFC error state title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.instructions.message" : {
+      "comment" : "Instructions message for NFC sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure the other device has NFC enabled and is ready to receive links"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.instructions.title" : {
+      "comment" : "Instructions title for NFC sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instructions:"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.link-preview.title" : {
+      "comment" : "Link preview title in NFC sharing",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link to share:"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.nfc-session.alert-message" : {
+      "comment" : "NFC session alert message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bring your device close to another NFC-capable device to share the link"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.ready.message" : {
+      "comment" : "NFC ready state message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold your device near another NFC-capable device to share the link"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.ready.title" : {
+      "comment" : "NFC ready state title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to Share"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.retry.label" : {
+      "comment" : "NFC retry button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.scanning.message" : {
+      "comment" : "NFC scanning state message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bring your device close to another NFC-capable device"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.scanning.progress" : {
+      "comment" : "NFC scanning progress message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Searching for nearby devices..."
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.scanning.title" : {
+      "comment" : "NFC scanning state title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanning..."
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.success.message" : {
+      "comment" : "NFC success state message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link successfully shared with device"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.success.title" : {
+      "comment" : "NFC success state title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success!"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.title" : {
+      "comment" : "NFC sharing screen title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share via NFC"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.troubleshooting.message" : {
+      "comment" : "NFC troubleshooting message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Ensure both devices have NFC enabled\n• Make sure the other device is ready to receive\n• Try moving devices closer together"
+          }
+        }
+      }
+    },
+    "link-detail-nfc-sharing.troubleshooting.title" : {
+      "comment" : "NFC troubleshooting title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Troubleshooting:"
+          }
+        }
+      }
     },
     "link-detail.edit-link.accessibility.hint" : {
       "comment" : "Edit link accessibility hint",
@@ -865,6 +1090,18 @@
         }
       }
     },
+    "shared.error.nfc.description" : {
+      "comment" : "NFC error description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC Error: %@"
+          }
+        }
+      }
+    },
     "shared.error.ok-button" : {
       "comment" : "Error alert OK button",
       "extractionState" : "manual",
@@ -921,6 +1158,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.nfc" : {
+      "comment" : "NFC error recovery suggestion",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure NFC is enabled on both devices and the other device is ready to receive."
           }
         }
       }

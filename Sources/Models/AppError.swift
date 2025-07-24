@@ -9,6 +9,7 @@ enum AppError: LocalizedError, CustomStringConvertible {
     case qrCodeGenerationError(String)
     case failedToGenerateQRCode(reason: Error)
     case failedToOpenURL(URL)
+    case nfcError(String)
     case unknownError(String)
 
     var errorDescription: String? {
@@ -27,6 +28,8 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return L10n.Shared.Error.QrCode.description(reason.localizedDescription)
         case .failedToOpenURL(let url):
             return L10n.Shared.Error.FailedToOpenUrl.description(url.absoluteString)
+        case .nfcError(let message):
+            return L10n.Shared.Error.Nfc.description(message)
         case .unknownError(let message):
             return L10n.Shared.Error.Unknown.description(message)
         }
@@ -46,6 +49,8 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return L10n.Shared.Error.Recovery.qrCode
         case .failedToOpenURL:
             return L10n.Shared.Error.FailedToOpenUrl.recoverySuggestion
+        case .nfcError:
+            return L10n.Shared.Error.Recovery.nfc
         case .unknownError:
             return L10n.Shared.Error.Recovery.unknown
         }
@@ -68,6 +73,8 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return "Failed to generate QR code: \(reason.localizedDescription)"
         case .failedToOpenURL(let url):
             return "Failed to open url: \(url)"
+        case .nfcError(let message):
+            return "NFC error: \(message)"
         case .unknownError(let message):
             return "Unknown error: \(message)"
         }
@@ -81,6 +88,7 @@ extension AppError: Identifiable {
                 .networkError(let message),
                 .validationError(let message),
                 .qrCodeGenerationError(let message),
+                .nfcError(let message),
                 .unknownError(let message):
             return "\(self)_\(message)"
         case .persistenceError(let persistenceError):
@@ -110,6 +118,8 @@ extension AppError: Equatable {
             return lhsReason.localizedDescription == rhsReason.localizedDescription
         case (.failedToOpenURL(let lhsURL), .failedToOpenURL(let rhsURL)):
             return lhsURL == rhsURL
+        case (.nfcError(let lhsMessage), .nfcError(let rhsMessage)):
+            return lhsMessage == rhsMessage
         case (.unknownError(let lhsMessage), .unknownError(let rhsMessage)):
             return lhsMessage == rhsMessage
         default:

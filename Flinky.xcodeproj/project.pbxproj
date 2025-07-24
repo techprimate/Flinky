@@ -31,6 +31,7 @@
 		D40BEF022E2EFFC900391C5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Flinky.xctestplan; sourceTree = "<group>"; };
+		D4B94A3D2E3221EA0000FEA2 /* Flinky.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Flinky.entitlements; sourceTree = "<group>"; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -117,6 +118,7 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
+				D4B94A3D2E3221EA0000FEA2 /* Flinky.entitlements */,
 				D40BEF1C2E2EFFEC00391C5A /* Config */,
 				D40BEF0E2E2EFFD400391C5A /* docs */,
 				D40BEF142E2EFFD600391C5A /* Generated */,
@@ -486,6 +488,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Flinky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -497,6 +500,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -522,6 +526,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Flinky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
@@ -533,6 +538,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

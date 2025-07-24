@@ -18,13 +18,16 @@ struct LinkDetailRenderView: View {
 
     let shareQRCodeImageAction: (_ image: UIImage) -> Void
     let saveQRCodeImageToPhotos: (_ image: UIImage) -> Void
+
+    let isNFCSharingSupported: Bool
     let shareViaNFCAction: () -> Void
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             topSectionView
             bottomSectionView
         }
+        .background(Color(UIColor.systemGroupedBackground))
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
                 Menu {
@@ -86,21 +89,23 @@ struct LinkDetailRenderView: View {
 
     var bottomSectionView: some View {
         VStack(spacing: 12) {
-            HStack {
-                Button {
-                    shareViaNFCAction()
-                } label: {
-                    Label(L10n.LinkDetail.ShareViaNfc.label, systemSymbol: .dotRadiowavesRight)
-                        .padding(8)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
+            if isNFCSharingSupported {
+                HStack {
+                    Button {
+                        shareViaNFCAction()
+                    } label: {
+                        Label(L10n.LinkDetail.ShareViaNfc.label, systemSymbol: .dotRadiowavesRight)
+                            .padding(8)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .accentColor(.gray)
+                    .accessibilityLabel(L10n.LinkDetail.ShareViaNfc.Accessibility.label(title))
+                    .accessibilityHint(L10n.LinkDetail.ShareViaNfc.Accessibility.hint)
                 }
-                .buttonStyle(.borderedProminent)
-                .accentColor(.gray)
-                .accessibilityLabel(L10n.LinkDetail.ShareViaNfc.Accessibility.label(title))
-                .accessibilityHint(L10n.LinkDetail.ShareViaNfc.Accessibility.hint)
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
             HStack {
                 ShareLink(item: url, subject: Text(title)) {
                     Label(L10n.LinkDetail.ShareLink.label, systemSymbol: .squareAndArrowUp)
@@ -116,7 +121,6 @@ struct LinkDetailRenderView: View {
             .frame(maxWidth: .infinity)
         }
         .padding()
-        .background(Color(UIColor.systemGroupedBackground))
     }
 
     var imageView: some View {
@@ -234,6 +238,7 @@ extension LinkDetailRenderView {
                 copyURLAction: {},
                 shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
+                isNFCSharingSupported: true,
                 shareViaNFCAction: {  }
             )
         }
@@ -254,6 +259,7 @@ extension LinkDetailRenderView {
                 copyURLAction: {},
                 shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
+                isNFCSharingSupported: true,
                 shareViaNFCAction: {  }
             )
         }
@@ -274,6 +280,28 @@ extension LinkDetailRenderView {
                 copyURLAction: {},
                 shareQRCodeImageAction: {image in },
                 saveQRCodeImageToPhotos: { _ in },
+                isNFCSharingSupported: true,
+                shareViaNFCAction: {}
+            )
+        }
+    }
+    .modelContainer(for: LinkModel.self, inMemory: true)
+}
+
+#Preview("NFC not available") {
+    Color.gray.sheet(isPresented: .constant(true)) {
+        NavigationStack {
+            LinkDetailRenderView(
+                title: "Sample Link",
+                url: URL(string: "https://example.com")!,
+                color: .blue,
+                image: .success(UIImage(data: Data(base64Encoded: "/9j/4AAQSkZJRgABAQAASABIAAD/4QCARXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAABugAwAEAAAAAQAAABsAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIABsAGwMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDABsbGxsbGy8bGy9CLy8vQllCQkJCWXBZWVlZWXCIcHBwcHBwiIiIiIiIiIijo6Ojo6O+vr6+vtXV1dXV1dXV1dX/2wBDASEjIzYyNl0yMl3fl3yX39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39//3QAEAAL/2gAMAwEAAhEDEQA/AEnncPIBJgDzcnzSGDAttAXcPQdqtTzyyLI28oyFtmDgYViMnBOeAcgjnHA4NV5Gu5blwCwjRnO4F1XC9s5x1znOOmAwGMWGkmaTyUZW37nUDABBY9VON2VzyDjv/tUAV7iaVQNj5bC8PJt6s+7oU7gDpkDsK2rJg1vkNuG5wCTngMcc9+Kx1mZpI/PO0uMhUYgMWYfdAI9+SeSc8qM1sWMrz2qSuck554554PBOD6j1oA//0HTXJSR41wGIkYYDdFZifmDgjJXnApfvtJFbnEm9kAZ1b5O4CHtx0wO3OK2GsrdgwO7DZJAdgOevGcc1J5EW4sRuzuHzEnhsZHPbjpQBzAWOFRdJE6YOTJjA2uGx0OOQQOAMHuK6SzcyW4dgASWzgFRkE54PPX1qN9Ps5JPNZPmzu4Yjn14PXirUcaRJsTpyeST1OTyaAP/Z")!)!),
+                editAction: {},
+                openInSafariAction: {},
+                copyURLAction: {},
+                shareQRCodeImageAction: { _ in },
+                saveQRCodeImageToPhotos: { _ in },
+                isNFCSharingSupported: false,
                 shareViaNFCAction: {  }
             )
         }
