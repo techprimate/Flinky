@@ -60,6 +60,11 @@
 			path = Templates;
 			sourceTree = "<group>";
 		};
+		D4B94A352E3197BA0000FEA2 /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Sources;
@@ -118,6 +123,7 @@
 				D40BEF182E2EFFDD00391C5A /* Scripts */,
 				D4D359DB2E1BDF540006226D /* Sources */,
 				D40BEF1B2E2EFFE300391C5A /* Templates */,
+				D4B94A352E3197BA0000FEA2 /* Resources */,
 				D40BEC182E2EE0C500391C5A /* Tests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
@@ -487,9 +493,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Resources/Flinky-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -521,9 +529,11 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Resources/Flinky-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
