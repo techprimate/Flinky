@@ -5,10 +5,11 @@ import os.log
 import Sentry
 
 struct LinkListsContainerView: View {
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: String(describing: Self.self))
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster
-    
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkListsContainerView")
+
     @Query(
         filter: #Predicate { (list: LinkListModel) in list.isPinned == true },
         sort: [SortDescriptor(\.name, comparator: .localized)]
@@ -21,6 +22,8 @@ struct LinkListsContainerView: View {
     private var unpinnedLists: [LinkListModel]
     
     @State private var isCreateListPresented = false
+    @State private var isCreateLinkPresented = false
+
     @State private var presentedInfoList: LinkListModel?
     @State private var searchText = ""
     
@@ -76,10 +79,15 @@ struct LinkListsContainerView: View {
     }
     
     var viewWithSheets: some View {
-        searchableView
+        renderView
             .sheet(isPresented: $isCreateListPresented) {
                 NavigationStack {
                     CreateLinkListEditorContainerView()
+                }
+            }
+            .sheet(isPresented: $isCreateLinkPresented) {
+                NavigationStack {
+                    CreateLinkWithListPickerEditorContainerView()
                 }
             }
             .sheet(item: $presentedInfoList) { list in
@@ -89,22 +97,21 @@ struct LinkListsContainerView: View {
             }
     }
     
-    var searchableView: some View {
-        renderView
-            .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
-    }
-    
     var renderView: some View {
         LinkListsRenderView(
             pinnedLists: pinnedListDisplayItems,
             unpinnedLists: listDisplayItems,
+            searchText: $searchText,
             presentCreateList: {
                 isCreateListPresented = true
             },
+            presentCreateLink: {
+                isCreateLinkPresented = true
+            },
             pinListAction: { list in
                 guard let model = unpinnedLists.first(where: { $0.id == list.id }) else {
-                    Self.logger.error("List not found for pinning: \(list.title)")
-                    let appError = AppError.dataCorruption("List not found for pinning: \(list.title)")
+                    Self.logger.error("List not found for pinning: \(list.name)")
+                    let appError = AppError.dataCorruption("List not found for pinning: \(list.name)")
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                     return
@@ -123,8 +130,8 @@ struct LinkListsContainerView: View {
             },
             unpinListAction: { list in
                 guard let model = pinnedLists.first(where: { $0.id == list.id }) else {
-                    Self.logger.error("List not found for unpinning: \(list.title)")
-                    let appError = AppError.dataCorruption("List not found for unpinning: \(list.title)")
+                    Self.logger.error("List not found for unpinning: \(list.name)")
+                    let appError = AppError.dataCorruption("List not found for unpinning: \(list.name)")
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                     return
@@ -165,18 +172,18 @@ struct LinkListsContainerView: View {
             }
         ) { listDisplayItem in
             if let list = (pinnedLists + unpinnedLists).first(where: { $0.id == listDisplayItem.id }) {
-                LinkListContainerView(list: list)
+                LinkListDetailContainerView(list: list)
             }
         }
     }
     
-    var pinnedListDisplayItems: [LinkListDisplayItem] {
+    var pinnedListDisplayItems: [LinkListsDisplayItem] {
         filteredPinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
     
-    var listDisplayItems: [LinkListDisplayItem] {
+    var listDisplayItems: [LinkListsDisplayItem] {
         filteredUnpinnedLists.map { list in
             mapToDisplayItem(list)
         }
@@ -208,10 +215,10 @@ struct LinkListsContainerView: View {
         }
     }
     
-    func mapToDisplayItem(_ model: LinkListModel) -> LinkListDisplayItem {
-        LinkListDisplayItem(
+    func mapToDisplayItem(_ model: LinkListModel) -> LinkListsDisplayItem {
+        LinkListsDisplayItem(
             id: model.id,
-            title: model.name,
+            name: model.name,
             symbol: model.symbol ?? .defaultForList,
             color: model.color ?? .defaultForList,
             count: model.links.count

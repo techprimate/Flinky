@@ -3,6 +3,8 @@ import os.log
 import Sentry
 
 struct LinkListInfoContainerView: View {
+    private static let logger = Logger.forType(Self.self)
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Environment(\.toaster) private var toaster
@@ -12,8 +14,6 @@ struct LinkListInfoContainerView: View {
     @State private var symbol: ListSymbol = .defaultForList
 
     let list: LinkListModel
-    
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkListInfoContainerView")
 
     var body: some View {
         LinkListInfoRenderView(

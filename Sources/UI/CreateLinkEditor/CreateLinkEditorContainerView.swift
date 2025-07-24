@@ -3,39 +3,43 @@ import os.log
 import Sentry
 
 struct CreateLinkEditorContainerView: View {
+    private static let logger = Logger.forType(Self.self)
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster
 
+    @State private var name = ""
+    @State private var url = ""
+
     let list: LinkListModel
-    
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "CreateLinkEditorContainerView")
 
     var body: some View {
-        CreateLinkEditorRenderView { data in
-            let newItem = LinkModel(
-                id: UUID(),
-                createdAt: Date(),
-                updatedAt: Date(),
-                name: data.title,
-                color: nil,
-                symbol: nil,
-                url: data.url
-            )
-            modelContext.insert(newItem)
-            list.links.append(newItem)
-            list.updatedAt = Date()
+        CreateLinkEditorRenderView(
+            name: $name,
+            url: $url,
+            saveAction: {
+                guard let url = URL(string: url) else {
+                    preconditionFailure("Validation of URL was not performed before saving")
+                }
+                let link = LinkModel(
+                    name: name,
+                    url: url
+                )
+                modelContext.insert(link)
+                list.links.append(link)
+                list.updatedAt = Date()
 
-            // Save the context to persist the new link
-            do {
-                try modelContext.save()
-                dismiss()
-            } catch {
-                Self.logger.error("Failed to save link: \(error)")
-                let appError = AppError.persistenceError(.saveLinkFailed(underlyingError: error.localizedDescription))
-                SentrySDK.capture(error: appError)
-                toaster.show(error: appError)
+                do {
+                    try modelContext.save()
+                    dismiss()
+                } catch {
+                    Self.logger.error("Failed to save link: \(error)")
+                    let appError = AppError.persistenceError(.saveLinkFailed(underlyingError: error.localizedDescription))
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
             }
-        }
+        )
     }
 }

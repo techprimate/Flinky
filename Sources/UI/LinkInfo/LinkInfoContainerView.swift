@@ -3,6 +3,8 @@ import os.log
 import Sentry
 
 struct LinkInfoContainerView: View {
+    private static let logger = Logger.forType(Self.self)
+
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Environment(\.toaster) private var toaster
@@ -13,8 +15,6 @@ struct LinkInfoContainerView: View {
     @State private var symbol: ListSymbol = .defaultForLink
 
     let link: LinkModel
-    
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkInfoContainerView")
 
     var body: some View {
         LinkInfoRenderView(
@@ -26,10 +26,11 @@ struct LinkInfoContainerView: View {
                 dismiss()
             },
             saveAction: {
-                link.name = name
-                if let url = URL(string: self.url) {
-                    link.url = url
+                guard let url = URL(string: url) else {
+                    preconditionFailure("Validation of URL was not performed before saving")
                 }
+                link.name = name
+                link.url = url
                 link.color = color
                 link.symbol = symbol
                 link.updatedAt = Date()

@@ -4,7 +4,7 @@ import SwiftUI
 struct PinnedLinkListCardView: View {
     @Environment(\.colorScheme) private var colorScheme
 
-    let item: LinkListDisplayItem
+    let item: LinkListsDisplayItem
 
     var body: some View {
         VStack(spacing: 8) {
@@ -24,7 +24,7 @@ struct PinnedLinkListCardView: View {
             }
             .font(.system(size: 22))
             HStack {
-                Text(item.title)
+                Text(item.name)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 Spacer()
@@ -35,7 +35,7 @@ struct PinnedLinkListCardView: View {
         .cornerRadius(10)
         .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(L10n.Shared.Item.List.PinnedCard.Accessibility.label(item.title, item.count))
+        .accessibilityLabel(L10n.Shared.Item.List.PinnedCard.Accessibility.label(item.name, item.count))
         .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
         .accessibilityAddTraits(.isButton)
     }
@@ -44,7 +44,7 @@ struct PinnedLinkListCardView: View {
 #Preview {
     PinnedLinkListCardView(item: .init(
         id: UUID(),
-        title: "Favorites",
+        name: "Favorites",
         symbol: .communication(.star),
         color: .yellow,
         count: 15

@@ -2,17 +2,21 @@ import SFSafeSymbols
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
-    let pinnedLists: [LinkListDisplayItem]
-    let unpinnedLists: [LinkListDisplayItem]
+    let pinnedLists: [LinkListsDisplayItem]
+    let unpinnedLists: [LinkListsDisplayItem]
+
+    @Binding var searchText: String
 
     let presentCreateList: () -> Void
-    let pinListAction: (LinkListDisplayItem) -> Void
-    let unpinListAction: (LinkListDisplayItem) -> Void
-    let deleteUnpinnedListAction: (LinkListDisplayItem) -> Void
-    let deleteUnpinnedListsAction: (_ offsets: IndexSet) -> Void
-    let editListAction: (LinkListDisplayItem) -> Void
+    let presentCreateLink: () -> Void
 
-    @ViewBuilder let destination: (LinkListDisplayItem) -> Destination
+    let pinListAction: (LinkListsDisplayItem) -> Void
+    let unpinListAction: (LinkListsDisplayItem) -> Void
+    let deleteUnpinnedListAction: (LinkListsDisplayItem) -> Void
+    let deleteUnpinnedListsAction: (_ offsets: IndexSet) -> Void
+    let editListAction: (LinkListsDisplayItem) -> Void
+
+    @ViewBuilder let destination: (LinkListsDisplayItem) -> Destination
 
     var body: some View {
         VStack(spacing: 16) {
@@ -35,7 +39,7 @@ struct LinkListsRenderView<Destination: View>: View {
             List {
                 Section {
                     ForEach(unpinnedLists, id: \.self) { list in
-                        itemForList(list)
+                        itemViewForList(list)
                     }
                     .onDelete(perform: deleteUnpinnedListsAction)
                 } header: {
@@ -53,6 +57,7 @@ struct LinkListsRenderView<Destination: View>: View {
         .background(Color(UIColor.systemGroupedBackground))
         .headerProminence(.increased)
         .navigationTitle(L10n.App.title)
+        .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
         .overlay {
             if pinnedLists.isEmpty && unpinnedLists.isEmpty {
                 ContentUnavailableView(
@@ -70,26 +75,38 @@ struct LinkListsRenderView<Destination: View>: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
-                    presentCreateList()
+                    presentCreateLink()
                 }, label: {
-                    Label(L10n.CreateList.title, systemSymbol: .plusCircleFill)
+                    Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
                 })
                 .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.Shared.Button.NewList.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.NewList.Accessibility.label)
+                .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
+                .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                    presentCreateList()
+                }, label: {
+                    Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
+                        .imageScale(.large)
+                        .labelStyle(.titleOnly)
+                })
+                .buttonStyle(.borderless)
+                .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
+                .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
+            }
         }
     }
 
-    func itemForList(_ list: LinkListDisplayItem) -> some View {
+    func itemViewForList(_ list: LinkListsDisplayItem) -> some View {
         NavigationLink(destination: destination(list)) {
-            LinkListItemView(
+            LinkListsItemView(
                 item: list,
                 editAction: { item in
                     editListAction(item)
@@ -109,23 +126,25 @@ struct LinkListsRenderView<Destination: View>: View {
     NavigationStack {
         LinkListsRenderView(
             pinnedLists: [
-                .init(id: UUID(), title: "All", symbol: .object(.archiveBox), color: .yellow, count: 5),
-                .init(id: UUID(), title: "Favorites", symbol: .communication(.star), color: .yellow, count: 5),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .communication(.link), color: .yellow, count: 5)
+                .init(id: UUID(), name: "All", symbol: .object(.archiveBox), color: .yellow, count: 5),
+                .init(id: UUID(), name: "Favorites", symbol: .communication(.star), color: .yellow, count: 5),
+                .init(id: UUID(), name: "WeAreDevelopers", symbol: .communication(.link), color: .yellow, count: 5)
             ],
             unpinnedLists: [
-                .init(id: UUID(), title: "Personal", symbol: .placesBuildings(.house), color: .red, count: 4),
-                .init(id: UUID(), title: "Work", symbol: .object(.suitcase), color: .blue, count: 4),
-                .init(id: UUID(), title: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4)
+                .init(id: UUID(), name: "Personal", symbol: .placesBuildings(.house), color: .red, count: 4),
+                .init(id: UUID(), name: "Work", symbol: .object(.suitcase), color: .blue, count: 4),
+                .init(id: UUID(), name: "Golf Club", symbol: .emoji("⛳️"), color: .green, count: 4)
             ],
+            searchText: .constant(""),
             presentCreateList: {},
+            presentCreateLink: {},
             pinListAction: { _ in },
             unpinListAction: { _ in },
             deleteUnpinnedListAction: { _ in },
             deleteUnpinnedListsAction: { _ in },
             editListAction: { _ in }
         ) { list in
-            Text(list.title)
+            Text(list.name)
         }
     }
 }

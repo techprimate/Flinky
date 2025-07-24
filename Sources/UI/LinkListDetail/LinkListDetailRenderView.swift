@@ -1,9 +1,11 @@
 import SFSafeSymbols
 import SwiftUI
 
-struct LinkListRenderView: View {
-    let list: LinkListDisplayItem
+struct LinkListDetailRenderView: View {
+    let list: LinkListsDisplayItem
     let links: [LinkListDetailDisplayItem]
+
+    @Binding var searchText: String
 
     let editItem: (LinkListDetailDisplayItem) -> Void
     let deleteItem: (LinkListDetailDisplayItem) -> Void
@@ -16,20 +18,13 @@ struct LinkListRenderView: View {
         List {
             Section {
                 ForEach(links) { link in
-                    Button(action: {
-                        presentLinkDetail(link)
-                    }, label: {
-                        LinkDetailItemView(item: link, editAction: {
-                            editItem(link)
-                        }, deleteAction: {
-                            deleteItem(link)
-                        })
-                    })
-                    .buttonStyle(.plain)
+                    itemViewForLink(link)
                 }
                 .onDelete(perform: deleteItems)
             }
         }
+        .navigationTitle(list.name)
+        .searchable(text: $searchText, prompt: L10n.Search.links)
         .overlay {
             if links.isEmpty {
                 ContentUnavailableView(
@@ -39,20 +34,19 @@ struct LinkListRenderView: View {
                 )
             }
         }
-        .navigationTitle(list.title)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
             }
             ToolbarItem(placement: .bottomBar) {
-                Button(action: {
+                Button {
                     presentCreateEditor()
-                }, label: {
+                } label: {
                     Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
                         .bold()
                         .imageScale(.large)
                         .labelStyle(.titleAndIcon)
-                })
+                }
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.label)
@@ -62,14 +56,31 @@ struct LinkListRenderView: View {
             }
         }
     }
+
+    private func itemViewForLink(_ link: LinkListDetailDisplayItem) -> some View {
+        Button {
+            presentLinkDetail(link)
+        } label: {
+            LinkListDetailItemView(
+                item: link,
+                editAction: {
+                    editItem(link)
+                },
+                deleteAction: {
+                    deleteItem(link)
+                }
+            )
+        }
+        .buttonStyle(.plain)
+    }
 }
 
 #Preview {
     NavigationView {
-        LinkListRenderView(
+        LinkListDetailRenderView(
             list: .init(
                 id: UUID(),
-                title: "Favorites",
+                name: "Favorites",
                 symbol: .communication(.star),
                 color: .yellow,
                 count: 4
@@ -97,6 +108,7 @@ struct LinkListRenderView: View {
                     color: .blue
                 )
             ],
+            searchText: .constant(""),
             editItem: { _ in },
             deleteItem: { _ in },
             deleteItems: { _ in },

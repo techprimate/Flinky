@@ -5,20 +5,12 @@ struct CreateLinkListEditorRenderView: View {
         case name
     }
 
-    struct FormData {
-        let name: String
-    }
-
     @Environment(\.dismiss) private var dismiss
 
-    @State private var name = ""
+    @Binding var name: String
     @FocusState private var focusedField: CreateField?
 
-    var saveAction: (FormData) -> Void
-
-    init(saveAction: @escaping (FormData) -> Void) {
-        self.saveAction = saveAction
-    }
+    let saveAction: () -> Void
 
     var body: some View {
         Form {
@@ -53,23 +45,26 @@ struct CreateLinkListEditorRenderView: View {
         }
     }
 
-    func submit() {
-        guard isValid() else {
-            return
-        }
-        saveAction(FormData(name: name))
-    }
-
-    func isValid() -> Bool {
+    private func isValid() -> Bool {
         if name.isEmpty {
             return false
         }
         return true
     }
+
+    private func submit() {
+        guard isValid() else {
+            return
+        }
+        saveAction()
+    }
 }
 
 #Preview {
     NavigationStack {
-        CreateLinkEditorRenderView { _ in }
+        CreateLinkListEditorRenderView(
+            name: .constant(""),
+            saveAction: {}
+        )
     }
 }

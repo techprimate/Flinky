@@ -2,12 +2,13 @@ import Foundation
 import SFSafeSymbols
 import SwiftUI
 
-struct LinkListDetailDisplayItem: Hashable, Identifiable {
+struct LinkListsDisplayItem: Hashable, Identifiable {
     let id: UUID
 
-    let title: String
-    let url: URL
-
+    let name: String
     let symbol: ListSymbol
     let color: ListColor
+
+    let count: Int
 }
+

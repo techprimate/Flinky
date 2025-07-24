@@ -1,7 +1,7 @@
 import SFSafeSymbols
 import SwiftUI
 
-struct LinkDetailItemView: View {
+struct LinkListDetailItemView: View {
     let item: LinkListDetailDisplayItem
 
     let editAction: () -> Void
@@ -82,7 +82,7 @@ struct LinkDetailItemView: View {
     ]
     List {
         ForEach(items) { item in
-            LinkDetailItemView(item: item, editAction: {}, deleteAction: {})
+            LinkListDetailItemView(item: item, editAction: {}, deleteAction: {})
         }
     }
 }

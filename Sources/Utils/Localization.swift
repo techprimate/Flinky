@@ -20,6 +20,20 @@ internal enum L10n {
     /// Please enter a valid URL
     internal static let urlValidation = L10n.tr("create-link.url-validation", fallback: "Please enter a valid URL")
   }
+  internal enum CreateLinkListPicker {
+    /// Choose List
+    internal static let title = L10n.tr("create-link-list-picker.title", fallback: "Choose List")
+    internal enum Item {
+      internal enum Accessibility {
+        /// Select this list for your link
+        internal static let hint = L10n.tr("create-link-list-picker.item.accessibility.hint", fallback: "Select this list for your link")
+        /// %@
+        internal static func label(_ p1: Any) -> String {
+          return L10n.tr("create-link-list-picker.item.accessibility.label", String(describing: p1), fallback: "%@")
+        }
+      }
+    }
+  }
   internal enum CreateList {
     /// New List
     internal static let title = L10n.tr("create-list.title", fallback: "New List")
@@ -153,6 +167,26 @@ internal enum L10n {
     internal static let noListsTitle = L10n.tr("link-lists.no-lists-title", fallback: "No lists available")
     /// Pinned
     internal static let pinnedSection = L10n.tr("link-lists.pinned-section", fallback: "Pinned")
+    internal enum CreateLink {
+      /// Create Link
+      internal static let title = L10n.tr("link-lists.create-link.title", fallback: "Create Link")
+      internal enum Accessibility {
+        /// Create a new link
+        internal static let hint = L10n.tr("link-lists.create-link.accessibility.hint", fallback: "Create a new link")
+        /// Create Link
+        internal static let label = L10n.tr("link-lists.create-link.accessibility.label", fallback: "Create Link")
+      }
+    }
+    internal enum CreateList {
+      /// Create List
+      internal static let title = L10n.tr("link-lists.create-list.title", fallback: "Create List")
+      internal enum Accessibility {
+        /// Create a new list
+        internal static let hint = L10n.tr("link-lists.create-list.accessibility.hint", fallback: "Create a new list")
+        /// Create List
+        internal static let label = L10n.tr("link-lists.create-list.accessibility.label", fallback: "Create List")
+      }
+    }
   }
   internal enum Search {
     /// Search links
@@ -184,6 +218,8 @@ internal enum L10n {
         /// Cancel
         internal static let label = L10n.tr("shared.button.cancel.label", fallback: "Cancel")
         internal enum Accessibility {
+          /// Discard changes
+          internal static let hint = L10n.tr("shared.button.cancel.accessibility.hint", fallback: "Discard changes")
           /// Cancel
           internal static let label = L10n.tr("shared.button.cancel.accessibility.label", fallback: "Cancel")
         }
@@ -228,6 +264,8 @@ internal enum L10n {
         /// Save
         internal static let label = L10n.tr("shared.button.save.label", fallback: "Save")
         internal enum Accessibility {
+          /// Save changes
+          internal static let hint = L10n.tr("shared.button.save.accessibility.hint", fallback: "Save changes")
           /// Save
           internal static let label = L10n.tr("shared.button.save.accessibility.label", fallback: "Save")
         }

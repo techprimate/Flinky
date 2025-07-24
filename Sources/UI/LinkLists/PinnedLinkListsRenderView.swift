@@ -2,13 +2,13 @@ import SFSafeSymbols
 import SwiftUI
 
 struct PinnedLinkListsRenderView<T: View>: View {
-    let items: [LinkListDisplayItem]
+    let items: [LinkListsDisplayItem]
 
-    let editAction: (_ item: LinkListDisplayItem) -> Void
-    let unpinAction: (_ item: LinkListDisplayItem) -> Void
-    let deleteAction: (_ item: LinkListDisplayItem) -> Void
+    let editAction: (_ item: LinkListsDisplayItem) -> Void
+    let unpinAction: (_ item: LinkListsDisplayItem) -> Void
+    let deleteAction: (_ item: LinkListsDisplayItem) -> Void
 
-    let destination: (LinkListDisplayItem) -> T
+    let destination: (_ item: LinkListsDisplayItem) -> T
 
     var body: some View {
         LazyVGrid(columns: [
@@ -16,28 +16,32 @@ struct PinnedLinkListsRenderView<T: View>: View {
             GridItem(.flexible(), spacing: 12)
         ], spacing: 12) {
             ForEach(items) { item in
-                NavigationLink {
-                    destination(item)
-                } label: {
-                    PinnedLinkListCardView(item: item)
-                }
-                .contextMenu {
-                    Button {
-                        editAction(item)
-                    } label: {
-                        Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
-                    }
-                    Button {
-                        unpinAction(item)
-                    } label: {
-                        Label(L10n.Shared.Action.unpin, systemSymbol: .pinSlashFill)
-                    }
-                    Button(role: .destructive) {
-                        deleteAction(item)
-                    } label: {
-                        Label(L10n.Shared.Action.delete, systemSymbol: .trash)
-                    }
-                }
+                itemViewForList(item)
+            }
+        }
+    }
+
+    private func itemViewForList(_ item: LinkListsDisplayItem) -> some View {
+        NavigationLink {
+            destination(item)
+        } label: {
+            PinnedLinkListCardView(item: item)
+        }
+        .contextMenu {
+            Button {
+                editAction(item)
+            } label: {
+                Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
+            }
+            Button {
+                unpinAction(item)
+            } label: {
+                Label(L10n.Shared.Action.unpin, systemSymbol: .pinSlashFill)
+            }
+            Button(role: .destructive) {
+                deleteAction(item)
+            } label: {
+                Label(L10n.Shared.Action.delete, systemSymbol: .trash)
             }
         }
     }
@@ -47,22 +51,15 @@ struct PinnedLinkListsRenderView<T: View>: View {
     NavigationStack {
         PinnedLinkListsRenderView(
             items: [
-                .init(id: UUID(), title: "All", symbol: .documentsReadingWriting(.backpack), color: .green, count: 5),
-                .init(
-                    id: UUID(),
-                    title: "Favorites",
-                    symbol: .communication(.star),
-                    color: .yellow,
-                    count: 15
-                ),
-                .init(id: UUID(), title: "WeAreDevelopers", symbol: .communication(.link), color: .red, count: 2)
+                .init(id: UUID(), name: "All", symbol: .documentsReadingWriting(.backpack), color: .green, count: 5),
+                .init(id: UUID(), name: "Favorites", symbol: .communication(.star), color: .yellow, count: 15),
+                .init(id: UUID(), name: "WeAreDevelopers", symbol: .communication(.link), color: .red, count: 2)
             ],
-            editAction: { _ in
- },
+            editAction: { _ in },
             unpinAction: { _ in },
             deleteAction: { _ in }
         ) { list in
-            Text(list.title)
+            Text(list.name)
         }
         .padding()
         .background(Color(.systemGroupedBackground))

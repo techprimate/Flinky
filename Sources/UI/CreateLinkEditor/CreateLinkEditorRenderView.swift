@@ -6,27 +6,17 @@ struct CreateLinkEditorRenderView: View {
         case url
     }
 
-    struct FormData {
-        let title: String
-        let url: URL
-    }
-
     @Environment(\.dismiss) private var dismiss
 
-    @State private var title: String = ""
-    @State private var url: String = ""
+    @Binding var name: String
+    @Binding var url: String
+    let saveAction: () -> Void
 
     @FocusState private var focusedField: CreateField?
 
-    var saveAction: (FormData) -> Void
-
-    init(saveAction: @escaping (FormData) -> Void) {
-        self.saveAction = saveAction
-    }
-
     var body: some View {
-        Form {
-            TextField(L10n.Shared.Form.Title.label, text: $title)
+        List {
+            TextField(L10n.Shared.Form.Title.label, text: $name)
                 .tag(CreateField.title)
                 .focused($focusedField, equals: .title)
                 .accessibilityLabel(L10n.Shared.Form.Title.Accessibility.label)
@@ -53,6 +43,7 @@ struct CreateLinkEditorRenderView: View {
                     dismiss()
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(L10n.Shared.Button.Save.label) {
@@ -60,7 +51,7 @@ struct CreateLinkEditorRenderView: View {
                 }
                 .disabled(!isValid())
                 .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
-                .accessibilityHint(isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Title.Accessibility.hint)
+                .accessibilityHint(L10n.Shared.Button.Save.Accessibility.hint)
             }
         }
         .onAppear {
@@ -69,24 +60,23 @@ struct CreateLinkEditorRenderView: View {
     }
     
     private func isValid() -> Bool {
-        return !title.isEmpty && !url.isEmpty && URL(string: url) != nil
+        !name.isEmpty && !url.isEmpty && URL(string: url) != nil
     }
     
     private func submit() {
         guard isValid() else {
             return
         }
-        
-        guard let validURL = URL(string: url) else {
-            return
-        }
-        
-        saveAction(FormData(title: title, url: validURL))
+        saveAction()
     }
 }
 
 #Preview {
     NavigationStack {
-        CreateLinkEditorRenderView { _ in }
+        CreateLinkEditorRenderView(
+            name: .constant("My Favorite Link"),
+            url: .constant("https://www.example.com"),
+            saveAction: {}
+        )
     }
 }

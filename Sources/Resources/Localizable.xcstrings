@@ -19,6 +19,42 @@
         }
       }
     },
+    "create-link-list-picker.item.accessibility.hint" : {
+      "comment" : "List picker item accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select this list for your link"
+          }
+        }
+      }
+    },
+    "create-link-list-picker.item.accessibility.label" : {
+      "comment" : "List picker item accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "create-link-list-picker.title" : {
+      "comment" : "List picker navigation title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose List"
+          }
+        }
+      }
+    },
     "create-link.title" : {
       "comment" : "Create link title",
       "extractionState" : "manual",
@@ -478,6 +514,78 @@
         }
       }
     },
+    "link-lists.create-link.accessibility.hint" : {
+      "comment" : "Create link button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new link"
+          }
+        }
+      }
+    },
+    "link-lists.create-link.accessibility.label" : {
+      "comment" : "Create link button accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Link"
+          }
+        }
+      }
+    },
+    "link-lists.create-link.title" : {
+      "comment" : "Create link button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Link"
+          }
+        }
+      }
+    },
+    "link-lists.create-list.accessibility.hint" : {
+      "comment" : "Create list button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new list"
+          }
+        }
+      }
+    },
+    "link-lists.create-list.accessibility.label" : {
+      "comment" : "Create list button accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create List"
+          }
+        }
+      }
+    },
+    "link-lists.create-list.title" : {
+      "comment" : "Create list button title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create List"
+          }
+        }
+      }
+    },
     "link-lists.my-lists-section" : {
       "comment" : "My lists section title",
       "extractionState" : "manual",
@@ -525,6 +633,9 @@
           }
         }
       }
+    },
+    "List" : {
+
     },
     "search.links" : {
       "comment" : "Search links",
@@ -618,6 +729,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unpin"
+          }
+        }
+      }
+    },
+    "shared.button.cancel.accessibility.hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard changes"
           }
         }
       }
@@ -738,6 +860,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Create new list"
+          }
+        }
+      }
+    },
+    "shared.button.save.accessibility.hint" : {
+      "comment" : "Save button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save changes"
           }
         }
       }

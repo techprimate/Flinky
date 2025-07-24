@@ -2,12 +2,10 @@ import Foundation
 import SFSafeSymbols
 import SwiftUI
 
-struct LinkListDisplayItem: Hashable, Identifiable {
+struct CreateLinkWithListPickerListDisplayItem: Hashable {
     let id: UUID
-    let title: String
 
+    let name: String
     let symbol: ListSymbol
     let color: ListColor
-
-    let count: Int
 }
