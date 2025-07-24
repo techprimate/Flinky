@@ -8,6 +8,7 @@ struct LinkInfoContainerView: View {
     @Environment(\.toaster) private var toaster
 
     @State private var name = ""
+    @State private var url = ""
     @State private var color: ListColor = .defaultForLink
     @State private var symbol: ListSymbol = .defaultForLink
 
@@ -18,6 +19,7 @@ struct LinkInfoContainerView: View {
     var body: some View {
         LinkInfoRenderView(
             name: $name,
+            url: $url,
             color: $color,
             symbol: $symbol,
             cancelAction: {
@@ -25,6 +27,9 @@ struct LinkInfoContainerView: View {
             },
             saveAction: {
                 link.name = name
+                if let url = URL(string: self.url) {
+                    link.url = url
+                }
                 link.color = color
                 link.symbol = symbol
                 link.updatedAt = Date()
@@ -42,6 +47,7 @@ struct LinkInfoContainerView: View {
         )
         .onAppear {
             name = link.name
+            url = link.url.absoluteString
             color = link.color ?? .defaultForLink
             symbol = link.symbol ?? .defaultForLink
         }

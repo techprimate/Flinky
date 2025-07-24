@@ -3,6 +3,7 @@ import SwiftUI
 
 struct LinkInfoRenderView: View {
     @Binding var name: String
+    @Binding var url: String
     @Binding var color: ListColor
     @Binding var symbol: ListSymbol
 
@@ -12,6 +13,7 @@ struct LinkInfoRenderView: View {
     var body: some View {
         List {
             NameSection(name: $name, color: color, symbol: symbol)
+            UrlSection(url: $url)
             ColorPickerSection(selection: $color)
             SymbolPickerSection(selection: $symbol)
         }
@@ -85,6 +87,24 @@ private extension LinkInfoRenderView {
                         .accessibilityHint(L10n.Shared.Form.Title.Accessibility.hint)
                 }
                 .padding(4)
+            }
+        }
+    }
+
+    struct UrlSection: View {
+        @Binding var url: String
+
+        var body: some View {
+            Section {
+                TextField(L10n.Shared.Form.Url.label, text: $url)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                    .autocapitalization(.none)
+                    .keyboardType(.URL)
+                    .disableAutocorrection(true)
+                    .padding(.vertical, 8)
+                    .accessibilityLabel(L10n.Shared.Form.Url.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Form.Url.Accessibility.hint)
             }
         }
     }
@@ -199,12 +219,14 @@ private extension LinkInfoRenderView {
 
 #Preview("Symbol") {
     @Previewable @State var name = "My Favorites"
+    @Previewable @State var url = "www.techprimate.com"
     @Previewable @State var color: ListColor = .blue
     @Previewable @State var icon: ListSymbol = .communication(.bolt)
 
     NavigationStack {
         LinkInfoRenderView(
             name: $name,
+            url: $url,
             color: $color,
             symbol: $icon,
             cancelAction: {},
@@ -215,12 +237,14 @@ private extension LinkInfoRenderView {
 
 #Preview("Emoji") {
     @Previewable @State var name = "My Favorites"
+    @Previewable @State var url = "www.techprimate.com"
     @Previewable @State var color: ListColor = .indigo
     @Previewable @State var icon: ListSymbol = .emoji("😎")
 
     NavigationStack {
         LinkInfoRenderView(
             name: $name,
+            url: $url,
             color: $color,
             symbol: $icon,
             cancelAction: {},
