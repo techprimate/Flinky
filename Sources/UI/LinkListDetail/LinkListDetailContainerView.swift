@@ -5,11 +5,15 @@ import Sentry
 struct LinkListDetailContainerView: View {
     private static let logger = Logger.forType(Self.self)
 
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster
 
     @State private var isCreateEditorPresented = false
-    @State private var selectedLink: LinkModel?
+    @State private var isEditEditorPresented = false
+    @State private var isDeleteListPresented = false
+
+    @State private var presentedLink: LinkModel?
     @State private var editingLink: LinkModel?
     @State private var searchText = ""
 
@@ -58,6 +62,25 @@ struct LinkListDetailContainerView: View {
             } message: { links in
                 Text(L10n.Shared.DeleteConfirmation.Links.warningMessage(links.map(\.name).joined(separator: ", ")))
             }
+            .alert(L10n.Shared.DeleteConfirmation.List.alertTitle(list.name), isPresented: $isDeleteListPresented) {
+                Button(role: .destructive) {
+                    modelContext.delete(list)
+
+                    do {
+                        try modelContext.save()
+                        dismiss()
+                    } catch {
+                        Self.logger.error("Failed to delete list: \(error)")
+                        let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                        SentrySDK.capture(error: appError)
+                        toaster.show(error: appError)
+                    }
+                } label: {
+                    Text(L10n.Shared.Button.Delete.label)
+                }
+            } message: {
+                Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
+            }
     }
 
     private var renderViewWithSheets: some View {
@@ -67,7 +90,12 @@ struct LinkListDetailContainerView: View {
                     CreateLinkEditorContainerView(list: list)
                 }
             }
-            .sheet(item: $selectedLink) { link in
+            .sheet(isPresented: $isEditEditorPresented) {
+                NavigationStack {
+                    LinkListInfoContainerView(list: list)
+                }
+            }
+            .sheet(item: $presentedLink) { link in
                 NavigationStack {
                     LinkDetailContainerView(item: link)
                 }
@@ -109,8 +137,14 @@ struct LinkListDetailContainerView: View {
             presentCreateEditor: {
                 isCreateEditorPresented = true
             },
+            presentEditEditor: {
+                isEditEditorPresented = true
+            },
             presentLinkDetail: { linkDisplayItem in
-                selectedLink = links.first { $0.id == linkDisplayItem.id }
+                presentedLink = links.first { $0.id == linkDisplayItem.id }
+            },
+            deleteListAction: {
+                isDeleteListPresented = true
             }
         )
     }

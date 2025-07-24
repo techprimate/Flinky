@@ -157,6 +157,36 @@ internal enum L10n {
     internal static let noLinksDescription = L10n.tr("link-list-detail.no-links-description", fallback: "Add a new link to get started")
     /// No links available
     internal static let noLinksTitle = L10n.tr("link-list-detail.no-links-title", fallback: "No links available")
+    internal enum MoreMenu {
+      /// More
+      internal static let label = L10n.tr("link-list-detail.more-menu.label", fallback: "More")
+      internal enum Accessibility {
+        /// Show additional actions for this list
+        internal static let hint = L10n.tr("link-list-detail.more-menu.accessibility.hint", fallback: "Show additional actions for this list")
+        /// More Actions
+        internal static let label = L10n.tr("link-list-detail.more-menu.accessibility.label", fallback: "More Actions")
+      }
+      internal enum DeleteList {
+        /// Delete List
+        internal static let label = L10n.tr("link-list-detail.more-menu.delete-list.label", fallback: "Delete List")
+        internal enum Accessibility {
+          /// Delete this list and all its links
+          internal static let hint = L10n.tr("link-list-detail.more-menu.delete-list.accessibility.hint", fallback: "Delete this list and all its links")
+          /// Delete List
+          internal static let label = L10n.tr("link-list-detail.more-menu.delete-list.accessibility.label", fallback: "Delete List")
+        }
+      }
+      internal enum EditList {
+        /// Edit List
+        internal static let label = L10n.tr("link-list-detail.more-menu.edit-list.label", fallback: "Edit List")
+        internal enum Accessibility {
+          /// Edit list properties
+          internal static let hint = L10n.tr("link-list-detail.more-menu.edit-list.accessibility.hint", fallback: "Edit list properties")
+          /// Edit List
+          internal static let label = L10n.tr("link-list-detail.more-menu.edit-list.accessibility.label", fallback: "Edit List")
+        }
+      }
+    }
   }
   internal enum LinkLists {
     /// My Lists
@@ -250,6 +280,8 @@ internal enum L10n {
       }
       internal enum NewLink {
         internal enum Accessibility {
+          /// Create a new link in this list
+          internal static let hint = L10n.tr("shared.button.new-link.accessibility.hint", fallback: "Create a new link in this list")
           /// Add new link
           internal static let label = L10n.tr("shared.button.new-link.accessibility.label", fallback: "Add new link")
         }

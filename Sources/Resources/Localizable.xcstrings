@@ -502,6 +502,114 @@
         }
       }
     },
+    "link-list-detail.more-menu.accessibility.hint" : {
+      "comment" : "More menu accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show additional actions for this list"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.accessibility.label" : {
+      "comment" : "More menu accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More Actions"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.delete-list.accessibility.hint" : {
+      "comment" : "Delete list accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this list and all its links"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.delete-list.accessibility.label" : {
+      "comment" : "Delete list accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete List"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.delete-list.label" : {
+      "comment" : "Delete list menu item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete List"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.edit-list.accessibility.hint" : {
+      "comment" : "Edit list accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit list properties"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.edit-list.accessibility.label" : {
+      "comment" : "Edit list accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit List"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.edit-list.label" : {
+      "comment" : "Edit list menu item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit List"
+          }
+        }
+      }
+    },
+    "link-list-detail.more-menu.label" : {
+      "comment" : "More menu button label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        }
+      }
+    },
     "link-list-detail.no-links-title" : {
       "comment" : "No links available title",
       "extractionState" : "manual",
@@ -836,6 +944,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit"
+          }
+        }
+      }
+    },
+    "shared.button.new-link.accessibility.hint" : {
+      "comment" : "New link button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new link in this list"
           }
         }
       }

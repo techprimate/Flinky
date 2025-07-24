@@ -12,9 +12,25 @@ struct LinkListDetailRenderView: View {
     let deleteItems: (_ offsets: IndexSet) -> Void
 
     let presentCreateEditor: () -> Void
+    let presentEditEditor: () -> Void
     let presentLinkDetail: (LinkListDetailDisplayItem) -> Void
 
+    let deleteListAction: () -> Void
+
     var body: some View {
+        listContent
+            .navigationTitle(list.name)
+            .searchable(text: $searchText, prompt: L10n.Search.links)
+            .overlay {
+                emptyStateView
+            }
+            .toolbar {
+                toolbarContent
+            }
+    }
+    
+    @ViewBuilder
+    private var listContent: some View {
         List {
             Section {
                 ForEach(links) { link in
@@ -23,38 +39,79 @@ struct LinkListDetailRenderView: View {
                 .onDelete(perform: deleteItems)
             }
         }
-        .navigationTitle(list.name)
-        .searchable(text: $searchText, prompt: L10n.Search.links)
-        .overlay {
-            if links.isEmpty {
-                ContentUnavailableView(
-                    L10n.LinkListDetail.noLinksTitle,
-                    systemSymbol: .globe,
-                    description: Text(L10n.LinkListDetail.noLinksDescription)
-                )
-            }
+    }
+    
+    @ViewBuilder
+    private var emptyStateView: some View {
+        if links.isEmpty {
+            ContentUnavailableView(
+                L10n.LinkListDetail.noLinksTitle,
+                systemSymbol: .globe,
+                description: Text(L10n.LinkListDetail.noLinksDescription)
+            )
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Button {
-                    presentCreateEditor()
-                } label: {
-                    Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
-                        .bold()
-                        .imageScale(.large)
-                        .labelStyle(.titleAndIcon)
-                }
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.label)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            moreMenu
         }
+        ToolbarItem(placement: .bottomBar) {
+            newLinkButton
+        }
+        ToolbarItem(placement: .bottomBar) {
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private var moreMenu: some View {
+        Menu {
+            editListButton
+            deleteListButton
+        } label: {
+            Label(L10n.LinkListDetail.MoreMenu.label, systemSymbol: .ellipsisCircle)
+                .accessibilityLabel(L10n.LinkListDetail.MoreMenu.Accessibility.label)
+                .accessibilityHint(L10n.LinkListDetail.MoreMenu.Accessibility.hint)
+        }
+    }
+    
+    @ViewBuilder
+    private var editListButton: some View {
+        Button {
+            presentEditEditor()
+        } label: {
+            Label(L10n.LinkListDetail.MoreMenu.EditList.label, systemSymbol: .safari)
+        }
+        .accessibilityLabel(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.label)
+        .accessibilityHint(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.hint)
+    }
+    
+    @ViewBuilder
+    private var deleteListButton: some View {
+        Button(role: .destructive) {
+            deleteListAction()
+        } label: {
+            Label(L10n.LinkListDetail.MoreMenu.DeleteList.label, systemSymbol: .trash)
+        }
+        .accessibilityLabel(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.label)
+        .accessibilityHint(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.hint)
+    }
+    
+    @ViewBuilder
+    private var newLinkButton: some View {
+        Button {
+            presentCreateEditor()
+        } label: {
+            Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
+                .bold()
+                .imageScale(.large)
+                .labelStyle(.titleAndIcon)
+        }
+        .buttonStyle(.borderless)
+        .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
+        .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.hint)
     }
 
     private func itemViewForLink(_ link: LinkListDetailDisplayItem) -> some View {
@@ -113,9 +170,11 @@ struct LinkListDetailRenderView: View {
             deleteItem: { _ in },
             deleteItems: { _ in },
             presentCreateEditor: {},
+            presentEditEditor: {},
             presentLinkDetail: { link in
                 print("Presenting link detail for: \(link.title)")
-            }
+            },
+            deleteListAction: {}
         )
     }
 }
