@@ -103,10 +103,10 @@ private extension LinkInfoRenderView {
         @Binding var selection: ListColor
 
         var body: some View {
-            Section(L10n.Shared.ColorPicker.Section.title) {
+            Section {
                 GridPicker(selection: $selection, items: ListColor.allCases) { color in
                     ColorView(color: color)
-                        .accessibilityLabel(L10n.Shared.ColorPicker.Option.Accessibility.label(colorName(for: color)))
+                        .accessibilityLabel(L10n.Shared.ColorPicker.Option.Accessibility.label(color.name))
                 }
             }
             .accessibilityElement(children: .contain)
@@ -116,17 +116,19 @@ private extension LinkInfoRenderView {
 
     struct SymbolPickerSection: View {
         private struct SymbolView: View {
+            @Environment(\.colorScheme) private var colorScheme
+
             let symbol: ListSymbol
 
             var body: some View {
                 Image(systemSymbol: symbol.sfsymbol)
-                    .font(.system(size: 24, weight: .medium))
-                    .foregroundStyle(symbol.isEmoji ? Color.blue : Color.gray.mix(with: Color.black, by: 0.3))
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundStyle(symbol.isEmoji ? Color.blue : (colorScheme == .light ? Color.gray.mix(with: Color.black, by: 0.3) : Color.gray))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(6)
                     .aspectRatio(1, contentMode: .fill)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(symbol.isEmoji ? Color.blue.opacity(0.15) : Color.gray.opacity(0.1))
+                    .background(symbol.isEmoji ? Color.blue.opacity(0.15) : Color.gray.opacity(colorScheme == .light ? 0.1 : 0.2))
                     .clipShape(Circle())
                     .contentShape(Circle())
             }
@@ -142,7 +144,7 @@ private extension LinkInfoRenderView {
         @State private var emojiInput = ""
 
         var body: some View {
-            Section(L10n.Shared.SymbolPicker.Section.title) {
+            Section {
                 AdvancedGridPicker(
                     selection: $selection,
                     items: ListSymbol.allCases,

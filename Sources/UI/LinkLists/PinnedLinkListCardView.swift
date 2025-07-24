@@ -2,6 +2,8 @@ import SFSafeSymbols
 import SwiftUI
 
 struct PinnedLinkListCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     let item: LinkListDisplayItem
 
     var body: some View {
@@ -14,14 +16,13 @@ struct PinnedLinkListCardView: View {
                         Image(systemSymbol: item.symbol.sfsymbol)
                     }
                 }
-                .font(.title)
                 .foregroundColor(item.color.color)
                 Spacer()
                 Text("\(item.count)")
-                    .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
             }
+            .font(.system(size: 22))
             HStack {
                 Text(item.title)
                     .font(.subheadline)
@@ -30,7 +31,7 @@ struct PinnedLinkListCardView: View {
             }
         }
         .padding(12)
-        .background(Color(.systemBackground))
+        .background(colorScheme == .light ? Color.white : Color(UIColor.secondarySystemBackground))
         .cornerRadius(10)
         .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
         .accessibilityElement(children: .combine)

@@ -15,30 +15,43 @@ struct LinkListsRenderView<Destination: View>: View {
     @ViewBuilder let destination: (LinkListDisplayItem) -> Destination
 
     var body: some View {
-        VStack(spacing: 0) {
-            PinnedLinkListsRenderView(
-                items: pinnedLists,
-                editAction: { item in
-                    editListAction(item)
-                },
-                unpinAction: { item in
-                    unpinListAction(item)
-                },
-                deleteAction: { item in
-                    deleteUnpinnedListAction(item)
-                },
-                destination: destination
-            )
+        VStack(spacing: 16) {
+            if !pinnedLists.isEmpty {
+                PinnedLinkListsRenderView(
+                    items: pinnedLists,
+                    editAction: { item in
+                        editListAction(item)
+                    },
+                    unpinAction: { item in
+                        unpinListAction(item)
+                    },
+                    deleteAction: { item in
+                        deleteUnpinnedListAction(item)
+                    },
+                    destination: destination
+                )
+                .padding(.horizontal, 16)
+            }
             List {
-                Section(!unpinnedLists.isEmpty ? L10n.LinkLists.myListsSection : "") {
+                Section {
                     ForEach(unpinnedLists, id: \.self) { list in
                         itemForList(list)
                     }
                     .onDelete(perform: deleteUnpinnedListsAction)
+                } header: {
+                    if !pinnedLists.isEmpty {
+                        HStack {
+                            Text(L10n.LinkLists.myListsSection)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
+                    }
                 }
             }
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Color(UIColor.systemGroupedBackground))
+        .headerProminence(.increased)
         .navigationTitle(L10n.App.title)
         .overlay {
             if pinnedLists.isEmpty && unpinnedLists.isEmpty {

@@ -12,35 +12,34 @@ struct PinnedLinkListsRenderView<T: View>: View {
 
     var body: some View {
         LazyVGrid(columns: [
-            GridItem(.flexible(), spacing: 8),
-            GridItem(.flexible(), spacing: 8)
-        ], spacing: 8) {
+            GridItem(.flexible(), spacing: 12),
+            GridItem(.flexible(), spacing: 12)
+        ], spacing: 12) {
             ForEach(items) { item in
                 NavigationLink {
                     destination(item)
                 } label: {
                     PinnedLinkListCardView(item: item)
-                        .contextMenu {
-                            Button {
-                                editAction(item)
-                            } label: {
-                                Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
-                            }
-                            Button {
-                                unpinAction(item)
-                            } label: {
-                                Label(L10n.Shared.Action.unpin, systemSymbol: .pinSlashFill)
-                            }
-                            Button(role: .destructive) {
-                                deleteAction(item)
-                            } label: {
-                                Label(L10n.Shared.Action.delete, systemSymbol: .trash)
-                            }
-                        }
+                }
+                .contextMenu {
+                    Button {
+                        editAction(item)
+                    } label: {
+                        Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
+                    }
+                    Button {
+                        unpinAction(item)
+                    } label: {
+                        Label(L10n.Shared.Action.unpin, systemSymbol: .pinSlashFill)
+                    }
+                    Button(role: .destructive) {
+                        deleteAction(item)
+                    } label: {
+                        Label(L10n.Shared.Action.delete, systemSymbol: .trash)
+                    }
                 }
             }
         }
-        .padding(.horizontal, 16)
     }
 }
 

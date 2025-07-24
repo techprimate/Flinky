@@ -1,8 +1,16 @@
 import SwiftUI
 import os.log
 import Sentry
+import Photos
 
 struct LinkDetailContainerView: View {
+    private struct ImageBox: Identifiable {
+        let id = UUID()
+        let image: UIImage
+    }
+
+    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkDetailContainerView")
+
     @Environment(\.qrcodeCache) private var qrcodeCache
     @Environment(\.toaster) private var toaster
 
@@ -10,8 +18,9 @@ struct LinkDetailContainerView: View {
 
     @State private var image: Result<UIImage, Error>?
     @State private var isEditing = false
-    
-    private static let logger = Logger(subsystem: "com.techprimate.Flinky", category: "LinkDetailContainerView")
+
+    @State private var imageToShare: ImageBox?
+    @State private var isSharingViaNFCPresented = false
 
     var body: some View {
         LinkDetailRenderView(
@@ -21,9 +30,6 @@ struct LinkDetailContainerView: View {
             image: image,
             editAction: {
                 isEditing = true
-            },
-            shareViaNFCAction: {
-                toaster.warning(description: "Coming soon!")
             },
             openInSafariAction: {
                 let url = item.url
@@ -53,6 +59,15 @@ struct LinkDetailContainerView: View {
                 toaster.success(
                     description: "Copied to clipboard"
                 )
+            },
+            shareQRCodeImageAction: { image in
+                imageToShare = .init(image: image)
+            },
+            saveQRCodeImageToPhotos: { image in
+                saveImageToPhotos(image)
+            },
+            shareViaNFCAction: {
+                isSharingViaNFCPresented = true
             }
         )
         .task(priority: .utility) {
@@ -62,6 +77,12 @@ struct LinkDetailContainerView: View {
             NavigationStack {
                 LinkInfoContainerView(link: item)
             }
+        }
+        .sheet(item: $imageToShare) { image in
+            ActivityViewController(activityItems: [image])
+        }
+        .sheet(isPresented: $isSharingViaNFCPresented) {
+            LinkDetailNFCSharingContainerView(link: item)
         }
     }
 
@@ -93,5 +114,48 @@ struct LinkDetailContainerView: View {
         qrcodeCache.setImage(uiImage, forContent: item.url.absoluteString)
 
         image = .success(uiImage)
+    }
+
+    func saveImageToPhotos(_ image: UIImage) {
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+            switch status {
+            case .authorized, .limited:
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: image)
+                }) { success, error in
+                    DispatchQueue.main.async {
+                        if success {
+                            toaster.success(description: L10n.Shared.QrCode.SaveToPhotos.success)
+                        } else {
+                            let localDescription = "Failed to save QR code to Photos: \(error?.localizedDescription ?? "Unknown error")"
+                            let appError = AppError.unknownError(localDescription)
+                            SentrySDK.capture(error: appError)
+                            toaster.show(error: appError)
+                        }
+                    }
+                }
+            case .denied, .restricted:
+                DispatchQueue.main.async {
+                    let localDescription = "Failed to save QR code to Photos: Photos access denied"
+                    let appError = AppError.unknownError(localDescription)
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
+            case .notDetermined:
+                DispatchQueue.main.async {
+                    let localDescription = "Failed to save QR code to Photos: Photos access not determined"
+                    let appError = AppError.unknownError(localDescription)
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
+            @unknown default:
+                DispatchQueue.main.async {
+                    let localDescription = "Failed to save QR code to Photos: Unknown authorization status"
+                    let appError = AppError.unknownError(localDescription)
+                    SentrySDK.capture(error: appError)
+                    toaster.show(error: appError)
+                }
+            }
+        }
     }
 }
