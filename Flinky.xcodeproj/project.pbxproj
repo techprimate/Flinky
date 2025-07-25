@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */; };
+		D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */ = {isa = PBXBuildFile; productRef = D44A62A52E33B2800018D789 /* OnLaunch */; };
 		D4B471882E1F12FA005099F3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4B471872E1F12FA005099F3 /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */,
 				D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
 				D4B471882E1F12FA005099F3 /* Sentry in Frameworks */,
@@ -188,6 +190,7 @@
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
 				D4B471872E1F12FA005099F3 /* Sentry */,
 				D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */,
+				D44A62A52E33B2800018D789 /* OnLaunch */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -225,6 +228,7 @@
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
@@ -590,6 +594,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kula-app/OnLaunch-iOS-Client";
+			requirement = {
+				kind = exactVersion;
+				version = 0.0.6;
+			};
+		};
 		D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/swiftui-introspect";
@@ -621,6 +633,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
+		};
+		D44A62A52E33B2800018D789 /* OnLaunch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */;
+			productName = OnLaunch;
 		};
 		D4B471872E1F12FA005099F3 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;

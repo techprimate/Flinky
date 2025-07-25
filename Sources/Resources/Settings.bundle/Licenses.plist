@@ -12,6 +12,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Licenses/OnLaunch-iOS-Client</string>
+			<key>Title</key>
+			<string>OnLaunch-iOS-Client (0.0.6)</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Licenses/sentry-cocoa</string>
 			<key>Title</key>
 			<string>Sentry (8.53.2)</string>

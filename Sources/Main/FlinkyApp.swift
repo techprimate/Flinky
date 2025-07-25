@@ -1,6 +1,7 @@
 import Sentry
 import SwiftData
 import SwiftUI
+import OnLaunch
 
 @main
 struct FlinkyApp: App {
@@ -41,9 +42,11 @@ struct FlinkyApp: App {
             MainContainerView()
                 .environment(\.toaster, toastManager)
                 .overlay(
-                    // Direct overlay with the toast stack
                     ToastStackView(toastManager: toastManager)
                 )
+                .configureOnLaunch { options in
+                    options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
+                }
         }
         .modelContainer(sharedModelContainer)
     }

@@ -1,6 +1,15 @@
 {
-  "originHash" : "d39fca33c1889ab3ffdb31b92ffe071265b9ea6a659df3259752b0359fb2aaf4",
+  "originHash" : "1f42276bbab4d113e6f8a57e1806baa2a89b493cd80bfefc25b7dcd55d1306d8",
   "pins" : [
+    {
+      "identity" : "onlaunch-ios-client",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kula-app/OnLaunch-iOS-Client",
+      "state" : {
+        "revision" : "f11d6ef11918b3f66b41dd041647629834f7bcb6",
+        "version" : "0.0.6"
+      }
+    },
     {
       "identity" : "sentry-cocoa",
       "kind" : "remoteSourceControl",
