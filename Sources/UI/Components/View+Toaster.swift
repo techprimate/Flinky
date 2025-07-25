@@ -8,7 +8,7 @@ extension View {
     /// - Parameter toastManager: An instance of `ToastManager` that manages the toast notifications.
     /// - Returns: A view with the `ToastManager` environment value set and an overlay for the toast stack.
     func toaster(_ toastManager: ToastManager) -> some View {
-        self.environment(\.toaster, toastManager)
+        environment(\.toaster, toastManager)
             .overlay(
                 // Use window-based approach for toasts that appear above modal sheets
                 ToastTopLevelView(toastManager: toastManager)
@@ -22,7 +22,7 @@ struct ToastTopLevelView: View {
     @ObservedObject var toastManager: ToastManager
     @State private var toastWindow: UIWindow?
     @State private var hostingController: PassThroughUIHostingController<ToastStackView>?
-    
+
     var body: some View {
         Color.clear
             .onAppear {
@@ -37,44 +37,44 @@ struct ToastTopLevelView: View {
                 updateToastWindow()
             }
     }
-    
+
     private func setupToastWindow() {
         guard toastWindow == nil else { return } // Prevent multiple setups
-        
+
         guard let windowScene = UIApplication.shared.connectedScenes
             .compactMap({ $0 as? UIWindowScene })
             .first else { return }
-        
+
         let window = PassThroughWindow(name: "ToastWindow", windowScene: windowScene)
         window.backgroundColor = .clear
         window.windowLevel = UIWindow.Level.alert + 1 // Above modal sheets
-        
+
         let hostingController = PassThroughUIHostingController(
             rootView: ToastStackView(toastManager: toastManager)
         )
         hostingController.view.backgroundColor = .clear
         window.rootViewController = hostingController
-        
+
         // Only show window if there are toasts
         window.isHidden = toastManager.toastStack.isEmpty
-        
-        self.toastWindow = window
+
+        toastWindow = window
         self.hostingController = hostingController
-        
+
         // Force layout update
         DispatchQueue.main.async {
             hostingController.view.setNeedsLayout()
             hostingController.view.layoutIfNeeded()
         }
     }
-    
+
     private func teardownToastWindow() {
         toastWindow?.isHidden = true
         toastWindow?.rootViewController = nil
         toastWindow = nil
         hostingController = nil
     }
-    
+
     private func updateToastWindow() {
         guard let window = toastWindow else {
             if !toastManager.toastStack.isEmpty {
@@ -82,7 +82,7 @@ struct ToastTopLevelView: View {
             }
             return
         }
-        
+
         // Update window visibility
         if toastManager.toastStack.isEmpty {
             window.isHidden = true
@@ -95,7 +95,7 @@ struct ToastTopLevelView: View {
             }
         }
     }
-    
+
     private func setupNotifications() {
         // Listen for window changes that might affect safe area
         NotificationCenter.default.addObserver(
@@ -109,10 +109,8 @@ struct ToastTopLevelView: View {
             }
         }
     }
-    
+
     private func teardownNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
 }
-
-

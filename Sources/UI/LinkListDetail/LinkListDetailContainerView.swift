@@ -1,6 +1,6 @@
-import SwiftUI
 import os.log
 import Sentry
+import SwiftUI
 
 struct LinkListDetailContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -40,7 +40,7 @@ struct LinkListDetailContainerView: View {
                 } label: {
                     Text(L10n.Shared.Button.Delete.label)
                 }
-            } message: { link in
+            } message: { _ in
                 Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
             }
             .alert(L10n.Shared.DeleteConfirmation.Links.alertTitle, isPresented: $isDeleteLinksPresented, presenting: linksToDelete) { links in
@@ -167,7 +167,7 @@ struct LinkListDetailContainerView: View {
         }
         return links.filter { link in
             link.name.localizedCaseInsensitiveContains(searchText) ||
-            link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
         }
     }
 

@@ -57,7 +57,7 @@ final class LinkListModel {
         self.links = links
         self.isPinned = isPinned
     }
-    
+
     /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
     convenience init(name: String, color: ListColor? = nil, symbol: ListSymbol? = nil, isPinned: Bool = false) {
         self.init(

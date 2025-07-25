@@ -14,7 +14,7 @@ class ListSymbolHumanTests {
         (.person3, "person-3", .person3Fill),
         (.personCropSquare, "person-crop-square", .personCropSquare),
         (.personTextRectangle, "person-text-rectangle", .personTextRectangleFill),
-        (.mustache, "mustache", .mustacheFill),
+        (.mustache, "mustache", .mustacheFill)
     ]
 
     @Test
@@ -58,4 +58,4 @@ class ListSymbolHumanTests {
         let expected: [ListSymbolHuman] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolHuman.allCases == expected)
     }
-} 
+}

@@ -158,7 +158,7 @@ extension ListSymbolNature: RawRepresentable {
 extension ListSymbolNature: CaseIterable {
     static var allCases: [ListSymbolNature] {
         return [
-            .tree, .leaf, .carrot, .mountain, .sun, .sunHaze, .moon, .rainDrop, .snowflake, .flame, .tornado, .wind, .smoke, .heat, .humidity, .cloud, .cloudBolt, .cloudBoltRain, .cloudSunBolt,
+            .tree, .leaf, .carrot, .mountain, .sun, .sunHaze, .moon, .rainDrop, .snowflake, .flame, .tornado, .wind, .smoke, .heat, .humidity, .cloud, .cloudBolt, .cloudBoltRain, .cloudSunBolt
         ]
     }
 }

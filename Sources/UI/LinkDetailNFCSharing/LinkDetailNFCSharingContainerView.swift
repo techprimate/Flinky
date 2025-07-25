@@ -1,7 +1,7 @@
-import SwiftUI
 import CoreNFC
 import os.log
 import Sentry
+import SwiftUI
 
 struct LinkDetailNFCSharingContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -9,10 +9,10 @@ struct LinkDetailNFCSharingContainerView: View {
     @Environment(\.toaster) private var toaster
 
     let link: LinkModel
-    
+
     @State private var nfcState: NFCSharingState = .ready
     @State private var nfcSession: NFCNDEFReaderSession?
-    
+
     var body: some View {
         LinkDetailNFCSharingRenderView(
             state: nfcState,
@@ -28,7 +28,7 @@ struct LinkDetailNFCSharingContainerView: View {
             stopNFCSession()
         }
     }
-    
+
     private func startNFCSession() {
         guard NFCNDEFReaderSession.readingAvailable else {
             Self.logger.error("NFC reading not available on this device")
@@ -39,7 +39,7 @@ struct LinkDetailNFCSharingContainerView: View {
             nfcState = .error("NFC not available on this device")
             return
         }
-        
+
         nfcState = .scanning
         nfcSession = NFCNDEFReaderSession(delegate: NFCDeviceDelegate(
             urlToShare: link.url.absoluteString,
@@ -59,11 +59,11 @@ struct LinkDetailNFCSharingContainerView: View {
                 }
             }
         ), queue: nil, invalidateAfterFirstRead: false)
-        
+
         nfcSession?.alertMessage = L10n.LinkDetailNfcSharing.NfcSession.alertMessage
         nfcSession?.begin()
     }
-    
+
     private func stopNFCSession() {
         nfcSession?.invalidate()
         nfcSession = nil
@@ -81,14 +81,14 @@ private class NFCDeviceDelegate: NSObject, NFCNDEFReaderSessionDelegate {
     private let urlToShare: String
     private let onSuccess: () -> Void
     private let onError: (String) -> Void
-    
+
     init(urlToShare: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         self.urlToShare = urlToShare
         self.onSuccess = onSuccess
         self.onError = onError
     }
-    
-    func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+
+    func readerSession(_: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         if let nfcError = error as? NFCReaderError {
             switch nfcError.code {
             case .readerSessionInvalidationErrorUserCanceled:
@@ -109,51 +109,52 @@ private class NFCDeviceDelegate: NSObject, NFCNDEFReaderSessionDelegate {
             onError("NFC session error: \(error.localizedDescription)")
         }
     }
-    
-    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+
+    func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs _: [NFCNDEFMessage]) {
         // For device-to-device sharing, we might receive a response here
         // indicating successful transmission
         session.alertMessage = "Link shared successfully!"
         session.invalidate()
         onSuccess()
     }
-    
+
     func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
         guard let tag = tags.first else {
             onError("No NFC device detected")
             return
         }
-        
+
         session.connect(to: tag) { [weak self] error in
             if let error = error {
                 self?.onError("Failed to connect to device: \(error.localizedDescription)")
                 return
             }
-            
+
             guard let self = self else { return }
-            
+
             // For device-to-device sharing, we try to write the URL as an NDEF message
             // The receiving device should be able to process this
             self.shareURLWithDevice(tag: tag, session: session)
         }
     }
-    
+
     private func shareURLWithDevice(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
         guard let url = URL(string: urlToShare),
-              let payload = NFCNDEFPayload.wellKnownTypeURIPayload(url: url) else {
+              let payload = NFCNDEFPayload.wellKnownTypeURIPayload(url: url)
+        else {
             onError("Failed to create sharing payload")
             return
         }
-        
+
         let message = NFCNDEFMessage(records: [payload])
-        
+
         // First check if the device/tag supports NDEF
         tag.queryNDEFStatus { [weak self] status, _, error in
             if let error = error {
                 self?.onError("Device communication error: \(error.localizedDescription)")
                 return
             }
-            
+
             switch status {
             case .notSupported:
                 self?.onError("The other device doesn't support URL sharing")
@@ -169,7 +170,7 @@ private class NFCDeviceDelegate: NSObject, NFCNDEFReaderSessionDelegate {
             }
         }
     }
-    
+
     private func writeURLToDevice(tag: NFCNDEFTag, session: NFCNDEFReaderSession, message: NFCNDEFMessage) {
         tag.writeNDEF(message) { [weak self] error in
             if let error = error {
@@ -184,7 +185,7 @@ private class NFCDeviceDelegate: NSObject, NFCNDEFReaderSessionDelegate {
             }
         }
     }
-    
+
     private func broadcastURLToDevice(tag: NFCNDEFTag, session: NFCNDEFReaderSession, message: NFCNDEFMessage) {
         // For device-to-device sharing, directly attempt to write the NDEF message
         // The target device may be receive-only, so we don't need to read first

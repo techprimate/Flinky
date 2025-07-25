@@ -15,7 +15,7 @@ class ListSymbolAnimalTests {
         (.tortoise, "tortoise", .tortoiseFill),
         (.hare, "hare", .hareFill),
         (.pawPrint, "paw-print", .pawprintFill),
-        (.teddyBear, "teddy-bear", .teddybearFill),
+        (.teddyBear, "teddy-bear", .teddybearFill)
     ]
 
     @Test

@@ -5,13 +5,13 @@ public struct AlertToast: View {
         var backgroundColor: Color
         var foregroundColor: Color
     }
-    
+
     private let item: AlertToastItem
-    
+
     public init(item: AlertToastItem) {
         self.item = item
     }
-    
+
     public var body: some View {
         Group {
             VStack(alignment: .center, spacing: 2) {
@@ -28,7 +28,7 @@ public struct AlertToast: View {
             .compositingGroup()
         }
     }
-    
+
     private var title: some View {
         Text(item.title)
             .foregroundColor(style.foregroundColor)
@@ -37,7 +37,7 @@ public struct AlertToast: View {
             .accessibilityLabel(accessibilityLabel)
             .accessibilityAddTraits(.isStaticText)
     }
-    
+
     private var accessibilityLabel: String {
         switch item.status {
         case .info:
@@ -50,7 +50,7 @@ public struct AlertToast: View {
             return L10n.Shared.Toast.Warning.Accessibility.label(item.title)
         }
     }
-    
+
     private var style: Style {
         switch item.status {
         case .info:

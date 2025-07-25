@@ -27,7 +27,7 @@ class ListSymbolDocumentsReadingWritingTests {
         (.pencilRuler, "pencil-ruler", .pencilAndRulerFill),
         (.paper, "paper", .documentFill),
         (.creditcard, "creditcard", .creditcardFill),
-        (.money, "money", .banknoteFill),
+        (.money, "money", .banknoteFill)
     ]
 
     @Test
@@ -71,4 +71,4 @@ class ListSymbolDocumentsReadingWritingTests {
         let expected: [ListSymbolDocumentsReadingWriting] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolDocumentsReadingWriting.allCases == expected)
     }
-} 
+}

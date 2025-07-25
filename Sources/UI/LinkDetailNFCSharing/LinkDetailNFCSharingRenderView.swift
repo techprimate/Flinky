@@ -1,5 +1,5 @@
-import SwiftUI
 import SFSafeSymbols
+import SwiftUI
 
 struct LinkDetailNFCSharingRenderView: View {
     @Environment(\.dismiss) private var dismiss
@@ -13,7 +13,7 @@ struct LinkDetailNFCSharingRenderView: View {
         NavigationView {
             VStack(spacing: 32) {
                 Spacer()
-                
+
                 // Main content based on state
                 switch state {
                 case .ready:
@@ -22,12 +22,12 @@ struct LinkDetailNFCSharingRenderView: View {
                     scanningStateView
                 case .success:
                     successStateView
-                case .error(let errorMessage):
+                case let .error(errorMessage):
                     errorStateView(errorMessage)
                 }
-                
+
                 Spacer()
-                
+
                 // Retry button for error state
                 if case .error = state {
                     Button(action: retryAction) {
@@ -57,7 +57,7 @@ struct LinkDetailNFCSharingRenderView: View {
             }
         }
     }
-    
+
     private var readyStateView: some View {
         VStack(spacing: 24) {
             // Two phones illustration
@@ -70,12 +70,12 @@ struct LinkDetailNFCSharingRenderView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 Image(systemSymbol: .dotRadiowavesRight)
                     .font(.system(size: 30))
                     .foregroundColor(.accentColor)
                     .opacity(0.6)
-                
+
                 VStack {
                     Image(systemSymbol: .iphoneGen1)
                         .font(.system(size: 50))
@@ -85,24 +85,24 @@ struct LinkDetailNFCSharingRenderView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             VStack(spacing: 12) {
                 Text(L10n.LinkDetailNfcSharing.Ready.title)
                     .font(.title2)
                     .fontWeight(.semibold)
-                
+
                 Text(L10n.LinkDetailNfcSharing.Ready.message)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
-            
+
             // Link preview
             VStack(spacing: 8) {
                 Text(L10n.LinkDetailNfcSharing.LinkPreview.title)
                     .font(.caption)
                     .foregroundColor(.secondary)
-                
+
                 Text(linkTitle)
                     .font(.headline)
                     .multilineTextAlignment(.center)
@@ -111,14 +111,14 @@ struct LinkDetailNFCSharingRenderView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
             }
-            
+
             // Instructions
             VStack(spacing: 8) {
                 Text(L10n.LinkDetailNfcSharing.Instructions.title)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontWeight(.medium)
-                
+
                 Text(L10n.LinkDetailNfcSharing.Instructions.message)
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -127,7 +127,7 @@ struct LinkDetailNFCSharingRenderView: View {
             }
         }
     }
-    
+
     private var scanningStateView: some View {
         VStack(spacing: 24) {
             ZStack {
@@ -138,15 +138,15 @@ struct LinkDetailNFCSharingRenderView: View {
                     .scaleEffect(pulseAnimation ? 1.2 : 1.0)
                     .opacity(pulseAnimation ? 0.3 : 0.8)
                     .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: pulseAnimation)
-                
+
                 // Two phones with NFC waves
                 HStack(spacing: 8) {
                     Image(systemSymbol: .iphoneGen1)
                         .font(.system(size: 30))
                         .foregroundColor(.accentColor)
-                    
+
                     VStack(spacing: 2) {
-                        ForEach(0..<3, id: \.self) { index in
+                        ForEach(0 ..< 3, id: \.self) { index in
                             Circle()
                                 .fill(Color.accentColor)
                                 .frame(width: 4, height: 4)
@@ -154,7 +154,7 @@ struct LinkDetailNFCSharingRenderView: View {
                                 .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true).delay(Double(index) * 0.2), value: waveAnimation)
                         }
                     }
-                    
+
                     Image(systemSymbol: .iphoneGen1)
                         .font(.system(size: 30))
                         .foregroundColor(.gray)
@@ -164,18 +164,18 @@ struct LinkDetailNFCSharingRenderView: View {
                 pulseAnimation = true
                 waveAnimation = true
             }
-            
+
             VStack(spacing: 12) {
                 Text(L10n.LinkDetailNfcSharing.Scanning.title)
                     .font(.title2)
                     .fontWeight(.semibold)
-                
+
                 Text(L10n.LinkDetailNfcSharing.Scanning.message)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
-            
+
             // Progress indicator
             Text(L10n.LinkDetailNfcSharing.Scanning.progress)
                 .font(.caption)
@@ -183,7 +183,7 @@ struct LinkDetailNFCSharingRenderView: View {
                 .italic()
         }
     }
-    
+
     private var successStateView: some View {
         VStack(spacing: 24) {
             // Success animation with two connected phones
@@ -192,13 +192,13 @@ struct LinkDetailNFCSharingRenderView: View {
                     Image(systemSymbol: .iphoneGen1)
                         .font(.system(size: 40))
                         .foregroundColor(.green)
-                    
+
                     Image(systemSymbol: .checkmarkCircleFill)
                         .font(.system(size: 24))
                         .foregroundColor(.green)
                         .scaleEffect(successAnimation ? 1.1 : 1.0)
                         .animation(.easeInOut(duration: 0.6), value: successAnimation)
-                    
+
                     Image(systemSymbol: .iphoneGen1)
                         .font(.system(size: 40))
                         .foregroundColor(.green)
@@ -207,19 +207,19 @@ struct LinkDetailNFCSharingRenderView: View {
                     successAnimation = true
                 }
             }
-            
+
             VStack(spacing: 12) {
                 Text(L10n.LinkDetailNfcSharing.Success.title)
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.green)
-                
+
                 Text(L10n.LinkDetailNfcSharing.Success.message)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
-            
+
             // Auto-dismiss after a delay
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -228,32 +228,32 @@ struct LinkDetailNFCSharingRenderView: View {
             }
         }
     }
-    
+
     private func errorStateView(_ errorMessage: String) -> some View {
         VStack(spacing: 24) {
             Image(systemSymbol: .exclamationmarkTriangleFill)
                 .font(.system(size: 80))
                 .foregroundColor(.red)
-            
+
             VStack(spacing: 12) {
                 Text(L10n.LinkDetailNfcSharing.Error.title)
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.red)
-                
+
                 Text(errorMessage)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
-            
+
             // Additional help text for device sharing
             VStack(spacing: 8) {
                 Text(L10n.LinkDetailNfcSharing.Troubleshooting.title)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fontWeight(.medium)
-                
+
                 Text(L10n.LinkDetailNfcSharing.Troubleshooting.message)
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -261,7 +261,7 @@ struct LinkDetailNFCSharingRenderView: View {
             }
         }
     }
-    
+
     @State private var pulseAnimation = false
     @State private var successAnimation = false
     @State private var waveAnimation = false

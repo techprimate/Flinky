@@ -158,7 +158,7 @@ extension ListSymbolSportRecreation: RawRepresentable {
 extension ListSymbolSportRecreation: CaseIterable {
     static var allCases: [ListSymbolSportRecreation] {
         return [
-            .soccerBall, .basketball, .americanFootball, .baseball, .baseballDiamond, .rugbyBall, .tennisBall, .tennisRacket, .volleyball, .hockeyPuck, .surfboard, .skis, .snowboard, .dumbBell, .oars, .medal, .medalStar, .trophy, .running,
+            .soccerBall, .basketball, .americanFootball, .baseball, .baseballDiamond, .rugbyBall, .tennisBall, .tennisRacket, .volleyball, .hockeyPuck, .surfboard, .skis, .snowboard, .dumbBell, .oars, .medal, .medalStar, .trophy, .running
         ]
     }
 }

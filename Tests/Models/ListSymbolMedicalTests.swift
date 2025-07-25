@@ -24,7 +24,7 @@ private let symbolRawValuePairs: [(ListSymbolMedical, String)] = [
     (.degreeCelsius, "degree-celsius"),
     (.degreeFahrenheit, "degree-fahrenheit"),
     (.personBadgeShield, "person-badge-shield"),
-    (.eyedropper, "eyedropper"),
+    (.eyedropper, "eyedropper")
 ]
 
 @Test
@@ -50,4 +50,4 @@ func testListSymbolMedicalAllCasesOrder() {
     for symbol in expected {
         #expect(allCases.contains(symbol))
     }
-} 
+}

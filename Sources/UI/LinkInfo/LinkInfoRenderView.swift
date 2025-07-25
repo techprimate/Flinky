@@ -206,7 +206,7 @@ private extension LinkInfoRenderView {
             .accessibilityElement(children: .contain)
             .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))
         }
-        
+
         private func symbolName(for symbol: ListSymbol) -> String {
             if symbol.isEmoji {
                 return symbol.text ?? "Custom emoji"

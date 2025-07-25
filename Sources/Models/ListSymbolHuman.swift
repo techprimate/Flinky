@@ -48,7 +48,7 @@ extension ListSymbolHuman: RawRepresentable {
         case "thumbs-up":
             self = .thumbsUp
         case "thumbs-down":
-            self = .thumbsDown  
+            self = .thumbsDown
         case "person":
             self = .person
         case "person-2":
@@ -95,7 +95,7 @@ extension ListSymbolHuman: RawRepresentable {
 extension ListSymbolHuman: CaseIterable {
     static var allCases: [ListSymbolHuman] {
         return [
-            .handRaised, .handWave, .thumbsUp, .thumbsDown, .person, .person2, .person3, .personCropSquare, .personTextRectangle, .mustache,
+            .handRaised, .handWave, .thumbsUp, .thumbsDown, .person, .person2, .person3, .personCropSquare, .personTextRectangle, .mustache
         ]
     }
 }

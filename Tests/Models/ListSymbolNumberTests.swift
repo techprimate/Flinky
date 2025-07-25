@@ -65,7 +65,7 @@ class ListSymbolNumberTests {
         (.number47, "number-47", ._47CircleFill),
         (.number48, "number-48", ._48CircleFill),
         (.number49, "number-49", ._49CircleFill),
-        (.number50, "number-50", ._50CircleFill),
+        (.number50, "number-50", ._50CircleFill)
     ]
 
     @Test
@@ -109,4 +109,4 @@ class ListSymbolNumberTests {
         let expected: [ListSymbolNumber] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolNumber.allCases == expected)
     }
-} 
+}

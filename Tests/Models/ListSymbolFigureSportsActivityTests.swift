@@ -89,7 +89,7 @@ class ListSymbolFigureSportsActivityTests {
         (.figureWaterpolo, "figure-waterpolo", .figureWaterpolo),
         (.figureWave, "figure-wave", .figureWave),
         (.figureWrestling, "figure-wrestling", .figureWrestling),
-        (.figureYoga, "figure-yoga", .figureYoga),
+        (.figureYoga, "figure-yoga", .figureYoga)
     ]
 
     @Test
@@ -133,4 +133,4 @@ class ListSymbolFigureSportsActivityTests {
         let expected: [ListSymbolFigureSportsActivity] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolFigureSportsActivity.allCases == expected)
     }
-} 
+}

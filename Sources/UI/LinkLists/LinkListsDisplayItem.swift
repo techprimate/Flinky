@@ -11,4 +11,3 @@ struct LinkListsDisplayItem: Hashable, Identifiable {
 
     let count: Int
 }
-

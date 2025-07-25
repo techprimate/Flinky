@@ -47,7 +47,7 @@ class ListSymbolObjectTests {
         (.umbrella, "umbrella", .umbrellaFill),
         (.tent, "tent", .tent),
         (.tent2, "tent-2", .tent2Fill),
-        (.wallet, "wallet", .walletBifoldFill),
+        (.wallet, "wallet", .walletBifoldFill)
     ]
 
     @Test
@@ -91,4 +91,4 @@ class ListSymbolObjectTests {
         let expected: [ListSymbolObject] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolObject.allCases == expected)
     }
-} 
+}

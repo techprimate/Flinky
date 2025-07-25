@@ -14,7 +14,7 @@ class ListSymbolBasicShapeTests {
         (.octagon, "octagon", .octagonFill),
         (.oval, "oval", .ovalFill),
         (.rhombus, "rhombus", .rhombusFill),
-        (.rectangle, "rectangle", .rectangleFill),
+        (.rectangle, "rectangle", .rectangleFill)
     ]
 
     @Test
@@ -58,4 +58,4 @@ class ListSymbolBasicShapeTests {
         let expected: [ListSymbolBasicShape] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolBasicShape.allCases == expected)
     }
-} 
+}

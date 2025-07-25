@@ -44,42 +44,42 @@ enum PersistenceError: LocalizedError, CustomStringConvertible {
 
     var underlyingError: String {
         switch self {
-        case .saveLinkFailed(let error),
-                .saveListFailed(let error),
-                .deleteLinkFailed(let error),
-                .deleteMultipleLinksFailed(let error),
-                .deleteListFailed(let error),
-                .saveChangesAfterDeletionFailed(let error),
-                .pinListFailed(let error),
-                .unpinListFailed(let error),
-                .saveLinkChangesFailed(let error),
-                .saveListChangesFailed(let error):
+        case let .saveLinkFailed(error),
+             let .saveListFailed(error),
+             let .deleteLinkFailed(error),
+             let .deleteMultipleLinksFailed(error),
+             let .deleteListFailed(error),
+             let .saveChangesAfterDeletionFailed(error),
+             let .pinListFailed(error),
+             let .unpinListFailed(error),
+             let .saveLinkChangesFailed(error),
+             let .saveListChangesFailed(error):
             return error
         }
     }
-    
+
     /// Non-localized description for logging purposes (always in English)
     var description: String {
         switch self {
-        case .saveLinkFailed(let error):
+        case let .saveLinkFailed(error):
             return "Save link failed: \(error)"
-        case .saveListFailed(let error):
+        case let .saveListFailed(error):
             return "Save list failed: \(error)"
-        case .deleteLinkFailed(let error):
+        case let .deleteLinkFailed(error):
             return "Delete link failed: \(error)"
-        case .deleteMultipleLinksFailed(let error):
+        case let .deleteMultipleLinksFailed(error):
             return "Delete multiple links failed: \(error)"
-        case .deleteListFailed(let error):
+        case let .deleteListFailed(error):
             return "Delete list failed: \(error)"
-        case .saveChangesAfterDeletionFailed(let error):
+        case let .saveChangesAfterDeletionFailed(error):
             return "Save changes after deletion failed: \(error)"
-        case .pinListFailed(let error):
+        case let .pinListFailed(error):
             return "Pin list failed: \(error)"
-        case .unpinListFailed(let error):
+        case let .unpinListFailed(error):
             return "Unpin list failed: \(error)"
-        case .saveLinkChangesFailed(let error):
+        case let .saveLinkChangesFailed(error):
             return "Save link changes failed: \(error)"
-        case .saveListChangesFailed(let error):
+        case let .saveListChangesFailed(error):
             return "Save list changes failed: \(error)"
         }
     }
@@ -88,25 +88,25 @@ enum PersistenceError: LocalizedError, CustomStringConvertible {
 extension PersistenceError: Equatable {
     static func == (lhs: PersistenceError, rhs: PersistenceError) -> Bool {
         switch (lhs, rhs) {
-        case (.saveLinkFailed(let lhsError), .saveLinkFailed(let rhsError)):
+        case let (.saveLinkFailed(lhsError), .saveLinkFailed(rhsError)):
             return lhsError == rhsError
-        case (.saveListFailed(let lhsError), .saveListFailed(let rhsError)):
+        case let (.saveListFailed(lhsError), .saveListFailed(rhsError)):
             return lhsError == rhsError
-        case (.deleteLinkFailed(let lhsError), .deleteLinkFailed(let rhsError)):
+        case let (.deleteLinkFailed(lhsError), .deleteLinkFailed(rhsError)):
             return lhsError == rhsError
-        case (.deleteMultipleLinksFailed(let lhsError), .deleteMultipleLinksFailed(let rhsError)):
+        case let (.deleteMultipleLinksFailed(lhsError), .deleteMultipleLinksFailed(rhsError)):
             return lhsError == rhsError
-        case (.deleteListFailed(let lhsError), .deleteListFailed(let rhsError)):
+        case let (.deleteListFailed(lhsError), .deleteListFailed(rhsError)):
             return lhsError == rhsError
-        case (.saveChangesAfterDeletionFailed(let lhsError), .saveChangesAfterDeletionFailed(let rhsError)):
+        case let (.saveChangesAfterDeletionFailed(lhsError), .saveChangesAfterDeletionFailed(rhsError)):
             return lhsError == rhsError
-        case (.pinListFailed(let lhsError), .pinListFailed(let rhsError)):
+        case let (.pinListFailed(lhsError), .pinListFailed(rhsError)):
             return lhsError == rhsError
-        case (.unpinListFailed(let lhsError), .unpinListFailed(let rhsError)):
+        case let (.unpinListFailed(lhsError), .unpinListFailed(rhsError)):
             return lhsError == rhsError
-        case (.saveLinkChangesFailed(let lhsError), .saveLinkChangesFailed(let rhsError)):
+        case let (.saveLinkChangesFailed(lhsError), .saveLinkChangesFailed(rhsError)):
             return lhsError == rhsError
-        case (.saveListChangesFailed(let lhsError), .saveListChangesFailed(let rhsError)):
+        case let (.saveListChangesFailed(lhsError), .saveListChangesFailed(rhsError)):
             return lhsError == rhsError
         default:
             return false

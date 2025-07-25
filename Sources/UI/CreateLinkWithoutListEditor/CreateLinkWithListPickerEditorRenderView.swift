@@ -81,12 +81,12 @@ struct CreateLinkWithListPickerEditorRenderView<PickerDestination: View>: View {
                             .foregroundColor(.secondary)
                     }
                 }, symbol: selectedList.symbol)
-                .labelStyle(RoundedIconLabelStyle(color: selectedList.color.color))
-                .foregroundStyle(.primary)
-                .accessibilityElement(children: .combine)
-                //                    .accessibilityLabel(L10n.Shared.Item.List.Accessibility.label(item.title))
-                //                    .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
-                .accessibilityAddTraits(.isButton)
+                    .labelStyle(RoundedIconLabelStyle(color: selectedList.color.color))
+                    .foregroundStyle(.primary)
+                    .accessibilityElement(children: .combine)
+                    //                    .accessibilityLabel(L10n.Shared.Item.List.Accessibility.label(item.title))
+                    //                    .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
+                    .accessibilityAddTraits(.isButton)
             }
         }
     }

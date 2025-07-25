@@ -24,7 +24,7 @@ class ListSymbolTransportationTests {
         (.steeringWheel, "steering-wheel", .steeringwheel),
         (.wheelchair, "wheelchair", .wheelchair),
         (.engineCombustion, "engine-combustion", .engineCombustionFill),
-        (.truck, "truck", .truckBoxFill),
+        (.truck, "truck", .truckBoxFill)
     ]
 
     @Test
@@ -68,4 +68,4 @@ class ListSymbolTransportationTests {
         let expected: [ListSymbolTransportation] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolTransportation.allCases == expected)
     }
-} 
+}

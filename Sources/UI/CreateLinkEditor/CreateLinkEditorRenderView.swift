@@ -58,11 +58,11 @@ struct CreateLinkEditorRenderView: View {
             focusedField = .title
         }
     }
-    
+
     private func isValid() -> Bool {
         !name.isEmpty && !url.isEmpty && URL(string: url) != nil
     }
-    
+
     private func submit() {
         guard isValid() else {
             return

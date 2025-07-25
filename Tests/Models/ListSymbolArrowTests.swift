@@ -14,7 +14,7 @@ class ListSymbolArrowTests {
         (.arrowLeftCircle, "arrow-left-circle", .arrowLeftCircleFill),
         (.arrowRightCircle, "arrow-right-circle", .arrowRightCircleFill),
         (.arrowTurnUpLeft, "arrow-turn-up-left", .arrowshapeTurnUpLeftFill),
-        (.arrowTurnUpRight, "arrow-turn-up-right", .arrowshapeTurnUpRightFill),
+        (.arrowTurnUpRight, "arrow-turn-up-right", .arrowshapeTurnUpRightFill)
     ]
 
     @Test
@@ -58,4 +58,4 @@ class ListSymbolArrowTests {
         let expected: [ListSymbolArrow] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolArrow.allCases == expected)
     }
-} 
+}

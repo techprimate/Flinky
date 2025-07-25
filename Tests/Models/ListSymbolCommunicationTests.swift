@@ -51,7 +51,7 @@ class ListSymbolCommunicationTests {
         (.chart, "chart", .chartBarFill),
         (.archiveArrow, "archive-arrow", .arrowUpBin),
         (.wifi2, "wifi-2", .wifi),
-        (.wrench, "wrench", .wrenchAdjustable),
+        (.wrench, "wrench", .wrenchAdjustable)
     ]
 
     @Test
@@ -95,4 +95,4 @@ class ListSymbolCommunicationTests {
         let expected: [ListSymbolCommunication] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolCommunication.allCases == expected)
     }
-} 
+}

@@ -4,7 +4,7 @@ import SwiftData
 
 @MainActor
 final class LinkModelTests: XCTestCase {
-    
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -33,7 +33,7 @@ final class LinkModelTests: XCTestCase {
             symbol: symbol,
             url: url
         )
-        
+
         // Then
         XCTAssertEqual(link.id, id)
         XCTAssertEqual(link.createdAt, createdAt)
@@ -43,7 +43,7 @@ final class LinkModelTests: XCTestCase {
         XCTAssertEqual(link.color, color)
         XCTAssertEqual(link.symbol, symbol)
     }
-    
+
     func testLinkModelConvenienceInitializer() throws {
         // Given
         let name = "Test Link"
@@ -53,7 +53,7 @@ final class LinkModelTests: XCTestCase {
 
         // When
         let link = LinkModel(name: name, url: url, color: color, symbol: symbol)
-        
+
         // Then
         XCTAssertEqual(link.name, name)
         XCTAssertEqual(link.url, url)
@@ -63,15 +63,15 @@ final class LinkModelTests: XCTestCase {
         XCTAssertNotNil(link.createdAt)
         XCTAssertNotNil(link.updatedAt)
     }
-    
+
     func testLinkModelConvenienceInitializerWithDefaults() throws {
         // Given
         let name = "Test Link"
         let url = URL(string: "https://example.com")!
-        
+
         // When
         let link = LinkModel(name: name, url: url)
-        
+
         // Then
         XCTAssertEqual(link.name, name)
         XCTAssertEqual(link.url, url)
@@ -81,4 +81,4 @@ final class LinkModelTests: XCTestCase {
         XCTAssertNotNil(link.createdAt)
         XCTAssertNotNil(link.updatedAt)
     }
-} 
+}

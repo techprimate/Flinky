@@ -43,7 +43,7 @@ final class LinkModel {
         self.symbol = symbol
         self.url = url
     }
-    
+
     /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
     convenience init(name: String, url: URL, color: ListColor? = nil, symbol: ListSymbol? = nil) {
         self.init(

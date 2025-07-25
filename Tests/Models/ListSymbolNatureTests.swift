@@ -23,7 +23,7 @@ class ListSymbolNatureTests {
         (.cloud, "cloud", .cloudFill),
         (.cloudBolt, "cloud-bolt", .cloudBoltFill),
         (.cloudBoltRain, "cloud-bolt-rain", .cloudBoltRainFill),
-        (.cloudSunBolt, "cloud-sun-bolt", .cloudSunBoltFill),
+        (.cloudSunBolt, "cloud-sun-bolt", .cloudSunBoltFill)
     ]
 
     @Test
@@ -67,4 +67,4 @@ class ListSymbolNatureTests {
         let expected: [ListSymbolNature] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolNature.allCases == expected)
     }
-} 
+}

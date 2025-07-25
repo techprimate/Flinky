@@ -46,7 +46,7 @@ class ListSymbolCurrencyTests {
         (.tenge, "tenge", .tengesign),
         (.tugrik, "tugrik", .tugriksign),
         (.turkishLira, "turkish-lira", .turkishlirasign),
-        (.won, "won", .wonsign),
+        (.won, "won", .wonsign)
     ]
 
     @Test
@@ -90,4 +90,4 @@ class ListSymbolCurrencyTests {
         let expected: [ListSymbolCurrency] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolCurrency.allCases == expected)
     }
-} 
+}

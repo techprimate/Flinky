@@ -24,17 +24,17 @@ struct LinkListPickerRenderView: View {
                 }
             }
         }, symbol: list.symbol)
-        .labelStyle(RoundedIconLabelStyle(color: list.color.color))
-        .foregroundStyle(.primary)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(L10n.CreateLinkListPicker.Item.Accessibility.label(list.title))
-        .accessibilityHint(L10n.CreateLinkListPicker.Item.Accessibility.hint)
-        .accessibilityAddTraits(.isButton)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .contentShape(Rectangle())
-        .onTapGesture {
-            selectedList = list
-        }
+            .labelStyle(RoundedIconLabelStyle(color: list.color.color))
+            .foregroundStyle(.primary)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(L10n.CreateLinkListPicker.Item.Accessibility.label(list.title))
+            .accessibilityHint(L10n.CreateLinkListPicker.Item.Accessibility.hint)
+            .accessibilityAddTraits(.isButton)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                selectedList = list
+            }
     }
 }
 
@@ -68,7 +68,7 @@ struct LinkListPickerRenderView: View {
         )
     ]
 
-    NavigationStack{
+    NavigationStack {
         LinkListPickerRenderView(
             lists: lists,
             selectedList: $selectedList

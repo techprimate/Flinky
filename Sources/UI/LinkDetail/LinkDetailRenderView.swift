@@ -239,7 +239,7 @@ extension LinkDetailRenderView {
                 shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
                 isNFCSharingSupported: true,
-                shareViaNFCAction: {  }
+                shareViaNFCAction: {}
             )
         }
     }
@@ -260,7 +260,7 @@ extension LinkDetailRenderView {
                 shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
                 isNFCSharingSupported: true,
-                shareViaNFCAction: {  }
+                shareViaNFCAction: {}
             )
         }
     }
@@ -278,7 +278,7 @@ extension LinkDetailRenderView {
                 editAction: {},
                 openInSafariAction: {},
                 copyURLAction: {},
-                shareQRCodeImageAction: {image in },
+                shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
                 isNFCSharingSupported: true,
                 shareViaNFCAction: {}
@@ -302,7 +302,7 @@ extension LinkDetailRenderView {
                 shareQRCodeImageAction: { _ in },
                 saveQRCodeImageToPhotos: { _ in },
                 isNFCSharingSupported: false,
-                shareViaNFCAction: {  }
+                shareViaNFCAction: {}
             )
         }
     }

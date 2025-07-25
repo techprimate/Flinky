@@ -95,7 +95,7 @@ extension ListSymbolBasicShape: RawRepresentable {
 extension ListSymbolBasicShape: CaseIterable {
     static var allCases: [ListSymbolBasicShape] {
         return [
-            .circle, .square, .triangle, .diamond, .hexagon, .pentagon, .octagon, .oval, .rhombus, .rectangle,
+            .circle, .square, .triangle, .diamond, .hexagon, .pentagon, .octagon, .oval, .rhombus, .rectangle
         ]
     }
 }

@@ -1,5 +1,5 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 open class PassThroughWindow: UIWindow {
     /// Used to identify the window by name while debugging
@@ -10,12 +10,12 @@ open class PassThroughWindow: UIWindow {
         super.init(windowScene: windowScene)
 
         // Ensure window stays at correct level and handles safe area properly
-        self.backgroundColor = .clear
-        self.isOpaque = false
+        backgroundColor = .clear
+        isOpaque = false
     }
 
     @available(*, unavailable)
-    required public init?(coder _: NSCoder) {
+    public required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -62,4 +62,3 @@ open class PassThroughWindow: UIWindow {
         }
     }
 }
-

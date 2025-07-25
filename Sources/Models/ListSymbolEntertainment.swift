@@ -60,7 +60,7 @@ extension ListSymbolEntertainment: RawRepresentable {
             return nil
         }
     }
-    
+
     var rawValue: String {
         switch self {
         case .theaterMasks:
@@ -88,7 +88,7 @@ extension ListSymbolEntertainment: RawRepresentable {
 extension ListSymbolEntertainment: CaseIterable {
     static var allCases: [ListSymbolEntertainment] {
         return [
-            .theaterMasks, .balloon, .balloon2, .partyPopper, .dice, .playButton, .playRectangle, .tvPlay, .musicNote,
+            .theaterMasks, .balloon, .balloon2, .partyPopper, .dice, .playButton, .playRectangle, .tvPlay, .musicNote
         ]
     }
 }

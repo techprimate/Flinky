@@ -23,7 +23,7 @@ class ListSymbolSportRecreationTests {
         (.medal, "medal", .medalFill),
         (.medalStar, "medal-star", .medalStarFill),
         (.trophy, "trophy", .trophyFill),
-        (.running, "running", .figureRun),
+        (.running, "running", .figureRun)
     ]
 
     @Test
@@ -67,4 +67,4 @@ class ListSymbolSportRecreationTests {
         let expected: [ListSymbolSportRecreation] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolSportRecreation.allCases == expected)
     }
-} 
+}

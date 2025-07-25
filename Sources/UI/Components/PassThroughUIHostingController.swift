@@ -7,4 +7,3 @@ class PassThroughUIHostingController<Content: View>: UIHostingController<Content
         view.backgroundColor = .clear
     }
 }
-

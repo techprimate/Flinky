@@ -1,4 +1,5 @@
 import SFSafeSymbols
+
 enum ListSymbolDocumentsReadingWriting {
     case bookmark
     case book
@@ -155,7 +156,7 @@ extension ListSymbolDocumentsReadingWriting: RawRepresentable {
         case .paperPlane:
             return "paper-plane"
         case .present:
-            return "present"    
+            return "present"
         case .birthdayCake:
             return "birthday-cake"
         case .graduationCap:
@@ -176,16 +177,16 @@ extension ListSymbolDocumentsReadingWriting: RawRepresentable {
             return "paper"
         case .creditcard:
             return "creditcard"
-        case .money:    
+        case .money:
             return "money"
         }
     }
-}   
+}
 
 extension ListSymbolDocumentsReadingWriting: CaseIterable {
     static var allCases: [ListSymbolDocumentsReadingWriting] {
         return [
-            .bookmark, .book, .bookClosed, .booksVertical, .newspaper, .folder, .textDocument, .document, .giftCard, .clipboard, .paperPlane, .present, .birthdayCake, .graduationCap, .backpack, .pen, .pencil, .pencilOutline, .pencilScribble, .pencilRuler, .paper, .creditcard, .money,
+            .bookmark, .book, .bookClosed, .booksVertical, .newspaper, .folder, .textDocument, .document, .giftCard, .clipboard, .paperPlane, .present, .birthdayCake, .graduationCap, .backpack, .pen, .pencil, .pencilOutline, .pencilScribble, .pencilRuler, .paper, .creditcard, .money
         ]
     }
 }

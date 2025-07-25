@@ -14,7 +14,7 @@ class ListSymbolPlacesBuildingsTests {
         (.location, "location", .locationFill),
         (.sofa, "sofa", .sofaFill),
         (.bathtub, "bathtub", .bathtubFill),
-        (.chairLounge, "chair-lounge", .chairLoungeFill),
+        (.chairLounge, "chair-lounge", .chairLoungeFill)
     ]
 
     @Test
@@ -58,4 +58,4 @@ class ListSymbolPlacesBuildingsTests {
         let expected: [ListSymbolPlacesBuildings] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolPlacesBuildings.allCases == expected)
     }
-} 
+}

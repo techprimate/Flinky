@@ -35,7 +35,7 @@ struct LinkListDetailItemView: View {
             }
             .tint(.red)
             .accessibilityLabel(L10n.Shared.Item.Link.Delete.Accessibility.label(item.title))
-            
+
             Button {
                 editAction()
             } label: {
@@ -51,7 +51,7 @@ struct LinkListDetailItemView: View {
                 Label(L10n.Shared.Action.edit, systemSymbol: .pencil)
             }
             .accessibilityLabel(L10n.Shared.Item.Link.Edit.Accessibility.label(item.title))
-            
+
             Button(role: .destructive) {
                 deleteAction()
             } label: {

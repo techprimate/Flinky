@@ -95,7 +95,7 @@ extension ListSymbolArrow: RawRepresentable {
 extension ListSymbolArrow: CaseIterable {
     static var allCases: [ListSymbolArrow] {
         return [
-            .arrowUp, .arrowDown, .arrowLeft, .arrowRight, .arrowUpCircle, .arrowDownCircle, .arrowLeftCircle, .arrowRightCircle, .arrowTurnUpLeft, .arrowTurnUpRight,
+            .arrowUp, .arrowDown, .arrowLeft, .arrowRight, .arrowUpCircle, .arrowDownCircle, .arrowLeftCircle, .arrowRightCircle, .arrowTurnUpLeft, .arrowTurnUpRight
         ]
     }
 }

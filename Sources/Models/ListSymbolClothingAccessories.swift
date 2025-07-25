@@ -3,7 +3,7 @@ import SFSafeSymbols
 enum ListSymbolClothingAccessories {
     case hat
     case tshirt
-    
+
     var sfsymbol: SFSymbol {
         switch self {
         case .hat:
@@ -25,7 +25,7 @@ extension ListSymbolClothingAccessories: RawRepresentable {
             return nil
         }
     }
-    
+
     var rawValue: String {
         switch self {
         case .hat:

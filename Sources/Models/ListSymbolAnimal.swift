@@ -101,7 +101,6 @@ extension ListSymbolAnimal: RawRepresentable {
 
 extension ListSymbolAnimal: CaseIterable {
     static var allCases: [ListSymbolAnimal] {
-        return [ .ant, .bird, .cat, .dog, .fish, .ladybug, .lizard, .tortoise, .hare, .pawPrint, .teddyBear
-        ]
+        return [.ant, .bird, .cat, .dog, .fish, .ladybug, .lizard, .tortoise, .hare, .pawPrint, .teddyBear]
     }
 }

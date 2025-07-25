@@ -1,6 +1,6 @@
-import SwiftUI
 import os.log
 import Sentry
+import SwiftUI
 
 struct LinkInfoContainerView: View {
     private static let logger = Logger.forType(Self.self)

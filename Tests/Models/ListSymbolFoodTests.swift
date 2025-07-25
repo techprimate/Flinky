@@ -5,7 +5,7 @@ private let symbolRawValuePairs: [(ListSymbolFood, String)] = [
     (.popcorn, "popcorn"),
     (.menuCard, "menu-card"),
     (.forkKnife, "fork-knife"),
-    (.wineGlass, "wine-glass"),
+    (.wineGlass, "wine-glass")
 ]
 
 @Test

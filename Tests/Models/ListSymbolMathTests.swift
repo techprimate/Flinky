@@ -14,7 +14,7 @@ class ListSymbolMathTests {
         (.function, "function", .function),
         (.squareRoot, "square-root", .squareroot),
         (.sum, "sum", .sum),
-        (.plusForwardSlashMinus, "plus-forward-slash-minus", .plusForwardslashMinus),
+        (.plusForwardSlashMinus, "plus-forward-slash-minus", .plusForwardslashMinus)
     ]
 
     @Test
@@ -58,4 +58,4 @@ class ListSymbolMathTests {
         let expected: [ListSymbolMath] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolMath.allCases == expected)
     }
-} 
+}

@@ -28,7 +28,7 @@ struct LinkListDetailRenderView: View {
                 toolbarContent
             }
     }
-    
+
     @ViewBuilder
     private var listContent: some View {
         List {
@@ -40,7 +40,7 @@ struct LinkListDetailRenderView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private var emptyStateView: some View {
         if links.isEmpty {
@@ -51,7 +51,7 @@ struct LinkListDetailRenderView: View {
             )
         }
     }
-    
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
@@ -64,7 +64,7 @@ struct LinkListDetailRenderView: View {
             Spacer()
         }
     }
-    
+
     @ViewBuilder
     private var moreMenu: some View {
         Menu {
@@ -76,7 +76,7 @@ struct LinkListDetailRenderView: View {
                 .accessibilityHint(L10n.LinkListDetail.MoreMenu.Accessibility.hint)
         }
     }
-    
+
     @ViewBuilder
     private var editListButton: some View {
         Button {
@@ -87,7 +87,7 @@ struct LinkListDetailRenderView: View {
         .accessibilityLabel(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.label)
         .accessibilityHint(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.hint)
     }
-    
+
     @ViewBuilder
     private var deleteListButton: some View {
         Button(role: .destructive) {
@@ -98,7 +98,7 @@ struct LinkListDetailRenderView: View {
         .accessibilityLabel(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.label)
         .accessibilityHint(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.hint)
     }
-    
+
     @ViewBuilder
     private var newLinkButton: some View {
         Button {

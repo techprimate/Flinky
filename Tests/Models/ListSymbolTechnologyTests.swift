@@ -38,7 +38,7 @@ class ListSymbolTechnologyTests {
         (.computer, "computer", .pc),
         (.gameController, "game-controller", .gamecontrollerFill),
         (.tv, "tv", .tv),
-        (.headlightHighBeam, "headlight-high-beam", .headlightHighBeam),
+        (.headlightHighBeam, "headlight-high-beam", .headlightHighBeam)
     ]
 
     @Test
@@ -82,4 +82,4 @@ class ListSymbolTechnologyTests {
         let expected: [ListSymbolTechnology] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolTechnology.allCases == expected)
     }
-} 
+}

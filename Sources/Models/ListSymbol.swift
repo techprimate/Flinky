@@ -32,47 +32,47 @@ enum ListSymbol {
             return .faceSmiling
         case .listBullet:
             return .listBullet
-        case .number(let symbol):
+        case let .number(symbol):
             return symbol.sfsymbol
-        case .letter(let symbol):
+        case let .letter(symbol):
             return symbol.sfsymbol
-        case .basicShape(let symbol):
+        case let .basicShape(symbol):
             return symbol.sfsymbol
-        case .arrows(let symbol):
+        case let .arrows(symbol):
             return symbol.sfsymbol
-        case .math(let symbol):
+        case let .math(symbol):
             return symbol.sfsymbol
-        case .currency(let symbol):
+        case let .currency(symbol):
             return symbol.sfsymbol
-        case .technology(let symbol):
+        case let .technology(symbol):
             return symbol.sfsymbol
-        case .transportation(let symbol):
+        case let .transportation(symbol):
             return symbol.sfsymbol
-        case .sportRecreation(let symbol):
+        case let .sportRecreation(symbol):
             return symbol.sfsymbol
-        case .figureSportsActivity(let symbol):
+        case let .figureSportsActivity(symbol):
             return symbol.sfsymbol
-        case .animal(let symbol):
+        case let .animal(symbol):
             return symbol.sfsymbol
-        case .nature(let symbol):
+        case let .nature(symbol):
             return symbol.sfsymbol
-        case .medical(let symbol):
+        case let .medical(symbol):
             return symbol.sfsymbol
-        case .food(let symbol):
+        case let .food(symbol):
             return symbol.sfsymbol
-        case .object(let symbol):
+        case let .object(symbol):
             return symbol.sfsymbol
-        case .communication(let symbol):
+        case let .communication(symbol):
             return symbol.sfsymbol
-        case .human(let symbol):
+        case let .human(symbol):
             return symbol.sfsymbol
-        case .placesBuildings(let symbol):
+        case let .placesBuildings(symbol):
             return symbol.sfsymbol
-        case .entertainment(let symbol):
+        case let .entertainment(symbol):
             return symbol.sfsymbol
-        case .documentsReadingWriting(let symbol):
+        case let .documentsReadingWriting(symbol):
             return symbol.sfsymbol
-        case .clothingAccessories(let symbol):
+        case let .clothingAccessories(symbol):
             return symbol.sfsymbol
         }
     }
@@ -122,7 +122,7 @@ extension ListSymbol: RawRepresentable {
         case _ where rawValue.starts(with: "currency."):
             self = .currency(ListSymbolCurrency(rawValue: String(rawValue.dropFirst("currency.".count)))!)
         case _ where rawValue.starts(with: "technology."):
-            self = .technology(ListSymbolTechnology(rawValue: String(rawValue.dropFirst("technology.".count)))!)    
+            self = .technology(ListSymbolTechnology(rawValue: String(rawValue.dropFirst("technology.".count)))!)
         case _ where rawValue.starts(with: "transportation."):
             self = .transportation(ListSymbolTransportation(rawValue: String(rawValue.dropFirst("transportation.".count)))!)
         case _ where rawValue.starts(with: "sport-recreation."):
@@ -162,47 +162,47 @@ extension ListSymbol: RawRepresentable {
             return "emoji.\(emoji)"
         case .listBullet:
             return "list-bullet"
-        case .number(let symbol):
+        case let .number(symbol):
             return "number." + symbol.rawValue
-        case .letter(let symbol):
+        case let .letter(symbol):
             return "letter." + symbol.rawValue
-        case .basicShape(let symbol):
+        case let .basicShape(symbol):
             return "basic-shape." + symbol.rawValue
-        case .arrows(let symbol):
+        case let .arrows(symbol):
             return "arrows." + symbol.rawValue
-        case .math(let symbol):
+        case let .math(symbol):
             return "math." + symbol.rawValue
-        case .currency(let symbol):
+        case let .currency(symbol):
             return "currency." + symbol.rawValue
-        case .technology(let symbol):
+        case let .technology(symbol):
             return "technology." + symbol.rawValue
-        case .transportation(let symbol):
+        case let .transportation(symbol):
             return "transportation." + symbol.rawValue
-        case .sportRecreation(let symbol):
+        case let .sportRecreation(symbol):
             return "sport-recreation." + symbol.rawValue
-        case .figureSportsActivity(let symbol):
+        case let .figureSportsActivity(symbol):
             return "figure-sports-activity." + symbol.rawValue
-        case .animal(let symbol):
+        case let .animal(symbol):
             return "animal." + symbol.rawValue
-        case .nature(let symbol):
+        case let .nature(symbol):
             return "nature." + symbol.rawValue
-        case .medical(let symbol):
+        case let .medical(symbol):
             return "medical." + symbol.rawValue
-        case .food(let symbol):
+        case let .food(symbol):
             return "food." + symbol.rawValue
-        case .object(let symbol):
+        case let .object(symbol):
             return "object." + symbol.rawValue
-        case .communication(let symbol):
+        case let .communication(symbol):
             return "communication." + symbol.rawValue
-        case .human(let symbol):
+        case let .human(symbol):
             return "human." + symbol.rawValue
-        case .placesBuildings(let symbol):
+        case let .placesBuildings(symbol):
             return "places-buildings." + symbol.rawValue
-        case .entertainment(let symbol):
+        case let .entertainment(symbol):
             return "entertainment." + symbol.rawValue
-        case .documentsReadingWriting(let symbol):
+        case let .documentsReadingWriting(symbol):
             return "documents-reading-writing." + symbol.rawValue
-        case .clothingAccessories(let symbol):
+        case let .clothingAccessories(symbol):
             return "clothing-accessories." + symbol.rawValue
         }
     }

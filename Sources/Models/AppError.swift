@@ -14,23 +14,23 @@ enum AppError: LocalizedError, CustomStringConvertible {
 
     var errorDescription: String? {
         switch self {
-        case .dataCorruption(let message):
+        case let .dataCorruption(message):
             return L10n.Shared.Error.DataCorruption.description(message)
-        case .networkError(let message):
+        case let .networkError(message):
             return L10n.Shared.Error.Network.description(message)
-        case .validationError(let message):
+        case let .validationError(message):
             return L10n.Shared.Error.Validation.description(message)
-        case .persistenceError(let persistenceError):
+        case let .persistenceError(persistenceError):
             return persistenceError.errorDescription
-        case .qrCodeGenerationError(let message):
+        case let .qrCodeGenerationError(message):
             return L10n.Shared.Error.QrCode.description(message)
-        case .failedToGenerateQRCode(let reason):
+        case let .failedToGenerateQRCode(reason):
             return L10n.Shared.Error.QrCode.description(reason.localizedDescription)
-        case .failedToOpenURL(let url):
+        case let .failedToOpenURL(url):
             return L10n.Shared.Error.FailedToOpenUrl.description(url.absoluteString)
-        case .nfcError(let message):
+        case let .nfcError(message):
             return L10n.Shared.Error.Nfc.description(message)
-        case .unknownError(let message):
+        case let .unknownError(message):
             return L10n.Shared.Error.Unknown.description(message)
         }
     }
@@ -43,7 +43,7 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return L10n.Shared.Error.Recovery.network
         case .validationError:
             return L10n.Shared.Error.Recovery.validation
-        case .persistenceError(let persistenceError):
+        case let .persistenceError(persistenceError):
             return persistenceError.recoverySuggestion
         case .qrCodeGenerationError, .failedToGenerateQRCode:
             return L10n.Shared.Error.Recovery.qrCode
@@ -55,27 +55,27 @@ enum AppError: LocalizedError, CustomStringConvertible {
             return L10n.Shared.Error.Recovery.unknown
         }
     }
-    
+
     /// Non-localized description for logging purposes (always in English)
     var description: String {
         switch self {
-        case .dataCorruption(let message):
+        case let .dataCorruption(message):
             return "Data corruption: \(message)"
-        case .networkError(let message):
+        case let .networkError(message):
             return "Network error: \(message)"
-        case .validationError(let message):
+        case let .validationError(message):
             return "Validation error: \(message)"
-        case .persistenceError(let persistenceError):
+        case let .persistenceError(persistenceError):
             return persistenceError.description
-        case .qrCodeGenerationError(let message):
+        case let .qrCodeGenerationError(message):
             return "QR code generation error: \(message)"
-        case .failedToGenerateQRCode(let reason):
+        case let .failedToGenerateQRCode(reason):
             return "Failed to generate QR code: \(reason.localizedDescription)"
-        case .failedToOpenURL(let url):
+        case let .failedToOpenURL(url):
             return "Failed to open url: \(url)"
-        case .nfcError(let message):
+        case let .nfcError(message):
             return "NFC error: \(message)"
-        case .unknownError(let message):
+        case let .unknownError(message):
             return "Unknown error: \(message)"
         }
     }
@@ -84,18 +84,18 @@ enum AppError: LocalizedError, CustomStringConvertible {
 extension AppError: Identifiable {
     var id: String {
         switch self {
-        case .dataCorruption(let message),
-                .networkError(let message),
-                .validationError(let message),
-                .qrCodeGenerationError(let message),
-                .nfcError(let message),
-                .unknownError(let message):
+        case let .dataCorruption(message),
+             let .networkError(message),
+             let .validationError(message),
+             let .qrCodeGenerationError(message),
+             let .nfcError(message),
+             let .unknownError(message):
             return "\(self)_\(message)"
-        case .persistenceError(let persistenceError):
+        case let .persistenceError(persistenceError):
             return "\(self)_\(persistenceError.underlyingError)"
-        case .failedToGenerateQRCode(let reason):
+        case let .failedToGenerateQRCode(reason):
             return "\(self)_\(reason.localizedDescription)"
-        case .failedToOpenURL(let url):
+        case let .failedToOpenURL(url):
             return "\(self)_\(url)"
         }
     }
@@ -104,28 +104,26 @@ extension AppError: Identifiable {
 extension AppError: Equatable {
     static func == (lhs: AppError, rhs: AppError) -> Bool {
         switch (lhs, rhs) {
-        case (.dataCorruption(let lhsMessage), .dataCorruption(let rhsMessage)):
+        case let (.dataCorruption(lhsMessage), .dataCorruption(rhsMessage)):
             return lhsMessage == rhsMessage
-        case (.networkError(let lhsMessage), .networkError(let rhsMessage)):
+        case let (.networkError(lhsMessage), .networkError(rhsMessage)):
             return lhsMessage == rhsMessage
-        case (.validationError(let lhsMessage), .validationError(let rhsMessage)):
+        case let (.validationError(lhsMessage), .validationError(rhsMessage)):
             return lhsMessage == rhsMessage
-        case (.persistenceError(let lhsError), .persistenceError(let rhsError)):
+        case let (.persistenceError(lhsError), .persistenceError(rhsError)):
             return lhsError == rhsError
-        case (.qrCodeGenerationError(let lhsMessage), .qrCodeGenerationError(let rhsMessage)):
+        case let (.qrCodeGenerationError(lhsMessage), .qrCodeGenerationError(rhsMessage)):
             return lhsMessage == rhsMessage
-        case (.failedToGenerateQRCode(let lhsReason), .failedToGenerateQRCode(let rhsReason)):
+        case let (.failedToGenerateQRCode(lhsReason), .failedToGenerateQRCode(rhsReason)):
             return lhsReason.localizedDescription == rhsReason.localizedDescription
-        case (.failedToOpenURL(let lhsURL), .failedToOpenURL(let rhsURL)):
+        case let (.failedToOpenURL(lhsURL), .failedToOpenURL(rhsURL)):
             return lhsURL == rhsURL
-        case (.nfcError(let lhsMessage), .nfcError(let rhsMessage)):
+        case let (.nfcError(lhsMessage), .nfcError(rhsMessage)):
             return lhsMessage == rhsMessage
-        case (.unknownError(let lhsMessage), .unknownError(let rhsMessage)):
+        case let (.unknownError(lhsMessage), .unknownError(rhsMessage)):
             return lhsMessage == rhsMessage
         default:
             return false
         }
     }
-    
-
-} 
+}

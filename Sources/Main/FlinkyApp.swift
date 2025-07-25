@@ -1,7 +1,7 @@
+import OnLaunch
 import Sentry
 import SwiftData
 import SwiftUI
-import OnLaunch
 
 @main
 struct FlinkyApp: App {
@@ -37,11 +37,11 @@ struct FlinkyApp: App {
 
         options.releaseName = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         options.dist = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-#if DEBUG
-        options.environment = "development"
-#else
-        options.environment = "production"
-#endif
+        #if DEBUG
+            options.environment = "development"
+        #else
+            options.environment = "production"
+        #endif
 
         options.sampleRate = 1.0
         options.tracesSampleRate = 1.0
@@ -231,4 +231,3 @@ struct FlinkyApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
-

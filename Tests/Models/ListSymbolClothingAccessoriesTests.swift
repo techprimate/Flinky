@@ -6,7 +6,7 @@ import SFSafeSymbols
 class ListSymbolClothingAccessoriesTests {
     private let symbolRawValuePairs: [(ListSymbolClothingAccessories, String, SFSymbol)] = [
         (.hat, "hat", .hatWidebrimFill),
-        (.tshirt, "tshirt", .tshirtFill),
+        (.tshirt, "tshirt", .tshirtFill)
     ]
 
     @Test
@@ -50,4 +50,4 @@ class ListSymbolClothingAccessoriesTests {
         let expected: [ListSymbolClothingAccessories] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolClothingAccessories.allCases == expected)
     }
-} 
+}

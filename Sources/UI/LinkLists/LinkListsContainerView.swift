@@ -1,8 +1,8 @@
+import os.log
+import Sentry
 import SFSafeSymbols
 import SwiftData
 import SwiftUI
-import os.log
-import Sentry
 
 struct LinkListsContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -20,28 +20,28 @@ struct LinkListsContainerView: View {
         sort: [SortDescriptor(\.name, comparator: .localized)]
     )
     private var unpinnedLists: [LinkListModel]
-    
+
     @State private var isCreateListPresented = false
     @State private var isCreateLinkPresented = false
 
     @State private var presentedInfoList: LinkListModel?
     @State private var searchText = ""
-    
+
     @State private var listToDelete: LinkListModel?
     @State private var isDeleteListPresented = false
     @State private var listsToDelete: [LinkListModel]?
     @State private var isDeleteListsPresented = false
-    
+
     var body: some View {
         viewWithAlerts
     }
-    
+
     var viewWithAlerts: some View {
         viewWithSheets
             .alert(L10n.Shared.DeleteConfirmation.List.alertTitle(listToDelete?.name ?? ""), isPresented: $isDeleteListPresented, presenting: listToDelete) { list in
                 Button(role: .destructive) {
                     modelContext.delete(list)
-                    
+
                     do {
                         try modelContext.save()
                     } catch {
@@ -53,7 +53,7 @@ struct LinkListsContainerView: View {
                 } label: {
                     Text(L10n.Shared.Button.Delete.label)
                 }
-            } message: { link in
+            } message: { _ in
                 Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
             }
             .alert(L10n.Shared.DeleteConfirmation.Lists.alertTitle, isPresented: $isDeleteListsPresented, presenting: listsToDelete) { lists in
@@ -61,7 +61,7 @@ struct LinkListsContainerView: View {
                     for list in lists {
                         modelContext.delete(list)
                     }
-                    
+
                     do {
                         try modelContext.save()
                     } catch {
@@ -77,7 +77,7 @@ struct LinkListsContainerView: View {
                 Text(L10n.Shared.DeleteConfirmation.Lists.warningMessage(links.map(\.name).joined(separator: ", ")))
             }
     }
-    
+
     var viewWithSheets: some View {
         renderView
             .sheet(isPresented: $isCreateListPresented) {
@@ -96,7 +96,7 @@ struct LinkListsContainerView: View {
                 }
             }
     }
-    
+
     var renderView: some View {
         LinkListsRenderView(
             pinnedLists: pinnedListDisplayItems,
@@ -118,7 +118,7 @@ struct LinkListsContainerView: View {
                 }
                 model.isPinned = true
                 model.updatedAt = Date()
-                
+
                 do {
                     try modelContext.save()
                 } catch {
@@ -138,7 +138,7 @@ struct LinkListsContainerView: View {
                 }
                 model.isPinned = false
                 model.updatedAt = Date()
-                
+
                 do {
                     try modelContext.save()
                 } catch {
@@ -176,45 +176,45 @@ struct LinkListsContainerView: View {
             }
         }
     }
-    
+
     var pinnedListDisplayItems: [LinkListsDisplayItem] {
         filteredPinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
-    
+
     var listDisplayItems: [LinkListsDisplayItem] {
         filteredUnpinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
-    
+
     private var filteredPinnedLists: [LinkListModel] {
         if searchText.isEmpty {
             return pinnedLists
         }
         return pinnedLists.filter { list in
             list.name.localizedCaseInsensitiveContains(searchText) ||
-            list.links.contains { link in
-                link.name.localizedCaseInsensitiveContains(searchText) ||
-                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
-            }
+                list.links.contains { link in
+                    link.name.localizedCaseInsensitiveContains(searchText) ||
+                        link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+                }
         }
     }
-    
+
     private var filteredUnpinnedLists: [LinkListModel] {
         if searchText.isEmpty {
             return unpinnedLists
         }
         return unpinnedLists.filter { list in
             list.name.localizedCaseInsensitiveContains(searchText) ||
-            list.links.contains { link in
-                link.name.localizedCaseInsensitiveContains(searchText) ||
-                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
-            }
+                list.links.contains { link in
+                    link.name.localizedCaseInsensitiveContains(searchText) ||
+                        link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+                }
         }
     }
-    
+
     func mapToDisplayItem(_ model: LinkListModel) -> LinkListsDisplayItem {
         LinkListsDisplayItem(
             id: model.id,

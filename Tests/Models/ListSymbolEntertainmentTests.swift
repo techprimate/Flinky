@@ -13,7 +13,7 @@ class ListSymbolEntertainmentTests {
         (.playButton, "play-button", .playFill),
         (.playRectangle, "play-rectangle", .playRectangleFill),
         (.tvPlay, "tv-play", .playTvFill),
-        (.musicNote, "music-note", .musicNote),
+        (.musicNote, "music-note", .musicNote)
     ]
 
     @Test
@@ -57,4 +57,4 @@ class ListSymbolEntertainmentTests {
         let expected: [ListSymbolEntertainment] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolEntertainment.allCases == expected)
     }
-} 
+}

@@ -1,7 +1,7 @@
-import SwiftUI
-import SwiftData
-import Sentry
 import os.log
+import Sentry
+import SwiftData
+import SwiftUI
 
 struct LinkListPickerContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -51,4 +51,3 @@ struct LinkListPickerContainerView: View {
         }
     }
 }
-

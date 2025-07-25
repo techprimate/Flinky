@@ -95,7 +95,7 @@ extension ListSymbolPlacesBuildings: RawRepresentable {
 extension ListSymbolPlacesBuildings: CaseIterable {
     static var allCases: [ListSymbolPlacesBuildings] {
         return [
-            .house, .office, .university, .globe, .map, .mapPin, .location, .sofa, .bathtub, .chairLounge,
+            .house, .office, .university, .globe, .map, .mapPin, .location, .sofa, .bathtub, .chairLounge
         ]
     }
 }

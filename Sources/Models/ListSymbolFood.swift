@@ -53,7 +53,7 @@ extension ListSymbolFood: RawRepresentable {
 extension ListSymbolFood: CaseIterable {
     static var allCases: [ListSymbolFood] {
         return [
-            .popcorn, .menuCard, .forkKnife, .wineGlass,
+            .popcorn, .menuCard, .forkKnife, .wineGlass
         ]
     }
 }

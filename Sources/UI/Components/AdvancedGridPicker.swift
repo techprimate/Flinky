@@ -36,7 +36,7 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
             itemView(for: item)
         }
     }
-    
+
     private func itemView(for item: Item) -> some View {
         content(item)
             .padding(5)

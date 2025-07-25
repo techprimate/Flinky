@@ -30,7 +30,7 @@ class ListSymbolLetterTests {
         (.letterW, "letter-w", .wCircleFill),
         (.letterX, "letter-x", .xCircleFill),
         (.letterY, "letter-y", .yCircleFill),
-        (.letterZ, "letter-z", .zCircleFill),
+        (.letterZ, "letter-z", .zCircleFill)
     ]
 
     @Test
@@ -74,4 +74,4 @@ class ListSymbolLetterTests {
         let expected: [ListSymbolLetter] = symbolRawValuePairs.map { $0.0 }
         #expect(ListSymbolLetter.allCases == expected)
     }
-} 
+}

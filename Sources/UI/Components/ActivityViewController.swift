@@ -3,11 +3,11 @@ import SwiftUI
 struct ActivityViewController: UIViewControllerRepresentable {
     let activityItems: [Any]
 
-    func makeUIViewController(context: Context) -> UIActivityViewController {
+    func makeUIViewController(context _: Context) -> UIActivityViewController {
         UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
     }
 
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+    func updateUIViewController(_: UIActivityViewController, context _: Context) {
         // No updates needed
     }
 }

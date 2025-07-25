@@ -95,7 +95,7 @@ extension ListSymbolMath: RawRepresentable {
 extension ListSymbolMath: CaseIterable {
     static var allCases: [ListSymbolMath] {
         return [
-            .plus, .minus, .multiply, .divide, .equal, .percent, .function, .squareRoot, .sum, .plusForwardSlashMinus,
+            .plus, .minus, .multiply, .divide, .equal, .percent, .function, .squareRoot, .sum, .plusForwardSlashMinus
         ]
     }
 }

@@ -101,7 +101,7 @@ public struct AlertToastStackModifier: ViewModifier {
 /// Simple toast stack view for use in window-based approach
 public struct ToastStackView: View {
     @ObservedObject var toastManager: ToastManager
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             // Toast container at the top
@@ -126,7 +126,7 @@ public struct ToastStackView: View {
             .padding(.top, 16) // Simple top padding - let safe area be handled naturally
             .frame(maxWidth: .infinity, alignment: .center)
             .animation(.easeInOut(duration: 0.3), value: toastManager.toastStack)
-            
+
             Spacer()
         }
         .ignoresSafeArea(.all, edges: .bottom) // Only ignore bottom safe area
@@ -173,4 +173,3 @@ struct AlertToastStackModifier_Previews: PreviewProvider {
         Container()
     }
 }
-
