@@ -175,6 +175,7 @@
 				D4D359D52E1BDF540006226D /* Sources */,
 				D4D359D62E1BDF540006226D /* Frameworks */,
 				D4D359D72E1BDF540006226D /* Resources */,
+				8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -259,6 +260,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script is responsible for uploading debug symbols and source context for Sentry.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which sentry-cli >/dev/null; then\n    export SENTRY_ORG=techprimate\n    export SENTRY_PROJECT=flinky\n    ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\n    if [ ! $? -eq 0 ]; then\n        echo \"warning: sentry-cli - $ERROR\"\n    fi\nelse\n    echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+		};
 		D4D359DC2E1BDF540006226D /* Run Script - Generate Files */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -494,6 +510,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -514,6 +531,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -532,6 +550,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -552,9 +571,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ANALYTICS;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

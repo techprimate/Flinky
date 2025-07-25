@@ -96,3 +96,6 @@ xcuserdata/
 
 # Generated files from SwiftGen
 Generated/
+
+# Sentry
+.sentryclirc
