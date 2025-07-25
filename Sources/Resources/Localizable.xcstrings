@@ -478,30 +478,6 @@
         }
       }
     },
-    "link-list-detail.new-link" : {
-      "comment" : "New link button",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Link"
-          }
-        }
-      }
-    },
-    "link-list-detail.no-links-description" : {
-      "comment" : "No links available description",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add a new link to get started"
-          }
-        }
-      }
-    },
     "link-list-detail.more-menu.accessibility.hint" : {
       "comment" : "More menu accessibility hint",
       "extractionState" : "manual",
@@ -606,6 +582,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More"
+          }
+        }
+      }
+    },
+    "link-list-detail.new-link" : {
+      "comment" : "New link button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Link"
+          }
+        }
+      }
+    },
+    "link-list-detail.no-links-description" : {
+      "comment" : "No links available description",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a new link to get started"
           }
         }
       }

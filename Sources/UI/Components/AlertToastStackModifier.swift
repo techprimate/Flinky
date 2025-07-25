@@ -96,6 +96,43 @@ public struct AlertToastStackModifier: ViewModifier {
     }
 }
 
+// MARK: - Window-Based Toast Stack
+
+/// Simple toast stack view for use in window-based approach
+public struct ToastStackView: View {
+    @ObservedObject var toastManager: ToastManager
+    
+    public var body: some View {
+        VStack(spacing: 0) {
+            // Toast container at the top
+            VStack(spacing: 10) {
+                ForEach(Array(toastManager.toastStack.enumerated()), id: \.element) { idx, item in
+                    AlertToast(item: item.asToastItem)
+                        .zIndex(Double(idx))
+                        .allowsHitTesting(item.tapToDismiss) // Only allow hits if tap to dismiss is enabled
+                        .onTapGesture {
+                            guard item.tapToDismiss else { return }
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                toastManager.dismiss(item.id)
+                            }
+                        }
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.8).combined(with: .opacity),
+                            removal: .opacity.combined(with: .scale(scale: 0.8))
+                        ))
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 16) // Simple top padding - let safe area be handled naturally
+            .frame(maxWidth: .infinity, alignment: .center)
+            .animation(.easeInOut(duration: 0.3), value: toastManager.toastStack)
+            
+            Spacer()
+        }
+        .ignoresSafeArea(.all, edges: .bottom) // Only ignore bottom safe area
+    }
+}
+
 public extension View {
     func toastStack(
         stack: Binding<[AlertToastStackItem]>,

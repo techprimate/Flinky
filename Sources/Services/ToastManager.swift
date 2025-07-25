@@ -208,48 +208,4 @@ public extension EnvironmentValues {
     }
 }
 
-// MARK: - View Extensions
-
-public extension View {
-    /// Add toast stack support to any view
-    func withToastStack() -> some View {
-        ToastStackWrapperView(content: self)
-    }
-}
-
-/// Direct toast stack view that observes a ToastManager instance
-struct ToastStackView: View {
-    @ObservedObject var toastManager: ToastManager
-    
-    var body: some View {
-        Color.clear
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .allowsHitTesting(false)
-            .modifier(AlertToastStackModifier(stack: $toastManager.toastStack))
-    }
-}
-
-/// Wrapper view that has access to the environment toaster
-struct ToastStackWrapperView<Content: View>: View {
-    let content: Content
-    @Environment(\.toaster) var toaster
-    
-    var body: some View {
-        content
-            .modifier(ToastStackViewModifier(toaster: toaster))
-    }
-}
-
-/// View modifier to display toast stack
-struct ToastStackViewModifier: ViewModifier {
-    @ObservedObject var toaster: ToastManager
-    
-    init(toaster: ToastManager) {
-        self.toaster = toaster
-    }
-    
-    func body(content: Content) -> some View {
-        content
-            .toastStack(stack: $toaster.toastStack)
-    }
-} 
+ 

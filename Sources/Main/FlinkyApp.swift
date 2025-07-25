@@ -223,10 +223,7 @@ struct FlinkyApp: App {
     var body: some Scene {
         WindowGroup {
             MainContainerView()
-                .environment(\.toaster, toastManager)
-                .overlay(
-                    ToastStackView(toastManager: toastManager)
-                )
+                .toaster(toastManager)
                 .configureOnLaunch { options in
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
                 }
@@ -234,3 +231,4 @@ struct FlinkyApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+
