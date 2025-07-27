@@ -110,8 +110,8 @@ struct LinkListsContainerView: View {
             },
             pinListAction: { list in
                 guard let model = unpinnedLists.first(where: { $0.id == list.id }) else {
-                    Self.logger.error("List not found for pinning: \(list.name)")
-                    let appError = AppError.dataCorruption("List not found for pinning: \(list.name)")
+                    Self.logger.error("List not found for pinning: \(list.id.uuidString)")
+                    let appError = AppError.dataCorruption("List not found for pinning: \(list.id.uuidString)")
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                     return
@@ -130,8 +130,8 @@ struct LinkListsContainerView: View {
             },
             unpinListAction: { list in
                 guard let model = pinnedLists.first(where: { $0.id == list.id }) else {
-                    Self.logger.error("List not found for unpinning: \(list.name)")
-                    let appError = AppError.dataCorruption("List not found for unpinning: \(list.name)")
+                    Self.logger.error("List not found for unpinning: \(list.id.uuidString)")
+                    let appError = AppError.dataCorruption("List not found for unpinning: \(list.id.uuidString)")
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                     return

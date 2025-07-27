@@ -57,6 +57,31 @@ struct CreateLinkWithListPickerEditorContainerView: View {
 
                     do {
                         try modelContext.save()
+
+                        // Add Sentry breadcrumb for successful link creation from list picker flow
+                        // Track both entities to understand which lists are popular for new links
+                        let breadcrumb = Breadcrumb(level: .info, category: "link_management")
+                        breadcrumb.message = "Link created successfully"
+                        breadcrumb.data = [
+                            "link_id": newItem.id.uuidString,
+                            "list_id": list.id.uuidString,
+                            "has_color": false, // Currently no customization in this flow
+                            "has_symbol": false,
+                        ]
+                        SentrySDK.addBreadcrumb(breadcrumb)
+
+                        // Track usage event with structured data for analytics segmentation
+                        // This helps distinguish between different link creation flows
+                        let event = Event(level: .info)
+                        event.message = SentryMessage(formatted: "link_created")
+                        event.extra = [
+                            "link_id": newItem.id.uuidString,
+                            "list_id": list.id.uuidString,
+                            "entity_type": "link",
+                            "creation_flow": "list_picker" // Distinguish from direct list creation
+                        ]
+                        SentrySDK.capture(event: event)
+
                         dismiss()
                     } catch {
                         Self.logger.error("Failed to save link: \(error)")

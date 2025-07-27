@@ -7,6 +7,8 @@ import SwiftUI
 struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
 
+    let linkId: UUID
+
     let title: String
     let url: URL
     let color: ListColor
@@ -117,6 +119,30 @@ struct LinkDetailRenderView: View {
                 .accentColor(.green)
                 .accessibilityLabel(L10n.LinkDetail.ShareLink.Accessibility.label(url.absoluteString))
                 .accessibilityHint(L10n.LinkDetail.ShareLink.Accessibility.hint)
+                .simultaneousGesture(
+                    // Use simultaneousGesture instead of onTapGesture to ensure tracking occurs
+                    // without interfering with ShareLink's built-in tap handling
+                    TapGesture().onEnded { _ in
+                        // Track system share sheet usage for debugging user interaction patterns
+                        let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
+                        breadcrumb.message = "System share sheet opened"
+                        breadcrumb.data = [
+                            "link_id": linkId.uuidString,
+                            "sharing_method": "system_share"
+                        ]
+                        SentrySDK.addBreadcrumb(breadcrumb)
+                        
+                        // Track sharing event for analytics - using detailed Event object
+                        // to capture structured data for better analytics queries
+                        let event = Event(level: .info)
+                        event.message = SentryMessage(formatted: "link_shared")
+                        event.extra = [
+                            "link_id": linkId.uuidString,
+                            "sharing_method": "system_share"
+                        ]
+                        SentrySDK.capture(event: event)
+                    }
+                )
             }
             .frame(maxWidth: .infinity)
         }
@@ -229,6 +255,7 @@ extension LinkDetailRenderView {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
             LinkDetailRenderView(
+                linkId: UUID(uuidString: "00000000-0000-0000-0000-000000000000")!,
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 color: .blue,
@@ -250,6 +277,7 @@ extension LinkDetailRenderView {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
             LinkDetailRenderView(
+                linkId: UUID(uuidString: "00000000-0000-0000-0000-000000000000")!,
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 color: .blue,
@@ -271,6 +299,7 @@ extension LinkDetailRenderView {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
             LinkDetailRenderView(
+                linkId: UUID(uuidString: "00000000-0000-0000-0000-000000000000")!,
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 color: .blue,
@@ -292,6 +321,7 @@ extension LinkDetailRenderView {
     Color.gray.sheet(isPresented: .constant(true)) {
         NavigationStack {
             LinkDetailRenderView(
+                linkId: UUID(uuidString: "00000000-0000-0000-0000-000000000000")!,
                 title: "Sample Link",
                 url: URL(string: "https://example.com")!,
                 color: .blue,

@@ -32,6 +32,30 @@ struct CreateLinkEditorContainerView: View {
 
                 do {
                     try modelContext.save()
+
+                    // Add Sentry breadcrumb for successful link creation - provides context for debugging
+                    // Include both link_id and list_id to track relationships between entities
+                    let breadcrumb = Breadcrumb(level: .info, category: "link_management")
+                    breadcrumb.message = "Link created successfully"
+                    breadcrumb.data = [
+                        "link_id": link.id.uuidString,
+                        "list_id": list.id.uuidString,
+                        "has_color": false, // Track customization level for UX insights
+                        "has_symbol": false
+                    ]
+                    SentrySDK.addBreadcrumb(breadcrumb)
+                    
+                    // Track usage event for analytics - using Event object instead of simple message
+                    // to capture structured metadata for better analytics querying and filtering
+                    let event = Event(level: .info)
+                    event.message = SentryMessage(formatted: "link_created")
+                    event.extra = [
+                        "link_id": link.id.uuidString,
+                        "list_id": list.id.uuidString,
+                        "entity_type": "link" // Consistent entity typing for cross-feature analytics
+                    ]
+                    SentrySDK.capture(event: event)
+
                     dismiss()
                 } catch {
                     Self.logger.error("Failed to save link: \(error)")

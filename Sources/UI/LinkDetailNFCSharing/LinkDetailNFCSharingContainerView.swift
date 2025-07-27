@@ -46,6 +46,36 @@ struct LinkDetailNFCSharingContainerView: View {
             onSuccess: {
                 DispatchQueue.main.async {
                     nfcState = .success
+                    
+                    // Track successful NFC sharing - this is a relatively rare sharing method
+                    // so it's important to capture for feature usage analysis
+                    let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
+                    breadcrumb.message = "Link shared via NFC successfully"
+                    breadcrumb.data = [
+                        "link_id": link.id.uuidString,
+                        "sharing_method": "nfc"
+                    ]
+                    SentrySDK.addBreadcrumb(breadcrumb)
+                    
+                    // Track NFC-specific event for detailed NFC usage analysis
+                    // Separate event helps isolate NFC success/failure patterns
+                    let nfcEvent = Event(level: .info)
+                    nfcEvent.message = SentryMessage(formatted: "link_shared_nfc")
+                    nfcEvent.extra = [
+                        "link_id": link.id.uuidString,
+                        "sharing_method": "nfc"
+                    ]
+                    SentrySDK.capture(event: nfcEvent)
+                    
+                    // Also track general sharing event for cross-method analytics
+                    // This ensures NFC shares are included in overall sharing metrics
+                    let shareEvent = Event(level: .info)
+                    shareEvent.message = SentryMessage(formatted: "link_shared")
+                    shareEvent.extra = [
+                        "link_id": link.id.uuidString,
+                        "sharing_method": "nfc"
+                    ]
+                    SentrySDK.capture(event: shareEvent)
                 }
             },
             onError: { error in
