@@ -1,4 +1,4 @@
-.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization
+.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization generate-app-store-summary
 
 build-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | xcbeautify
@@ -23,3 +23,6 @@ generate-licenses:
 
 generate-version-in-settings:
 	./Scripts/generate-version-in-settings.sh
+
+generate-app-store-summary:
+	./Scripts/generate-app-store-summary.sh
