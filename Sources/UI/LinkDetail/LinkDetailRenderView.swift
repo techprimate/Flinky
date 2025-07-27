@@ -39,8 +39,16 @@ struct LinkDetailRenderView: View {
                         Label(L10n.LinkDetail.OpenInSafari.label, systemSymbol: .safari)
                             .tint(color.color)
                     }
+                    if isNFCSharingSupported {
+                        Button {
+                            shareViaNFCAction()
+                        } label: {
+                            Label(L10n.LinkDetail.ShareViaNfc.label, systemSymbol: .dotRadiowavesRight)
+                                .tint(color.color)
+                        }
+                    }
                     Button {
-                        openInSafariAction()
+                        editAction()
                     } label: {
                         Label(L10n.LinkDetail.EditLink.label, systemSymbol: .pencil)
                             .tint(color.color)
@@ -91,23 +99,6 @@ struct LinkDetailRenderView: View {
 
     var bottomSectionView: some View {
         VStack(spacing: 12) {
-            if isNFCSharingSupported {
-                HStack {
-                    Button {
-                        shareViaNFCAction()
-                    } label: {
-                        Label(L10n.LinkDetail.ShareViaNfc.label, systemSymbol: .dotRadiowavesRight)
-                            .padding(8)
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .accentColor(.gray)
-                    .accessibilityLabel(L10n.LinkDetail.ShareViaNfc.Accessibility.label(title))
-                    .accessibilityHint(L10n.LinkDetail.ShareViaNfc.Accessibility.hint)
-                }
-                .frame(maxWidth: .infinity)
-            }
             HStack {
                 ShareLink(item: url, subject: Text(title)) {
                     Label(L10n.LinkDetail.ShareLink.label, systemSymbol: .squareAndArrowUp)
