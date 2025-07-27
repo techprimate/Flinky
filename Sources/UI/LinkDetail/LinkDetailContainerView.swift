@@ -1,8 +1,8 @@
 import CoreNFC
-import os.log
 import Photos
 import Sentry
 import SwiftUI
+import os.log
 
 struct LinkDetailContainerView: View {
     private struct ImageBox: Identifiable {
@@ -40,7 +40,7 @@ struct LinkDetailContainerView: View {
                     let event = Event(level: .warning)
                     event.message = .init(formatted: "URL can not be opened")
                     event.extra = [
-                        "link_id": item.id.uuidString,
+                        "link_id": item.id.uuidString
                     ]
                     toaster.warning(description: "URL can not be opened")
                     return
@@ -57,7 +57,7 @@ struct LinkDetailContainerView: View {
                         let breadcrumb = Breadcrumb(level: .info, category: "link_interaction")
                         breadcrumb.message = "Link opened in Safari"
                         breadcrumb.data = [
-                            "link_id": item.id.uuidString // Enables correlation with link usage patterns
+                            "link_id": item.id.uuidString  // Enables correlation with link usage patterns
                         ]
                         SentrySDK.addBreadcrumb(breadcrumb)
                     }
@@ -85,7 +85,7 @@ struct LinkDetailContainerView: View {
                 event.message = SentryMessage(formatted: "link_shared")
                 event.extra = [
                     "link_id": item.id.uuidString,
-                    "sharing_method": "copy_url" // Consistent taxonomy across all sharing methods
+                    "sharing_method": "copy_url"  // Consistent taxonomy across all sharing methods
                 ]
                 SentrySDK.capture(event: event)
             },
@@ -108,7 +108,7 @@ struct LinkDetailContainerView: View {
                 event.message = SentryMessage(formatted: "link_shared")
                 event.extra = [
                     "link_id": item.id.uuidString,
-                    "sharing_method": "qr_code_share" // Part of standardized sharing method vocabulary
+                    "sharing_method": "qr_code_share"  // Part of standardized sharing method vocabulary
                 ]
                 SentrySDK.capture(event: event)
             },
@@ -155,7 +155,8 @@ struct LinkDetailContainerView: View {
 
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
             Self.logger.error("Failed to create image from QR code for link: \(item.id.uuidString)")
-            let error = AppError.qrCodeGenerationError("Failed to create image from QR code for link: \(item.id.uuidString)")
+            let error = AppError.qrCodeGenerationError(
+                "Failed to create image from QR code for link: \(item.id.uuidString)")
             SentrySDK.capture(error: error)
             image = .failure(error)
             return
@@ -193,11 +194,12 @@ struct LinkDetailContainerView: View {
                             event.message = SentryMessage(formatted: "link_shared")
                             event.extra = [
                                 "link_id": item.id.uuidString,
-                                "sharing_method": "qr_code_save" // Distinct from qr_code_share
+                                "sharing_method": "qr_code_save"  // Distinct from qr_code_share
                             ]
                             SentrySDK.capture(event: event)
                         } else {
-                            let localDescription = "Failed to save QR code to Photos: \(error?.localizedDescription ?? "Unknown error")"
+                            let localDescription =
+                                "Failed to save QR code to Photos: \(error?.localizedDescription ?? "Unknown error")"
                             let appError = AppError.unknownError(localDescription)
                             SentrySDK.capture(error: appError)
                             toaster.show(error: appError)

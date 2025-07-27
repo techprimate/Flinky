@@ -45,15 +45,15 @@ enum PersistenceError: LocalizedError, CustomStringConvertible {
     var underlyingError: String {
         switch self {
         case let .saveLinkFailed(error),
-             let .saveListFailed(error),
-             let .deleteLinkFailed(error),
-             let .deleteMultipleLinksFailed(error),
-             let .deleteListFailed(error),
-             let .saveChangesAfterDeletionFailed(error),
-             let .pinListFailed(error),
-             let .unpinListFailed(error),
-             let .saveLinkChangesFailed(error),
-             let .saveListChangesFailed(error):
+            let .saveListFailed(error),
+            let .deleteLinkFailed(error),
+            let .deleteMultipleLinksFailed(error),
+            let .deleteListFailed(error),
+            let .saveChangesAfterDeletionFailed(error),
+            let .pinListFailed(error),
+            let .unpinListFailed(error),
+            let .saveLinkChangesFailed(error),
+            let .saveListChangesFailed(error):
             return error
         }
     }

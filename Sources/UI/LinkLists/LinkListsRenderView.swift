@@ -74,14 +74,17 @@ struct LinkListsRenderView<Destination: View>: View {
                 }
             }
             ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                    presentCreateLink()
-                }, label: {
-                    Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
-                        .bold()
-                        .imageScale(.large)
-                        .labelStyle(.titleAndIcon)
-                })
+                Button(
+                    action: {
+                        presentCreateLink()
+                    },
+                    label: {
+                        Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
+                            .bold()
+                            .imageScale(.large)
+                            .labelStyle(.titleAndIcon)
+                    }
+                )
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
                 .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
@@ -90,13 +93,16 @@ struct LinkListsRenderView<Destination: View>: View {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                    presentCreateList()
-                }, label: {
-                    Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
-                        .imageScale(.large)
-                        .labelStyle(.titleOnly)
-                })
+                Button(
+                    action: {
+                        presentCreateList()
+                    },
+                    label: {
+                        Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
+                            .imageScale(.large)
+                            .labelStyle(.titleOnly)
+                    }
+                )
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
                 .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)

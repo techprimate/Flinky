@@ -95,7 +95,8 @@ extension ListSymbolHuman: RawRepresentable {
 extension ListSymbolHuman: CaseIterable {
     static var allCases: [ListSymbolHuman] {
         return [
-            .handRaised, .handWave, .thumbsUp, .thumbsDown, .person, .person2, .person3, .personCropSquare, .personTextRectangle, .mustache
+            .handRaised, .handWave, .thumbsUp, .thumbsDown, .person, .person2, .person3, .personCropSquare,
+            .personTextRectangle, .mustache
         ]
     }
 }

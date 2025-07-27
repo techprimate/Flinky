@@ -39,8 +39,8 @@ struct LinkInfoRenderView: View {
     }
 }
 
-private extension LinkInfoRenderView {
-    struct NameSection: View {
+extension LinkInfoRenderView {
+    fileprivate struct NameSection: View {
         fileprivate struct IconPreview: View {
             let symbol: ListSymbol
             let color: ListColor
@@ -91,7 +91,7 @@ private extension LinkInfoRenderView {
         }
     }
 
-    struct UrlSection: View {
+    fileprivate struct UrlSection: View {
         @Binding var url: String
 
         var body: some View {
@@ -109,7 +109,7 @@ private extension LinkInfoRenderView {
         }
     }
 
-    struct ColorPickerSection: View {
+    fileprivate struct ColorPickerSection: View {
         private struct ColorView: View {
             let color: ListColor
 
@@ -134,7 +134,7 @@ private extension LinkInfoRenderView {
         }
     }
 
-    struct SymbolPickerSection: View {
+    fileprivate struct SymbolPickerSection: View {
         private struct SymbolView: View {
             @Environment(\.colorScheme) private var colorScheme
 
@@ -143,12 +143,19 @@ private extension LinkInfoRenderView {
             var body: some View {
                 Image(systemSymbol: symbol.sfsymbol)
                     .font(.system(size: 22, weight: .medium))
-                    .foregroundStyle(symbol.isEmoji ? Color.blue : (colorScheme == .light ? Color.gray.mix(with: Color.black, by: 0.3) : Color.gray))
+                    .foregroundStyle(
+                        symbol.isEmoji
+                            ? Color.blue
+                            : (colorScheme == .light ? Color.gray.mix(with: Color.black, by: 0.3) : Color.gray)
+                    )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(6)
                     .aspectRatio(1, contentMode: .fill)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(symbol.isEmoji ? Color.blue.opacity(0.15) : Color.gray.opacity(colorScheme == .light ? 0.1 : 0.2))
+                    .background(
+                        symbol.isEmoji
+                            ? Color.blue.opacity(0.15) : Color.gray.opacity(colorScheme == .light ? 0.1 : 0.2)
+                    )
                     .clipShape(Circle())
                     .contentShape(Circle())
             }
@@ -184,24 +191,26 @@ private extension LinkInfoRenderView {
                     isWildcardItem: { $0.isEmoji }
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
-                        .accessibilityLabel(L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))
+                        .accessibilityLabel(
+                            L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))
                 }
                 // Use an invisible textfield in the background to present the emoji keyboard
                 // without showing it on the screen.
-                .background(TextField("", text: $emojiInput)
-                    .keyboardType(.emoji ?? .default)
-                    .textInputAutocapitalization(.never)
-                    .focused($isEmojiKeyboardFocused)
-                    .onChange(of: emojiInput) { _, newValue in
-                        // Accept only the first emoji, then dismiss
-                        guard let first = newValue.first else {
-                            return
+                .background(
+                    TextField("", text: $emojiInput)
+                        .keyboardType(.emoji ?? .default)
+                        .textInputAutocapitalization(.never)
+                        .focused($isEmojiKeyboardFocused)
+                        .onChange(of: emojiInput) { _, newValue in
+                            // Accept only the first emoji, then dismiss
+                            guard let first = newValue.first else {
+                                return
+                            }
+                            selection = .emoji(String(first))
+                            isEmojiKeyboardFocused = false
                         }
-                        selection = .emoji(String(first))
-                        isEmojiKeyboardFocused = false
-                    }
-                    .frame(width: 0, height: 0)
-                    .opacity(0))
+                        .frame(width: 0, height: 0)
+                        .opacity(0))
             }
             .accessibilityElement(children: .contain)
             .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))

@@ -1,8 +1,8 @@
-import os.log
-import Sentry
 import SFSafeSymbols
+import Sentry
 import SwiftData
 import SwiftUI
+import os.log
 
 struct LinkListsContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -38,7 +38,10 @@ struct LinkListsContainerView: View {
 
     var viewWithAlerts: some View {
         viewWithSheets
-            .alert(L10n.Shared.DeleteConfirmation.List.alertTitle(listToDelete?.name ?? ""), isPresented: $isDeleteListPresented, presenting: listToDelete) { list in
+            .alert(
+                L10n.Shared.DeleteConfirmation.List.alertTitle(listToDelete?.name ?? ""),
+                isPresented: $isDeleteListPresented, presenting: listToDelete
+            ) { list in
                 Button(role: .destructive) {
                     modelContext.delete(list)
 
@@ -46,7 +49,8 @@ struct LinkListsContainerView: View {
                         try modelContext.save()
                     } catch {
                         Self.logger.error("Failed to delete list: \(error)")
-                        let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .deleteListFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }
@@ -56,7 +60,10 @@ struct LinkListsContainerView: View {
             } message: { _ in
                 Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
             }
-            .alert(L10n.Shared.DeleteConfirmation.Lists.alertTitle, isPresented: $isDeleteListsPresented, presenting: listsToDelete) { lists in
+            .alert(
+                L10n.Shared.DeleteConfirmation.Lists.alertTitle, isPresented: $isDeleteListsPresented,
+                presenting: listsToDelete
+            ) { lists in
                 Button(role: .destructive) {
                     for list in lists {
                         modelContext.delete(list)
@@ -66,7 +73,8 @@ struct LinkListsContainerView: View {
                         try modelContext.save()
                     } catch {
                         Self.logger.error("Failed to save changes after deletion: \(error)")
-                        let appError = AppError.persistenceError(.saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .saveChangesAfterDeletionFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }
@@ -123,7 +131,8 @@ struct LinkListsContainerView: View {
                     try modelContext.save()
                 } catch {
                     Self.logger.error("Failed to pin list: \(error)")
-                    let appError = AppError.persistenceError(.pinListFailed(underlyingError: error.localizedDescription))
+                    let appError = AppError.persistenceError(
+                        .pinListFailed(underlyingError: error.localizedDescription))
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                 }
@@ -143,7 +152,8 @@ struct LinkListsContainerView: View {
                     try modelContext.save()
                 } catch {
                     Self.logger.error("Failed to unpin list: \(error)")
-                    let appError = AppError.persistenceError(.unpinListFailed(underlyingError: error.localizedDescription))
+                    let appError = AppError.persistenceError(
+                        .unpinListFailed(underlyingError: error.localizedDescription))
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                 }
@@ -194,10 +204,10 @@ struct LinkListsContainerView: View {
             return pinnedLists
         }
         return pinnedLists.filter { list in
-            list.name.localizedCaseInsensitiveContains(searchText) ||
-                list.links.contains { link in
-                    link.name.localizedCaseInsensitiveContains(searchText) ||
-                        link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+            list.name.localizedCaseInsensitiveContains(searchText)
+                || list.links.contains { link in
+                    link.name.localizedCaseInsensitiveContains(searchText)
+                        || link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
                 }
         }
     }
@@ -207,10 +217,10 @@ struct LinkListsContainerView: View {
             return unpinnedLists
         }
         return unpinnedLists.filter { list in
-            list.name.localizedCaseInsensitiveContains(searchText) ||
-                list.links.contains { link in
-                    link.name.localizedCaseInsensitiveContains(searchText) ||
-                        link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+            list.name.localizedCaseInsensitiveContains(searchText)
+                || list.links.contains { link in
+                    link.name.localizedCaseInsensitiveContains(searchText)
+                        || link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
                 }
         }
     }

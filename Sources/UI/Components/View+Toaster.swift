@@ -39,15 +39,17 @@ struct ToastTopLevelView: View {
     }
 
     private func setupToastWindow() {
-        guard toastWindow == nil else { return } // Prevent multiple setups
+        guard toastWindow == nil else { return }  // Prevent multiple setups
 
-        guard let windowScene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first else { return }
+        guard
+            let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first
+        else { return }
 
         let window = PassThroughWindow(name: "ToastWindow", windowScene: windowScene)
         window.backgroundColor = .clear
-        window.windowLevel = UIWindow.Level.alert + 1 // Above modal sheets
+        window.windowLevel = UIWindow.Level.alert + 1  // Above modal sheets
 
         let hostingController = PassThroughUIHostingController(
             rootView: ToastStackView(toastManager: toastManager)

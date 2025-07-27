@@ -165,7 +165,8 @@ extension ListSymbolTransportation: RawRepresentable {
 extension ListSymbolTransportation: CaseIterable {
     static var allCases: [ListSymbolTransportation] {
         return [
-            .airplane, .car, .carSide, .bus, .tram, .lightrail, .cableCar, .ferry, .sailboat, .bicycle, .motorcycle, .moped, .scooter, .skateboard, .drone, .fuelPump, .steeringWheel, .wheelchair, .engineCombustion, .truck
+            .airplane, .car, .carSide, .bus, .tram, .lightrail, .cableCar, .ferry, .sailboat, .bicycle, .motorcycle,
+            .moped, .scooter, .skateboard, .drone, .fuelPump, .steeringWheel, .wheelchair, .engineCombustion, .truck
         ]
     }
 }

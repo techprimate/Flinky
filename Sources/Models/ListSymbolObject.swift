@@ -332,7 +332,11 @@ extension ListSymbolObject: RawRepresentable {
 extension ListSymbolObject: CaseIterable {
     static var allCases: [ListSymbolObject] {
         return [
-            .key, .keyHorizontal, .keyCard, .lock, .lockOpen, .hammer, .screwdriver, .ruler, .paintbrush, .paintbrushPointed, .eraser, .paperclip, .pin, .tag, .tray, .washer, .spigot, .flashlight, .lamp, .horn, .megaphone, .bell, .wand, .scope, .binoculars, .flask, .hourglass, .gauge, .tachometer, .tools, .scissors, .drawingCompass, .briefcase, .suitcase, .archiveBox, .basket, .cart, .shoppingBag, .shippingBox, .umbrella, .tent, .tent2, .wallet
+            .key, .keyHorizontal, .keyCard, .lock, .lockOpen, .hammer, .screwdriver, .ruler, .paintbrush,
+            .paintbrushPointed, .eraser, .paperclip, .pin, .tag, .tray, .washer, .spigot, .flashlight, .lamp, .horn,
+            .megaphone, .bell, .wand, .scope, .binoculars, .flask, .hourglass, .gauge, .tachometer, .tools, .scissors,
+            .drawingCompass, .briefcase, .suitcase, .archiveBox, .basket, .cart, .shoppingBag, .shippingBox, .umbrella,
+            .tent, .tent2, .wallet
         ]
     }
 }

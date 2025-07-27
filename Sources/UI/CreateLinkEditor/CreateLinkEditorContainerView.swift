@@ -1,6 +1,6 @@
-import os.log
 import Sentry
 import SwiftUI
+import os.log
 
 struct CreateLinkEditorContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -40,11 +40,11 @@ struct CreateLinkEditorContainerView: View {
                     breadcrumb.data = [
                         "link_id": link.id.uuidString,
                         "list_id": list.id.uuidString,
-                        "has_color": false, // Track customization level for UX insights
+                        "has_color": false,  // Track customization level for UX insights
                         "has_symbol": false
                     ]
                     SentrySDK.addBreadcrumb(breadcrumb)
-                    
+
                     // Track usage event for analytics - using Event object instead of simple message
                     // to capture structured metadata for better analytics querying and filtering
                     let event = Event(level: .info)
@@ -52,14 +52,15 @@ struct CreateLinkEditorContainerView: View {
                     event.extra = [
                         "link_id": link.id.uuidString,
                         "list_id": list.id.uuidString,
-                        "entity_type": "link" // Consistent entity typing for cross-feature analytics
+                        "entity_type": "link"  // Consistent entity typing for cross-feature analytics
                     ]
                     SentrySDK.capture(event: event)
 
                     dismiss()
                 } catch {
                     Self.logger.error("Failed to save link: \(error)")
-                    let appError = AppError.persistenceError(.saveLinkFailed(underlyingError: error.localizedDescription))
+                    let appError = AppError.persistenceError(
+                        .saveLinkFailed(underlyingError: error.localizedDescription))
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                 }

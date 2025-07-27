@@ -42,13 +42,15 @@ struct PinnedLinkListCardView: View {
 }
 
 #Preview {
-    PinnedLinkListCardView(item: .init(
-        id: UUID(),
-        name: "Favorites",
-        symbol: .communication(.star),
-        color: .yellow,
-        count: 15
-    ))
+    PinnedLinkListCardView(
+        item: .init(
+            id: UUID(),
+            name: "Favorites",
+            symbol: .communication(.star),
+            color: .yellow,
+            count: 15
+        )
+    )
     .padding()
     .background(Color(.systemGroupedBackground))
 }

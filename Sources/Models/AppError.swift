@@ -85,11 +85,11 @@ extension AppError: Identifiable {
     var id: String {
         switch self {
         case let .dataCorruption(message),
-             let .networkError(message),
-             let .validationError(message),
-             let .qrCodeGenerationError(message),
-             let .nfcError(message),
-             let .unknownError(message):
+            let .networkError(message),
+            let .validationError(message),
+            let .qrCodeGenerationError(message),
+            let .nfcError(message),
+            let .unknownError(message):
             return "\(self)_\(message)"
         case let .persistenceError(persistenceError):
             return "\(self)_\(persistenceError.underlyingError)"

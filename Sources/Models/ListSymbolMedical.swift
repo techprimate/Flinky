@@ -186,7 +186,9 @@ extension ListSymbolMedical: RawRepresentable {
 extension ListSymbolMedical: CaseIterable {
     static var allCases: [ListSymbolMedical] {
         return [
-            .thermometer, .thermometerMedium, .thermometerVariable, .syringe, .inhaler, .bandage, .stethoscope, .lungs, .brain, .eye, .eyes, .ear, .nose, .faceMask, .cross, .crossCase, .starOfLife, .medication, .doctor, .degreeCelsius, .degreeFahrenheit, .personBadgeShield, .eyedropper
+            .thermometer, .thermometerMedium, .thermometerVariable, .syringe, .inhaler, .bandage, .stethoscope, .lungs,
+            .brain, .eye, .eyes, .ear, .nose, .faceMask, .cross, .crossCase, .starOfLife, .medication, .doctor,
+            .degreeCelsius, .degreeFahrenheit, .personBadgeShield, .eyedropper
         ]
     }
 }

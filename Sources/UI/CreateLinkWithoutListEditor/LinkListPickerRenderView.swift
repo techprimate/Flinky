@@ -13,28 +13,30 @@ struct LinkListPickerRenderView: View {
     }
 
     private func itemViewForList(_ list: LinkListPickerDisplayItem) -> some View {
-        Label({
-            HStack {
-                Text(list.title)
-                    .foregroundColor(.primary)
-                Spacer()
-                if list.id == selectedList?.id {
-                    Image(systemSymbol: .checkmark)
-                        .foregroundColor(.accentColor)
+        Label(
+            {
+                HStack {
+                    Text(list.title)
+                        .foregroundColor(.primary)
+                    Spacer()
+                    if list.id == selectedList?.id {
+                        Image(systemSymbol: .checkmark)
+                            .foregroundColor(.accentColor)
+                    }
                 }
-            }
-        }, symbol: list.symbol)
-            .labelStyle(RoundedIconLabelStyle(color: list.color.color))
-            .foregroundStyle(.primary)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(L10n.CreateLinkListPicker.Item.Accessibility.label(list.title))
-            .accessibilityHint(L10n.CreateLinkListPicker.Item.Accessibility.hint)
-            .accessibilityAddTraits(.isButton)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                selectedList = list
-            }
+            }, symbol: list.symbol
+        )
+        .labelStyle(RoundedIconLabelStyle(color: list.color.color))
+        .foregroundStyle(.primary)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(L10n.CreateLinkListPicker.Item.Accessibility.label(list.title))
+        .accessibilityHint(L10n.CreateLinkListPicker.Item.Accessibility.hint)
+        .accessibilityAddTraits(.isButton)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            selectedList = list
+        }
     }
 }
 

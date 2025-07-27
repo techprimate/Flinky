@@ -79,21 +79,25 @@ public struct AlertToast: View {
 
 #Preview {
     VStack {
-        AlertToast(item: .init(
-            title: "kula is going live soon",
-            status: .info
-        ))
-        AlertToast(item: .init(
-            title: "Data uploaded to the server!",
-            status: .success
-        ))
-        AlertToast(item: .init(
-            title: "Seems your account is about to expire",
-            status: .warning
-        ))
-        AlertToast(item: .init(
-            title: "There was an error processing your request",
-            status: .error
-        ))
+        AlertToast(
+            item: .init(
+                title: "kula is going live soon",
+                status: .info
+            ))
+        AlertToast(
+            item: .init(
+                title: "Data uploaded to the server!",
+                status: .success
+            ))
+        AlertToast(
+            item: .init(
+                title: "Seems your account is about to expire",
+                status: .warning
+            ))
+        AlertToast(
+            item: .init(
+                title: "There was an error processing your request",
+                status: .error
+            ))
     }
 }

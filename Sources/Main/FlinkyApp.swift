@@ -143,7 +143,7 @@ struct FlinkyApp: App {
             }
             feedbackOptions.configureTheme = { themeOptions in
                 // The font family to use for form text elements.
-                themeOptions.fontFamily = nil // Defaults to system font
+                themeOptions.fontFamily = nil  // Defaults to system font
 
                 // Foreground text color of the widget and form.
                 themeOptions.foreground = UIColor.label
@@ -179,7 +179,7 @@ struct FlinkyApp: App {
                 themeOptions.inputForeground = UIColor.label
 
                 // The font family to use for form text elements.
-                themeOptions.fontFamily = nil // Defaults to system font
+                themeOptions.fontFamily = nil  // Defaults to system font
 
                 // Foreground text color of the widget and form.
                 themeOptions.foreground = UIColor.label

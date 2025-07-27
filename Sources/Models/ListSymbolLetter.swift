@@ -207,7 +207,9 @@ extension ListSymbolLetter: RawRepresentable {
 extension ListSymbolLetter: CaseIterable {
     static var allCases: [ListSymbolLetter] {
         return [
-            .letterA, .letterB, .letterC, .letterD, .letterE, .letterF, .letterG, .letterH, .letterI, .letterJ, .letterK, .letterL, .letterM, .letterN, .letterO, .letterP, .letterQ, .letterR, .letterS, .letterT, .letterU, .letterV, .letterW, .letterX, .letterY, .letterZ
+            .letterA, .letterB, .letterC, .letterD, .letterE, .letterF, .letterG, .letterH, .letterI, .letterJ,
+            .letterK, .letterL, .letterM, .letterN, .letterO, .letterP, .letterQ, .letterR, .letterS, .letterT,
+            .letterU, .letterV, .letterW, .letterX, .letterY, .letterZ
         ]
     }
 }

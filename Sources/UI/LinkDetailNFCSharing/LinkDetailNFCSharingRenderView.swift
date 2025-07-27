@@ -146,12 +146,15 @@ struct LinkDetailNFCSharingRenderView: View {
                         .foregroundColor(.accentColor)
 
                     VStack(spacing: 2) {
-                        ForEach(0 ..< 3, id: \.self) { index in
+                        ForEach(0..<3, id: \.self) { index in
                             Circle()
                                 .fill(Color.accentColor)
                                 .frame(width: 4, height: 4)
                                 .opacity(waveAnimation ? 0.3 : 1.0)
-                                .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true).delay(Double(index) * 0.2), value: waveAnimation)
+                                .animation(
+                                    .easeInOut(duration: 0.8).repeatForever(autoreverses: true).delay(
+                                        Double(index) * 0.2), value: waveAnimation
+                                )
                         }
                     }
 

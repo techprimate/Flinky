@@ -124,11 +124,14 @@ extension ListSymbol: RawRepresentable {
         case _ where rawValue.starts(with: "technology."):
             self = .technology(ListSymbolTechnology(rawValue: String(rawValue.dropFirst("technology.".count)))!)
         case _ where rawValue.starts(with: "transportation."):
-            self = .transportation(ListSymbolTransportation(rawValue: String(rawValue.dropFirst("transportation.".count)))!)
+            self = .transportation(
+                ListSymbolTransportation(rawValue: String(rawValue.dropFirst("transportation.".count)))!)
         case _ where rawValue.starts(with: "sport-recreation."):
-            self = .sportRecreation(ListSymbolSportRecreation(rawValue: String(rawValue.dropFirst("sport-recreation.".count)))!)
+            self = .sportRecreation(
+                ListSymbolSportRecreation(rawValue: String(rawValue.dropFirst("sport-recreation.".count)))!)
         case _ where rawValue.starts(with: "figure-sports-activity."):
-            self = .figureSportsActivity(ListSymbolFigureSportsActivity(rawValue: String(rawValue.dropFirst("figure-sports-activity.".count)))!)
+            self = .figureSportsActivity(
+                ListSymbolFigureSportsActivity(rawValue: String(rawValue.dropFirst("figure-sports-activity.".count)))!)
         case _ where rawValue.starts(with: "animal."):
             self = .animal(ListSymbolAnimal(rawValue: String(rawValue.dropFirst("animal.".count)))!)
         case _ where rawValue.starts(with: "nature."):
@@ -140,17 +143,23 @@ extension ListSymbol: RawRepresentable {
         case _ where rawValue.starts(with: "object."):
             self = .object(ListSymbolObject(rawValue: String(rawValue.dropFirst("object.".count)))!)
         case _ where rawValue.starts(with: "communication."):
-            self = .communication(ListSymbolCommunication(rawValue: String(rawValue.dropFirst("communication.".count)))!)
+            self = .communication(
+                ListSymbolCommunication(rawValue: String(rawValue.dropFirst("communication.".count)))!)
         case _ where rawValue.starts(with: "human."):
             self = .human(ListSymbolHuman(rawValue: String(rawValue.dropFirst("human.".count)))!)
         case _ where rawValue.starts(with: "places-buildings."):
-            self = .placesBuildings(ListSymbolPlacesBuildings(rawValue: String(rawValue.dropFirst("places-buildings.".count)))!)
+            self = .placesBuildings(
+                ListSymbolPlacesBuildings(rawValue: String(rawValue.dropFirst("places-buildings.".count)))!)
         case _ where rawValue.starts(with: "entertainment."):
-            self = .entertainment(ListSymbolEntertainment(rawValue: String(rawValue.dropFirst("entertainment.".count)))!)
+            self = .entertainment(
+                ListSymbolEntertainment(rawValue: String(rawValue.dropFirst("entertainment.".count)))!)
         case _ where rawValue.starts(with: "documents-reading-writing."):
-            self = .documentsReadingWriting(ListSymbolDocumentsReadingWriting(rawValue: String(rawValue.dropFirst("documents-reading-writing.".count)))!)
+            self = .documentsReadingWriting(
+                ListSymbolDocumentsReadingWriting(
+                    rawValue: String(rawValue.dropFirst("documents-reading-writing.".count)))!)
         case _ where rawValue.starts(with: "clothing-accessories."):
-            self = .clothingAccessories(ListSymbolClothingAccessories(rawValue: String(rawValue.dropFirst("clothing-accessories.".count)))!)
+            self = .clothingAccessories(
+                ListSymbolClothingAccessories(rawValue: String(rawValue.dropFirst("clothing-accessories.".count)))!)
         default:
             return nil
         }
@@ -241,7 +250,9 @@ extension ListSymbol: Codable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         guard let symbol = Self(rawValue: rawValue) else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid list symbol raw value: \(rawValue)")
+            throw DecodingError.dataCorruptedError(
+                in: container, debugDescription: "Invalid list symbol raw value: \(rawValue)"
+            )
         }
         self = symbol
     }

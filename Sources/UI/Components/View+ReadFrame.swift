@@ -8,14 +8,23 @@ struct FramePreferenceKey: PreferenceKey {
 
 extension View {
     func readFrame(in coordinateSpaceName: CoordinateSpace, onChange: @escaping (CGRect) -> Void) -> some View {
-        background(GeometryReader { geometryProxy in
-            Color.clear
-                .preference(key: FramePreferenceKey.self, value: geometryProxy
-                    .frame(in: coordinateSpaceName))
-        }).onPreferenceChange(FramePreferenceKey.self, perform: { arg in
-            DispatchQueue.main.async {
-                onChange(arg)
+        background(
+            GeometryReader { geometryProxy in
+                Color.clear
+                    .preference(
+                        key: FramePreferenceKey.self,
+                        value:
+                            geometryProxy
+                            .frame(in: coordinateSpaceName)
+                    )
             }
-        })
+        ).onPreferenceChange(
+            FramePreferenceKey.self,
+            perform: { arg in
+                DispatchQueue.main.async {
+                    onChange(arg)
+                }
+            }
+        )
     }
 }

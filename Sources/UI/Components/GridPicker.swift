@@ -5,7 +5,7 @@ struct GridPicker<Item: Identifiable, ItemView: View>: View {
     let items: [Item]
     @ViewBuilder let content: (_ item: Item) -> ItemView
 
-    let columns = (0 ..< 6).map { _ in GridItem(.flexible()) }
+    let columns = (0..<6).map { _ in GridItem(.flexible()) }
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 4) {

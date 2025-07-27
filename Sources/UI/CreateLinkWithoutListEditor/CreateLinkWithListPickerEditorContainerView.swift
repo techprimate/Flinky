@@ -1,7 +1,7 @@
-import os.log
 import Sentry
 import SwiftData
 import SwiftUI
+import os.log
 
 struct CreateLinkWithListPickerEditorContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -65,8 +65,8 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                         breadcrumb.data = [
                             "link_id": newItem.id.uuidString,
                             "list_id": list.id.uuidString,
-                            "has_color": false, // Currently no customization in this flow
-                            "has_symbol": false,
+                            "has_color": false,  // Currently no customization in this flow
+                            "has_symbol": false
                         ]
                         SentrySDK.addBreadcrumb(breadcrumb)
 
@@ -78,14 +78,15 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                             "link_id": newItem.id.uuidString,
                             "list_id": list.id.uuidString,
                             "entity_type": "link",
-                            "creation_flow": "list_picker" // Distinguish from direct list creation
+                            "creation_flow": "list_picker"  // Distinguish from direct list creation
                         ]
                         SentrySDK.capture(event: event)
 
                         dismiss()
                     } catch {
                         Self.logger.error("Failed to save link: \(error)")
-                        let appError = AppError.persistenceError(.saveLinkFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .saveLinkFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }

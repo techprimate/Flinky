@@ -17,18 +17,20 @@ public struct AlertToastStackModifier: ViewModifier {
     @ViewBuilder
     public func body(content: Content) -> some View {
         content
-            .background(GeometryReader { proxy in
-                Color.clear.onAppear {
-                    let rect = proxy.frame(in: .global)
-                        .offsetBy(dx: 0, dy: -proxy.safeAreaInsets.top)
-                    guard rect.integral != hostRect.integral else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        hostRect = rect
+            .background(
+                GeometryReader { proxy in
+                    Color.clear.onAppear {
+                        let rect = proxy.frame(in: .global)
+                            .offsetBy(dx: 0, dy: -proxy.safeAreaInsets.top)
+                        guard rect.integral != hostRect.integral else {
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            hostRect = rect
+                        }
                     }
                 }
-            })
+            )
             .overlay(overlayView)
             .onChange(of: stack) {
                 onAppearAction()
@@ -67,10 +69,11 @@ public struct AlertToastStackModifier: ViewModifier {
                             stack.removeAll(where: { $0.id == item.id })
                         }
                     }
-                    .transition(.asymmetric(
-                        insertion: .scale(scale: 0.8).combined(with: .opacity),
-                        removal: .opacity.combined(with: .scale(scale: 0.8))
-                    ))
+                    .transition(
+                        .asymmetric(
+                            insertion: .scale(scale: 0.8).combined(with: .opacity),
+                            removal: .opacity.combined(with: .scale(scale: 0.8))
+                        ))
             }
             Spacer(minLength: 0)
         }
@@ -109,32 +112,33 @@ public struct ToastStackView: View {
                 ForEach(Array(toastManager.toastStack.enumerated()), id: \.element) { idx, item in
                     AlertToast(item: item.asToastItem)
                         .zIndex(Double(idx))
-                        .allowsHitTesting(item.tapToDismiss) // Only allow hits if tap to dismiss is enabled
+                        .allowsHitTesting(item.tapToDismiss)  // Only allow hits if tap to dismiss is enabled
                         .onTapGesture {
                             guard item.tapToDismiss else { return }
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 toastManager.dismiss(item.id)
                             }
                         }
-                        .transition(.asymmetric(
-                            insertion: .scale(scale: 0.8).combined(with: .opacity),
-                            removal: .opacity.combined(with: .scale(scale: 0.8))
-                        ))
+                        .transition(
+                            .asymmetric(
+                                insertion: .scale(scale: 0.8).combined(with: .opacity),
+                                removal: .opacity.combined(with: .scale(scale: 0.8))
+                            ))
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 16) // Simple top padding - let safe area be handled naturally
+            .padding(.top, 16)  // Simple top padding - let safe area be handled naturally
             .frame(maxWidth: .infinity, alignment: .center)
             .animation(.easeInOut(duration: 0.3), value: toastManager.toastStack)
 
             Spacer()
         }
-        .ignoresSafeArea(.all, edges: .bottom) // Only ignore bottom safe area
+        .ignoresSafeArea(.all, edges: .bottom)  // Only ignore bottom safe area
     }
 }
 
-public extension View {
-    func toastStack(
+extension View {
+    public func toastStack(
         stack: Binding<[AlertToastStackItem]>,
         offsetY _: CGFloat = 12,
         duration _: Double = 2
@@ -156,7 +160,7 @@ struct AlertToastStackModifier_Previews: PreviewProvider {
                         Spacer()
                         Button("Present Toast") {
                             counter += 1
-                            let duration = TimeInterval.random(in: 0 ..< 5)
+                            let duration = TimeInterval.random(in: 0..<5)
                             stack.append(.init(title: "Message \(counter) - \(duration)s", duration: duration))
                         }
                         Spacer()

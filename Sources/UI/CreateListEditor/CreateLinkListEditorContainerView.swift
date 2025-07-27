@@ -1,6 +1,6 @@
-import os.log
 import Sentry
 import SwiftUI
+import os.log
 
 struct CreateLinkListEditorContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -29,24 +29,25 @@ struct CreateLinkListEditorContainerView: View {
                     breadcrumb.message = "List created successfully"
                     breadcrumb.data = [
                         "list_id": newItem.id.uuidString
-                        // Note: Removed list_name to protect user privacy
+                            // Note: Removed list_name to protect user privacy
                     ]
                     SentrySDK.addBreadcrumb(breadcrumb)
-                    
+
                     // Track usage event for analytics - all PII excluded for privacy compliance
                     // Use Event object for consistent structured data across all creation events
                     let event = Event(level: .info)
                     event.message = SentryMessage(formatted: "list_created")
                     event.extra = [
                         "list_id": newItem.id.uuidString,
-                        "entity_type": "list" // Enables cross-entity analytics queries
+                        "entity_type": "list"  // Enables cross-entity analytics queries
                     ]
                     SentrySDK.capture(event: event)
 
                     dismiss()
                 } catch {
                     Self.logger.error("Failed to save list: \(error)")
-                    let appError = AppError.persistenceError(.saveListFailed(underlyingError: error.localizedDescription))
+                    let appError = AppError.persistenceError(
+                        .saveListFailed(underlyingError: error.localizedDescription))
                     SentrySDK.capture(error: appError)
                     toaster.show(error: appError)
                 }

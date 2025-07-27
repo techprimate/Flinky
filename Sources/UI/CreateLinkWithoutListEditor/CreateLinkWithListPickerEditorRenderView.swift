@@ -72,21 +72,23 @@ struct CreateLinkWithListPickerEditorRenderView<PickerDestination: View>: View {
     var listSectionView: some View {
         Section {
             NavigationLink(destination: pickerDestination()) {
-                Label({
-                    HStack {
-                        Text("List")
-                            .foregroundColor(.primary)
-                        Spacer()
-                        Text(selectedList.name)
-                            .foregroundColor(.secondary)
-                    }
-                }, symbol: selectedList.symbol)
-                    .labelStyle(RoundedIconLabelStyle(color: selectedList.color.color))
-                    .foregroundStyle(.primary)
-                    .accessibilityElement(children: .combine)
-                    //                    .accessibilityLabel(L10n.Shared.Item.List.Accessibility.label(item.title))
-                    //                    .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
-                    .accessibilityAddTraits(.isButton)
+                Label(
+                    {
+                        HStack {
+                            Text("List")
+                                .foregroundColor(.primary)
+                            Spacer()
+                            Text(selectedList.name)
+                                .foregroundColor(.secondary)
+                        }
+                    }, symbol: selectedList.symbol
+                )
+                .labelStyle(RoundedIconLabelStyle(color: selectedList.color.color))
+                .foregroundStyle(.primary)
+                .accessibilityElement(children: .combine)
+                //                    .accessibilityLabel(L10n.Shared.Item.List.Accessibility.label(item.title))
+                //                    .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
+                .accessibilityAddTraits(.isButton)
             }
         }
     }

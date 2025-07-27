@@ -319,7 +319,11 @@ extension ListSymbolCurrency: RawRepresentable {
 extension ListSymbolCurrency: CaseIterable {
     static var allCases: [ListSymbolCurrency] {
         return [
-            .dollar, .euro, .yen, .pound, .cent, .bitcoin, .australianDollar, .austral, .baht, .brazilianReal, .cedi, .chineseYuan, .colonCurrency, .cruzeiro, .danishKrone, .dong, .florin, .franc, .guarani, .hryvnia, .indianRupee, .kip, .lari, .lira, .malaysianRinggit, .manat, .mill, .naira, .norwegianKrone, .peruvianSoles, .peseta, .peso, .polishZloty, .ruble, .rupee, .shekel, .singaporeDollar, .swedishKrona, .tenge, .tugrik, .turkishLira, .won
+            .dollar, .euro, .yen, .pound, .cent, .bitcoin, .australianDollar, .austral, .baht, .brazilianReal, .cedi,
+            .chineseYuan, .colonCurrency, .cruzeiro, .danishKrone, .dong, .florin, .franc, .guarani, .hryvnia,
+            .indianRupee, .kip, .lari, .lira, .malaysianRinggit, .manat, .mill, .naira, .norwegianKrone, .peruvianSoles,
+            .peseta, .peso, .polishZloty, .ruble, .rupee, .shekel, .singaporeDollar, .swedishKrona, .tenge, .tugrik,
+            .turkishLira, .won
         ]
     }
 }

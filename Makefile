@@ -7,7 +7,7 @@ test-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
 
 format:
-	swiftformat Sources
+	swift format --configuration .swift-format.json --in-place --recursive Sources
 	swiftlint --config .swiftlint.yml --strict --fix
 
 lint:

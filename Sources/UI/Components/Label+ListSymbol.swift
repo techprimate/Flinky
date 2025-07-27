@@ -17,16 +17,21 @@ struct LabelListSymbolIconView: View {
 
 extension Label where Title == Text, Icon == LabelListSymbolIconView {
     init(_ title: String, symbol: ListSymbol) {
-        self = Label({
-            Text(title)
-        }, symbol: symbol)
+        self = Label(
+            {
+                Text(title)
+            }, symbol: symbol
+        )
     }
 }
 
 extension Label where Icon == LabelListSymbolIconView {
     init(_ title: () -> Title, symbol: ListSymbol) {
-        self = Label(title: title, icon: {
-            LabelListSymbolIconView(symbol: symbol)
-        })
+        self = Label(
+            title: title,
+            icon: {
+                LabelListSymbolIconView(symbol: symbol)
+            }
+        )
     }
 }

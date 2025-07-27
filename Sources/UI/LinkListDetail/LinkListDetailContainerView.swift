@@ -1,6 +1,6 @@
-import os.log
 import Sentry
 import SwiftUI
+import os.log
 
 struct LinkListDetailContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -26,14 +26,18 @@ struct LinkListDetailContainerView: View {
 
     var body: some View {
         renderViewWithSheets
-            .alert(L10n.Shared.DeleteConfirmation.Link.alertTitle(linkToDelete?.name ?? ""), isPresented: $isDeleteLinkPresented, presenting: linkToDelete) { link in
+            .alert(
+                L10n.Shared.DeleteConfirmation.Link.alertTitle(linkToDelete?.name ?? ""),
+                isPresented: $isDeleteLinkPresented, presenting: linkToDelete
+            ) { link in
                 Button(role: .destructive) {
                     modelContext.delete(link)
                     do {
                         try modelContext.save()
                     } catch {
                         Self.logger.error("Failed to delete link: \(error)")
-                        let appError = AppError.persistenceError(.deleteLinkFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .deleteLinkFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }
@@ -43,7 +47,10 @@ struct LinkListDetailContainerView: View {
             } message: { _ in
                 Text(L10n.Shared.DeleteConfirmation.Warning.cannotUndo)
             }
-            .alert(L10n.Shared.DeleteConfirmation.Links.alertTitle, isPresented: $isDeleteLinksPresented, presenting: linksToDelete) { links in
+            .alert(
+                L10n.Shared.DeleteConfirmation.Links.alertTitle, isPresented: $isDeleteLinksPresented,
+                presenting: linksToDelete
+            ) { links in
                 Button(role: .destructive) {
                     for model in links {
                         modelContext.delete(model)
@@ -52,7 +59,8 @@ struct LinkListDetailContainerView: View {
                         try modelContext.save()
                     } catch {
                         Self.logger.error("Failed to delete multiple links: \(error)")
-                        let appError = AppError.persistenceError(.deleteMultipleLinksFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .deleteMultipleLinksFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }
@@ -71,7 +79,8 @@ struct LinkListDetailContainerView: View {
                         dismiss()
                     } catch {
                         Self.logger.error("Failed to delete list: \(error)")
-                        let appError = AppError.persistenceError(.deleteListFailed(underlyingError: error.localizedDescription))
+                        let appError = AppError.persistenceError(
+                            .deleteListFailed(underlyingError: error.localizedDescription))
                         SentrySDK.capture(error: appError)
                         toaster.show(error: appError)
                     }
@@ -166,8 +175,8 @@ struct LinkListDetailContainerView: View {
             return links
         }
         return links.filter { link in
-            link.name.localizedCaseInsensitiveContains(searchText) ||
-                link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
+            link.name.localizedCaseInsensitiveContains(searchText)
+                || link.url.absoluteString.localizedCaseInsensitiveContains(searchText)
         }
     }
 

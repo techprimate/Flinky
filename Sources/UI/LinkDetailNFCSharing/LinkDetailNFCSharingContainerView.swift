@@ -1,7 +1,7 @@
 import CoreNFC
-import os.log
 import Sentry
 import SwiftUI
+import os.log
 
 struct LinkDetailNFCSharingContainerView: View {
     private static let logger = Logger.forType(Self.self)
@@ -41,54 +41,56 @@ struct LinkDetailNFCSharingContainerView: View {
         }
 
         nfcState = .scanning
-        nfcSession = NFCNDEFReaderSession(delegate: NFCDeviceDelegate(
-            urlToShare: link.url.absoluteString,
-            onSuccess: {
-                DispatchQueue.main.async {
-                    nfcState = .success
-                    
-                    // Track successful NFC sharing - this is a relatively rare sharing method
-                    // so it's important to capture for feature usage analysis
-                    let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
-                    breadcrumb.message = "Link shared via NFC successfully"
-                    breadcrumb.data = [
-                        "link_id": link.id.uuidString,
-                        "sharing_method": "nfc"
-                    ]
-                    SentrySDK.addBreadcrumb(breadcrumb)
-                    
-                    // Track NFC-specific event for detailed NFC usage analysis
-                    // Separate event helps isolate NFC success/failure patterns
-                    let nfcEvent = Event(level: .info)
-                    nfcEvent.message = SentryMessage(formatted: "link_shared_nfc")
-                    nfcEvent.extra = [
-                        "link_id": link.id.uuidString,
-                        "sharing_method": "nfc"
-                    ]
-                    SentrySDK.capture(event: nfcEvent)
-                    
-                    // Also track general sharing event for cross-method analytics
-                    // This ensures NFC shares are included in overall sharing metrics
-                    let shareEvent = Event(level: .info)
-                    shareEvent.message = SentryMessage(formatted: "link_shared")
-                    shareEvent.extra = [
-                        "link_id": link.id.uuidString,
-                        "sharing_method": "nfc"
-                    ]
-                    SentrySDK.capture(event: shareEvent)
+        nfcSession = NFCNDEFReaderSession(
+            delegate: NFCDeviceDelegate(
+                urlToShare: link.url.absoluteString,
+                onSuccess: {
+                    DispatchQueue.main.async {
+                        nfcState = .success
+
+                        // Track successful NFC sharing - this is a relatively rare sharing method
+                        // so it's important to capture for feature usage analysis
+                        let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
+                        breadcrumb.message = "Link shared via NFC successfully"
+                        breadcrumb.data = [
+                            "link_id": link.id.uuidString,
+                            "sharing_method": "nfc"
+                        ]
+                        SentrySDK.addBreadcrumb(breadcrumb)
+
+                        // Track NFC-specific event for detailed NFC usage analysis
+                        // Separate event helps isolate NFC success/failure patterns
+                        let nfcEvent = Event(level: .info)
+                        nfcEvent.message = SentryMessage(formatted: "link_shared_nfc")
+                        nfcEvent.extra = [
+                            "link_id": link.id.uuidString,
+                            "sharing_method": "nfc"
+                        ]
+                        SentrySDK.capture(event: nfcEvent)
+
+                        // Also track general sharing event for cross-method analytics
+                        // This ensures NFC shares are included in overall sharing metrics
+                        let shareEvent = Event(level: .info)
+                        shareEvent.message = SentryMessage(formatted: "link_shared")
+                        shareEvent.extra = [
+                            "link_id": link.id.uuidString,
+                            "sharing_method": "nfc"
+                        ]
+                        SentrySDK.capture(event: shareEvent)
+                    }
+                },
+                onError: { error in
+                    DispatchQueue.main.async {
+                        let localDescription = "Failed to share with device: \(error)"
+                        let appError = AppError.nfcError(localDescription)
+                        Self.logger.error("\(localDescription)")
+                        SentrySDK.capture(error: appError)
+                        toaster.show(error: appError)
+                        nfcState = .error(error)
+                    }
                 }
-            },
-            onError: { error in
-                DispatchQueue.main.async {
-                    let localDescription = "Failed to share with device: \(error)"
-                    let appError = AppError.nfcError(localDescription)
-                    Self.logger.error("\(localDescription)")
-                    SentrySDK.capture(error: appError)
-                    toaster.show(error: appError)
-                    nfcState = .error(error)
-                }
-            }
-        ), queue: nil, invalidateAfterFirstRead: false)
+            ), queue: nil, invalidateAfterFirstRead: false
+        )
 
         nfcSession?.alertMessage = L10n.LinkDetailNfcSharing.NfcSession.alertMessage
         nfcSession?.begin()
@@ -170,7 +172,7 @@ private class NFCDeviceDelegate: NSObject, NFCNDEFReaderSessionDelegate {
 
     private func shareURLWithDevice(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
         guard let url = URL(string: urlToShare),
-              let payload = NFCNDEFPayload.wellKnownTypeURIPayload(url: url)
+            let payload = NFCNDEFPayload.wellKnownTypeURIPayload(url: url)
         else {
             onError("Failed to create sharing payload")
             return

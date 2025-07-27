@@ -201,8 +201,8 @@ public struct ToastManagerKey: EnvironmentKey {
     public static let defaultValue = ToastManager()
 }
 
-public extension EnvironmentValues {
-    var toaster: ToastManager {
+extension EnvironmentValues {
+    public var toaster: ToastManager {
         get { self[ToastManagerKey.self] }
         set { self[ToastManagerKey.self] = newValue }
     }

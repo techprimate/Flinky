@@ -11,10 +11,12 @@ struct PinnedLinkListsRenderView<T: View>: View {
     let destination: (_ item: LinkListsDisplayItem) -> T
 
     var body: some View {
-        LazyVGrid(columns: [
-            GridItem(.flexible(), spacing: 12),
-            GridItem(.flexible(), spacing: 12)
-        ], spacing: 12) {
+        LazyVGrid(
+            columns: [
+                GridItem(.flexible(), spacing: 12),
+                GridItem(.flexible(), spacing: 12)
+            ], spacing: 12
+        ) {
             ForEach(items) { item in
                 itemViewForList(item)
             }

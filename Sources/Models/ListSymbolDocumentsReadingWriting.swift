@@ -186,7 +186,9 @@ extension ListSymbolDocumentsReadingWriting: RawRepresentable {
 extension ListSymbolDocumentsReadingWriting: CaseIterable {
     static var allCases: [ListSymbolDocumentsReadingWriting] {
         return [
-            .bookmark, .book, .bookClosed, .booksVertical, .newspaper, .folder, .textDocument, .document, .giftCard, .clipboard, .paperPlane, .present, .birthdayCake, .graduationCap, .backpack, .pen, .pencil, .pencilOutline, .pencilScribble, .pencilRuler, .paper, .creditcard, .money
+            .bookmark, .book, .bookClosed, .booksVertical, .newspaper, .folder, .textDocument, .document, .giftCard,
+            .clipboard, .paperPlane, .present, .birthdayCake, .graduationCap, .backpack, .pen, .pencil, .pencilOutline,
+            .pencilScribble, .pencilRuler, .paper, .creditcard, .money
         ]
     }
 }

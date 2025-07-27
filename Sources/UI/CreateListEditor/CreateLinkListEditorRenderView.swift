@@ -37,7 +37,8 @@ struct CreateLinkListEditorRenderView: View {
                 }
                 .disabled(!isValid())
                 .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
-                .accessibilityHint(isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Name.Accessibility.hint)
+                .accessibilityHint(
+                    isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Name.Accessibility.hint)
             }
         }
         .onAppear {

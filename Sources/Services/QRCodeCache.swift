@@ -1,6 +1,6 @@
 import Foundation
-import os.log
 import UIKit
+import os.log
 
 class QRCodeCache: NSObject {
     private static let logger = Logger.forType(QRCodeCache.self)
@@ -8,8 +8,8 @@ class QRCodeCache: NSObject {
     private let storage = NSCache<NSString, UIImage>()
 
     // Cache configuration
-    private let maxCacheSize: Int = 100 // Maximum number of cached QR codes
-    private let maxMemoryUsage: Int = 50 * 1024 * 1024 // 50MB maximum memory usage
+    private let maxCacheSize: Int = 100  // Maximum number of cached QR codes
+    private let maxMemoryUsage: Int = 50 * 1024 * 1024  // 50MB maximum memory usage
 
     override init() {
         super.init()
@@ -24,7 +24,8 @@ class QRCodeCache: NSObject {
         // Set delegate to handle eviction
         storage.delegate = self
 
-        Self.logger.info("QR Code cache configured with max size: \(self.maxCacheSize), max memory: \(self.maxMemoryUsage) bytes")
+        Self.logger.info(
+            "QR Code cache configured with max size: \(self.maxCacheSize), max memory: \(self.maxMemoryUsage) bytes")
     }
 
     private func setupMemoryWarningObserver() {
@@ -66,7 +67,7 @@ class QRCodeCache: NSObject {
 
     private func estimateImageMemoryUsage(_ image: UIImage) -> Int {
         guard let cgImage = image.cgImage else { return 0 }
-        let bytesPerPixel = 4 // RGBA
+        let bytesPerPixel = 4  // RGBA
         return cgImage.width * cgImage.height * bytesPerPixel
     }
 

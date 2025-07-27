@@ -354,7 +354,12 @@ extension ListSymbolCommunication: RawRepresentable {
 extension ListSymbolCommunication: CaseIterable {
     static var allCases: [ListSymbolCommunication] {
         return [
-            .network, .link, .checkmark, .checkmarkSeal, .checkmarkSealTextPage, .questionMark, .questionMarkTextPage, .exclamationMark, .exclamationMarkBubble, .exclamationMarkShield, .exclamationMarkTriangle, .seal, .shield, .shieldLeftHalf, .shieldPatternCheckered, .crown, .flag, .flag2Crossed, .checkerFlag, .message, .bubble, .captionsBubble, .heart, .heartTextClipboard, .star, .asterisk, .lightbulb, .bolt, .boltHeart, .apple, .swirl, .swirlInverse, .beziercurve, .waveform, .grid, .circleHexagonPath, .trash, .gear, .fireExtinguisher, .noSign, .noteText, .number, .calendar, .chart, .archiveArrow, .wifi2, .wrench
+            .network, .link, .checkmark, .checkmarkSeal, .checkmarkSealTextPage, .questionMark, .questionMarkTextPage,
+            .exclamationMark, .exclamationMarkBubble, .exclamationMarkShield, .exclamationMarkTriangle, .seal, .shield,
+            .shieldLeftHalf, .shieldPatternCheckered, .crown, .flag, .flag2Crossed, .checkerFlag, .message, .bubble,
+            .captionsBubble, .heart, .heartTextClipboard, .star, .asterisk, .lightbulb, .bolt, .boltHeart, .apple,
+            .swirl, .swirlInverse, .beziercurve, .waveform, .grid, .circleHexagonPath, .trash, .gear, .fireExtinguisher,
+            .noSign, .noteText, .number, .calendar, .chart, .archiveArrow, .wifi2, .wrench
         ]
     }
 }
