@@ -509,7 +509,7 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/Flinky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
@@ -549,7 +549,7 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/Flinky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
