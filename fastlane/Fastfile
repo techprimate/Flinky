@@ -1,0 +1,77 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    # Get version info to match what the app uses
+    version_number = get_version_number(xcodeproj: "Flinky.xcodeproj")
+    
+    # Increment build number before building
+    increment_build_number(xcodeproj: "Flinky.xcodeproj")
+    build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
+    
+    # Create Sentry release using the same format as the app
+    sentry_create_release(
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      version: version_number,
+      app_identifier: "com.techprimate.Flinky",
+      finalize: false
+    )
+    
+    # Build the app
+    build_app(scheme: "Flinky")
+    
+    # Upload debug symbols to Sentry
+    sentry_debug_files_upload(
+      org_slug: "techprimate",
+      project_slug: "flinky"
+    )
+    
+    # Associate commits with the release
+    sentry_set_commits(
+      version: version_number,
+      app_identifier: "com.techprimate.Flinky",
+      build: build_number,
+      auto: true
+    )
+    
+    # Upload to TestFlight
+    upload_to_testflight
+    
+    # Finalize the Sentry release after successful upload
+    sentry_create_release(
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      version: version_number,
+      app_identifier: "com.techprimate.Flinky",
+      finalize: true
+    )
+    
+    # Create deployment
+    sentry_create_deploy(
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      version: version_number,
+      app_identifier: "com.techprimate.Flinky",
+      build: build_number,
+      env: "testflight"
+    )
+   
+    # Create version tag
+    version_tag = "v#{version_number}-#{build_number}"
+    
+    # # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
+    # git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"])
+    # git_commit(
+    #   path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"],
+    #   message: "Bump version to #{version_number} (#{build_number})"
+    # )
+    
+    # # Create git tag for this version
+    # add_git_tag(tag: version_tag)
+     
+    # # Push the commit and tag to remote
+    # push_to_git_remote(tags: true)
+  end
+end
