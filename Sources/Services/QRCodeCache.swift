@@ -24,7 +24,7 @@ class QRCodeCache: NSObject {
         // Set delegate to handle eviction
         storage.delegate = self
 
-        Self.logger.info("QR Code cache configured with max size: \(maxCacheSize), max memory: \(maxMemoryUsage) bytes")
+        Self.logger.info("QR Code cache configured with max size: \(self.maxCacheSize), max memory: \(self.maxMemoryUsage) bytes")
     }
 
     private func setupMemoryWarningObserver() {
