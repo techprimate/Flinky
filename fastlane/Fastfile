@@ -17,8 +17,7 @@ platform :ios do
       project_slug: "flinky",
 
       app_identifier: "com.techprimate.Flinky",
-      version: version_number,
-      finalize: false
+      version: version_number
     )
     
     # Build the app
@@ -59,15 +58,14 @@ platform :ios do
     )
     
     # Finalize the Sentry release after successful upload
-    sentry_create_release(
+    sentry_finalize_release(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
 
       app_identifier: "com.techprimate.Flinky",
       version: version_number,
-      build: build_number,
-      finalize: true
+      build: build_number
     )
    
     # Create version tag
