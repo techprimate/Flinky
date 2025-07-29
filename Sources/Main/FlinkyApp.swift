@@ -36,8 +36,11 @@ struct FlinkyApp: App {
         options.debug = true
         options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
 
-        options.releaseName = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        options.dist = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        let bundleId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
+        
         #if DEBUG
             options.environment = "development"
         #else

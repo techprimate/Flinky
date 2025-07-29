@@ -12,10 +12,12 @@ platform :ios do
     
     # Create Sentry release using the same format as the app
     sentry_create_release(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
-      version: version_number,
+
       app_identifier: "com.techprimate.Flinky",
+      version: version_number,
       finalize: false
     )
     
@@ -24,54 +26,67 @@ platform :ios do
     
     # Upload debug symbols to Sentry
     sentry_debug_files_upload(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
-      project_slug: "flinky"
+      project_slug: "flinky",
+      
+      # Wait for the server to fully process uploaded files. Errors
+      # can only be displayed if --wait is specified, but this will
+      # significantly slow down the upload process
+      wait: true
     )
     
     # Associate commits with the release
     sentry_set_commits(
-      version: version_number,
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+
       app_identifier: "com.techprimate.Flinky",
+      version: version_number,
       build: build_number,
       auto: true
     )
     
     # Upload to TestFlight
-    upload_to_testflight
+    upload_to_testflight(
+      # API Key file must be located at fastlane/api-key.json
+      api_key_path: File.expand_path("./api-key.json"),
+      app_version: version_number,
+      build_number: build_number,
+      # distribute_external: true,
+      # groups: ["Friends At Sentry"]
+    )
     
     # Finalize the Sentry release after successful upload
     sentry_create_release(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
-      version: version_number,
+
       app_identifier: "com.techprimate.Flinky",
-      finalize: true
-    )
-    
-    # Create deployment
-    sentry_create_deploy(
-      org_slug: "techprimate",
-      project_slug: "flinky",
       version: version_number,
-      app_identifier: "com.techprimate.Flinky",
       build: build_number,
-      env: "testflight"
+      finalize: true
     )
    
     # Create version tag
-    version_tag = "v#{version_number}-#{build_number}"
+    version_tag = "v#{version_number}+#{build_number}"
     
-    # # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
-    # git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"])
-    # git_commit(
-    #   path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"],
-    #   message: "Bump version to #{version_number} (#{build_number})"
-    # )
+    # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
+    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"])
+    git_commit(
+      path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"],
+      message: "chore: Bump version to #{version_number} (#{build_number})"
+    )
     
-    # # Create git tag for this version
-    # add_git_tag(tag: version_tag)
+    # Create git tag for this version
+    add_git_tag(tag: version_tag)
      
-    # # Push the commit and tag to remote
-    # push_to_git_remote(tags: true)
+    # Push the commit and tag to remote
+    push_to_git_remote(
+      remote: 'origin',
+      local_branch: version_tag,
+    )
   end
 end
