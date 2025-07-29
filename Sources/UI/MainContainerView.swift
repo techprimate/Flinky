@@ -1,3 +1,4 @@
+import SentrySwiftUI
 import SwiftData
 import SwiftUI
 
@@ -6,6 +7,7 @@ struct MainContainerView: View {
         NavigationStack {
             LinkListsContainerView()
         }
+        .sentryTrace("MAIN_VIEW")
     }
 }
 

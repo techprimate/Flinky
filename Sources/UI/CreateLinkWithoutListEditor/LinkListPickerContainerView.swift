@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftData
 import SwiftUI
 import os.log
@@ -20,6 +21,7 @@ struct LinkListPickerContainerView: View {
             lists: listsDisplayItems,
             selectedList: $selectedList
         )
+        .sentryTrace("LINK_LIST_PICKER_VIEW")
         .onChange(of: selectedList) { oldValue, newValue in
             guard let newValue = newValue, oldValue != nil, newValue.id != oldValue?.id else {
                 // No change or same selection, do nothing

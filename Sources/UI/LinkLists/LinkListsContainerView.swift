@@ -1,5 +1,6 @@
 import SFSafeSymbols
 import Sentry
+import SentrySwiftUI
 import SwiftData
 import SwiftUI
 import os.log
@@ -185,6 +186,7 @@ struct LinkListsContainerView: View {
                 LinkListDetailContainerView(list: list)
             }
         }
+        .sentryTrace("LINK_LISTS_VIEW")
     }
 
     var pinnedListDisplayItems: [LinkListsDisplayItem] {

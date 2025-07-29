@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -82,6 +83,7 @@ struct LinkListInfoContainerView: View {
                 }
             }
         )
+        .sentryTrace("LINK_LIST_EDITOR")
         .onAppear {
             name = list.name
             color = list.color ?? .defaultForList

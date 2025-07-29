@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -53,5 +54,6 @@ struct CreateLinkListEditorContainerView: View {
                 }
             }
         )
+        .sentryTrace("CREATE_LINK_LIST_EDITOR_VIEW")
     }
 }

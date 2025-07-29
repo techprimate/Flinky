@@ -4,10 +4,72 @@ This document describes the analytics and error tracking implementation in the F
 
 ## Overview
 
-Flinky implements a **privacy-first analytics strategy** that captures user behavior patterns and technical metrics while strictly protecting user-generated content (URLs, names, etc.). All tracking is implemented using Sentry with two primary mechanisms:
+Flinky implements a **privacy-first analytics strategy** that captures user behavior patterns and technical metrics while strictly protecting user-generated content (URLs, names, etc.). All tracking is implemented using Sentry with three primary mechanisms:
 
+- **SwiftUI View Tracing**: Automatic performance monitoring of view rendering and navigation flows
 - **Breadcrumbs**: Session-scoped debugging context for error investigation
 - **Analytics Events**: Persistent structured data for product insights
+
+## SwiftUI View Tracing
+
+### Overview
+Every container view in the app implements Sentry's SwiftUI view tracing using the `.sentryTrace()` modifier. This provides automatic performance monitoring, view rendering metrics, and navigation flow analysis.
+
+### Implementation Pattern
+```swift
+struct ExampleContainerView: View {
+    var body: some View {
+        ExampleRenderView(...)
+            .sentryTrace("VIEW_NAME")
+    }
+}
+```
+
+### Traced Views
+All major views are instrumented for comprehensive performance monitoring:
+
+- `MAIN_VIEW` - Root navigation container
+- `LINK_LISTS_VIEW` - Main lists overview
+- `LINK_LIST_DETAIL_VIEW` - Individual list contents
+- `LINK_DETAIL_VIEW` - Link details with QR codes
+- `CREATE_LINK_EDITOR_VIEW` - Link creation form
+- `CREATE_LINK_LIST_EDITOR_VIEW` - List creation form
+- `CREATE_LINK_WITH_LIST_PICKER_EDITOR_VIEW` - Link creation with list selection
+- `LINK_LIST_PICKER_VIEW` - List selection interface
+- `LINK_EDITOR_VIEW` - Link editing form
+- `LINK_LIST_EDITOR` - List editing form
+- `LINK_DETAIL_NFC_SHARING` - NFC sharing interface
+
+### Benefits
+- **Performance Monitoring**: Automatic tracking of view rendering times
+- **Navigation Analysis**: User flow patterns and bottlenecks
+- **Error Context**: View-specific error correlation
+- **User Experience Metrics**: Time-to-interactive measurements
+
+### Best Practices
+1. **Modifier Placement**: Place `.sentryTrace()` after other modifiers but before sheets/alerts to capture complete view lifecycle
+2. **Naming Convention**: Use `SCREAMING_SNAKE_CASE` for consistency and clarity
+3. **Descriptive Names**: Use clear, descriptive names that identify the view's purpose
+4. **Container Views Only**: Apply to container views, not render views, to avoid duplicate tracking
+
+### Example Implementation
+```swift
+struct LinkDetailContainerView: View {
+    var body: some View {
+        LinkDetailRenderView(...)
+            .task(priority: .utility) {
+                await createQRCodeImageInBackground()
+            }
+            // Place sentryTrace after task to capture main thread execution
+            .sentryTrace("LINK_DETAIL_VIEW")
+            .sheet(isPresented: $isEditing) {
+                NavigationStack {
+                    LinkInfoContainerView(link: item)
+                }
+            }
+    }
+}
+```
 
 ## Privacy Principles
 

@@ -1,5 +1,6 @@
 import CoreNFC
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -21,6 +22,7 @@ struct LinkDetailNFCSharingContainerView: View {
                 startNFCSession()
             }
         )
+        .sentryTrace("LINK_DETAIL_NFC_SHARING")
         .onAppear {
             startNFCSession()
         }

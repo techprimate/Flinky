@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -156,6 +157,7 @@ struct LinkListDetailContainerView: View {
                 isDeleteListPresented = true
             }
         )
+        .sentryTrace("LINK_LIST_DETAIL_VIEW")
     }
 
     // MARK: - Data

@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftData
 import SwiftUI
 import os.log
@@ -99,6 +100,7 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                     }
                 )
             }
+            .sentryTrace("CREATE_LINK_WITH_LIST_PICKER_EDITOR_VIEW")
         } else {
             ProgressView()
                 .progressViewStyle(.circular)

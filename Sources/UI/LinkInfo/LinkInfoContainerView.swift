@@ -1,4 +1,5 @@
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -88,6 +89,7 @@ struct LinkInfoContainerView: View {
                 }
             }
         )
+        .sentryTrace("LINK_EDITOR_VIEW")
         .onAppear {
             name = link.name
             url = link.url.absoluteString

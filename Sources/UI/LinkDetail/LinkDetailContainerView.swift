@@ -1,6 +1,7 @@
 import CoreNFC
 import Photos
 import Sentry
+import SentrySwiftUI
 import SwiftUI
 import os.log
 
@@ -123,6 +124,9 @@ struct LinkDetailContainerView: View {
         .task(priority: .utility) {
             await createQRCodeImageInBackground()
         }
+        // We add the Sentry trace view modifier after the task to ensure it captures the part of the task execution
+        // which is performed on the main thread.
+        .sentryTrace("LINK_DETAIL_VIEW")
         .sheet(isPresented: $isEditing) {
             NavigationStack {
                 LinkInfoContainerView(link: item)
