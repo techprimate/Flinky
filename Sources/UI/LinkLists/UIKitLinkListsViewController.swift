@@ -49,11 +49,18 @@ struct ListItem: Hashable, Identifiable {
     }
 }
 
-// MARK: - Section Enum
+// MARK: - Collection View Section Enum
 
-enum Section: Int, CaseIterable {
+enum CollectionViewSection: Int, CaseIterable {
     case cards
     case lists
+}
+
+// MARK: - Collection View Item Wrapper
+
+enum CollectionViewItem: Hashable {
+    case card(CardItem)
+    case list(ListItem)
 }
 
 // MARK: - UIKit Collection View Controller
@@ -62,7 +69,7 @@ class UIKitLinkListsViewController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
+    private var dataSource: UICollectionViewDiffableDataSource<CollectionViewSection, CollectionViewItem>!
     private var searchController: UISearchController!
     
     // Data
@@ -152,28 +159,21 @@ class UIKitLinkListsViewController: UICollectionViewController {
     }
     
     private func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { 
+        dataSource = UICollectionViewDiffableDataSource<CollectionViewSection, CollectionViewItem>(collectionView: collectionView) { 
             [weak self] collectionView, indexPath, item in
             
-            switch indexPath.section {
-            case Section.cards.rawValue:
+            switch item {
+            case .card(let cardItem):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as! CardCollectionViewCell
-                if let cardItem = item as? CardItem {
-                    cell.configure(with: cardItem)
-                    self?.setupCardCellInteractions(cell: cell, item: cardItem)
-                }
+                cell.configure(with: cardItem)
+                self?.setupCardCellInteractions(cell: cell, item: cardItem)
                 return cell
                 
-            case Section.lists.rawValue:
+            case .list(let listItem):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath) as! ListCollectionViewCell
-                if let listItem = item as? ListItem {
-                    cell.configure(with: listItem)
-                    self?.setupListCellInteractions(cell: cell, item: listItem)
-                }
+                cell.configure(with: listItem)
+                self?.setupListCellInteractions(cell: cell, item: listItem)
                 return cell
-                
-            default:
-                fatalError("Unknown section")
             }
         }
         
@@ -187,7 +187,7 @@ class UIKitLinkListsViewController: UICollectionViewController {
                 for: indexPath
             ) as! SectionHeaderView
             
-            let section = Section(rawValue: indexPath.section)!
+            let section = CollectionViewSection(rawValue: indexPath.section)!
             switch section {
             case .cards:
                 headerView.configure(title: "") // No header for cards section
@@ -226,21 +226,23 @@ class UIKitLinkListsViewController: UICollectionViewController {
     }
     
     private func applyInitialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
-        snapshot.appendSections(Section.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<CollectionViewSection, CollectionViewItem>()
+        snapshot.appendSections(CollectionViewSection.allCases)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
-        snapshot.appendSections(Section.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<CollectionViewSection, CollectionViewItem>()
+        snapshot.appendSections(CollectionViewSection.allCases)
         
         if !filteredCardItems.isEmpty {
-            snapshot.appendItems(filteredCardItems, toSection: .cards)
+            let cardItems = filteredCardItems.map { CollectionViewItem.card($0) }
+            snapshot.appendItems(cardItems, toSection: .cards)
         }
         
         if !filteredListItems.isEmpty {
-            snapshot.appendItems(filteredListItems, toSection: .lists)
+            let listItems = filteredListItems.map { CollectionViewItem.list($0) }
+            snapshot.appendItems(listItems, toSection: .lists)
         }
         
         dataSource.apply(snapshot, animatingDifferences: true)
@@ -427,7 +429,36 @@ extension UIKitLinkListsViewController {
     
     // Swipe actions for list items
     override func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == Section.lists.rawValue
+        return indexPath.section == CollectionViewSection.lists.rawValue
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, trailingSwipeActionsConfigurationForItemAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.section == CollectionViewSection.lists.rawValue,
+              indexPath.row < filteredListItems.count else { return nil }
+        
+        let item = filteredListItems[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Shared.Action.delete) { [weak self] action, view, completion in
+            self?.delegate?.deleteListItem(with: item.id)
+            completion(true)
+        }
+        deleteAction.image = UIImage(systemSymbol: .trash)
+        
+        let pinAction = UIContextualAction(style: .normal, title: L10n.Shared.Action.pin) { [weak self] action, view, completion in
+            self?.delegate?.pinListItem(with: item.id)
+            completion(true)
+        }
+        pinAction.backgroundColor = UIColor.systemBlue
+        pinAction.image = UIImage(systemSymbol: .pinFill)
+        
+        let editAction = UIContextualAction(style: .normal, title: L10n.Shared.Action.edit) { [weak self] action, view, completion in
+            self?.delegate?.editListItem(with: item.id)
+            completion(true)
+        }
+        editAction.backgroundColor = UIColor.systemGray
+        editAction.image = UIImage(systemSymbol: .pencil)
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, pinAction, editAction])
     }
 }
 
@@ -466,34 +497,20 @@ extension String {
     }
 }
 
-extension ListSymbol {
-    var isEmoji: Bool {
-        if case .emoji = self {
-            return true
-        }
-        return false
-    }
-    
-    var text: String? {
-        if case let .emoji(text) = self {
-            return text
-        }
-        return nil
-    }
-}
+
 
 // MARK: - Compositional Layout Factory
 
 extension UIKitLinkListsViewController {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let section = Section(rawValue: sectionIndex)!
+            let section = CollectionViewSection(rawValue: sectionIndex)!
             
             switch section {
             case .cards:
                 return createCardsSection()
             case .lists:
-                return createListsSection()
+                return createListsSection(layoutEnvironment: layoutEnvironment)
             }
         }
         
@@ -513,7 +530,7 @@ extension UIKitLinkListsViewController {
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(80)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
         group.interItemSpacing = .fixed(12)
         
         // Section
@@ -524,42 +541,12 @@ extension UIKitLinkListsViewController {
         return section
     }
     
-    private static func createListsSection() -> NSCollectionLayoutSection {
+    private static func createListsSection(layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         configuration.showsSeparators = true
         configuration.backgroundColor = UIColor.systemGroupedBackground
         
-        // Enable swipe actions
-        configuration.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
-            guard let self = self,
-                  indexPath.row < self.filteredListItems.count else { return nil }
-            
-            let item = self.filteredListItems[indexPath.row]
-            
-            let deleteAction = UIContextualAction(style: .destructive, title: L10n.Shared.Action.delete) { action, view, completion in
-                self.delegate?.deleteListItem(with: item.id)
-                completion(true)
-            }
-            deleteAction.image = UIImage(systemSymbol: .trash)
-            
-            let pinAction = UIContextualAction(style: .normal, title: L10n.Shared.Action.pin) { action, view, completion in
-                self.delegate?.pinListItem(with: item.id)
-                completion(true)
-            }
-            pinAction.backgroundColor = UIColor.systemBlue
-            pinAction.image = UIImage(systemSymbol: .pinFill)
-            
-            let editAction = UIContextualAction(style: .normal, title: L10n.Shared.Action.edit) { action, view, completion in
-                self.delegate?.editListItem(with: item.id)
-                completion(true)
-            }
-            editAction.backgroundColor = UIColor.systemGray
-            editAction.image = UIImage(systemSymbol: .pencil)
-            
-            return UISwipeActionsConfiguration(actions: [deleteAction, pinAction, editAction])
-        }
-        
-        let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: nil)
+        let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
         
         // Add header if needed
         let headerSize = NSCollectionLayoutSize(

@@ -91,6 +91,9 @@
         }
       }
     },
+    "Demo: Replace the renderView computed property in LinkListsContainerView" : {
+
+    },
     "link-detail-nfc-sharing.device.other" : {
       "comment" : "Label for other device in NFC sharing",
       "extractionState" : "manual",
@@ -2135,6 +2138,9 @@
           }
         }
       }
+    },
+    "To use the UIKit implementation, replace this line in LinkListsContainerView:\n\nvar renderView: some View {\n    LinkListsRenderView(...)\n}\n\nWith:\n\nvar renderView: some View {\n    UIKitLinkListsRenderView(...)\n}\n\nThe API is identical, so no other changes are needed!" : {
+
     }
   },
   "version" : "1.0"

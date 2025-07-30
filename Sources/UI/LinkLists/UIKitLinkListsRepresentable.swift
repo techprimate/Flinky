@@ -75,9 +75,9 @@ struct UIKitLinkListsRepresentable: UIViewControllerRepresentable {
         private var pinnedLists: [LinkListsDisplayItem]
         private var unpinnedLists: [LinkListsDisplayItem]
         
-        private var presentCreateList: () -> Void
-        private var presentCreateLink: () -> Void
-        
+        private var _presentCreateList: () -> Void
+        private var _presentCreateLink: () -> Void
+
         private var pinListAction: (LinkListsDisplayItem) -> Void
         private var unpinListAction: (LinkListsDisplayItem) -> Void
         private var deleteUnpinnedListAction: (LinkListsDisplayItem) -> Void
@@ -98,8 +98,8 @@ struct UIKitLinkListsRepresentable: UIViewControllerRepresentable {
         ) {
             self.pinnedLists = pinnedLists
             self.unpinnedLists = unpinnedLists
-            self.presentCreateList = presentCreateList
-            self.presentCreateLink = presentCreateLink
+            self._presentCreateList = presentCreateList
+            self._presentCreateLink = presentCreateLink
             self.pinListAction = pinListAction
             self.unpinListAction = unpinListAction
             self.deleteUnpinnedListAction = deleteUnpinnedListAction
@@ -120,8 +120,8 @@ struct UIKitLinkListsRepresentable: UIViewControllerRepresentable {
         ) {
             self.pinnedLists = pinnedLists
             self.unpinnedLists = unpinnedLists
-            self.presentCreateList = presentCreateList
-            self.presentCreateLink = presentCreateLink
+            self._presentCreateList = presentCreateList
+            self._presentCreateLink = presentCreateLink
             self.pinListAction = pinListAction
             self.unpinListAction = unpinListAction
             self.deleteUnpinnedListAction = deleteUnpinnedListAction
@@ -132,11 +132,11 @@ struct UIKitLinkListsRepresentable: UIViewControllerRepresentable {
         // MARK: - UIKitLinkListsDelegate
         
         func presentCreateList() {
-            presentCreateList()
+            _presentCreateList()
         }
         
         func presentCreateLink() {
-            presentCreateLink()
+            _presentCreateLink()
         }
         
         func didSelectCard(with id: UUID) {

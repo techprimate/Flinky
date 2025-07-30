@@ -108,8 +108,8 @@ struct LinkListsContainerView: View {
 
     var renderView: some View {
         LinkListsRenderView(
-            pinnedLists: pinnedListDisplayItems,
-            unpinnedLists: listDisplayItems,
+            pinnedLists: allPinnedListDisplayItems,
+            unpinnedLists: allUnpinnedListDisplayItems,
             searchText: $searchText,
             presentCreateList: {
                 isCreateListPresented = true
@@ -202,6 +202,19 @@ struct LinkListsContainerView: View {
 
     var listDisplayItems: [LinkListsDisplayItem] {
         filteredUnpinnedLists.map { list in
+            mapToDisplayItem(list)
+        }
+    }
+    
+    // Unfiltered data for UIKit implementation (which handles search internally)
+    var allPinnedListDisplayItems: [LinkListsDisplayItem] {
+        pinnedLists.map { list in
+            mapToDisplayItem(list)
+        }
+    }
+
+    var allUnpinnedListDisplayItems: [LinkListsDisplayItem] {
+        unpinnedLists.map { list in
             mapToDisplayItem(list)
         }
     }
