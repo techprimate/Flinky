@@ -30,12 +30,7 @@ fi
 echo "📄 Running license-plist to generate dependency licenses..."
 
 # Generate licenses using license-plist
-license-plist \
-    --output-path Sources/Resources/Settings.bundle \
-    --prefix Licenses \
-    --add-version-numbers \
-    --suppress-opening-directory \
-    --fail-if-missing-license
+license-plist
 
 echo "✅ License generation complete!"
 echo "📁 Generated files in: Sources/Resources/Settings.bundle/"

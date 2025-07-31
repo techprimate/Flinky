@@ -1,0 +1,9 @@
+options:
+  packagePaths:
+    - Flinky.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+    - lib/sentry-cocoa/Package.swift
+  outputPath: Sources/Resources/Settings.bundle
+  prefix: Licenses
+  addVersionNumbers: true
+  suppressOpeningDirectory: true
+  failIfMissingLicense: true
