@@ -1,8 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 set -e
 
 # Store current working directory
-pushd $(pwd) > /dev/null
+pushd "$(pwd)" > /dev/null
 # Change to script directory
 cd "${0%/*}"
 

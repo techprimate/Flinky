@@ -27,11 +27,11 @@ if [[ -n "$current_tag" ]]; then
     if [[ -z "$previous_tag" ]]; then
         echo "No previous version tag found before $current_tag"
         echo "Showing all commits up to $current_tag:"
-        git log --oneline --pretty=format:"• %s" $current_tag
+        git log --oneline --pretty=format:"• %s" "$current_tag"
     else
         echo "Changes from $previous_tag to $current_tag:"
         echo ""
-        commits=$(git log $previous_tag..$current_tag --oneline --pretty=format:"• %s" 2>/dev/null || echo "No commits found")
+        commits=$(git log "$previous_tag".."$current_tag" --oneline --pretty=format:"• %s" 2>/dev/null || echo "No commits found")
         
         if [[ -z "$commits" ]]; then
             echo "No changes between $previous_tag and $current_tag"
@@ -52,7 +52,7 @@ else
         echo ""
         
         # Get commits since the previous tag
-        commits=$(git log $previous_tag..HEAD --oneline --pretty=format:"• %s" 2>/dev/null || echo "No commits found")
+        commits=$(git log "$previous_tag"..HEAD --oneline --pretty=format:"• %s" 2>/dev/null || echo "No commits found")
         
         if [[ -z "$commits" ]]; then
             echo "No changes since $previous_tag"
