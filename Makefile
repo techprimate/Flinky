@@ -6,12 +6,24 @@ build-ios:
 test-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
 
-format:
+format: format-swift format-json format-markdown format-yaml
+
+format-swift:
 	swift format --configuration .swift-format.json --in-place --recursive Sources
 	swiftlint --config .swiftlint.yml --strict --fix
 
+format-json:
+	dprint fmt "**/*.json"
+
+format-markdown:
+	dprint fmt "**/*.md"
+
+format-yaml:
+	dprint fmt "**/*.{yaml,yml}"
+
 lint:
 	swiftlint --config .swiftlint.yml --strict
+	dprint check "**/*.{md,json,yaml,yml}"
 
 generate: generate-licenses generate-version-in-settings generate-localization
 

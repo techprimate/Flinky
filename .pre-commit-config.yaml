@@ -1,0 +1,96 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-xml
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: detect-private-key
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.33.2
+    hooks:
+      - id: check-github-actions
+      - id: check-github-workflows
+        args: [--verbose]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  - repo: local
+    hooks:
+      - id: generate-localization
+        name: Generate Localization
+        entry: make
+        language: system
+        types_or: ["swift"]
+        args:
+          - "generate-localization"
+
+      - id: generate-licenses
+        name: Generate Licenses
+        entry: make
+        language: system
+        types_or: ["swift"]
+        args:
+          - "generate-licenses"
+
+      - id: generate-version-in-settings
+        name: Generate Version in Settings
+        entry: make
+        language: system
+        types_or: ["swift"]
+        args:
+          - "generate-version-in-settings"
+
+      - id: format-json
+        name: Format JSON
+        description: "Format JSON"
+        files: ^.*\.json$
+        types_or: [json]
+        entry: dprint
+        language: system
+        args:
+          - "fmt"
+
+      - id: format-markdown
+        name: Format Markdown
+        description: "Format Markdown"
+        files: ^.*\.md$
+        types_or: [markdown]
+        entry: dprint
+        language: system
+        args:
+          - "fmt"
+
+      - id: format-yaml
+        name: Format YAML
+        description: "Format YAML"
+        files: ^.*\.{yaml,yml}$
+        types_or: [yaml]
+        entry: dprint
+        language: system
+        args:
+          - "fmt"
+
+      - id: format-swift
+        name: Format Swift
+        entry: make
+        language: system
+        types_or: ["swift"]
+        args:
+          - "format"
+
+      - id: lint
+        name: Run Linters
+        entry: make
+        language: system
+        types_or: ["swift"]
+        args:
+          - "lint"

@@ -40,7 +40,7 @@ struct FlinkyApp: App {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
-        
+
         #if DEBUG
             options.environment = "development"
         #else
@@ -108,7 +108,7 @@ struct FlinkyApp: App {
         options.configureUserFeedback = { feedbackOptions in
             feedbackOptions.animations = true
             feedbackOptions.configureWidget = { widgetOptions in
-                widgetOptions.autoInject = false // Disable automatic injection of the widget, because it's not supported in SwiftUI.
+                widgetOptions.autoInject = false  // Disable automatic injection of the widget, because it's not supported in SwiftUI.
                 widgetOptions.labelText = "Send Feedback"
                 widgetOptions.showIcon = true
                 widgetOptions.widgetAccessibilityLabel = "Feedback Widget"
