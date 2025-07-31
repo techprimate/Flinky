@@ -17,16 +17,19 @@ struct PinnedLinkListCardView: View {
                     }
                 }
                 .foregroundColor(item.color.color)
+                .frame(height: 36)
                 Spacer()
                 Text("\(item.count)")
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
+                    .lineLimit(1)
             }
             .font(.system(size: 22))
             HStack {
                 Text(item.name)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
                 Spacer()
             }
         }
