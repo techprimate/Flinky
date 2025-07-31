@@ -187,6 +187,11 @@ struct LinkListsContainerView: View {
             }
         }
         .sentryTrace("LINK_LISTS_VIEW")
+        .onAppear {
+            // Auto-injecting Sentry feedback widget is currently not supported in SwiftUI.
+            // Therefore we manually trigger it when the view appears.
+            SentrySDK.feedback.showWidget()
+        }
     }
 
     var pinnedListDisplayItems: [LinkListsDisplayItem] {

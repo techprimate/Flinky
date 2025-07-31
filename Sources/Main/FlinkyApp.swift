@@ -108,25 +108,26 @@ struct FlinkyApp: App {
         options.configureUserFeedback = { feedbackOptions in
             feedbackOptions.animations = true
             feedbackOptions.configureWidget = { widgetOptions in
-                widgetOptions.autoInject = true
-                widgetOptions.labelText = "Give Feedback"
+                widgetOptions.autoInject = false // Disable automatic injection of the widget, because it's not supported in SwiftUI.
+                widgetOptions.labelText = "Send Feedback"
                 widgetOptions.showIcon = true
                 widgetOptions.widgetAccessibilityLabel = "Feedback Widget"
                 widgetOptions.windowLevel = UIWindow.Level.normal + 1
                 widgetOptions.location = [.bottom, .trailing]
-                widgetOptions.layoutUIOffset = .init()
+                widgetOptions.layoutUIOffset = .init(horizontal: 18, vertical: 80)
             }
             feedbackOptions.showFormForScreenshots = true
             feedbackOptions.configureForm = { formOptions in
                 formOptions.useSentryUser = true
                 formOptions.showBranding = true
-                formOptions.formTitle = "Give Feedback"
+                formOptions.formTitle = "Send Feedback"
                 formOptions.messageLabel = "Description"
                 formOptions.messagePlaceholder = "Please describe the issue you encountered"
                 formOptions.messageTextViewAccessibilityLabel = "Feedback Message"
                 formOptions.isRequiredLabel = "(Required)"
                 formOptions.removeScreenshotButtonLabel = "Remove Screenshot"
                 formOptions.removeScreenshotButtonAccessibilityLabel = "Remove Screenshot"
+
                 formOptions.isNameRequired = false
                 formOptions.showName = false
                 formOptions.nameLabel = "Name"
@@ -156,16 +157,16 @@ struct FlinkyApp: App {
                 themeOptions.background = UIColor.systemBackground
 
                 // Foreground color for the form submit button.
-                themeOptions.submitForeground = UIColor.systemBlue
+                themeOptions.submitForeground = UIColor.white
 
                 // Background color for the form submit button in light and dark modes.
-                themeOptions.submitBackground = UIColor.systemBackground
+                themeOptions.submitBackground = UIColor.systemBlue
 
                 // Foreground color for the cancel and screenshot buttons.
                 themeOptions.buttonForeground = UIColor.label
 
                 // Background color for the form cancel and screenshot buttons in light and dark modes.
-                themeOptions.buttonBackground = UIColor.systemBackground
+                themeOptions.buttonBackground = UIColor.white
 
                 // Color used for error-related components (such as text color when there's an error submitting feedback).
                 themeOptions.errorColor = UIColor.systemRed
@@ -211,12 +212,23 @@ struct FlinkyApp: App {
                 themeOptions.outlineStyle.cornerRadius = 5
                 themeOptions.outlineStyle.outlineWidth = 0.5
             }
-
             feedbackOptions.onFormOpen = {
-                // Custom logic when the feedback form is opened
+                let breadcrumb = Breadcrumb(level: .info, category: "user_feedback")
+                breadcrumb.message = "User opened feedback form"
+                SentrySDK.addBreadcrumb(breadcrumb)
+
+                let event = Event(level: .info)
+                event.message = SentryMessage(formatted: "User opened feedback form")
+                SentrySDK.capture(event: event)
             }
             feedbackOptions.onFormClose = {
-                // Custom logic when the feedback form is closed
+                let breadcrumb = Breadcrumb(level: .info, category: "user_feedback")
+                breadcrumb.message = "User closed feedback form"
+                SentrySDK.addBreadcrumb(breadcrumb)
+
+                let event = Event(level: .info)
+                event.message = SentryMessage(formatted: "User closed feedback form")
+                SentrySDK.capture(event: event)
             }
         }
 
