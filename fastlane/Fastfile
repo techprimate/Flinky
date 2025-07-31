@@ -2,7 +2,7 @@ default_platform(:ios)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
-  lane :beta do
+  lane :beta do |options|
     # Get version info to match what the app uses
     version_number = get_version_number(xcodeproj: "Flinky.xcodeproj")
     
@@ -53,8 +53,27 @@ platform :ios do
       api_key_path: File.expand_path("./api-key.json"),
       app_version: version_number,
       build_number: build_number,
-      # distribute_external: true,
-      # groups: ["Friends At Sentry"]
+      
+      distribute_external: options[:distribute_external] || false,
+      groups: ["Friends At Sentry", "Friends Of Phil"],
+      beta_app_description: "
+Thanks for testing Flinky! 🙏
+
+Please focus on testing these core features:
+• Creating and editing links - try various URL types (websites, deep links, etc.)
+• Organizing links into lists with custom colors and symbols
+• Link sharing via QR codes, AirDrop, and standard sharing
+• Search functionality across your links and lists
+• Link management actions (edit, delete, pin, move between lists)
+
+Pay special attention to:
+• App performance and responsiveness
+• Any crashes or unexpected behavior
+• UI/UX issues or confusing interactions
+• Accessibility with VoiceOver if possible
+
+In case you notice any issues, please use the \"Send Feedback\" button in the app, or take a screenshot, tap on the share button and select \"Share Beta Feedback\".
+Your feedback helps us improve Flinky for everyone. Thank you! 🚀"
     )
     
     # Finalize the Sentry release after successful upload
