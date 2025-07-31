@@ -56,8 +56,7 @@ platform :ios do
       
       distribute_external: options[:distribute_external] || false,
       groups: ["Friends At Sentry", "Friends Of Phil"],
-      beta_app_description: "
-Thanks for testing Flinky! 🙏
+      beta_app_description: "Thanks for testing Flinky!
 
 Please focus on testing these core features:
 • Creating and editing links - try various URL types (websites, deep links, etc.)
@@ -73,7 +72,8 @@ Pay special attention to:
 • Accessibility with VoiceOver if possible
 
 In case you notice any issues, please use the \"Send Feedback\" button in the app, or take a screenshot, tap on the share button and select \"Share Beta Feedback\".
-Your feedback helps us improve Flinky for everyone. Thank you! 🚀"
+
+Your feedback helps us improve Flinky for everyone. Thank you!"
     )
     
     # Finalize the Sentry release after successful upload
