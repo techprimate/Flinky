@@ -27,7 +27,7 @@ All accessibility labels, hints, and descriptions are localized using the `L10n.
   - `pinList(title)`, `unpinList(title)`
   - `shareLink(title)`
 
-- **Interactive Elements**: 
+- **Interactive Elements**:
   - `linkItem(title, url)`, `listItem(title, count)`
   - `pinnedListCard(title, count)`
 
@@ -67,17 +67,20 @@ All form elements include:
 ### 4. List Item Accessibility
 
 #### Link Items (`LinkDetailItemView`)
+
 - **Combined Elements**: Link title and URL announced together
 - **Action Feedback**: Clear swipe actions with localized labels
 - **Context Menus**: Fully accessible with proper role assignments
 - **Interaction Hints**: Clear guidance for VoiceOver users
 
-#### List Items (`LinkListItemView`) 
+#### List Items (`LinkListItemView`)
+
 - **Item Counts**: List titles include item counts in accessibility labels
 - **Pin/Unpin Actions**: Clear state communication for pinned lists
 - **Swipe Actions**: Edit, pin, and delete actions with descriptive labels
 
 #### Pinned Cards (`PinnedLinkListCardView`)
+
 - **Card Identity**: Clearly identifies as "Pinned list" with title and count
 - **Button Traits**: Proper button behavior for navigation
 - **Context Actions**: Full context menu support
@@ -92,13 +95,15 @@ All form elements include:
 ### 6. QR Code Accessibility
 
 QR code images include:
-- **Descriptive Labels**: "QR code for [URL]" 
+
+- **Descriptive Labels**: "QR code for [URL]"
 - **Functional Hints**: "QR code that can be scanned to open this link"
 - **State Announcements**: Loading and error states properly announced
 
 ### 7. Toast Notifications
 
 Alert toasts provide:
+
 - **Status Context**: Error, success, warning, or info prefixes
 - **Static Text Trait**: Proper announcement without button confusion
 - **Message Content**: Full message content is accessible
@@ -116,13 +121,15 @@ Used strategically to group related content for coherent VoiceOver reading.
 ### 2. Accessibility Traits
 
 Proper traits applied throughout:
+
 - `.isButton` for interactive elements
-- `.isSelected` for selection states  
+- `.isSelected` for selection states
 - `.isStaticText` for informational content
 
 ### 3. Dynamic Accessibility
 
 Context-sensitive accessibility content:
+
 - Form validation state affects hints
 - Selection states are properly announced
 - Loading states provide feedback
@@ -130,6 +137,7 @@ Context-sensitive accessibility content:
 ### 4. Localization Integration
 
 All accessibility strings are:
+
 - Stored in `Localizable.xcstrings`
 - Generated using SwiftGen
 - Accessible via `L10n.Accessibility.*` structure
@@ -162,6 +170,7 @@ All accessibility strings are:
 ### Accessibility Inspector Testing
 
 Use Xcode's Accessibility Inspector to verify:
+
 - No accessibility warnings or errors
 - Proper element hierarchy
 - Correct trait assignments
@@ -181,6 +190,7 @@ When adding new components:
 ### Accessibility String Naming Convention
 
 Follow this pattern for consistency:
+
 - **Labels**: `accessibility.[component]_[action]` (e.g., `accessibility.delete_link`)
 - **Hints**: `accessibility.hint.[action]` (e.g., `accessibility.hint.double_tap_edit`)
 - **Buttons**: `accessibility.button.[action]` (e.g., `accessibility.button.save`)
@@ -189,6 +199,7 @@ Follow this pattern for consistency:
 ### Regular Accessibility Audits
 
 Perform quarterly accessibility audits:
+
 1. Test all user flows with VoiceOver
 2. Verify new features have proper accessibility
 3. Update documentation as needed
@@ -197,11 +208,13 @@ Perform quarterly accessibility audits:
 ## Resources
 
 ### Apple Documentation
+
 - [Accessibility Programming Guide for iOS](https://developer.apple.com/accessibility/ios/)
 - [VoiceOver Testing Guide](https://developer.apple.com/documentation/accessibility/accessibility_for_developers/testing_for_accessibility_with_voiceover)
 - [Accessibility Modifiers](https://developer.apple.com/documentation/swiftui/view-accessibility)
 
 ### Tools
+
 - **Accessibility Inspector**: Built into Xcode for testing
 - **VoiceOver**: iOS screen reader for real-device testing
 - **Voice Control**: Additional accessibility testing
@@ -210,4 +223,4 @@ Perform quarterly accessibility audits:
 
 The Flinky app demonstrates comprehensive accessibility implementation, ensuring that all users can effectively manage their links and lists regardless of their assistive technology needs. The localized, systematic approach to accessibility ensures maintainability and consistency across the entire app.
 
-Regular testing and adherence to these guidelines will maintain Flinky's excellent accessibility support as the app evolves. 
+Regular testing and adherence to these guidelines will maintain Flinky's excellent accessibility support as the app evolves.

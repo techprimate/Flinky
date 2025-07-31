@@ -13,9 +13,11 @@ Flinky implements a **privacy-first analytics strategy** that captures user beha
 ## SwiftUI View Tracing
 
 ### Overview
+
 Every container view in the app implements Sentry's SwiftUI view tracing using the `.sentryTrace()` modifier. This provides automatic performance monitoring, view rendering metrics, and navigation flow analysis.
 
 ### Implementation Pattern
+
 ```swift
 struct ExampleContainerView: View {
     var body: some View {
@@ -26,6 +28,7 @@ struct ExampleContainerView: View {
 ```
 
 ### Traced Views
+
 All major views are instrumented for comprehensive performance monitoring:
 
 - `MAIN_VIEW` - Root navigation container
@@ -41,18 +44,21 @@ All major views are instrumented for comprehensive performance monitoring:
 - `LINK_DETAIL_NFC_SHARING` - NFC sharing interface
 
 ### Benefits
+
 - **Performance Monitoring**: Automatic tracking of view rendering times
 - **Navigation Analysis**: User flow patterns and bottlenecks
 - **Error Context**: View-specific error correlation
 - **User Experience Metrics**: Time-to-interactive measurements
 
 ### Best Practices
+
 1. **Modifier Placement**: Place `.sentryTrace()` after other modifiers but before sheets/alerts to capture complete view lifecycle
 2. **Naming Convention**: Use `SCREAMING_SNAKE_CASE` for consistency and clarity
 3. **Descriptive Names**: Use clear, descriptive names that identify the view's purpose
 4. **Container Views Only**: Apply to container views, not render views, to avoid duplicate tracking
 
 ### Example Implementation
+
 ```swift
 struct LinkDetailContainerView: View {
     var body: some View {
@@ -74,6 +80,7 @@ struct LinkDetailContainerView: View {
 ## Privacy Principles
 
 ### ✅ What We Track (Safe)
+
 - **Entity Identifiers**: UUIDs for links and lists (non-PII)
 - **Interaction Types**: Button clicks, sharing methods, navigation patterns
 - **Feature Usage**: Color/symbol selections, customization engagement
@@ -81,6 +88,7 @@ struct LinkDetailContainerView: View {
 - **User Flows**: Creation patterns, sharing behaviors
 
 ### ❌ What We DON'T Track (Privacy Protected)
+
 - **URLs**: User's private link destinations
 - **Names**: List names, link titles, or any user-generated labels
 - **Content**: Any personally identifiable information (PII)
@@ -89,24 +97,29 @@ struct LinkDetailContainerView: View {
 ## Tracking Categories
 
 ### 1. Link Management (`link_management`)
+
 - Link creation, updates, and modifications
 - Color and symbol customization for links
 
-### 2. List Management (`list_management`)  
+### 2. List Management (`list_management`)
+
 - List creation, updates, and modifications
 - Color and symbol customization for lists
 
 ### 3. Link Interaction (`link_interaction`)
+
 - Opening links in Safari
 - Link engagement patterns
 
 ### 4. Link Sharing (`link_sharing`)
+
 - All sharing methods: copy URL, QR codes, NFC, system share
 - Sharing success/failure patterns
 
 ## Implementation Patterns
 
 ### Breadcrumb Pattern
+
 ```swift
 // Privacy-conscious breadcrumb for debugging context
 let breadcrumb = Breadcrumb(level: .info, category: "category_name")
@@ -120,6 +133,7 @@ SentrySDK.addBreadcrumb(breadcrumb)
 ```
 
 ### Analytics Event Pattern
+
 ```swift
 // Structured analytics event for product insights
 let event = Event(level: .info)
@@ -133,6 +147,7 @@ SentrySDK.capture(event: event)
 ```
 
 ### Error Tracking Pattern
+
 ```swift
 // Following established memory pattern for consistent error handling
 do {
@@ -148,32 +163,38 @@ do {
 ## Event Taxonomy
 
 ### Creation Events
+
 - `link_created`: New link added to a list
 - `list_created`: New list created
 
-### Update Events  
+### Update Events
+
 - `link_color_selected`: Color customization for links
 - `link_symbol_selected`: Symbol customization for links
 - `list_color_selected`: Color customization for lists
 - `list_symbol_selected`: Symbol customization for lists
 
 ### Sharing Events
+
 - `link_shared`: Universal sharing event with method specification
 - `link_shared_nfc`: NFC-specific sharing event for detailed analysis
 
 ### Interaction Events
+
 - Link opening events (tracked via breadcrumbs)
 - Navigation patterns (tracked via breadcrumbs)
 
 ## Data Structure Standards
 
 ### Entity Identification
+
 ```swift
 "entity_id": uuid.uuidString     // Link or list UUID
 "entity_type": "link" | "list"   // Enables cross-entity analytics
 ```
 
 ### Sharing Method Taxonomy
+
 ```swift
 "sharing_method": [
     "copy_url",        // Copy URL to clipboard
@@ -185,6 +206,7 @@ do {
 ```
 
 ### Customization Tracking
+
 ```swift
 "color": color.rawValue          // Color selection (when changed)
 "symbol": symbol.rawValue        // Symbol selection (when changed)
@@ -193,6 +215,7 @@ do {
 ```
 
 ### Flow Differentiation
+
 ```swift
 "creation_flow": [
     "direct",          // Created directly in a list
@@ -203,6 +226,7 @@ do {
 ## Implementation Examples
 
 ### Link Creation Tracking
+
 ```swift
 // Breadcrumb for debugging context
 let breadcrumb = Breadcrumb(level: .info, category: "link_management")
@@ -228,6 +252,7 @@ SentrySDK.capture(event: event)
 ```
 
 ### Sharing Tracking
+
 ```swift
 // Track specific sharing method
 let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
@@ -249,6 +274,7 @@ SentrySDK.capture(event: event)
 ```
 
 ### Customization Tracking
+
 ```swift
 // Only track when user actually makes changes
 if colorChanged {
@@ -265,15 +291,20 @@ if colorChanged {
 ## Special Considerations
 
 ### NFC Sharing
+
 NFC sharing generates **dual events** for comprehensive analysis:
+
 1. **Specific NFC Event** (`link_shared_nfc`): Detailed NFC success/failure patterns
 2. **General Sharing Event** (`link_shared`): Inclusion in overall sharing metrics
 
 ### ShareLink Integration
+
 System ShareLink requires `simultaneousGesture` instead of `onTapGesture` to avoid interfering with built-in tap handling while still capturing analytics.
 
 ### Error Context
+
 Error events include sanitized context with entity IDs only:
+
 ```swift
 event.context = [
     "link": [
@@ -285,16 +316,19 @@ event.context = [
 ## Analytics Queries & Insights
 
 ### User Engagement
+
 - Link creation frequency and patterns
 - Sharing method popularity comparison
 - Customization feature adoption rates
 
-### Feature Performance  
+### Feature Performance
+
 - Sharing success rates by method
 - Error patterns and recovery flows
 - Cross-platform behavior differences
 
 ### Product Development
+
 - Most/least used features for prioritization
 - User flow optimization opportunities
 - Feature rollout impact measurement
@@ -302,16 +336,19 @@ event.context = [
 ## Compliance & Privacy
 
 ### GDPR Compliance
+
 - No personal data stored in analytics
 - Entity IDs are app-specific, non-correlatable
 - User content never transmitted
 
 ### Data Retention
+
 - **Breadcrumbs**: Session-scoped, cleared on app restart
 - **Events**: Persistent analytics data (no PII)
 - **Errors**: Sanitized technical information only
 
 ### Debugging Capability
+
 - Full technical debugging via entity IDs
 - Error reproduction without privacy concerns
 - Performance analysis with user behavior context
@@ -319,17 +356,20 @@ event.context = [
 ## Future Considerations
 
 ### Adding New Events
+
 1. Follow established naming convention: `entity_action_context`
 2. Include standard fields: `entity_id`, `entity_type`
 3. Exclude any PII or user-generated content
 4. Document in this file with examples
 
 ### Privacy Reviews
+
 - All new tracking must pass privacy audit
 - Any user-generated content is strictly prohibited
 - Entity IDs and interaction types only
 
 ### Analytics Evolution
+
 - Maintain backward compatibility in event schemas
 - Version analytics events if breaking changes needed
 - Keep privacy protections as non-negotiable constraints
@@ -348,4 +388,4 @@ When adding new analytics:
 
 ---
 
-This analytics implementation provides **comprehensive product insights** while maintaining **strict privacy protection** for user data. The approach enables data-driven product decisions without compromising user trust or regulatory compliance. 
+This analytics implementation provides **comprehensive product insights** while maintaining **strict privacy protection** for user data. The approach enables data-driven product decisions without compromising user trust or regulatory compliance.

@@ -16,12 +16,14 @@ shared.component.property.accessibility.type
 ### Key Patterns
 
 **View-Specific Keys:**
+
 - `link-detail.edit-link.label` → `L10n.LinkDetail.EditLink.label`
 - `link-detail.edit-link.accessibility.label` → `L10n.LinkDetail.EditLink.Accessibility.label`
 - `create-link.title` → `L10n.CreateLink.title`
 - `link-lists.no-lists-title` → `L10n.LinkLists.noListsTitle`
 
 **Shared Components:**
+
 - `shared.button.cancel.label` → `L10n.Shared.Button.Cancel.label`
 - `shared.error.network.description` → `L10n.Shared.Error.Network.description`
 - `shared.form.title.accessibility.hint` → `L10n.Shared.Form.Title.Accessibility.hint`
@@ -30,6 +32,7 @@ shared.component.property.accessibility.type
 ### Organization Categories
 
 **View-Specific Patterns:**
+
 - `app.*` - App-level strings
 - `create-link.*` - Link creation interface
 - `create-list.*` - List creation interface
@@ -39,6 +42,7 @@ shared.component.property.accessibility.type
 - `search.*` - Search functionality
 
 **Shared Component Patterns:**
+
 - `shared.button.*` - Reusable buttons (Save, Cancel, Done, Delete, Edit)
 - `shared.form.*` - Form fields (Title, Name, URL)
 - `shared.error.*` - Error messages and recovery
@@ -81,11 +85,13 @@ L10n.Shared.Action.delete                         // "Delete"
 ### When to Use View-Specific vs Shared
 
 **Use View-Specific Keys When:**
+
 - The string is unique to a particular view or feature
 - The context matters for translation
 - The string has view-specific wording
 
 **Use Shared Keys When:**
+
 - The string appears in multiple views
 - It's a common UI element (buttons, form fields, errors)
 - It's a standard action or message
@@ -93,12 +99,14 @@ L10n.Shared.Action.delete                         // "Delete"
 ### Accessibility Pattern
 
 For accessibility, always follow this pattern:
+
 ```
 component.accessibility.label    // What the element is
 component.accessibility.hint     // What it does or how to use it
 ```
 
 Examples:
+
 ```swift
 // Button with both label and hint
 L10n.LinkDetail.EditLink.Accessibility.label  // "Edit link"
@@ -158,11 +166,13 @@ When adding new features:
 ## Template Details
 
 ### en-strings.stencil
+
 - Converts xcstrings JSON format to traditional `.strings` format
 - Filters out keys that don't make valid Swift identifiers
 - Handles both regular strings and plural variations
 
-### l21strings.stencil  
+### l21strings.stencil
+
 - Creates nested Swift enums based on dot notation in keys
 - Generates functions for parameterized strings
 - Includes fallback values for safety
@@ -176,4 +186,4 @@ When adding new features:
 - **Consistency**: Enforced naming patterns prevent duplication
 - **Automatic Updates**: No manual maintenance of localization constants
 - **Accessibility First**: Built-in patterns for accessibility labels and hints
-- **Shared Components**: Reusable strings reduce duplication and translation costs 
+- **Shared Components**: Reusable strings reduce duplication and translation costs
