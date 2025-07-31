@@ -1,3 +1,4 @@
+brew "imagemagick"
 brew "jq"
 brew "licenseplist"
 brew "swiftformat"
