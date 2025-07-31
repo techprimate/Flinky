@@ -19,97 +19,20 @@ struct LinkListsRenderView<Destination: View>: View {
     @ViewBuilder let destination: (LinkListsDisplayItem) -> Destination
 
     var body: some View {
-        VStack(spacing: 16) {
-            if !pinnedLists.isEmpty {
-                PinnedLinkListsRenderView(
-                    items: pinnedLists,
-                    editAction: { item in
-                        editListAction(item)
-                    },
-                    unpinAction: { item in
-                        unpinListAction(item)
-                    },
-                    deleteAction: { item in
-                        deleteUnpinnedListAction(item)
-                    },
-                    destination: destination
-                )
-                .padding(.horizontal, 16)
-            }
-            List {
-                Section {
-                    ForEach(unpinnedLists, id: \.self) { list in
-                        itemViewForList(list)
-                    }
-                    .onDelete(perform: deleteUnpinnedListsAction)
-                } header: {
-                    if !pinnedLists.isEmpty {
-                        HStack {
-                            Text(L10n.LinkLists.myListsSection)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            Spacer()
-                        }
-                    }
-                }
-            }
-        }
-        .background(Color(UIColor.systemGroupedBackground))
-        .headerProminence(.increased)
-        .navigationTitle(L10n.App.title)
-        .searchable(text: $searchText, prompt: L10n.Search.listsAndLinks)
-        .overlay {
-            if pinnedLists.isEmpty && unpinnedLists.isEmpty {
-                ContentUnavailableView(
-                    L10n.LinkLists.noListsTitle,
-                    systemSymbol: .trayFill,
-                    description: Text(L10n.LinkLists.noListsDescription)
-                )
-            }
-        }
-        .toolbar {
-            if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Button(
-                    action: {
-                        presentCreateLink()
-                    },
-                    label: {
-                        Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
-                            .bold()
-                            .imageScale(.large)
-                            .labelStyle(.titleAndIcon)
-                    }
-                )
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
-                .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Button(
-                    action: {
-                        presentCreateList()
-                    },
-                    label: {
-                        Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
-                            .imageScale(.large)
-                            .labelStyle(.titleOnly)
-                    }
-                )
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
-                .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
-            }
-        }
+        UIKitLinkListsRenderView(
+            pinnedLists: pinnedLists,
+            unpinnedLists: unpinnedLists,
+            presentCreateList: presentCreateList,
+            presentCreateLink: presentCreateLink,
+            pinListAction: pinListAction,
+            unpinListAction: unpinListAction,
+            deleteUnpinnedListAction: deleteUnpinnedListAction,
+            editListAction: editListAction,
+            destination: destination
+        )
     }
 
+    // Keep the itemViewForList method for backwards compatibility in case it's used elsewhere
     func itemViewForList(_ list: LinkListsDisplayItem) -> some View {
         NavigationLink(destination: destination(list)) {
             LinkListsItemView(
