@@ -21,6 +21,7 @@ struct CreateLinkEditorRenderView: View {
                 .focused($focusedField, equals: .title)
                 .accessibilityLabel(L10n.Shared.Form.Title.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Form.Title.Accessibility.hint)
+                .accessibilityIdentifier("create-link.title.text-field")
                 .onSubmit {
                     focusedField = .url
                 }
@@ -32,6 +33,7 @@ struct CreateLinkEditorRenderView: View {
                 .textInputAutocapitalization(.never)
                 .accessibilityLabel(L10n.Shared.Form.Url.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Form.Url.Accessibility.hint)
+                .accessibilityIdentifier("create-link.url.text-field")
                 .onSubmit {
                     focusedField = nil
                 }
@@ -44,6 +46,7 @@ struct CreateLinkEditorRenderView: View {
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+                .accessibilityIdentifier("create-link.cancel.button")
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(L10n.Shared.Button.Save.label) {
@@ -52,6 +55,7 @@ struct CreateLinkEditorRenderView: View {
                 .disabled(!isValid())
                 .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Save.Accessibility.hint)
+                .accessibilityIdentifier("create-link.save.button")
             }
         }
         .onAppear {

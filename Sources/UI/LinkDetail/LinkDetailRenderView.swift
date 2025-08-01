@@ -59,6 +59,7 @@ struct LinkDetailRenderView: View {
                         .accessibilityHint(L10n.LinkDetail.MoreMenu.Accessibility.hint)
                 }
                 .tint(.white)
+                .accessibilityIdentifier("link-detail.more-menu.button")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -69,6 +70,7 @@ struct LinkDetailRenderView: View {
                 .tint(.white)
                 .fontWeight(.bold)
                 .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                .accessibilityIdentifier("link-detail.done.button")
             }
         }
     }
@@ -90,6 +92,7 @@ struct LinkDetailRenderView: View {
                             .fontWeight(.bold)
                             .foregroundStyle(Color.white.opacity(0.8))
                     }
+                    .accessibilityIdentifier("link-detail.copy-url.button")
                 }
             }
         }
@@ -110,6 +113,7 @@ struct LinkDetailRenderView: View {
                 .accentColor(.green)
                 .accessibilityLabel(L10n.LinkDetail.ShareLink.Accessibility.label(url.absoluteString))
                 .accessibilityHint(L10n.LinkDetail.ShareLink.Accessibility.hint)
+                .accessibilityIdentifier("link-detail.share-link.button")
                 .simultaneousGesture(
                     // Use simultaneousGesture instead of onTapGesture to ensure tracking occurs
                     // without interfering with ShareLink's built-in tap handling
@@ -168,6 +172,7 @@ struct LinkDetailRenderView: View {
         .background(Color(UIColor.systemBackground))
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .shadow(radius: 12, x: 0, y: 6)
+        .accessibilityIdentifier("link-detail.qr-code.container")
     }
 
     var backgroundGradient: some View {
@@ -195,6 +200,7 @@ extension LinkDetailRenderView {
                 .aspectRatio(contentMode: .fit)
                 .accessibilityLabel(L10n.Shared.QrCode.Accessibility.label(url.absoluteString))
                 .accessibilityHint(L10n.Shared.QrCode.Accessibility.hint)
+                .accessibilityIdentifier("link-detail.qr-code.image")
                 .onTapGesture {
                     // Haptic feedback for tap
                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)

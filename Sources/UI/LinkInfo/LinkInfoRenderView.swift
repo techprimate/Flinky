@@ -17,6 +17,7 @@ struct LinkInfoRenderView: View {
             ColorPickerSection(selection: $color)
             SymbolPickerSection(selection: $symbol)
         }
+        .accessibilityIdentifier("link-info.container")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(role: .cancel) {
@@ -25,6 +26,8 @@ struct LinkInfoRenderView: View {
                     Text(L10n.Shared.Button.Cancel.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+                .accessibilityIdentifier("link-info.cancel.button")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -33,7 +36,8 @@ struct LinkInfoRenderView: View {
                     Text(L10n.Shared.Button.Done.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
+                .accessibilityIdentifier("link-info.save.button")
             }
         }
     }
@@ -85,6 +89,7 @@ extension LinkInfoRenderView {
                         .cornerRadius(12)
                         .accessibilityLabel(L10n.Shared.Form.Title.Accessibility.label)
                         .accessibilityHint(L10n.Shared.Form.Title.Accessibility.hint)
+                        .accessibilityIdentifier("link-info.title.text-field")
                 }
                 .padding(4)
             }
@@ -105,6 +110,7 @@ extension LinkInfoRenderView {
                     .padding(.vertical, 8)
                     .accessibilityLabel(L10n.Shared.Form.Url.Accessibility.label)
                     .accessibilityHint(L10n.Shared.Form.Url.Accessibility.hint)
+                    .accessibilityIdentifier("link-info.url.text-field")
             }
         }
     }
@@ -131,6 +137,7 @@ extension LinkInfoRenderView {
             }
             .accessibilityElement(children: .contain)
             .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(selection.name))
+            .accessibilityIdentifier("link-info.color.picker")
         }
     }
 
@@ -214,6 +221,7 @@ extension LinkInfoRenderView {
             }
             .accessibilityElement(children: .contain)
             .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))
+            .accessibilityIdentifier("link-info.symbol.picker")
         }
 
         private func symbolName(for symbol: ListSymbol) -> String {

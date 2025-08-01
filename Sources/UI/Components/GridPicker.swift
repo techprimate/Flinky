@@ -26,6 +26,7 @@ struct GridPicker<Item: Identifiable, ItemView: View>: View {
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
             .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
+            .accessibilityIdentifier("grid-picker.item.\(item.id)")
             .onTapGesture {
                 selection = item
             }

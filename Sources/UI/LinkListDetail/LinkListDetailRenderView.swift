@@ -75,6 +75,7 @@ struct LinkListDetailRenderView: View {
                 .accessibilityLabel(L10n.LinkListDetail.MoreMenu.Accessibility.label)
                 .accessibilityHint(L10n.LinkListDetail.MoreMenu.Accessibility.hint)
         }
+        .accessibilityIdentifier("link-list-detail.more-menu.button")
     }
 
     @ViewBuilder
@@ -112,6 +113,7 @@ struct LinkListDetailRenderView: View {
         .buttonStyle(.borderless)
         .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
         .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.hint)
+        .accessibilityIdentifier("link-list-detail.new-link.button")
     }
 
     private func itemViewForLink(_ link: LinkListDetailDisplayItem) -> some View {
@@ -129,6 +131,7 @@ struct LinkListDetailRenderView: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("link-list-detail.link-item.\(link.id).navigation-button")
     }
 }
 

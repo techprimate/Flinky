@@ -22,6 +22,13 @@
 			remoteGlobalIDString = D4D359D82E1BDF540006226D;
 			remoteInfo = Flinky;
 		};
+		D4ECAABA2E3CF6FB00C757EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D359D82E1BDF540006226D;
+			remoteInfo = Flinky;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,7 @@
 		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		D40BF4B82E2FC376000BE785 /* Flinky.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Flinky.xctestplan; sourceTree = "<group>"; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -72,6 +80,11 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		D4ECAAB52E3CF6FB00C757EA /* ScreenshotUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScreenshotUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +104,13 @@
 				D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
 				D4B471882E1F12FA005099F3 /* Sentry in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4ECAAB12E3CF6FB00C757EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +149,7 @@
 				D40BEF1B2E2EFFE300391C5A /* Templates */,
 				D4B94A352E3197BA0000FEA2 /* Resources */,
 				D40BEC182E2EE0C500391C5A /* Tests */,
+				D4ECAAB52E3CF6FB00C757EA /* ScreenshotUITests */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
 			);
@@ -139,6 +160,7 @@
 			children = (
 				D4D359D92E1BDF540006226D /* Flinky.app */,
 				D40BEC172E2EE0C500391C5A /* Tests.xctest */,
+				D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,6 +223,29 @@
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D4ECAAB32E3CF6FB00C757EA /* ScreenshotUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4ECAABE2E3CF6FB00C757EA /* Build configuration list for PBXNativeTarget "ScreenshotUITests" */;
+			buildPhases = (
+				D4ECAAB02E3CF6FB00C757EA /* Sources */,
+				D4ECAAB12E3CF6FB00C757EA /* Frameworks */,
+				D4ECAAB22E3CF6FB00C757EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4ECAABB2E3CF6FB00C757EA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D4ECAAB52E3CF6FB00C757EA /* ScreenshotUITests */,
+			);
+			name = ScreenshotUITests;
+			packageProductDependencies = (
+			);
+			productName = ScreenshotUITests;
+			productReference = D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -217,6 +262,10 @@
 					};
 					D4D359D82E1BDF540006226D = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					D4ECAAB32E3CF6FB00C757EA = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D4D359D82E1BDF540006226D;
 					};
 				};
 			};
@@ -242,6 +291,7 @@
 			targets = (
 				D4D359D82E1BDF540006226D /* Flinky */,
 				D40BEC162E2EE0C500391C5A /* Tests */,
+				D4ECAAB32E3CF6FB00C757EA /* ScreenshotUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +305,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D359D72E1BDF540006226D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4ECAAB22E3CF6FB00C757EA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -327,6 +384,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4ECAAB02E3CF6FB00C757EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -347,6 +411,11 @@
 			isa = PBXTargetDependency;
 			productRef = D4B4718B2E1F1303005099F3 /* Sentry */;
 		};
+		D4ECAABB2E3CF6FB00C757EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D359D82E1BDF540006226D /* Flinky */;
+			targetProxy = D4ECAABA2E3CF6FB00C757EA /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -358,6 +427,7 @@
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,6 +446,7 @@
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = BZ362SQ6AB;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -439,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -498,7 +569,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -534,6 +605,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -574,6 +646,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -587,6 +660,42 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4ECAABC2E3CF6FB00C757EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BZ362SQ6AB;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.ScreenshotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Flinky;
+			};
+			name = Debug;
+		};
+		D4ECAABD2E3CF6FB00C757EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BZ362SQ6AB;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.ScreenshotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Flinky;
 			};
 			name = Release;
 		};
@@ -616,6 +725,15 @@
 			buildConfigurations = (
 				D4D359E72E1BDF560006226D /* Debug */,
 				D4D359E82E1BDF560006226D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4ECAABE2E3CF6FB00C757EA /* Build configuration list for PBXNativeTarget "ScreenshotUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4ECAABC2E3CF6FB00C757EA /* Debug */,
+				D4ECAABD2E3CF6FB00C757EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

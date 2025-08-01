@@ -101,3 +101,7 @@ Generated/
 # Sentry
 .sentryclirc
 .env
+
+# --- Ruby ---
+
+vendor

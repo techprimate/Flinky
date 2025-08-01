@@ -4,24 +4,24 @@ platform :ios do
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
   lane :generate_app_icons do
     UI.message "Generating app icon sizes using fastlane-plugin-appicon"
-    
+
     # Configure MiniMagick to use ImageMagick for consistent metadata handling
     require 'mini_magick'
     MiniMagick.configure { |config| config.cli = :imagemagick }
-    
+
     # Use absolute paths to avoid plugin directory changes
     project_root = File.expand_path("..")
     source_image = File.join(project_root, "Resources", "AppIcon.png")
     assets_path = File.join(project_root, "Sources", "Resources", "Assets.xcassets")
     icon_output_dir = File.join(assets_path, "AppIcon.appiconset")
-    
+
     UI.message "Using source image: #{File.basename(source_image)}"
-    
+
     # Verify source image exists
     unless File.exist?(source_image)
       UI.user_error! "Source image not found at #{source_image}"
     end
-    
+
     # Generate iOS app icons (iPhone, iPad, App Store)
     appicon(
       appicon_image_file: source_image,
@@ -30,61 +30,85 @@ platform :ios do
       remove_alpha: true,
       minimagick_cli: "imagemagick"
     )
-    
+
     UI.message "Stripping metadata from generated icons to ensure git-reproducible output"
-    
+
     # Strip metadata from all generated icon files
     Dir.glob(File.join(icon_output_dir, "*.png")).each do |icon_path|
       UI.verbose "Processing: #{File.basename(icon_path)}"
-      
+
       begin
         image = MiniMagick::Image.open(icon_path)
         image.combine_options do |b|
           # Strip all existing metadata
           b << "-strip"
-          
+
           # Set consistent comment
           b << "-set" << "comment" << "Generated using fastlane-plugin-appicon"
-          
+
           # Exclude PNG time chunks to prevent timestamp variations
           b << "-define" << "png:exclude-chunks=tIME"
-          
+
           # Set consistent timestamps to prevent git detecting changes
           timestamp = "2024-01-01T00:00:00Z"
           b << "-set" << "date:create" << timestamp
           b << "-set" << "date:modify" << timestamp
           b << "-set" << "date:timestamp" << timestamp
-          
+
           # Set consistent resolution info
           b.density "72x72"
           b << "-set" << "units" << "PixelsPerInch"
-          
+
           # Set consistent user time
           b << "-set" << "user:time" << "0"
         end
-        
+
         # Write the processed image back
         image.write(icon_path)
-        
+
       rescue => e
         UI.error "Failed to process #{icon_path}: #{e.message}"
       end
     end
-    
+
     UI.success "✅ All app icon sizes generated and metadata stripped successfully!"
     UI.message "Icons generated in: Sources/Resources/Assets.xcassets/AppIcon.appiconset/"
     UI.message "📝 Icons are now git-reproducible (no metadata changes on regeneration)"
   end
-  
+
+  desc "Generate screenshots"
+  lane :generate_screenshots do
+    UI.message "Generating screenshots"
+
+    capture_screenshots(
+      scheme: "ScreenshotUITests",
+      devices: ["iPhone 16 Pro Max"],
+      ios_version: "18.4",
+      languages: ["en-US"],
+
+      clear_previous_screenshots: true,
+      concurrent_simulators: true,
+
+      reinstall_app: true,
+      override_status_bar: true,
+      localize_simulator: true,
+      disable_slide_to_type: true,
+      number_of_retries: 0,
+    )
+
+    UI.success "✅ Screenshots generated successfully!"
+    UI.message "Screenshots generated in: ScreenshotUITests/Screenshots/"
+  end
+
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
     # Get version info to match what the app uses
     version_number = get_version_number(xcodeproj: "Flinky.xcodeproj")
-    
+
     # Increment build number before building
     increment_build_number(xcodeproj: "Flinky.xcodeproj")
     build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
-    
+
     # Create Sentry release using the same format as the app
     sentry_create_release(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
@@ -94,22 +118,22 @@ platform :ios do
       app_identifier: "com.techprimate.Flinky",
       version: version_number
     )
-    
+
     # Build the app
     build_app(scheme: "Flinky")
-    
+
     # Upload debug symbols to Sentry
     sentry_debug_files_upload(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
-      
+
       # Wait for the server to fully process uploaded files. Errors
       # can only be displayed if --wait is specified, but this will
       # significantly slow down the upload process
       wait: true
     )
-    
+
     # Associate commits with the release
     sentry_set_commits(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
@@ -121,14 +145,14 @@ platform :ios do
       build: build_number,
       auto: true
     )
-    
+
     # Upload to TestFlight
     upload_to_testflight(
       # API Key file must be located at fastlane/api-key.json
       api_key_path: File.expand_path("./api-key.json"),
       app_version: version_number,
       build_number: build_number,
-      
+
       distribute_external: options[:distribute_external] || false,
       groups: ["Friends At Sentry", "Friends Of Phil"],
       beta_app_description: "Thanks for testing Flinky!
@@ -150,7 +174,7 @@ In case you notice any issues, please use the \"Send Feedback\" button in the ap
 
 Your feedback helps us improve Flinky for everyone. Thank you!"
     )
-    
+
     # Finalize the Sentry release after successful upload
     sentry_finalize_release(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
@@ -161,20 +185,20 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       version: version_number,
       build: build_number
     )
-   
+
     # Create version tag
     version_tag = "v#{version_number}+#{build_number}"
-    
+
     # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
     git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"])
     git_commit(
       path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"],
       message: "chore: Bump version to #{version_number} (#{build_number})"
     )
-    
+
     # Create git tag for this version
     add_git_tag(tag: version_tag)
-     
+
     # Push the commit and tag to remote
     push_to_git_remote(
       remote: 'origin',

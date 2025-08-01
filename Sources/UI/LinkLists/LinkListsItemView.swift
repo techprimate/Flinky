@@ -26,6 +26,7 @@ struct LinkListsItemView: View {
         .accessibilityLabel(L10n.Shared.Item.List.Accessibility.label(item.name, item.count))
         .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
         .accessibilityAddTraits(.isButton)
+        .accessibilityIdentifier("link-lists.list-item.\(item.id).navigation-button")
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 deleteAction(item)

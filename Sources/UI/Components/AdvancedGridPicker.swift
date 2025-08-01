@@ -29,6 +29,7 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
             .accessibilityAddTraits(isWildcardItem(selection) ? [.isSelected, .isButton] : [.isButton])
             .accessibilityLabel(L10n.Shared.EmojiPicker.Accessibility.hint)
             .accessibilityHint(L10n.Shared.EmojiPicker.Accessibility.hint)
+            .accessibilityIdentifier("advanced-grid-picker.wildcard-button")
     }
 
     private var listView: some View {
@@ -49,6 +50,7 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
             .accessibilityElement(children: .combine)
             .accessibilityAddTraits(item.id == selection.id ? [.isSelected, .isButton] : [.isButton])
             .accessibilityHint(L10n.Shared.Item.List.Accessibility.hint)
+            .accessibilityIdentifier("advanced-grid-picker.item.\(item.id)")
             .onTapGesture {
                 selection = item
             }
