@@ -105,6 +105,7 @@ struct FlinkyApp: App {
                 widgetOptions.location = [.bottom, .trailing]
                 widgetOptions.layoutUIOffset = .init(horizontal: 18, vertical: 80)
             }
+            feedbackOptions.useShakeGesture = true
             feedbackOptions.showFormForScreenshots = true
             feedbackOptions.configureForm = { formOptions in
                 formOptions.useSentryUser = true
