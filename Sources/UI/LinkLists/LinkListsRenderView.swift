@@ -35,6 +35,7 @@ struct LinkListsRenderView<Destination: View>: View {
                     destination: destination
                 )
                 .padding(.horizontal, 16)
+                .accessibilityIdentifier("link-lists.pinned-section.container")
             }
             List {
                 Section {
@@ -53,6 +54,7 @@ struct LinkListsRenderView<Destination: View>: View {
                     }
                 }
             }
+            .accessibilityIdentifier("link-lists.unpinned-section.container")
         }
         .background(Color(UIColor.systemGroupedBackground))
         .headerProminence(.increased)
@@ -88,6 +90,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
                 .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
+                .accessibilityIdentifier("link-lists.create-link.button")
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
@@ -106,6 +109,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
                 .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
+                .accessibilityIdentifier("link-lists.create-list.button")
             }
         }
     }

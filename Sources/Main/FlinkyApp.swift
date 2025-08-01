@@ -22,6 +22,12 @@ struct FlinkyApp: App {
     ///
     /// - Parameter options: Options structure to configure Sentry.
     private static func configureSentry(options: Options) {
+        // Disable Sentry for tests because it produces a lot of noise.
+        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+            Self.logger.warning("Sentry is disabled in test environment")
+            return
+        }
+
         options.debug = true
         options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
 
@@ -240,7 +246,8 @@ struct FlinkyApp: App {
                 LinkModel.self,
                 DatabaseMetadata.self
             ],
-            inMemory: false,
+            // For testing we use an in-memory store to avoid persistent storage.
+            inMemory: ProcessInfo.processInfo.environment["TESTING"] == "1",
             isAutosaveEnabled: false,
             isUndoEnabled: false,
             onSetup: { result in

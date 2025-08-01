@@ -1,10 +1,13 @@
-.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization generate-app-store-summary generate-app-icons
+.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization generate-app-store-summary generate-app-icons generate-screenshots publish-beta-build
 
 build-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | xcbeautify
 
 test-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
+
+test-ui-ios:
+	xcrun xcodebuild -project Flinky.xcodeproj -scheme ScreenshotUITests -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
 
 format: format-swift format-json format-markdown format-yaml
 
@@ -42,6 +45,10 @@ generate-app-store-summary:
 generate-app-icons:
 	bundle install
 	bundle exec fastlane generate_app_icons
+
+generate-screenshots:
+	bundle install
+	bundle exec fastlane generate_screenshots
 
 publish-beta-build:
 	bundle install
