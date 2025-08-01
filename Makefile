@@ -40,4 +40,9 @@ generate-app-store-summary:
 	./Scripts/generate-app-store-summary.sh
 
 generate-app-icons:
-	fastlane ios generate_app_icons
+	bundle install
+	bundle exec fastlane generate_app_icons
+
+publish-beta-build:
+	bundle install
+	bundle exec fastlane beta
