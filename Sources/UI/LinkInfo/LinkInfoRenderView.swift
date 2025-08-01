@@ -26,7 +26,7 @@ struct LinkInfoRenderView: View {
                     Text(L10n.Shared.Button.Cancel.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
                 .accessibilityIdentifier("link-info.cancel.button")
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -36,7 +36,7 @@ struct LinkInfoRenderView: View {
                     Text(L10n.Shared.Button.Done.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
                 .accessibilityIdentifier("link-info.save.button")
             }
         }
