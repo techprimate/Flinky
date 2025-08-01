@@ -1,0 +1,1 @@
+qrcode,link,share,conference,networking,contact,scanner,generator,event,exchange,badge,meetup

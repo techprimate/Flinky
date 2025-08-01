@@ -53,3 +53,7 @@ generate-screenshots:
 publish-beta-build:
 	bundle install
 	bundle exec fastlane beta
+
+upload-metadata:
+	bundle install
+	bundle exec fastlane upload_metadata
