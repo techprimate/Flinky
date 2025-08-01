@@ -2,24 +2,13 @@ import OnLaunch
 import Sentry
 import SwiftData
 import SwiftUI
+import os.log
 
 @main
 struct FlinkyApp: App {
+    static let logger = Logger.forType(Self.self)
+
     @StateObject private var toastManager = ToastManager()
-
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            LinkListModel.self,
-            LinkModel.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
 
     init() {
         SentrySDK.start { options in
@@ -244,6 +233,37 @@ struct FlinkyApp: App {
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
                 }
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(
+            for: [
+                LinkListModel.self,
+                LinkModel.self,
+                DatabaseMetadata.self
+            ],
+            inMemory: false,
+            isAutosaveEnabled: false,
+            isUndoEnabled: false,
+            onSetup: { result in
+                switch result {
+                case .failure(let error):
+                    Self.logger.error("Failed to setup ModelContainer: \(error)")
+                    SentrySDK.capture(error: error) { scope in
+                        scope.setTag(value: "model_container_setup", key: "operation")
+                        scope.setContext(
+                            value: [
+                                "action": "setting_up_model_container"
+                            ], key: "error_details")
+                    }
+
+                case .success(let container):
+                    let breadcrumb = Breadcrumb()
+                    breadcrumb.message = "ModelContainer setup successful, starting data seeding check"
+                    breadcrumb.category = "database.setup"
+                    breadcrumb.level = .info
+                    SentrySDK.addBreadcrumb(breadcrumb)
+
+                    DataSeedingService.seedDataIfNeeded(modelContext: container.mainContext)
+                }
+            }
+        )
     }
 }
