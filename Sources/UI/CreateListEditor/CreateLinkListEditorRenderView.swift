@@ -13,23 +13,27 @@ struct CreateLinkListEditorRenderView: View {
     let saveAction: () -> Void
 
     var body: some View {
-        Form {
+        List {
             TextField(L10n.Shared.Form.Name.label, text: $name)
                 .tag(CreateField.name)
                 .focused($focusedField, equals: .name)
                 .accessibilityLabel(L10n.Shared.Form.Name.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
+                .accessibilityIdentifier("create-link-list.name.text-field")
                 .onSubmit {
                     submit()
                 }
         }
         .navigationTitle(L10n.CreateList.title)
+        .accessibilityIdentifier("create-link-list.container")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button(L10n.Shared.Button.Cancel.label) {
                     dismiss()
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+                .accessibilityIdentifier("create-link-list.cancel-button")
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(L10n.Shared.Button.Save.label) {
@@ -37,8 +41,8 @@ struct CreateLinkListEditorRenderView: View {
                 }
                 .disabled(!isValid())
                 .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
-                .accessibilityHint(
-                    isValid() ? L10n.Shared.Button.Save.Accessibility.label : L10n.Shared.Form.Name.Accessibility.hint)
+                .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
+                .accessibilityIdentifier("create-link-list.save-button")
             }
         }
         .onAppear {
@@ -64,7 +68,7 @@ struct CreateLinkListEditorRenderView: View {
 #Preview {
     NavigationStack {
         CreateLinkListEditorRenderView(
-            name: .constant(""),
+            name: .constant("My Favorites"),
             saveAction: {}
         )
     }

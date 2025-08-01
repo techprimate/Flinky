@@ -20,6 +20,7 @@ struct LinkListDetailRenderView: View {
     var body: some View {
         listContent
             .navigationTitle(list.name)
+            .accessibilityIdentifier("link-list-detail.container")
             .searchable(text: $searchText, prompt: L10n.Search.links)
             .overlay {
                 emptyStateView
@@ -87,6 +88,7 @@ struct LinkListDetailRenderView: View {
         }
         .accessibilityLabel(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.label)
         .accessibilityHint(L10n.LinkListDetail.MoreMenu.EditList.Accessibility.hint)
+        .accessibilityIdentifier("link-list-detail.edit.button")
     }
 
     @ViewBuilder
@@ -98,6 +100,7 @@ struct LinkListDetailRenderView: View {
         }
         .accessibilityLabel(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.label)
         .accessibilityHint(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.hint)
+        .accessibilityIdentifier("link-list-detail.delete.button")
     }
 
     @ViewBuilder

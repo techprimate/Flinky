@@ -15,6 +15,7 @@ struct LinkListInfoRenderView: View {
             ColorPickerSection(selection: $color)
             SymbolPickerSection(selection: $symbol)
         }
+        .accessibilityIdentifier("link-list-info.container")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(role: .cancel) {
@@ -23,6 +24,8 @@ struct LinkListInfoRenderView: View {
                     Text(L10n.Shared.Button.Cancel.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+                .accessibilityIdentifier("link-list-info.cancel-button")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -31,7 +34,8 @@ struct LinkListInfoRenderView: View {
                     Text(L10n.Shared.Button.Done.label)
                 }
                 .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
+                .accessibilityIdentifier("link-list-info.save-button")
             }
         }
     }
@@ -83,9 +87,11 @@ extension LinkListInfoRenderView {
                         .cornerRadius(12)
                         .accessibilityLabel(L10n.Shared.Form.Name.Accessibility.label)
                         .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
+                        .accessibilityIdentifier("link-list-info.name-section.text-field")
                 }
                 .padding(4)
             }
+            .accessibilityIdentifier("link-list-info.name-section.container")
         }
     }
 
@@ -110,7 +116,9 @@ extension LinkListInfoRenderView {
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.hint(selection.name))
+            .accessibilityLabel(L10n.Shared.ColorPicker.Accessibility.label(selection.name))
+            .accessibilityHint(L10n.Shared.ColorPicker.Accessibility.hint(selection.name))
+            .accessibilityIdentifier("link-list-info.color-picker-section.container")
         }
     }
 
@@ -173,6 +181,8 @@ extension LinkListInfoRenderView {
                     Self.SymbolView(symbol: symbol)
                         .accessibilityLabel(
                             L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))
+                        .accessibilityHint(L10n.Shared.SymbolPicker.Option.Accessibility.hint(symbolName(for: symbol)))
+                        .accessibilityIdentifier("link-list-info.symbol-picker-section.item.\(symbol.sfsymbol.rawValue)")
                 }
                 // Use an invisible textfield in the background to present the emoji keyboard
                 // without showing it on the screen.
@@ -193,7 +203,9 @@ extension LinkListInfoRenderView {
                         .opacity(0))
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))
+            .accessibilityLabel(L10n.Shared.SymbolPicker.Accessibility.label(symbolName(for: selection)))
+            .accessibilityHint(L10n.Shared.SymbolPicker.Accessibility.hint(symbolName(for: selection)))
+            .accessibilityIdentifier("link-list-info.symbol-picker-section.container")
         }
 
         private func symbolName(for symbol: ListSymbol) -> String {

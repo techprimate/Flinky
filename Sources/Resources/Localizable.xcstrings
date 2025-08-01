@@ -901,13 +901,25 @@
       }
     },
     "shared.button.done.accessibility.label" : {
-      "comment" : "Done button accessibility",
+      "comment" : "Done button accessibility label",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        }
+      }
+    },
+    "shared.button.done.accessibility.hint" : {
+      "comment" : "Done button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm action"
           }
         }
       }
@@ -1020,8 +1032,20 @@
         }
       }
     },
+    "shared.color-picker.accessibility.label" : {
+      "comment" : "Color picker accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color picker. Current selection: %@"
+          }
+        }
+      }
+    },
     "shared.color-picker.accessibility.hint" : {
-      "comment" : "Color picker accessibility",
+      "comment" : "Color picker accessibility hint",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1034,6 +1058,18 @@
     },
     "shared.color-picker.option.accessibility.label" : {
       "comment" : "Color option accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ color option"
+          }
+        }
+      }
+    },
+    "shared.color-picker.option.accessibility.hint" : {
+      "comment" : "Color option accessibility hint",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -2052,8 +2088,20 @@
         }
       }
     },
+    "shared.symbol-picker.accessibility.label" : {
+      "comment" : "Symbol picker accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol picker. Current selection: %@"
+          }
+        }
+      }
+    },
     "shared.symbol-picker.accessibility.hint" : {
-      "comment" : "Symbol picker accessibility",
+      "comment" : "Symbol picker accessibility hint",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -2066,6 +2114,18 @@
     },
     "shared.symbol-picker.option.accessibility.label" : {
       "comment" : "Symbol option accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ symbol option"
+          }
+        }
+      }
+    },
+    "shared.symbol-picker.option.accessibility.hint" : {
+      "comment" : "Symbol option accessibility hint",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

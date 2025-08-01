@@ -39,6 +39,7 @@ struct CreateLinkEditorRenderView: View {
                 }
         }
         .navigationTitle(L10n.CreateLink.title)
+        .accessibilityIdentifier("create-link.container")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button(L10n.Shared.Button.Cancel.label) {

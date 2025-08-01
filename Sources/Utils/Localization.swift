@@ -267,6 +267,8 @@ internal enum L10n {
                 /// Done
                 internal static let label = L10n.tr("shared.button.done.label", fallback: "Done")
                 internal enum Accessibility {
+                    /// Confirm action
+                    internal static let hint = L10n.tr("shared.button.done.accessibility.hint", fallback: "Confirm action")
                     /// Done
                     internal static let label = L10n.tr("shared.button.done.accessibility.label", fallback: "Done")
                 }
@@ -336,9 +338,17 @@ internal enum L10n {
                 internal static func hint(_ p1: Any) -> String {
                     return L10n.tr("shared.color-picker.accessibility.hint", String(describing: p1), fallback: "Color picker. Current selection: %@")
                 }
+                /// Color picker. Current selection: %@
+                internal static func label(_ p1: Any) -> String {
+                    return L10n.tr("shared.color-picker.accessibility.label", String(describing: p1), fallback: "Color picker. Current selection: %@")
+                }
             }
             internal enum Option {
                 internal enum Accessibility {
+                    /// %@ color option
+                    internal static func hint(_ p1: Any) -> String {
+                        return L10n.tr("shared.color-picker.option.accessibility.hint", String(describing: p1), fallback: "%@ color option")
+                    }
                     /// %@ color option
                     internal static func label(_ p1: Any) -> String {
                         return L10n.tr("shared.color-picker.option.accessibility.label", String(describing: p1), fallback: "%@ color option")
@@ -662,9 +672,17 @@ internal enum L10n {
                 internal static func hint(_ p1: Any) -> String {
                     return L10n.tr("shared.symbol-picker.accessibility.hint", String(describing: p1), fallback: "Symbol picker. Current selection: %@")
                 }
+                /// Symbol picker. Current selection: %@
+                internal static func label(_ p1: Any) -> String {
+                    return L10n.tr("shared.symbol-picker.accessibility.label", String(describing: p1), fallback: "Symbol picker. Current selection: %@")
+                }
             }
             internal enum Option {
                 internal enum Accessibility {
+                    /// %@ symbol option
+                    internal static func hint(_ p1: Any) -> String {
+                        return L10n.tr("shared.symbol-picker.option.accessibility.hint", String(describing: p1), fallback: "%@ symbol option")
+                    }
                     /// %@ symbol option
                     internal static func label(_ p1: Any) -> String {
                         return L10n.tr("shared.symbol-picker.option.accessibility.label", String(describing: p1), fallback: "%@ symbol option")
