@@ -1,4 +1,4 @@
-.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization generate-app-store-summary
+.PHONY: build-ios test-ios format lint generate generate-licenses generate-localization generate-app-store-summary generate-app-icons
 
 build-ios:
 	xcrun xcodebuild -project Flinky.xcodeproj -scheme Flinky -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | xcbeautify
@@ -38,3 +38,6 @@ generate-version-in-settings:
 
 generate-app-store-summary:
 	./Scripts/generate-app-store-summary.sh
+
+generate-app-icons:
+	fastlane ios generate_app_icons
