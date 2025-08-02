@@ -24,7 +24,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols",
       "state" : {
-        "revision" : "3dd282d3269b061853a3b3bcd23a509d2aa166ce",
+        "revision" : "c206474c1e57bd604d18d211da5354de0ce64634",
         "version" : "6.2.0"
       }
     },
