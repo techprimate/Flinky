@@ -251,12 +251,12 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
             [2622, 1206]
           ]
           # Add iPad Pro 13-inch (M4) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = devices[Deliver::AppScreenshot::ScreenSize::IOS_67] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] + [
             [2064, 2752],
             [2752, 2064]
           ]
           # Add iPad Pro 11-inch (M4) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = devices[Deliver::AppScreenshot::ScreenSize::IOS_61] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] + [
             [1668, 2420],
             [2420, 1668]
           ]
