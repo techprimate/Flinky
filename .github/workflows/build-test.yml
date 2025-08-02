@@ -18,7 +18,7 @@ jobs:
     runs-on: macos-15
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
@@ -29,7 +29,7 @@ jobs:
       - name: Upload Logs
         uses: actions/upload-artifact@v4
         with:
-          name: logs
+          name: build-logs
           path: |
             raw-build-ios.log
           retention-days: 1
@@ -39,7 +39,7 @@ jobs:
     runs-on: macos-15
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
@@ -50,7 +50,7 @@ jobs:
       - name: Upload Logs
         uses: actions/upload-artifact@v4
         with:
-          name: logs
+          name: test-logs
           path: |
             raw-test-ios.log
           retention-days: 1
@@ -60,7 +60,7 @@ jobs:
     runs-on: macos-15
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
@@ -71,7 +71,7 @@ jobs:
       - name: Upload Logs
         uses: actions/upload-artifact@v4
         with:
-          name: logs
+          name: ui-test-logs
           path: |
             raw-test-ui-ios.log
           retention-days: 1
