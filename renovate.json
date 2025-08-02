@@ -33,12 +33,54 @@
   "extends": [
     "config:recommended"
   ],
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": false,
   "lockFileMaintenance": {
-    "enabled": true,
-    "extends": [
-      "schedule:daily"
-    ]
+    "enabled": false
   },
+  "packageRules": [
+    {
+      "description": "Only allow semantic version updates for Swift packages",
+      "matchManagers": [
+        "swift"
+      ],
+      "updateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "enabled": true
+    },
+    {
+      "description": "Disable digest-only updates for custom managers",
+      "matchManagers": [
+        "regex"
+      ],
+      "updateTypes": [
+        "digest"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Allow version updates for custom managers",
+      "matchManagers": [
+        "regex"
+      ],
+      "updateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "enabled": true
+    },
+    {
+      "description": "Disable lock file maintenance",
+      "updateTypes": [
+        "lockFileMaintenance"
+      ],
+      "enabled": false
+    }
+  ],
   "stopUpdatingLabel": "renovate:disabled",
   "timezone": "Europe/Vienna"
 }
