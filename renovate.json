@@ -1,6 +1,44 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "git-tags",
+      "depNameTemplate": "{{{replace 'https://github.com/' '' location}}}",
+      "description": "Custom manager for Package.resolved",
+      "extractVersionTemplate": "^(?<version>.+?)$",
+      "managerFilePatterns": [
+        "/(^|/)Package\\.resolved$/"
+      ],
+      "matchStrings": [
+        "\"identity\"\\s*:\\s*\"(?<identity>.*?)\"[^}]*?\"kind\"\\s*:\\s*\"remoteSourceControl\"[^}]*?\"location\"\\s*:\\s*\"(?<location>.*?)\"[^}]*?\"state\"\\s*:\\s*{[^}]*?\"revision\"\\s*:\\s*\"(?<currentDigest>.*?)\"[^}]*?\"version\"\\s*:\\s*\"(?<currentValue>.*?)\""
+      ],
+      "packageNameTemplate": "https://github.com/{{{replace 'https://github.com/' '' location}}}"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "git-tags",
+      "depNameTemplate": "{{{replace 'https://github.com/' '' packageName}}}",
+      "description": "Custom manager for project.pbxproj",
+      "extractVersionTemplate": "^(?<version>.+?)$",
+      "managerFilePatterns": [
+        "/(^|/).*\\.xcodeproj/project\\.pbxproj$/"
+      ],
+      "matchStrings": [
+        "repositoryURL\\s*=\\s*\"(?<packageName>.*?)\";\\n?\\s*requirement\\s*=\\s*\\{\\n?\\s*kind\\s*=\\s*exactVersion;\\n?\\s*version\\s*=\\s*(?<currentValue>.*?);\\n?\\s*\\}"
+      ],
+      "packageNameTemplate": "https://github.com/{{{replace 'https://github.com/' '' packageName}}}"
+    }
+  ],
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": [
+      "schedule:daily"
+    ]
+  },
+  "stopUpdatingLabel": "renovate:disabled",
+  "timezone": "Europe/Vienna"
 }
