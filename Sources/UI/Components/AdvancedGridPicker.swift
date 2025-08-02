@@ -15,6 +15,7 @@ struct AdvancedGridPicker<Item: Identifiable, ItemView: View, WildCardButtonView
             wildcardButtonView
             listView
         }
+        .accessibilityIdentifier("advanced-grid-picker.container")
     }
 
     private var wildcardButtonView: some View {
