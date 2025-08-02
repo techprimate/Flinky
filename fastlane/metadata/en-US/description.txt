@@ -1,7 +1,7 @@
 Flinky is the fastest way to turn links into QR codes on your iPhone.
 
-Whether it’s your social profile, website, or anything you want to share — Flinky makes it instant, private, and effortless.
-Your links stay local and secure, while sharing them is as easy as showing your screen.
+Whether it's your social profile, website, or anything you want to share — Flinky makes it instant, private, and effortless.
+Your links stay local on your device, while sharing them is as easy as showing your screen.
 
 No login. No subscription. No distractions.
 
@@ -17,8 +17,9 @@ Save and organize your links
 • Search and filter your list as it grows
 
 Designed for privacy and speed
-• All data is stored on-device—nothing leaves your phone
-• No sign-in, no tracking
+• Your links and lists are stored on-device—no cloud storage required
+• No sign-in, no user accounts, no personal data collection
+• Anonymous crash reports help us improve the app
 • Lightweight app optimized for fast startup and smooth performance
 
 Get started instantly
@@ -36,6 +37,6 @@ Beautifully designed
 • Supports dark mode
 • Focused on what matters—your links
 
-Flinky is fully offline, zero-login, and optimized for quick, secure link sharing using QR codes.
+Flinky requires no login or cloud storage, and is optimized for quick, secure link sharing using QR codes.
 
 Experience a smoother way to share — download Flinky today.
