@@ -82,12 +82,18 @@ platform :ios do
 
     capture_screenshots(
       scheme: "ScreenshotUITests",
-      devices: ["iPhone 16 Pro Max"],
-      ios_version: "18.4",
+      devices: [
+        "iPhone 16 Pro Max", # iPhone 6.9" display
+        "iPhone 16 Pro", # iPhone 6.3" display
+
+        "iPad Pro 13-inch (M4)", # iPad 13" display
+        "iPad Pro 11-inch (M4)", # iPad 11" display
+      ],
       languages: ["en-US"],
 
       clear_previous_screenshots: true,
       concurrent_simulators: true,
+      skip_open_summary: true,
 
       reinstall_app: true,
       override_status_bar: true,
@@ -219,20 +225,40 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
 
         def device_messages
           messages = original_device_messages
-          # Add iPhone 16 Pro Max resolution to existing iPhone 14 Pro Max resolutions
+          # Add iPhone 16 Pro Max resolution to existing resolutions
           messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] + [
             [1320, 2868],
             [2868, 1320]
+          ]
+          # Add iPhone 16 Pro resolution to existing resolutions
+          messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] + [
+            [1206, 2622],
+            [2622, 1206]
           ]
           messages
         end
 
         def devices
           devices = original_devices
-          # Add iPhone 16 Pro Max resolution to existing iPhone 14 Pro Max resolutions
+          # Add iPhone 16 Pro Max resolution to existing resolutions
           devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = devices[Deliver::AppScreenshot::ScreenSize::IOS_67] + [
             [1320, 2868],
             [2868, 1320]
+          ]
+          # Add iPhone 16 Pro resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = devices[Deliver::AppScreenshot::ScreenSize::IOS_61] + [
+            [1206, 2622],
+            [2622, 1206]
+          ]
+          # Add iPad Pro 13-inch (M4) resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] + [
+            [2064, 2752],
+            [2752, 2064]
+          ]
+          # Add iPad Pro 11-inch (M4) resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] + [
+            [1668, 2420],
+            [2420, 1668]
           ]
           devices
         end
@@ -252,6 +278,8 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       languages: ["en-US"],
       metadata_path: File.expand_path("./metadata"),
       screenshots_path: File.expand_path("./screenshots"),
+
+      force: true, # Skip the preview HTML
 
       app_review_information: {
         email_address: ENV["APP_REVIEW_EMAIL_ADDRESS"],

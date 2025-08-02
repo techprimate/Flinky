@@ -72,7 +72,11 @@ final class ScreenshotUITests: XCTestCase {
         
         // Select a new color for the link
         app.buttons["grid-picker.item.orange"].tap()
-        app.buttons["advanced-grid-picker.item.entertainment.party-popper"].tap()
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            // Due to crashes of the UI layout on iPad when the sheet is not high enough,
+            // we disabled the picker in the screenshots run.
+            app.buttons["advanced-grid-picker.item.entertainment.party-popper"].tap()
+        }
         
         // 4. Take screenshot of edit link settings
         snapshot("03_Edit_Link_Settings")
