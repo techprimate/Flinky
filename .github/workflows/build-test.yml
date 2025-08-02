@@ -65,7 +65,7 @@ jobs:
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
 
-      - name: Test
+      - name: Test UI
         run: make test-ui-ios
 
       - name: Upload Logs
