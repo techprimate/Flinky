@@ -1,0 +1,77 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-15
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Build
+        run: make build-ios
+
+      - name: Upload Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            raw-build-ios.log
+          retention-days: 1
+
+  build-test:
+    name: Test
+    runs-on: macos-15
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Test
+        run: make test-ios
+
+      - name: Upload Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: |
+            raw-test-ios.log
+          retention-days: 1
+
+  build-test-ui:
+    name: Test UI
+    runs-on: macos-15
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Test UI
+        run: make test-ui-ios
+
+      - name: Upload Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-logs
+          path: |
+            raw-test-ui-ios.log
+          retention-days: 1

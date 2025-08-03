@@ -102,6 +102,11 @@ Generated/
 .sentryclirc
 .env
 
+# Build logs
+raw-build-ios.log
+raw-test-ios.log
+raw-test-ui-ios.log
+
 # --- Ruby ---
 
 vendor
