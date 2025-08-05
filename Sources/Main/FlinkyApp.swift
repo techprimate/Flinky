@@ -42,8 +42,8 @@ struct FlinkyApp: App {
             options.environment = "production"
         #endif
 
-        options.sampleRate = 1.0
-        options.tracesSampleRate = 1.0
+        options.sampleRate = 0.2
+        options.tracesSampleRate = 0.2
 
         // Configure General Options
         options.sendDefaultPii = true
@@ -62,11 +62,11 @@ struct FlinkyApp: App {
 
         // Configure Profiling
         options.enableAppLaunchProfiling = true
-        options.profilesSampleRate = 1.0
+        options.profilesSampleRate = 0.2
 
         // Configure Session Replay
         options.sessionReplay.onErrorSampleRate = 1.0
-        options.sessionReplay.sessionSampleRate = 1.0
+        options.sessionReplay.sessionSampleRate = 0.1
         options.sessionReplay.enableViewRendererV2 = true
         options.sessionReplay.enableFastViewRendering = false
 
