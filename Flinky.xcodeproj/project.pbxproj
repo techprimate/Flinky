@@ -199,6 +199,7 @@
 				D4D359D52E1BDF540006226D /* Sources */,
 				D4D359D62E1BDF540006226D /* Frameworks */,
 				D4D359D72E1BDF540006226D /* Resources */,
+				D4F7B8E32E41FA15004A2D77 /* Lint */,
 				8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
@@ -366,6 +367,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
 			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+		};
+		D4F7B8E32E41FA15004A2D77 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
