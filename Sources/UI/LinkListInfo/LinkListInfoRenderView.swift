@@ -180,9 +180,11 @@ extension LinkListInfoRenderView {
                 ) { symbol in
                     Self.SymbolView(symbol: symbol)
                         .accessibilityLabel(
-                            L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))
+                            L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol))
+                        )
                         .accessibilityHint(L10n.Shared.SymbolPicker.Option.Accessibility.hint(symbolName(for: symbol)))
-                        .accessibilityIdentifier("link-list-info.symbol-picker-section.item.\(symbol.sfsymbol.rawValue)")
+                        .accessibilityIdentifier(
+                            "link-list-info.symbol-picker-section.item.\(symbol.sfsymbol.rawValue)")
                 }
                 // Use an invisible textfield in the background to present the emoji keyboard
                 // without showing it on the screen.
