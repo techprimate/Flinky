@@ -135,7 +135,7 @@ enum ListSymbolCurrency {
 }
 
 extension ListSymbolCurrency: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case "dollar":
             self = .dollar

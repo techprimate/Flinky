@@ -39,7 +39,7 @@ enum ListSymbolArrow {
 }
 
 extension ListSymbolArrow: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "arrow-up":
             self = .arrowUp

@@ -196,7 +196,7 @@ extension LinkInfoRenderView {
                         .buttonStyle(.plain)
                     },
                     isWildcardItem: { $0.isEmoji }
-                ) { symbol in
+                ) { symbol in  // swiftlint:disable:this multiple_closures_with_trailing_closure
                     Self.SymbolView(symbol: symbol)
                         .accessibilityLabel(
                             L10n.Shared.SymbolPicker.Option.Accessibility.label(symbolName(for: symbol)))

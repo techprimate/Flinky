@@ -41,18 +41,18 @@ final class DatabaseMetadataTests: XCTestCase {
         XCTAssertEqual(metadata.createdAt, metadata.updatedAt) // Should be equal on creation
     }
 
-    func testDatabaseMetadata_Persistence() {
+    func testDatabaseMetadata_Persistence() throws {
         // Given - A metadata entry
         let metadata = DatabaseMetadata(key: "persistence_test", value: "test_value")
         modelContext.insert(metadata)
 
         // When - Save and fetch
-        try! modelContext.save()
+        try modelContext.save()
 
         let fetchDescriptor = FetchDescriptor<DatabaseMetadata>(
             predicate: #Predicate { meta in meta.key == "persistence_test" }
         )
-        let fetchedMetadata = try! modelContext.fetch(fetchDescriptor)
+        let fetchedMetadata = try modelContext.fetch(fetchDescriptor)
 
         // Then - Should persist correctly
         XCTAssertEqual(fetchedMetadata.count, 1)

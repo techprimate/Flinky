@@ -33,7 +33,7 @@ enum ListSymbolTechnology {
     case camera
     case computer
     case gameController
-    case tv
+    case tv  // swiftlint:disable:this identifier_name
     case headlightHighBeam
 
     var sfsymbol: SFSymbol {
@@ -111,7 +111,7 @@ enum ListSymbolTechnology {
 }
 
 extension ListSymbolTechnology: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case "air-purifier":
             self = .airPurifier

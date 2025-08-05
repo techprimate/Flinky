@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolLetter")
 class ListSymbolLetterTests {
-    private let symbolRawValuePairs: [(ListSymbolLetter, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolLetter, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.letterA, "letter-a", .aCircleFill),
         (.letterB, "letter-b", .bCircleFill),
         (.letterC, "letter-c", .cCircleFill),

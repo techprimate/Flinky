@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolBasicShape")
 class ListSymbolBasicShapeTests {
-    private let symbolRawValuePairs: [(ListSymbolBasicShape, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolBasicShape, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.circle, "circle", .circleFill),
         (.square, "square", .squareFill),
         (.triangle, "triangle", .triangleFill),

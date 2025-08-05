@@ -92,7 +92,7 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                         toaster.show(error: appError)
                     }
                 }
-            ) {
+            ) {  // swiftlint:disable:this multiple_closures_with_trailing_closure
                 LinkListPickerContainerView(
                     preselectedList: list,
                     didSelectList: { list in

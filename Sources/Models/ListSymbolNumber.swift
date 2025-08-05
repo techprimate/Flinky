@@ -1,3 +1,5 @@
+// swiftlint:disable file_length
+
 import SFSafeSymbols
 
 enum ListSymbolNumber {
@@ -200,7 +202,7 @@ enum ListSymbolNumber {
 }
 
 extension ListSymbolNumber: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case "number-0":
             self = .number0

@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolSportRecreation")
 class ListSymbolSportRecreationTests {
-    private let symbolRawValuePairs: [(ListSymbolSportRecreation, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolSportRecreation, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.soccerBall, "soccer-ball", .soccerball),
         (.basketball, "basketball", .basketballFill),
         (.americanFootball, "american-football", .americanFootballFill),

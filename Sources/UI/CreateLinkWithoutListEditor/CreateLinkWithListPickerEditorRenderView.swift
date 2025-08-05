@@ -120,7 +120,7 @@ struct CreateLinkWithListPickerEditorRenderView<PickerDestination: View>: View {
                 url: .constant("https://www.example.com"),
                 selectedList: selectedList,
                 saveAction: {}
-            ) {
+            ) {  // swiftlint:disable:this multiple_closures_with_trailing_closure
                 Text("Picker Destination")
             }
         }

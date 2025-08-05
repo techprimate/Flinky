@@ -66,7 +66,7 @@ enum ListSymbolSportRecreation {
 }
 
 extension ListSymbolSportRecreation: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "soccer-ball":
             self = .soccerBall

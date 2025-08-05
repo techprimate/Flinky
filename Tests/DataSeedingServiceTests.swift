@@ -32,13 +32,13 @@ final class DataSeedingServiceTests: XCTestCase {
         super.tearDown()
     }
 
-    func testSeedDataIfNeeded_FirstTime_CreatesDataAndMetadata() {
+    func testSeedDataIfNeeded_FirstTime_CreatesDataAndMetadata() throws {
         // When - Seed data for the first time
         DataSeedingService.seedDataIfNeeded(modelContext: modelContext)
 
         // Then - Verify data was created
         let listDescriptor = FetchDescriptor<LinkListModel>()
-        let lists = try! modelContext.fetch(listDescriptor)
+        let lists = try modelContext.fetch(listDescriptor)
 
         XCTAssertEqual(lists.count, 2) // "My Links" and "Favorites"
 
@@ -58,13 +58,13 @@ final class DataSeedingServiceTests: XCTestCase {
 
         // Verify metadata was created
         let metadataDescriptor = FetchDescriptor<DatabaseMetadata>()
-        let metadata = try! modelContext.fetch(metadataDescriptor)
+        let metadata = try modelContext.fetch(metadataDescriptor)
 
         XCTAssertEqual(metadata.count, 1)
         XCTAssertTrue(metadata.first?.isDatabaseSeededMarker ?? false)
     }
 
-    func testSeedDataIfNeeded_SecondTime_DoesNotCreateDuplicateData() {
+    func testSeedDataIfNeeded_SecondTime_DoesNotCreateDuplicateData() throws {
         // Given - Database already seeded
         DataSeedingService.seedDataIfNeeded(modelContext: modelContext)
 
@@ -73,24 +73,24 @@ final class DataSeedingServiceTests: XCTestCase {
 
         // Then - Should not create duplicate data
         let listDescriptor = FetchDescriptor<LinkListModel>()
-        let lists = try! modelContext.fetch(listDescriptor)
+        let lists = try modelContext.fetch(listDescriptor)
 
         XCTAssertEqual(lists.count, 2) // Still just "My Links" and "Favorites"
 
         // Should still have only one metadata entry
         let metadataDescriptor = FetchDescriptor<DatabaseMetadata>()
-        let metadata = try! modelContext.fetch(metadataDescriptor)
+        let metadata = try modelContext.fetch(metadataDescriptor)
 
         XCTAssertEqual(metadata.count, 1)
     }
 
-    func testSeedInitialData_CreatesCorrectData() {
+    func testSeedInitialData_CreatesCorrectData() throws {
         // When - Seed initial data directly
         DataSeedingService.seedInitialData(modelContext: modelContext)
 
         // Then - Verify data was created
         let fetchDescriptor = FetchDescriptor<LinkListModel>()
-        let lists = try! modelContext.fetch(fetchDescriptor)
+        let lists = try modelContext.fetch(fetchDescriptor)
 
         XCTAssertEqual(lists.count, 2) // "My Links" and "Favorites"
 
@@ -109,7 +109,7 @@ final class DataSeedingServiceTests: XCTestCase {
         XCTAssertEqual(favoritesList?.symbol, .communication(.star))
     }
 
-    func testMyLinksListContent() {
+    func testMyLinksListContent() throws {
         // When - Seed data
         DataSeedingService.seedInitialData(modelContext: modelContext)
 
@@ -117,7 +117,7 @@ final class DataSeedingServiceTests: XCTestCase {
         let fetchDescriptor = FetchDescriptor<LinkListModel>(
             predicate: #Predicate { list in list.name == "My Links" }
         )
-        let myLinksList = try! modelContext.fetch(fetchDescriptor).first
+        let myLinksList = try modelContext.fetch(fetchDescriptor).first
 
         XCTAssertNotNil(myLinksList)
         XCTAssertEqual(myLinksList?.links.count, 3)
@@ -148,7 +148,7 @@ final class DataSeedingServiceTests: XCTestCase {
         }
     }
 
-    func testFavoritesListContent() {
+    func testFavoritesListContent() throws {
         // When - Seed data
         DataSeedingService.seedInitialData(modelContext: modelContext)
 
@@ -156,7 +156,7 @@ final class DataSeedingServiceTests: XCTestCase {
         let fetchDescriptor = FetchDescriptor<LinkListModel>(
             predicate: #Predicate { list in list.name == "Favorites" }
         )
-        let favoritesList = try! modelContext.fetch(fetchDescriptor).first
+        let favoritesList = try modelContext.fetch(fetchDescriptor).first
 
         XCTAssertNotNil(favoritesList)
         XCTAssertEqual(favoritesList?.links.count, 1)

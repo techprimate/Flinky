@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolPlacesBuildings")
 class ListSymbolPlacesBuildingsTests {
-    private let symbolRawValuePairs: [(ListSymbolPlacesBuildings, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolPlacesBuildings, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.house, "house", .houseFill),
         (.office, "office", .building2Fill),
         (.university, "university", .buildingColumnsFill),

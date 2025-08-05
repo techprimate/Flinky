@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolObject")
 class ListSymbolObjectTests {
-    private let symbolRawValuePairs: [(ListSymbolObject, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolObject, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.key, "key", .keyFill),
         (.keyHorizontal, "key-horizontal", .keyHorizontalFill),
         (.keyCard, "key-card", .keyCardFill),

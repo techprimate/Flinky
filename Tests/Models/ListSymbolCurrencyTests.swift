@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolCurrency")
 class ListSymbolCurrencyTests {
-    private let symbolRawValuePairs: [(ListSymbolCurrency, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolCurrency, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.dollar, "dollar", .dollarsign),
         (.euro, "euro", .eurosign),
         (.yen, "yen", .yensign),

@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolTransportation")
 class ListSymbolTransportationTests {
-    private let symbolRawValuePairs: [(ListSymbolTransportation, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolTransportation, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.airplane, "airplane", .airplane),
         (.car, "car", .carFill),
         (.carSide, "car-side", .carSideFill),

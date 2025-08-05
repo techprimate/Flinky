@@ -6,7 +6,7 @@ final class ScreenshotUITests: XCTestCase {
     }
 
     @MainActor
-    func testScreenshots() throws {
+    func testScreenshots() throws {  // swiftlint:disable:this function_body_length
         let app = XCUIApplication()
         app.launchEnvironment["TESTING"] = "1"
         setupSnapshot(app)
@@ -125,28 +125,28 @@ final class ScreenshotUITests: XCTestCase {
             (name: "Work", color: "grid-picker.item.pink", symbol: "advanced-grid-picker.item.documents-reading-writing.book"),
             (name: "Food", color: "grid-picker.item.green", symbol: "advanced-grid-picker.item.food.fork-knife")
         ]
-        for i in 0..<3 {
+        for idx in 0..<3 {
             // Tap the create list button
             createListButton.tap()
 
             // Wait for the create list form to appear
             let createListForm = app.collectionViews["create-link-list.container"]
-            XCTAssert(createListForm.waitForExistence(timeout: 3), "Create list form did not appear for list \(i)")
+            XCTAssert(createListForm.waitForExistence(timeout: 3), "Create list form did not appear for list \(idx)")
 
             // Enter a unique list name
             let listNameField = app.textFields["create-link-list.name.text-field"]
-            XCTAssert(listNameField.waitForExistence(timeout: 1), "List name text field not found for list \(i)")
+            XCTAssert(listNameField.waitForExistence(timeout: 1), "List name text field not found for list \(idx)")
             listNameField.tap()
-            listNameField.typeText(lists[i].name)
+            listNameField.typeText(lists[idx].name)
 
             // Save the new list
             let saveButton = app.buttons["create-link-list.save-button"]
-            XCTAssert(saveButton.waitForExistence(timeout: 2), "Save button not found for list \(i)")
+            XCTAssert(saveButton.waitForExistence(timeout: 2), "Save button not found for list \(idx)")
             saveButton.tap()
 
             // Open the edit list editor
-            let createdListButton = app.buttons.containing(NSPredicate(format: "label CONTAINS '\(lists[i].name)'")).firstMatch
-            XCTAssert(createdListButton.waitForExistence(timeout: 5), "Created list button not found for list \(i)")
+            let createdListButton = app.buttons.containing(NSPredicate(format: "label CONTAINS '\(lists[idx].name)'")).firstMatch
+            XCTAssert(createdListButton.waitForExistence(timeout: 5), "Created list button not found for list \(idx)")
             createdListButton.press(forDuration: 1.0)
 
             let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit'")).firstMatch
@@ -155,17 +155,17 @@ final class ScreenshotUITests: XCTestCase {
 
             // Wait for the edit list form to appear
             let editListForm = app.collectionViews["link-list-info.container"]
-            XCTAssert(editListForm.waitForExistence(timeout: 3), "Edit list form did not appear for list \(i)")
+            XCTAssert(editListForm.waitForExistence(timeout: 3), "Edit list form did not appear for list \(idx)")
 
             // Select a new color for the list
-            app.buttons[lists[i].color].tap()
-            app.buttons[lists[i].symbol].tap()
+            app.buttons[lists[idx].color].tap()
+            app.buttons[lists[idx].symbol].tap()
 
             // Save changes and close edit form
             app.buttons["link-list-info.save-button"].tap()
 
             // Wait for return to main lists view
-            XCTAssert(createListButton.waitForExistence(timeout: 5), "Failed to return to main lists view after creating list \(i)")
+            XCTAssert(createListButton.waitForExistence(timeout: 5), "Failed to return to main lists view after creating list \(idx)")
         }
 
         // 5. List of lists

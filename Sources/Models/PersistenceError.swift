@@ -86,7 +86,7 @@ enum PersistenceError: LocalizedError, CustomStringConvertible {
 }
 
 extension PersistenceError: Equatable {
-    static func == (lhs: PersistenceError, rhs: PersistenceError) -> Bool {
+    static func == (lhs: PersistenceError, rhs: PersistenceError) -> Bool {  // swiftlint:disable:this cyclomatic_complexity
         switch (lhs, rhs) {
         case let (.saveLinkFailed(lhsError), .saveLinkFailed(rhsError)):
             return lhsError == rhsError

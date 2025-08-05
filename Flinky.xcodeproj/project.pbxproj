@@ -44,6 +44,17 @@
 		D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D4F7B8E42E4205EF004A2D77 /* Exceptions for "Sources" folder in "Flinky" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/Flinky-Info.plist",
+				Services/README.md,
+			);
+			target = D4D359D82E1BDF540006226D /* Flinky */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D40BEC182E2EE0C500391C5A /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -77,6 +88,9 @@
 		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D4F7B8E42E4205EF004A2D77 /* Exceptions for "Sources" folder in "Flinky" target */,
+			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
@@ -324,6 +338,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

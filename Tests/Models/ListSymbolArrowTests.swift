@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolArrow")
 class ListSymbolArrowTests {
-    private let symbolRawValuePairs: [(ListSymbolArrow, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolArrow, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.arrowUp, "arrow-up", .arrowshapeUpFill),
         (.arrowDown, "arrow-down", .arrowshapeDownFill),
         (.arrowLeft, "arrow-left", .arrowshapeLeftFill),

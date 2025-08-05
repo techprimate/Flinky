@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolHuman")
 class ListSymbolHumanTests {
-    private let symbolRawValuePairs: [(ListSymbolHuman, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolHuman, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.handRaised, "hand-raised", .handRaisedFill),
         (.handWave, "hand-wave", .handWaveFill),
         (.thumbsUp, "thumbs-up", .handThumbsupFill),

@@ -153,7 +153,7 @@ struct LinkListsRenderView<Destination: View>: View {
             deleteUnpinnedListAction: { _ in },
             deleteUnpinnedListsAction: { _ in },
             editListAction: { _ in }
-        ) { list in
+        ) { list in  // swiftlint:disable:this multiple_closures_with_trailing_closure
             Text(list.name)
         }
     }

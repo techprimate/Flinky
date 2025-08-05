@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolCommunication")
 class ListSymbolCommunicationTests {
-    private let symbolRawValuePairs: [(ListSymbolCommunication, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolCommunication, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.network, "network", .network),
         (.link, "link", .link),
         (.checkmark, "checkmark", .checkmarkCircleFill),

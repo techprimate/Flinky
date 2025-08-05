@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolNature")
 class ListSymbolNatureTests {
-    private let symbolRawValuePairs: [(ListSymbolNature, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolNature, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.tree, "tree", .treeFill),
         (.leaf, "leaf", .leafFill),
         (.carrot, "carrot", .carrotFill),

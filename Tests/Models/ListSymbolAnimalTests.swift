@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolAnimal")
 class ListSymbolAnimalTests {
-    private let symbolRawValuePairs: [(ListSymbolAnimal, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolAnimal, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.ant, "ant", .antFill),
         (.bird, "bird", .birdFill),
         (.cat, "cat", .catFill),

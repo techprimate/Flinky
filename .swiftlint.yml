@@ -1,0 +1,15 @@
+excluded:
+  - "*/SnapshotHelper.swift"
+
+# Rules
+line_length:
+  warning: 150
+nesting:
+  type_level:
+    warning: 3
+  function_level:
+    warning: 3
+type_name:
+  max_length:
+    warning: 60
+    error: 100

@@ -78,7 +78,7 @@ enum ListSymbolDocumentsReadingWriting {
 }
 
 extension ListSymbolDocumentsReadingWriting: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "bookmark":
             self = .bookmark

@@ -156,7 +156,7 @@ final class DataSeedingService {
 
     /// Seeds the initial data for first launch
     /// - Parameter modelContext: SwiftData model context to use for data operations
-    static func seedInitialData(modelContext: ModelContext) {
+    static func seedInitialData(modelContext: ModelContext) {  // swiftlint:disable:this function_body_length
         logger.info("Seeding initial data")
 
         let startBreadcrumb = Breadcrumb()

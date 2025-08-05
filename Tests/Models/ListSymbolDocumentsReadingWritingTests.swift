@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolDocumentsReadingWriting")
 class ListSymbolDocumentsReadingWritingTests {
-    private let symbolRawValuePairs: [(ListSymbolDocumentsReadingWriting, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolDocumentsReadingWriting, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.bookmark, "bookmark", .bookmarkFill),
         (.book, "book", .bookFill),
         (.bookClosed, "book-closed", .bookClosedFill),

@@ -1,6 +1,8 @@
+// swiftlint:disable file_length
+
 import SFSafeSymbols
 
-enum ListSymbolFigureSportsActivity {
+enum ListSymbolFigureSportsActivity {  // swiftlint:disable:this type_body_length
     case figure
     case figure2ArmsOpen
     case figureAmericanFootball
@@ -264,7 +266,7 @@ enum ListSymbolFigureSportsActivity {
 }
 
 extension ListSymbolFigureSportsActivity: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case "figure":
             self = .figure

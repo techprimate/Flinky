@@ -171,13 +171,13 @@ struct LinkDetailContainerView: View {
         image = .success(uiImage)
     }
 
-    func saveImageToPhotos(_ image: UIImage) {
+    func saveImageToPhotos(_ image: UIImage) {  // swiftlint:disable:this function_body_length
         PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
             switch status {
             case .authorized, .limited:
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAsset(from: image)
-                }) { success, error in
+                }) { success, error in  // swiftlint:disable:this multiple_closures_with_trailing_closure
                     DispatchQueue.main.async {
                         if success {
                             toaster.success(description: L10n.Shared.QrCode.SaveToPhotos.success)

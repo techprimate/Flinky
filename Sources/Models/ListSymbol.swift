@@ -103,7 +103,7 @@ enum ListSymbol {
 }
 
 extension ListSymbol: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case _ where rawValue.starts(with: "emoji."):
             self = .emoji(String(rawValue.dropFirst("emoji.".count)))

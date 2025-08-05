@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolClothingAccessories")
 class ListSymbolClothingAccessoriesTests {
-    private let symbolRawValuePairs: [(ListSymbolClothingAccessories, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolClothingAccessories, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.hat, "hat", .hatWidebrimFill),
         (.tshirt, "tshirt", .tshirtFill)
     ]

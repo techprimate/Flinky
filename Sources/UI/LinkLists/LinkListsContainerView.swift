@@ -181,7 +181,7 @@ struct LinkListsContainerView: View {
             editListAction: { item in
                 presentedInfoList = (pinnedLists + unpinnedLists).first { $0.id == item.id }
             }
-        ) { listDisplayItem in
+        ) { listDisplayItem in  // swiftlint:disable:this multiple_closures_with_trailing_closure
             if let list = (pinnedLists + unpinnedLists).first(where: { $0.id == listDisplayItem.id }) {
                 LinkListDetailContainerView(list: list)
             }

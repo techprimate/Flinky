@@ -31,7 +31,7 @@ struct LinkDetailNFCSharingContainerView: View {
         }
     }
 
-    private func startNFCSession() {
+    private func startNFCSession() {  // swiftlint:disable:this function_body_length
         guard NFCNDEFReaderSession.readingAvailable else {
             Self.logger.error("NFC reading not available on this device")
             let localDescription = "NFC reading not available on this device"

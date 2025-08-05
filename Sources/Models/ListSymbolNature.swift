@@ -66,7 +66,7 @@ enum ListSymbolNature {
 }
 
 extension ListSymbolNature: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "tree":
             self = .tree

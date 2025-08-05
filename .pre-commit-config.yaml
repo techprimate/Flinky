@@ -29,7 +29,8 @@ repos:
         name: Generate Localization
         entry: make
         language: system
-        types_or: ["swift"]
+        files: ^(Sources/Resources/Localizable\.xcstrings|Templates/.*\.stencil|Makefile|Scripts/generate-localization\.sh)$
+        pass_filenames: false
         args:
           - "generate-localization"
 

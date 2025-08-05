@@ -138,7 +138,7 @@ enum ListSymbolObject {
 }
 
 extension ListSymbolObject: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity function_body_length
         switch rawValue {
         case "key":
             self = .key

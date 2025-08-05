@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolTechnology")
 class ListSymbolTechnologyTests {
-    private let symbolRawValuePairs: [(ListSymbolTechnology, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolTechnology, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.airPurifier, "air-purifier", .airPurifierFill),
         (.airpods, "airpods", .airpodsPro),
         (.alarm, "alarm", .alarmFill),

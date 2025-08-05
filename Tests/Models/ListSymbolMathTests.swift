@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolMath")
 class ListSymbolMathTests {
-    private let symbolRawValuePairs: [(ListSymbolMath, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolMath, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.plus, "plus", .plus),
         (.minus, "minus", .minus),
         (.multiply, "multiply", .multiply),

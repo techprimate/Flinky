@@ -39,7 +39,7 @@ enum ListSymbolPlacesBuildings {
 }
 
 extension ListSymbolPlacesBuildings: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "house":
             self = .house

@@ -60,7 +60,7 @@ struct PinnedLinkListsRenderView<T: View>: View {
             editAction: { _ in },
             unpinAction: { _ in },
             deleteAction: { _ in }
-        ) { list in
+        ) { list in  // swiftlint:disable:this multiple_closures_with_trailing_closure
             Text(list.name)
         }
         .padding()

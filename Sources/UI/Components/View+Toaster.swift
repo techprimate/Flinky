@@ -113,6 +113,7 @@ struct ToastTopLevelView: View {
     }
 
     private func teardownNotifications() {
+        // swiftlint:disable:next notification_center_detachment
         NotificationCenter.default.removeObserver(self)
     }
 }

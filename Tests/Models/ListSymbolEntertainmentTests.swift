@@ -4,7 +4,7 @@ import SFSafeSymbols
 
 @Suite("ListSymbolEntertainment")
 class ListSymbolEntertainmentTests {
-    private let symbolRawValuePairs: [(ListSymbolEntertainment, String, SFSymbol)] = [
+    private let symbolRawValuePairs: [(ListSymbolEntertainment, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
         (.theaterMasks, "theater-masks", .theatermasksFill),
         (.balloon, "balloon", .balloonFill),
         (.balloon2, "balloon-2", .balloon2Fill),

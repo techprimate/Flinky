@@ -42,7 +42,7 @@ enum ListSymbolAnimal {
 }
 
 extension ListSymbolAnimal: RawRepresentable {
-    init?(rawValue: String) {
+    init?(rawValue: String) {  // swiftlint:disable:this cyclomatic_complexity
         switch rawValue {
         case "ant":
             self = .ant
