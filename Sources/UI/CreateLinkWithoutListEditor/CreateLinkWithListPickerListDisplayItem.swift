@@ -1,3 +1,4 @@
+import FlinkyShared
 import Foundation
 import SFSafeSymbols
 import SwiftUI

@@ -1,4 +1,4 @@
-@testable import Flinky
+@testable import FlinkyShared
 import Testing
 
 private let symbolRawValuePairs: [(ListSymbolFood, String)] = [

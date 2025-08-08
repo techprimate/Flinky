@@ -1,3 +1,4 @@
+import FlinkyShared
 import Foundation
 
 struct LinkListPickerDisplayItem: Hashable, Identifiable {

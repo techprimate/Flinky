@@ -1,3 +1,4 @@
+import FlinkyShared
 import Sentry
 import SentrySwiftUI
 import SwiftData

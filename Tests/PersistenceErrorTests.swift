@@ -1,5 +1,5 @@
 import XCTest
-@testable import Flinky
+@testable import FlinkyShared
 
 final class PersistenceErrorTests: XCTestCase {
 

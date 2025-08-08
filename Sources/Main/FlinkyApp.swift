@@ -1,3 +1,4 @@
+import FlinkyShared
 import OnLaunch
 import Sentry
 import SwiftData

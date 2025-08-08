@@ -1,5 +1,6 @@
 import XCTest
 import SwiftData
+@testable import FlinkyShared
 @testable import Flinky
 
 final class DataSeedingServiceTests: XCTestCase {

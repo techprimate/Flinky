@@ -1,4 +1,5 @@
 import CoreNFC
+import FlinkyShared
 import Sentry
 import SentrySwiftUI
 import SwiftUI

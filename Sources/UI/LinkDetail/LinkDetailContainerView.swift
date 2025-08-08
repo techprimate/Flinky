@@ -1,4 +1,5 @@
 import CoreNFC
+import FlinkyShared
 import Photos
 import Sentry
 import SentrySwiftUI

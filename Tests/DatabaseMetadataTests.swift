@@ -1,6 +1,6 @@
 import XCTest
 import SwiftData
-@testable import Flinky
+@testable import FlinkyShared
 
 final class DatabaseMetadataTests: XCTestCase {
     var modelContainer: ModelContainer!

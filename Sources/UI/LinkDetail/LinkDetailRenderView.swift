@@ -1,4 +1,5 @@
 import CoreImage.CIFilterBuiltins
+import FlinkyShared
 import Photos
 import SFSafeSymbols
 import Sentry

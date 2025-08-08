@@ -46,6 +46,17 @@
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4A5DC4D2E46133A00027944"
+               BuildableName = "FlinkySharedTests.xctest"
+               BlueprintName = "FlinkySharedTests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
