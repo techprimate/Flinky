@@ -19,7 +19,7 @@ fi
 cd ..
 
 PROJECT_FILE="Flinky.xcodeproj/project.pbxproj"
-SETTINGS_PLIST="Sources/Resources/Settings.bundle/Root.plist"
+SETTINGS_PLIST="Targets/App/Sources/Resources/Settings.bundle/Root.plist"
 
 # Check if required commands are available
 if ! command -v plutil >/dev/null 2>&1; then
