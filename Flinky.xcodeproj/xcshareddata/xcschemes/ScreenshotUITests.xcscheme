@@ -77,6 +77,17 @@
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4D50A032E46286D0067A402"
+               BuildableName = "ShareExtensionUITests.xctest"
+               BlueprintName = "ShareExtensionUITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
