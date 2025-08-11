@@ -1,9 +1,4 @@
-//
-//  ShareViewController.swift
-//  ShareExtension
-//
-//  Created by Philip Niedertscheider on 08.08.25.
-//
+// swiftlint:disable file_length
 
 import UIKit
 import Social
@@ -13,40 +8,165 @@ import Sentry
 import os.log
 import UniformTypeIdentifiers
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: SLComposeServiceViewController { // swiftlint:disable:this type_body_length
     // MARK: - Properties
 
     private static let logger = Logger.forType(ShareViewController.self)
 
+    // MARK: Form State
+
+    /// The name of the link being shared.
     private var name: String?
+
+    /// The raw URL string being shared.
     private var rawUrl: String?
+
+    /// The placeholder text for the text view.
     private var selectedList: LinkListModel?
 
+    // MARK: Persistence
+
+    /// The model container used for persistence in the share extension.
+    private var modelContainer: ModelContainer?
+
+    /// The model context used for operations in the share extension.
+    private var modelContext: ModelContext?
+
+    /// The lists that can be selected in the share extension.
     private var lists: Result<[LinkListModel], Error>?
 
-    private var modelContainer: ModelContainer?
-    private var modelContext: ModelContext?
+    // MARK: - Instance Life Cycle
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        setupSentry()
+        setupModelContainer()
+        loadLists()
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+
+        setupSentry()
+        setupModelContainer()
+        loadLists()
+    }
 
     // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupModelContainer()
-        loadLists()
         setupUI()
         loadShareItem()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        // Validate content after the view appears to enable the post button in case all required fields
+        // have been pre-filled.
         self.validateContent()
+    }
+
+    private func setupSentry() {
+        SentrySDK.start { options in
+            Self.configureSentry(options: options)
+        }
+    }
+
+    /// Configures the Sentry SDK options.
+    ///
+    /// This method is defined as `private static` to because it is called from a non-mutating context.
+    ///
+    /// - Parameter options: Options structure to configure Sentry.
+    private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
+        // Disable Sentry for tests because it produces a lot of noise.
+        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+            Self.logger.warning("Sentry is disabled in test environment")
+            return
+        }
+
+        options.debug = true
+        options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
+
+        let bundleId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
+
+#if DEBUG
+        options.environment = "development"
+#else
+        options.environment = "production"
+#endif
+
+        options.sampleRate = 0.2
+        options.tracesSampleRate = 0.2
+
+        // Configure General Options
+        options.sendDefaultPii = true
+        options.enableAutoBreadcrumbTracking = true
+        options.enableMetricKit = true
+        options.enableTimeToFullDisplayTracing = true
+        options.enableSwizzling = true
+        options.swiftAsyncStacktraces = true
+
+        // Configure Crash Reporting
+        options.enableCrashHandler = true
+        options.enableSigtermReporting = true
+        options.enableWatchdogTerminationTracking = true
+        options.attachStacktrace = true
+        options.enablePersistingTracesWhenCrashing = true
+
+        // Configure Profiling
+        options.enableAppLaunchProfiling = false
+        options.profilesSampleRate = 0.2
+
+        // Configure Session Replay
+        options.sessionReplay.onErrorSampleRate = 1.0
+        options.sessionReplay.sessionSampleRate = 0.1
+        options.sessionReplay.enableViewRendererV2 = true
+        options.sessionReplay.enableFastViewRendering = false
+
+        // Configure App Hang
+        options.enableAppHangTracking = false
+        options.enableAppHangTrackingV2 = false
+        options.enableReportNonFullyBlockingAppHangs = false
+
+        // Configure File I/O
+        options.enableFileIOTracing = true
+        options.experimental.enableDataSwizzling = true
+        options.experimental.enableFileManagerSwizzling = true
+
+        // Configure Tracing
+        options.enableAutoPerformanceTracing = true
+        options.enablePerformanceV2 = true
+        options.enableCoreDataTracing = true
+        options.enablePreWarmedAppStartTracing = true
+
+        // Configure UI Insights
+        options.enableUIViewControllerTracing = true
+        options.attachScreenshot = true
+        options.attachViewHierarchy = true
+        options.enableUserInteractionTracing = true
+        options.reportAccessibilityIdentifier = true
+
+        // Configure Networking
+        options.enableNetworkTracking = true
+        options.enableNetworkBreadcrumbs = true
+        options.enableGraphQLOperationTracking = true
+        options.enableCaptureFailedRequests = true
+
+        // Configure Other Options
+        options.experimental.enableUnhandledCPPExceptionsV2 = false
     }
 
     private func setupModelContainer() {
         do {
             let modelContainer = try ModelContainer(
-                for: LinkListModel.self, LinkModel.self, DatabaseMetadata.self
+                for: LinkListModel.self, LinkModel.self, DatabaseMetadata.self,
             )
             self.modelContainer = modelContainer
 
@@ -70,20 +190,25 @@ class ShareViewController: SLComposeServiceViewController {
                     key: "error_details"
                 )
             }
+
+            // The share extension cannot continue without a valid model context.
+            // Therefore cancel the request with an error to signal the host app that something went wrong.
+            self.extensionContext?.cancelRequest(withError: error)
         }
     }
 
     private func loadLists() {
         guard let modelContext = modelContext else {
             Self.logger.error("Model context is not available")
-            let breadcrumb = Breadcrumb(level: .error, category: "share_extension")
-            breadcrumb.message = "Failed to load lists due to missing model context"
-            breadcrumb.data = [
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to load lists due to missing model context")
+            event.extra = [
                 "creation_flow": "share_extension"
             ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(event: event)
             return
         }
+
         do {
             // Load all lists that can be selected
             let fetchDescriptor = FetchDescriptor<LinkListModel>(
@@ -101,13 +226,16 @@ class ShareViewController: SLComposeServiceViewController {
             self.validateContent()
         } catch {
             Self.logger.error("Failed to fetch lists: \(error)")
-            let breadcrumb = Breadcrumb(level: .error, category: "share_extension")
-            breadcrumb.message = "Failed to load lists"
-            breadcrumb.data = [
-                "creation_flow": "share_extension",
-                "error": error.localizedDescription
-            ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(error: error) { scope in
+                scope.setTag(value: "share_extension", key: "operation")
+                scope.setContext(
+                    value: [
+                        "error_type": "list_fetch_failed",
+                        "creation_flow": "share_extension"
+                    ],
+                    key: "error_details"
+                )
+            }
             self.lists = .failure(error)
         }
     }
@@ -132,7 +260,13 @@ class ShareViewController: SLComposeServiceViewController {
             return
         }
         let inputItems = extensionContext.inputItems.compactMap { $0 as? NSExtensionItem }
-        Task.detached {
+        Task.detached { [weak self] in
+            guard let self = self else { return }
+
+            // Load items in the background to avoid blocking the main thread.
+            //
+            // Share extensions can be indicated as pending data by set the `valuePending` property on
+            // the configuration items.
             await self.processInputItems(inputItems, extensionContext: extensionContext)
         }
     }
@@ -141,87 +275,98 @@ class ShareViewController: SLComposeServiceViewController {
         for item in items {
             do {
                 guard let (name, url) = try await fetchNameAndUrl(item: item) else {
+                    // Skip this item if no valid name or URL could be fetched.
+                    // The fetch method already logs the error.
                     continue
                 }
+                // Update the share extension state on the main thread, as it is updating the UI, which must
+                // be done on the main thread.
                 await MainActor.run { [weak self] in
-                    self?.name = name
-                    self?.rawUrl = url.absoluteString
+                    guard let self = self else { return }
+
+                    self.name = name
+                    self.rawUrl = url.absoluteString
+
                     // Show the URL and make the text view read-only
-                    self?.textView.text = url.absoluteString
+                    self.textView.text = url.absoluteString
+
                     // Update placeholder with selected list name when available
-                    self?.placeholder = L10n.ShareExtension.Placeholder.addToList(self?.selectedList?.name ?? "")
-                    self?.reloadConfigurationItems()
-                    self?.validateContent()
+                    self.placeholder = L10n.ShareExtension.Placeholder.addToList(self.selectedList?.name ?? "")
+                    self.reloadConfigurationItems()
+                    self.validateContent()
                 }
+
+                // Exit the method after processing the first item.
                 return
             } catch {
                 Self.logger.error("Failed to process input item: \(error)")
-                let breadcrumb = Breadcrumb(level: .error, category: "share_extension")
-                breadcrumb.message = "Failed to process input item"
-                breadcrumb.data = [
-                    "creation_flow": "share_extension",
-                    "error": error.localizedDescription
-                ]
-                SentrySDK.addBreadcrumb(breadcrumb)
+                SentrySDK.capture(error: error) { scope in
+                    scope.setTag(value: "share_extension", key: "operation")
+                    scope.setContext(
+                        value: [
+                            "error_type": "input_item_processing_failed",
+                            "creation_flow": "share_extension"
+                        ],
+                        key: "error_details"
+                    )
+                }
+                // Continue to the next item if processing fails
             }
+        }
+
+        // If no valid items were found, cancel the extension request with an error and log the error.
+        // This case should not happen in normal usage, because the extension should be configured to run with
+        // at least one valid URL item.
+        //
+        // By cancelling the request, we signal to the host app that something went wrong
+        // and it should not expect any data to be returned.
+        //
+        // Using Sentry we can capture these cases to ensure they are not happening in production.
+        let error = NSError(
+            domain: "ShareExtensionError",
+            code: 0,
+            userInfo: [NSLocalizedDescriptionKey: "No valid URL found in shared items"]
+        )
+        Self.logger.error("No valid URL found in shared items, cancelling extension request")
+
+        SentrySDK.capture(error: error) { scope in
+            scope.setTag(value: "share_extension", key: "operation")
+            scope.setContext(
+                value: [
+                    "error_type": "no_valid_url_found",
+                    "creation_flow": "share_extension"
+                ],
+                key: "error_details"
+            )
         }
     }
 
     private func fetchNameAndUrl(item: NSExtensionItem) async throws -> (name: String, url: URL)? {
-        guard let attachment = item.attachments?.first(where: { $0.hasItemConformingToTypeIdentifier(UTType.url.identifier) || $0.canLoadObject(ofClass: URL.self) || $0.canLoadObject(ofClass: NSURL.self) || $0.canLoadObject(ofClass: NSString.self) }) else {
+        guard let attachment = item.attachments?.first(where: { $0.hasItemConformingToTypeIdentifier(UTType.url.identifier) }) else {
             return nil
         }
 
-        // Prefer explicit class loading to avoid noisy expectedValueClass logs
         let url: URL
-        if attachment.canLoadObject(ofClass: URL.self) {
-            url = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<URL, Error>) in
-                _ = attachment.loadObject(ofClass: URL.self) { object, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    if let url = object {
-                        continuation.resume(returning: url)
-                    } else if let nsurl = object as? NSURL {
-                        continuation.resume(returning: nsurl as URL)
-                    } else {
-                        continuation.resume(throwing: NSError(domain: "ShareExtension", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unsupported URL object type"]))
-                    }
-                }
+        do {
+            let item = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
+            guard let itemUrl = item as? URL else {
+                throw NSError(domain: "ShareExtensionError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Item is not a valid URL"])
             }
-        } else if attachment.canLoadObject(ofClass: NSURL.self) {
-            url = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<URL, Error>) in
-                _ = attachment.loadObject(ofClass: NSURL.self) { object, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    if let nsurl = object as? NSURL {
-                        continuation.resume(returning: nsurl as URL)
-                    } else {
-                        continuation.resume(throwing: NSError(domain: "ShareExtension", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unsupported NSURL object type"]))
-                    }
-                }
+            url = itemUrl
+        } catch {
+            Self.logger.error("Failed to load item for type identifier: \(UTType.url.identifier), error: \(error)")
+            SentrySDK.capture(error: error) { scope in
+                scope.setTag(value: "share_extension", key: "operation")
+                scope.setContext(
+                    value: [
+                        "error_type": "url_load_failed",
+                        "creation_flow": "share_extension"
+                    ],
+                    key: "error_details"
+                )
             }
-        } else if attachment.canLoadObject(ofClass: NSString.self) {
-            let urlString: String = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<String, Error>) in
-                _ = attachment.loadObject(ofClass: NSString.self) { object, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-                    if let str = object as? NSString {
-                        continuation.resume(returning: str as String)
-                    } else {
-                        continuation.resume(throwing: NSError(domain: "ShareExtension", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unsupported NSString object type"]))
-                    }
-                }
-            }
-            guard let builtUrl = URL(string: urlString) else { return nil }
-            url = builtUrl
-        } else {
-            // As a last resort, skip to avoid calling loadItem(forTypeIdentifier:) which logs noisy messages
+
+            // Return nil as there might be other items that can be processed.
             return nil
         }
 
@@ -243,44 +388,48 @@ class ShareViewController: SLComposeServiceViewController {
         return !url.absoluteString.isEmpty && selectedList != nil
     }
 
-    override func didSelectPost() {
+    override func didSelectPost() { // swiftlint:disable:this function_body_length
         guard let modelContext = modelContext else {
             Self.logger.error("Model context is not available")
-            let breadcrumb = Breadcrumb(level: .error, category: "share_extension")
-            breadcrumb.message = "Failed to create link due to missing model context"
-            breadcrumb.data = [
-                "creation_flow": "share_extension"
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to create link due to missing model context")
+            event.extra = [
+                "creation_flow": "share_extension",
+                "action": "create_link"
             ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(event: event)
             return
         }
         guard let url = URL(string: rawUrl ?? "") else {
             Self.logger.error("Failed to create link due to invalid URL: \(self.rawUrl ?? "nil")")
-            let breadcrumb = Breadcrumb(level: .error, category: "share_extension")
-            breadcrumb.message = "Failed to create link due to invalid URL"
-            breadcrumb.data = [
-                "creation_flow": "share_extension"
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to create link due to invalid URL")
+            event.extra = [
+                "creation_flow": "share_extension",
+                "action": "create_link"
             ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(event: event)
             return
         }
         guard let name = self.name, !name.isEmpty else {
             Self.logger.warning("Link created without a name")
-            let breadcrumb = Breadcrumb(level: .warning, category: "share_extension")
-            breadcrumb.message = "Link created without a name"
-            breadcrumb.data = [
-                "creation_flow": "share_extension"
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Link created without a name")
+            event.extra = [
+                "creation_flow": "share_extension",
+                "action": "create_link"
             ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(event: event)
             return
         }
         guard let list = selectedList else {
-            let breadcrumb = Breadcrumb(level: .error, category: "share-extension")
-            breadcrumb.message = "Failed to create link due to no selected list"
-            breadcrumb.data = [
-                "creation_flow": "share_extension"
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to create link due to no selected list")
+            event.extra = [
+                "creation_flow": "share_extension",
+                "action": "create_link"
             ]
-            SentrySDK.addBreadcrumb(breadcrumb)
+            SentrySDK.capture(event: event)
             return
         }
 
@@ -293,8 +442,8 @@ class ShareViewController: SLComposeServiceViewController {
 
         do {
             try modelContext.save()
+            Self.logger.info("Link saved successfully via share extension")
 
-            // Success tracking
             let breadcrumb = Breadcrumb(level: .info, category: "link_management")
             breadcrumb.message = "Link created successfully via share extension"
             breadcrumb.data = [
@@ -314,18 +463,30 @@ class ShareViewController: SLComposeServiceViewController {
             ]
             SentrySDK.capture(event: event)
 
-            // Announce success for accessibility
+            // Post an accessibility announcement to inform users, especially those using VoiceOver or other assistive technologies,
+            // that the link has been successfully saved. This ensures that users with visual impairments receive immediate, audible feedback
+            // about the completion of the action, improving the app's accessibility and user experience. The announcement uses a localized
+            // string to provide contextually appropriate feedback in the user's language.
             UIAccessibility.post(notification: .announcement, argument: L10n.ShareExtension.Success.linkSaved)
 
-            Self.logger.info("Link saved successfully via share extension")
-
-            // Complete the extension request
-            self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+            // Complete the extension request to signal that the share extension has finished its work.
+            super.didSelectPost()
         } catch {
             Self.logger.error("Failed to save link: \(error)")
             let appError = AppError.persistenceError(
                 .saveLinkFailed(underlyingError: error.localizedDescription))
-            SentrySDK.capture(error: appError)
+            SentrySDK.capture(error: appError) { scope in
+                scope.setTag(value: "share_extension", key: "operation")
+                scope.setContext(
+                    value: [
+                        "error_type": "link_save_failed",
+                        "creation_flow": "share_extension"
+                    ],
+                    key: "error_details"
+                )
+            }
+
+            // Do not complete or cancel the extension request here, so that a user can retry saving the link.
         }
     }
 
@@ -334,20 +495,46 @@ class ShareViewController: SLComposeServiceViewController {
         breadcrumb.message = "User cancelled share extension"
         SentrySDK.addBreadcrumb(breadcrumb)
 
-        // Accessibility announcement
+        // Post an accessibility announcement to inform users that the share action was cancelled.
+        // This is especially useful for users relying on VoiceOver or other assistive technologies,
+        // ensuring they receive immediate, audible feedback about the cancellation.
         UIAccessibility.post(notification: .announcement, argument: FlinkyCore.L10n.Shared.Button.cancel)
 
         Self.logger.debug("User cancelled the share extension")
-
         super.didSelectCancel()
     }
 
-    override func configurationItems() -> [Any]! {
-        let nameItem = SLComposeSheetConfigurationItem()
-        nameItem?.title = "Name"
-        nameItem?.value = name
-        nameItem?.valuePending = name == nil
-        nameItem?.tapHandler = {
+    override func configurationItems() -> [Any]? {
+        var items: [SLComposeSheetConfigurationItem] = []
+        if let nameItem = nameConfigurationItem {
+            items.append(nameItem)
+        }
+        if let pickerItem = listPickerConfigurationItem {
+            items.append(pickerItem)
+        }
+        return items as [Any]
+    }
+
+    /// Creates a configuration item to edit the name in a detail page
+    private var nameConfigurationItem: SLComposeSheetConfigurationItem? {
+        guard let item = SLComposeSheetConfigurationItem() else {
+            Self.logger.error("Failed to create name configuration item")
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to create name configuration item")
+            event.extra = [
+                "creation_flow": "share_extension"
+            ]
+            SentrySDK.capture(event: event)
+
+            return nil
+        }
+
+        item.title = "Name"
+        item.value = name
+        item.valuePending = name == nil
+        item.tapHandler = { [weak self] in
+            guard let self = self else { return }
+
             let controller = TextInputViewController()
             controller.initialText = self.name ?? ""
             controller.onSave = { text in
@@ -355,93 +542,54 @@ class ShareViewController: SLComposeServiceViewController {
                 self.reloadConfigurationItems()
                 self.validateContent()
             }
+
+            // Only the push configuration view controller navigation is supported in the share extension
             self.pushConfigurationViewController(controller)
         }
 
-        let pickerItem = SLComposeSheetConfigurationItem()
-        pickerItem?.title = "List"
+        return item
+    }
+
+    /// Creates a configuration item to select the list
+    private var listPickerConfigurationItem: SLComposeSheetConfigurationItem? {
+        guard let item = SLComposeSheetConfigurationItem() else {
+            Self.logger.error("Failed to create name configuration item")
+            let event = Event(level: .error)
+            event.message = SentryMessage(formatted: "Failed to create list picker configuration item")
+            event.extra = [
+                "creation_flow": "share_extension"
+            ]
+            SentrySDK.capture(event: event)
+
+            return nil
+        }
+        item.title = "List"
         switch lists {
         case .failure(let error):
-            pickerItem?.value = error.localizedDescription
+            item.value = error.localizedDescription
         default:
-            pickerItem?.value = selectedList?.name
+            item.value = selectedList?.name
         }
-        pickerItem?.valuePending = lists == nil
-        pickerItem?.tapHandler = {
+        item.valuePending = lists == nil
+        item.tapHandler = { [weak self] in
+            guard let self = self else { return }
             guard case .success(let lists) = self.lists else {
                 return
             }
-            let items = lists.map { PickerViewController.Item(id: $0.id, name: $0.name) }
-            let controller = PickerViewController(options: items, selected: self.selectedList?.id)
+
+            let items = lists.map { ItemPickerViewController.Item(id: $0.id, name: $0.name) }
+            let controller = ItemPickerViewController(options: items, selected: self.selectedList?.id)
             controller.onSelect = { itemId in
                 self.selectedList = lists.first(where: { $0.id == itemId })
                 self.reloadConfigurationItems()
                 self.validateContent()
             }
+
+            // Only the push configuration view controller navigation is supported in the share extension
             self.pushConfigurationViewController(controller)
         }
-
-        return [
-            nameItem as Any,
-            pickerItem as Any
-        ]
+        return item
     }
 }
 
-class TextInputViewController: UIViewController {
-    var initialText: String = ""
-    var onSave: ((String) -> Void)?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let textField = UITextField(frame: CGRect(x: 20, y: 100, width: 280, height: 44))
-        textField.text = initialText
-        textField.borderStyle = .roundedRect
-        view.addSubview(textField)
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
-    }
-
-    @objc func doneTapped() {
-        if let textField = view.subviews.first(where: { $0 is UITextField }) as? UITextField {
-            onSave?(textField.text ?? "")
-            navigationController?.popViewController(animated: true)
-        }
-    }
-}
-
-class PickerViewController: UITableViewController {
-    struct Item: Identifiable {
-        let id: UUID
-        let name: String
-    }
-
-    let options: [Item]
-    let selected: Item.ID?
-    var onSelect: ((Item.ID) -> Void)?
-
-    init(options: [Item], selected: Item.ID?) {
-        self.options = options
-        self.selected = selected
-        super.init(style: .plain)
-    }
-
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        let option = options[indexPath.row]
-        cell.textLabel?.text = option.name
-        cell.accessoryType = option.id == selected ? .checkmark : .none
-        return cell
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        onSelect?(options[indexPath.row].id)
-        navigationController?.popViewController(animated: true)
-    }
-}
+// swiftlint:enable file_length
