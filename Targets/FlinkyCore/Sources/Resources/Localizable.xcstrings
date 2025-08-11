@@ -1,0 +1,510 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "shared.color.blue": {
+      "comment": "Blue color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blue"
+          }
+        }
+      }
+    },
+    "shared.color.brown": {
+      "comment": "Brown color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brown"
+          }
+        }
+      }
+    },
+    "shared.color.gray": {
+      "comment": "Gray color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gray"
+          }
+        }
+      }
+    },
+    "shared.color.green": {
+      "comment": "Green color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Green"
+          }
+        }
+      }
+    },
+    "shared.color.indigo": {
+      "comment": "Indigo color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indigo"
+          }
+        }
+      }
+    },
+    "shared.color.light-blue": {
+      "comment": "Light blue color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light Blue"
+          }
+        }
+      }
+    },
+    "shared.color.mint": {
+      "comment": "Mint color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mint"
+          }
+        }
+      }
+    },
+    "shared.color.orange": {
+      "comment": "Orange color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orange"
+          }
+        }
+      }
+    },
+    "shared.color.pink": {
+      "comment": "Pink color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pink"
+          }
+        }
+      }
+    },
+    "shared.color.purple": {
+      "comment": "Purple color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purple"
+          }
+        }
+      }
+    },
+    "shared.color.red": {
+      "comment": "Red color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Red"
+          }
+        }
+      }
+    },
+    "shared.color.yellow": {
+      "comment": "Yellow color name",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yellow"
+          }
+        }
+      }
+    },
+    "shared.error.data-corruption.description": {
+      "comment": "Data corruption error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.failed-to-open-url.description": {
+      "comment": "Used when an user-entered URL can not be opened by any app on the system",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to open URL: %@"
+          }
+        }
+      }
+    },
+    "shared.error.failed-to-open-url.recovery-suggestion": {
+      "comment": "Recovery must be performed by the user to fix the URL",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make sure the URL you entered is valid, e.g. includes https:// at the beginning"
+          }
+        }
+      }
+    },
+    "shared.error.network.description": {
+      "comment": "Network error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Network Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.nfc.description": {
+      "comment": "NFC error description",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NFC Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.ok-button": {
+      "comment": "Error alert OK button",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "shared.error.persistence.description": {
+      "comment": "Persistence error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.qr-code.description": {
+      "comment": "QR code error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR Code Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.recovery.data-corruption": {
+      "comment": "Data corruption recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please try restarting the app. If the problem persists, contact support."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.network": {
+      "comment": "Network error recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.nfc": {
+      "comment": "NFC error recovery suggestion",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make sure NFC is enabled on both devices and the other device is ready to receive."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.persistence": {
+      "comment": "Persistence error recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save your changes. Please try again."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.qr-code": {
+      "comment": "QR code error recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to generate QR code for this link."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.unknown": {
+      "comment": "Unknown error recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please try again. If the problem persists, contact support."
+          }
+        }
+      }
+    },
+    "shared.error.recovery.validation": {
+      "comment": "Validation error recovery",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please check your input and try again."
+          }
+        }
+      }
+    },
+    "shared.error.title": {
+      "comment": "Error alert title",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error"
+          }
+        }
+      }
+    },
+    "shared.error.unknown.description": {
+      "comment": "Unknown error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Error: %@"
+          }
+        }
+      }
+    },
+    "shared.error.validation.description": {
+      "comment": "Validation error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Validation Error: %@"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.delete-link-failed": {
+      "comment": "Delete link failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to delete link"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.delete-list-failed": {
+      "comment": "Delete list failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to delete list"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.delete-multiple-links-failed": {
+      "comment": "Delete multiple links failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to delete links"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.pin-list-failed": {
+      "comment": "Pin list failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to pin list"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.recovery-suggestion": {
+      "comment": "Persistence error recovery suggestion",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please try again. If the problem persists, restart the app."
+          }
+        }
+      }
+    },
+    "shared.persistence.error.save-changes-after-deletion-failed": {
+      "comment": "Save changes after deletion failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save deletion changes"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.save-link-changes-failed": {
+      "comment": "Save link changes failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save link changes"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.save-link-failed": {
+      "comment": "Save link failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save link"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.save-list-changes-failed": {
+      "comment": "Save list changes failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save list changes"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.save-list-failed": {
+      "comment": "Save list failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save list"
+          }
+        }
+      }
+    },
+    "shared.persistence.error.unpin-list-failed": {
+      "comment": "Unpin list failed error",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to unpin list"
+          }
+        }
+      }
+    },
+    "shared.button.cancel": {
+      "comment": "Cancel button text",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

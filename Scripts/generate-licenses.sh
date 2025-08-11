@@ -33,7 +33,7 @@ echo "📄 Running license-plist to generate dependency licenses..."
 license-plist
 
 echo "✅ License generation complete!"
-echo "📁 Generated files in: Sources/Resources/Settings.bundle/"
+echo "📁 Generated files in: Targets/App/Sources/Resources/Settings.bundle/"
 echo "   • Licenses.plist"
 echo "   • Licenses.latest_result.txt"
 echo "   • Licenses/ directory with individual license files"
