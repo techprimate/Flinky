@@ -1,4 +1,5 @@
 import SFSafeSymbols
+import SentrySwiftUI
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
@@ -112,6 +113,7 @@ struct LinkListsRenderView<Destination: View>: View {
                 .accessibilityIdentifier("link-lists.create-list.button")
             }
         }
+        .sentryReplayPreviewMask(opacity: 0.5)
     }
 
     func itemViewForList(_ list: LinkListsDisplayItem) -> some View {
@@ -157,4 +159,5 @@ struct LinkListsRenderView<Destination: View>: View {
             Text(list.name)
         }
     }
+    .sentryReplayPreviewMask()
 }
