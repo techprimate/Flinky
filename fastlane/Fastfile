@@ -12,7 +12,7 @@ platform :ios do
     # Use absolute paths to avoid plugin directory changes
     project_root = File.expand_path("..")
     source_image = File.join(project_root, "Resources", "AppIcon.png")
-    assets_path = File.join(project_root, "Sources", "Resources", "Assets.xcassets")
+    assets_path = File.join(project_root, "Targets", "App", "Sources", "Resources", "Assets.xcassets")
     icon_output_dir = File.join(assets_path, "AppIcon.appiconset")
 
     UI.message "Using source image: #{File.basename(source_image)}"
@@ -72,7 +72,7 @@ platform :ios do
     end
 
     UI.success "✅ All app icon sizes generated and metadata stripped successfully!"
-    UI.message "Icons generated in: Sources/Resources/Assets.xcassets/AppIcon.appiconset/"
+    UI.message "Icons generated in: Targets/App/Sources/Resources/Assets.xcassets/AppIcon.appiconset/"
     UI.message "📝 Icons are now git-reproducible (no metadata changes on regeneration)"
   end
 
@@ -196,9 +196,9 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     version_tag = "v#{version_number}+#{build_number}"
 
     # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
-    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"])
+    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"])
     git_commit(
-      path: ["Flinky.xcodeproj/project.pbxproj", "Sources/Resources/Settings.bundle/Root.plist"],
+      path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"],
       message: "chore: Bump version to #{version_number} (#{build_number})"
     )
 

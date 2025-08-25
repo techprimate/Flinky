@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E0F2081C-B3F5-4170-A8EB-1935D96D3C59",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Flinky.xcodeproj",
+        "identifier" : "D4E789112E461A83005DA720",
+        "name" : "FlinkyCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

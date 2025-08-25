@@ -10,6 +10,7 @@ repos:
         args: [--allow-multiple-documents]
       - id: detect-private-key
       - id: end-of-file-fixer
+        exclude: ^Targets/App/Sources/Resources/Settings\.bundle/Licenses\.latest_result\.txt$
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.33.2
@@ -38,7 +39,7 @@ repos:
         name: Generate Licenses
         entry: make
         language: system
-        types_or: ["swift"]
+        pass_filenames: false
         args:
           - "generate-licenses"
 
@@ -46,7 +47,7 @@ repos:
         name: Generate Version in Settings
         entry: make
         language: system
-        types_or: ["swift"]
+        pass_filenames: false
         args:
           - "generate-version-in-settings"
 
