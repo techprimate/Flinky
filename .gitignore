@@ -111,5 +111,7 @@ raw-test-ios-core.log
 raw-test-ui-ios.log
 
 # --- Ruby ---
-
 vendor
+
+# --- Libraries ---
+Libraries/

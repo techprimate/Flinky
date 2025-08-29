@@ -2,27 +2,27 @@
 
 # Builds the app target with all other targets as dependencies
 build-ios: 
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | tee raw-build-ios.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' build | tee raw-build-ios.log | xcbeautify
 
 # Builds the core target
 build-core-ios: 
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | tee raw-build-ios-core.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' build | tee raw-build-ios-core.log | xcbeautify
 
 # Builds the ShareExtension target
 build-share-extension-ios:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtension -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build | tee raw-build-share-extension-ios.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtension -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' build | tee raw-build-share-extension-ios.log | xcbeautify
 
 # Tests the app target including all other targets as dependencies
 test-ios:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | tee raw-test-ios.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' test | tee raw-test-ios.log | xcbeautify
 
 # Tests the core target
 test-core-ios: 
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | tee raw-test-ios-core.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' test | tee raw-test-ios-core.log | xcbeautify
 
 # Tests the UI tests target
 test-ui-ios:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ScreenshotUITests -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | tee raw-test-ui-ios.log | xcbeautify
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ScreenshotUITests -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' test | tee raw-test-ui-ios.log | xcbeautify
 
 format: format-swift format-json format-markdown format-yaml
 
