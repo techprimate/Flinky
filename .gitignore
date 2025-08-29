@@ -95,9 +95,6 @@ fastlane/test_output
 ## User settings
 xcuserdata/
 
-# Generated files from SwiftGen
-Generated/
-
 # Sentry
 .sentryclirc
 .env
