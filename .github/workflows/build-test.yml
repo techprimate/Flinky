@@ -34,6 +34,10 @@ jobs:
             raw-build-ios.log
           retention-days: 1
 
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
   build-test:
     name: Test
     runs-on: macos-15
@@ -55,6 +59,10 @@ jobs:
             raw-test-ios.log
           retention-days: 1
 
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
   build-test-ui:
     name: Test UI
     runs-on: macos-15
@@ -75,3 +83,7 @@ jobs:
           path: |
             raw-test-ui-ios.log
           retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
