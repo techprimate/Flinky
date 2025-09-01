@@ -227,7 +227,14 @@ lint:
 #
 # Runs all generator scripts to update licenses, settings version, and localization assets.
 .PHONY: generate
-generate: generate-licenses generate-version-in-settings generate-localization
+generate: generate-project generate-licenses generate-version-in-settings generate-localization
+
+## Generate Xcode project files via script
+# 
+# Runs the generate-project.sh script to create Xcode project files from templates.
+.PHONY: generate-project
+generate-project:
+	./Scripts/generate-project.sh
 
 ## Generate localized strings from xcstrings via script
 #
