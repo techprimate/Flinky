@@ -33,6 +33,7 @@ cd ..
 # Ensure output directories exist
 mkdir -p Targets/App/Sources/Generated
 mkdir -p Targets/FlinkyCore/Sources/Generated
+mkdir -p Targets/ShareExtension/Sources/Generated
 
 # Function to generate localization for a target
 generate_localization() {
@@ -89,9 +90,16 @@ generate_localization "FlinkyCore" \
     "Targets/FlinkyCore/Sources/Generated/L10n.swift" \
     "true"
 
+# Generate localization for ShareExtension target (internal access)
+generate_localization "ShareExtension" \
+    "Targets/ShareExtension/Sources/Resources/Localizable.xcstrings" \
+    "Targets/ShareExtension/Sources/Generated/L10n.swift" \
+    "false"
+
 echo "✅ Localization generation complete!"
 echo "📁 Generated: Targets/App/Sources/Generated/L10n.swift"
 echo "📁 Generated: Targets/FlinkyCore/Sources/Generated/L10n.swift"
+echo "📁 Generated: Targets/ShareExtension/Sources/Generated/L10n.swift"
 
 # -- End Script --
 
