@@ -1,0 +1,186 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "share-extension.default-list.name" : {
+      "comment" : "Default list name created when no lists exist",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Links"
+          }
+        }
+      }
+    },
+    "share-extension.error.invalid-url" : {
+      "comment" : "Error when shared URL is invalid",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid URL shared"
+          }
+        }
+      }
+    },
+    "share-extension.error.no-url" : {
+      "comment" : "Error when no URL is found in shared content",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No URL found in shared content"
+          }
+        }
+      }
+    },
+    "share-extension.error.save-failed" : {
+      "comment" : "Error when saving link fails",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to save link"
+          }
+        }
+      }
+    },
+    "share-extension.list-picker.accessibility.hint" : {
+      "comment" : "Accessibility hint for list picker",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose which list to save the link to"
+          }
+        }
+      }
+    },
+    "share-extension.list-picker.accessibility.label" : {
+      "comment" : "Accessibility label for list picker",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select list"
+          }
+        }
+      }
+    },
+    "share-extension.list-picker.title" : {
+      "comment" : "Title for list picker configuration item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
+          }
+        }
+      }
+    },
+    "share-extension.name.title" : {
+      "comment" : "Title for name configuration item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "share-extension.nav.title" : {
+      "comment" : "Navigation title for share extension",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Flinky"
+          }
+        }
+      }
+    },
+    "share-extension.placeholder.add-to-list" : {
+      "comment" : "Placeholder text for share extension",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add link to %@"
+          }
+        }
+      }
+    },
+    "share-extension.placeholder.loading" : {
+      "comment" : "Placeholder text while loading shared content",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
+          }
+        }
+      }
+    },
+    "share-extension.success.link-saved" : {
+      "comment" : "Success message when link is saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link saved successfully"
+          }
+        }
+      }
+    },
+    "share-extension.url.accessibility.hint" : {
+      "comment" : "Accessibility hint for URL field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read-only URL to be saved"
+          }
+        }
+      }
+    },
+    "share-extension.url.accessibility.label" : {
+      "comment" : "Accessibility label for URL field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
+    },
+    "shared.button.cancel" : {
+      "comment" : "Cancel button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

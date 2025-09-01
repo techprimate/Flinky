@@ -10,10 +10,35 @@ struct FlinkyApp: App {
     static let logger = Logger.forType(Self.self)
 
     @StateObject private var toastManager = ToastManager()
+    private let sharedModelContainer: ModelContainer
 
     init() {
         SentrySDK.start { options in
             Self.configureSentry(options: options)
+        }
+
+        // Build shared model container (App Group) for app runtime, in-memory for tests
+        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+            // Keep existing testing behavior using in-memory store
+            let schema = Schema([
+                LinkListModel.self,
+                LinkModel.self,
+                DatabaseMetadata.self
+            ])
+            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            do {
+                sharedModelContainer = try ModelContainer(for: schema, configurations: [config])
+            } catch {
+                fatalError("Failed to create in-memory ModelContainer: \(error)")
+            }
+        } else {
+            do {
+                sharedModelContainer = try SharedModelContainerFactory.make()
+                // Seed if needed on first app launch
+                DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
+            } catch {
+                fatalError("Failed to create shared ModelContainer: \(error)")
+            }
         }
     }
 
@@ -241,38 +266,6 @@ struct FlinkyApp: App {
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
                 }
         }
-        .modelContainer(
-            for: [
-                LinkListModel.self,
-                LinkModel.self,
-                DatabaseMetadata.self
-            ],
-            // For testing we use an in-memory store to avoid persistent storage.
-            inMemory: ProcessInfo.processInfo.environment["TESTING"] == "1",
-            isAutosaveEnabled: false,
-            isUndoEnabled: false,
-            onSetup: { result in
-                switch result {
-                case .failure(let error):
-                    Self.logger.error("Failed to setup ModelContainer: \(error)")
-                    SentrySDK.capture(error: error) { scope in
-                        scope.setTag(value: "model_container_setup", key: "operation")
-                        scope.setContext(
-                            value: [
-                                "action": "setting_up_model_container"
-                            ], key: "error_details")
-                    }
-
-                case .success(let container):
-                    let breadcrumb = Breadcrumb()
-                    breadcrumb.message = "ModelContainer setup successful, starting data seeding check"
-                    breadcrumb.category = "database.setup"
-                    breadcrumb.level = .info
-                    SentrySDK.addBreadcrumb(breadcrumb)
-
-                    DataSeedingService.seedDataIfNeeded(modelContext: container.mainContext)
-                }
-            }
-        )
+        .modelContainer(sharedModelContainer)
     }
 }
