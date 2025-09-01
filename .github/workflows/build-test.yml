@@ -34,19 +34,34 @@ jobs:
             raw-build-ios.log
           retention-days: 1
 
+      - name: Upload Derived Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: derived-data
+          path: |
+            ~/Library/Developer/Xcode/DerivedData
+          retention-days: 1
+
       - name: Run CI Diagnostics
         if: failure()
         run: ./Scripts/ci-diagnostics.sh
 
-  build-test:
+  test:
     name: Test
     runs-on: macos-15
+    needs: build
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
+
+      - name: Download Derived Data
+        uses: actions/download-artifact@v4
+        with:
+          name: derived-data
+          path: ~/Library/Developer/Xcode/DerivedData
 
       - name: Test
         run: make test-ios
@@ -63,15 +78,22 @@ jobs:
         if: failure()
         run: ./Scripts/ci-diagnostics.sh
 
-  build-test-ui:
+  test-ui:
     name: Test UI
     runs-on: macos-15
+    needs: build
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
+
+      - name: Download Derived Data
+        uses: actions/download-artifact@v4
+        with:
+          name: derived-data
+          path: ~/Library/Developer/Xcode/DerivedData
 
       - name: Test UI
         run: make test-ui-ios
