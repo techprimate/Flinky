@@ -115,6 +115,16 @@ platform :ios do
     increment_build_number(xcodeproj: "Flinky.xcodeproj")
     build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
 
+    # Build the app
+    build_app(scheme: "App")
+
+    # Validate the app
+    deliver(
+      # API Key file must be located at fastlane/api-key.json
+      api_key_path: File.expand_path("./api-key.json"),
+      verify_only: true
+    )
+
     # Create Sentry release using the same format as the app
     sentry_create_release(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
@@ -124,9 +134,6 @@ platform :ios do
       app_identifier: "com.techprimate.Flinky",
       version: version_number
     )
-
-    # Build the app
-    build_app(scheme: "App")
 
     # Upload debug symbols to Sentry
     sentry_debug_files_upload(
@@ -285,6 +292,16 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
         email_address: ENV["APP_REVIEW_EMAIL_ADDRESS"],
         phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
       }
+    )
+  end
+
+
+  lane :build_validate_app do
+    # build_app(scheme: "App")
+    Actions.lane_context[SharedValues::IPA_OUTPUT_PATH] = " /Volumes/Developer/techprimate/Flinky/Flinky.ipa"
+    deliver(
+      api_key_path: File.expand_path("./api-key.json"),
+      verify_only: true
     )
   end
 end
