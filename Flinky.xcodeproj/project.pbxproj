@@ -516,10 +516,10 @@
 				D4D359D52E1BDF540006226D /* Sources */,
 				D4D359D62E1BDF540006226D /* Frameworks */,
 				D4D359D72E1BDF540006226D /* Resources */,
-				D4F7B8E32E41FA15004A2D77 /* Lint */,
-				8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */,
 				D4A5DC5E2E46133A00027944 /* Embed Frameworks */,
 				D4D509EE2E4621120067A402 /* Embed Foundation Extensions */,
+				D4F7B8E32E41FA15004A2D77 /* Lint */,
+				8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
