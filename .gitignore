@@ -95,18 +95,20 @@ fastlane/test_output
 ## User settings
 xcuserdata/
 
-# Generated files from SwiftGen
-Generated/
-
 # Sentry
 .sentryclirc
 .env
 
 # Build logs
 raw-build-ios.log
+raw-build-ios-core.log
+raw-build-share-extension-ios.log
 raw-test-ios.log
+raw-test-ios-core.log
 raw-test-ui-ios.log
 
 # --- Ruby ---
-
 vendor
+
+# --- Libraries ---
+Libraries/

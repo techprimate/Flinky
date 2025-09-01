@@ -1,5 +1,6 @@
 excluded:
-  - "*/SnapshotHelper.swift"
+  - "**/SnapshotHelper.swift"
+  - "Libraries/**/*.swift"
 
 # Rules
 line_length:
