@@ -44,7 +44,7 @@
       "matchManagers": [
         "swift"
       ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "major",
         "minor",
         "patch"
@@ -54,9 +54,9 @@
     {
       "description": "Disable digest-only updates for custom managers",
       "matchManagers": [
-        "regex"
+        "custom.regex"
       ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "digest"
       ],
       "enabled": false
@@ -64,9 +64,9 @@
     {
       "description": "Allow version updates for custom managers",
       "matchManagers": [
-        "regex"
+        "custom.regex"
       ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "major",
         "minor",
         "patch"
@@ -75,7 +75,7 @@
     },
     {
       "description": "Disable lock file maintenance",
-      "updateTypes": [
+      "matchUpdateTypes": [
         "lockFileMaintenance"
       ],
       "enabled": false
