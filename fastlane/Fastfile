@@ -126,7 +126,7 @@ platform :ios do
     )
 
     # Build the app
-    build_app(scheme: "Flinky")
+    build_app(scheme: "App")
 
     # Upload debug symbols to Sentry
     sentry_debug_files_upload(
