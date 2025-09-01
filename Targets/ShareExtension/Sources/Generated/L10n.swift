@@ -34,15 +34,33 @@ internal enum L10n {
                 internal static let label = L10n.tr("share-extension.list-picker.accessibility.label", fallback: "Select list")
             }
         }
+        internal enum Name {
+            /// Name
+            internal static let title = L10n.tr("share-extension.name.title", fallback: "Name")
+        }
+        internal enum Nav {
+            /// Add to Flinky
+            internal static let title = L10n.tr("share-extension.nav.title", fallback: "Add to Flinky")
+        }
         internal enum Placeholder {
             /// Add link to %@
             internal static func addToList(_ p1: Any) -> String {
                 return L10n.tr("share-extension.placeholder.add-to-list", String(describing: p1), fallback: "Add link to %@")
             }
+            /// Loading…
+            internal static let loading = L10n.tr("share-extension.placeholder.loading", fallback: "Loading…")
         }
         internal enum Success {
             /// Link saved successfully
             internal static let linkSaved = L10n.tr("share-extension.success.link-saved", fallback: "Link saved successfully")
+        }
+        internal enum Url {
+            internal enum Accessibility {
+                /// Read-only URL to be saved
+                internal static let hint = L10n.tr("share-extension.url.accessibility.hint", fallback: "Read-only URL to be saved")
+                /// URL
+                internal static let label = L10n.tr("share-extension.url.accessibility.label", fallback: "URL")
+            }
         }
     }
     internal enum Shared {

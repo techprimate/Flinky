@@ -15,6 +15,8 @@ class ItemPickerViewController: UITableViewController {
         self.selected = selected
 
         super.init(style: .plain)
+
+        setupView()
     }
 
     required init?(coder: NSCoder) {
@@ -22,6 +24,12 @@ class ItemPickerViewController: UITableViewController {
         self.selected = nil
 
         super.init(coder: coder)
+
+        setupView()
+    }
+
+    func setupView() {
+        self.view.backgroundColor = .clear
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,6 +41,7 @@ class ItemPickerViewController: UITableViewController {
         let option = options[indexPath.row]
         cell.textLabel?.text = option.name
         cell.accessoryType = option.id == selected ? .checkmark : .none
+        cell.backgroundColor = .clear
         return cell
     }
 

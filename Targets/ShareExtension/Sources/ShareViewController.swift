@@ -165,9 +165,8 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
     private func setupModelContainer() {
         do {
-            let modelContainer = try ModelContainer(
-                for: LinkListModel.self, LinkModel.self, DatabaseMetadata.self,
-            )
+            // Use shared App Group store to access the same database as the main app
+            let modelContainer = try SharedModelContainerFactory.make()
             self.modelContainer = modelContainer
 
             let modelContext = modelContainer.mainContext
@@ -197,7 +196,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         }
     }
 
-    private func loadLists() {
+    private func loadLists() { // swiftlint:disable:this function_body_length
         guard let modelContext = modelContext else {
             Self.logger.error("Model context is not available")
             let event = Event(level: .error)
@@ -214,7 +213,35 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             let fetchDescriptor = FetchDescriptor<LinkListModel>(
                 sortBy: [SortDescriptor(\.name, comparator: .localized)]
             )
-            let lists = try modelContext.fetch(fetchDescriptor)
+            var lists = try modelContext.fetch(fetchDescriptor)
+
+            // If there are no lists yet (e.g. extension launched before the app), create a default one.
+            if lists.isEmpty {
+                let defaultList = LinkListModel(name: L10n.ShareExtension.DefaultList.name)
+                modelContext.insert(defaultList)
+                try? modelContext.save()
+                lists = [defaultList]
+
+                // Breadcrumb for debugging context
+                let breadcrumb = Breadcrumb(level: .info, category: "list_management")
+                breadcrumb.message = "Default list created in share extension"
+                breadcrumb.data = [
+                    "list_id": defaultList.id.uuidString
+                ]
+                SentrySDK.addBreadcrumb(breadcrumb)
+
+                // Analytics: list_created (no PII)
+                let event = Event(level: .info)
+                event.message = SentryMessage(formatted: "list_created")
+                event.extra = [
+                    "list_id": defaultList.id.uuidString,
+                    "entity_type": "list",
+                    "creation_flow": "share_extension",
+                    "auto_created": true
+                ]
+                SentrySDK.capture(event: event)
+            }
+
             self.lists = .success(lists)
 
             // Select the first list if none is selected, so that the user can immediately post
@@ -222,7 +249,8 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                 selectedList = lists.first
             }
 
-            // Validate content after loading lists so the UI is ready
+            // Refresh configuration items and validate so the UI is ready (enables chevron and Post button)
+            self.reloadConfigurationItems()
             self.validateContent()
         } catch {
             Self.logger.error("Failed to fetch lists: \(error)")
@@ -241,17 +269,21 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     }
 
     private func setupUI() {
-        // Setup text view
-        self.placeholder = L10n.ShareExtension.Error.noUrl
+        // URL text area
+        self.placeholder = L10n.ShareExtension.Placeholder.loading
+        self.textView.isEditable = true // Allow editing so that users can correct malformed URLs
+        self.textView.isSelectable = true
+        self.textView.dataDetectorTypes = .link
+        self.textView.backgroundColor = .clear
 
-        // Setup accessibility
-        self.textView.accessibilityLabel = "URL"
-        self.textView.accessibilityHint = "The URL being shared"
+        // Accessibility
+        self.textView.accessibilityLabel = L10n.ShareExtension.Url.Accessibility.label
+        self.textView.accessibilityHint = L10n.ShareExtension.Url.Accessibility.hint
         self.textView.accessibilityTraits = .staticText
 
-        // Setup navigation
-        self.navigationItem.title = "Add to Flinky"
-        self.navigationController?.navigationBar.topItem?.title = "Add to Flinky"
+        // Navigation
+        self.navigationItem.title = L10n.ShareExtension.Nav.title
+        self.navigationController?.navigationBar.topItem?.title = L10n.ShareExtension.Nav.title
     }
 
     private func loadShareItem() {
@@ -287,7 +319,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                     self.name = name
                     self.rawUrl = url.absoluteString
 
-                    // Show the URL and make the text view read-only
+                    // Show the URL
                     self.textView.text = url.absoluteString
 
                     // Update placeholder with selected list name when available
@@ -529,7 +561,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             return nil
         }
 
-        item.title = "Name"
+        item.title = L10n.ShareExtension.Name.title
         item.value = name
         item.valuePending = name == nil
         item.tapHandler = { [weak self] in
@@ -563,7 +595,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
             return nil
         }
-        item.title = "List"
+        item.title = L10n.ShareExtension.ListPicker.title
         switch lists {
         case .failure(let error):
             item.value = error.localizedDescription

@@ -153,11 +153,6 @@
 
 /* Begin PBXFileReference section */
 		D40BEC172E2EE0C500391C5A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D40BEEF42E2EFFC900391C5A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		D40BEEF62E2EFFC900391C5A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		D40BEEF72E2EFFC900391C5A /* Brewfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Brewfile; sourceTree = "<group>"; };
-		D40BEF022E2EFFC900391C5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		D40BEF072E2EFFC900391C5A /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		D4A5DC462E46133A00027944 /* FlinkyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlinkyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A5DD9C2E46163E00027944 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/iOSSupport/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		D4A5DD9E2E4616AA00027944 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -173,6 +168,13 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
+			);
+			target = D4D509DE2E4621120067A402 /* ShareExtension */;
+		};
+		D4E46BCE2E65B76A0071B1E4 /* Exceptions for "Config" folder in "ShareExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ShareExtensionUITests.xctestplan,
 			);
 			target = D4D509DE2E4621120067A402 /* ShareExtension */;
 		};
@@ -263,11 +265,6 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D40BEF0E2E2EFFD400391C5A /* Documentation */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Documentation;
-			sourceTree = "<group>";
-		};
 		D40BEF142E2EFFD600391C5A /* Generated */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Generated;
@@ -281,11 +278,6 @@
 		D40BEF1B2E2EFFE300391C5A /* Templates */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Templates;
-			sourceTree = "<group>";
-		};
-		D4B94A352E3197BA0000FEA2 /* Resources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
@@ -307,6 +299,14 @@
 		D4D50A052E46286D0067A402 /* UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = UITests;
+			sourceTree = "<group>";
+		};
+		D4E46BCD2E65B75B0071B1E4 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D4E46BCE2E65B76A0071B1E4 /* Exceptions for "Config" folder in "ShareExtension" target */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		D4E788512E461996005DA720 /* Sources */ = {
@@ -413,18 +413,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D40BEF1C2E2EFFEC00391C5A /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				D40BEEF42E2EFFC900391C5A /* .gitignore */,
-				D40BEEF62E2EFFC900391C5A /* .swiftlint.yml */,
-				D40BEEF72E2EFFC900391C5A /* Brewfile */,
-				D40BEF022E2EFFC900391C5A /* Makefile */,
-				D40BEF072E2EFFC900391C5A /* swiftgen.yml */,
-			);
-			name = Config;
-			sourceTree = "<group>";
-		};
 		D4B471862E1F12FA005099F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,14 +425,11 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
-				D40BEF1C2E2EFFEC00391C5A /* Config */,
-				D40BEF0E2E2EFFD400391C5A /* Documentation */,
+				D4E787FD2E46192F005DA720 /* Targets */,
+				D40BEF182E2EFFDD00391C5A /* Scripts */,
+				D40BEF1B2E2EFFE300391C5A /* Templates */,
 				D4B471862E1F12FA005099F3 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
-				D4B94A352E3197BA0000FEA2 /* Resources */,
-				D40BEF182E2EFFDD00391C5A /* Scripts */,
-				D4E787FD2E46192F005DA720 /* Targets */,
-				D40BEF1B2E2EFFE300391C5A /* Templates */,
 			);
 			sourceTree = "<group>";
 		};
@@ -465,6 +450,7 @@
 		D4D509EF2E4621200067A402 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				D4E46BCD2E65B75B0071B1E4 /* Config */,
 				D4D509E02E4621120067A402 /* Sources */,
 				D4D50A052E46286D0067A402 /* UITests */,
 			);
@@ -639,6 +625,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D4D509E02E4621120067A402 /* Sources */,
+				D4E46BCD2E65B75B0071B1E4 /* Config */,
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
@@ -1377,6 +1364,7 @@
 		D4D509EC2E4621120067A402 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Targets/ShareExtension/Sources/Resources/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;
@@ -1404,6 +1392,7 @@
 		D4D509ED2E4621120067A402 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Targets/ShareExtension/Sources/Resources/ShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;

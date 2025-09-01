@@ -85,6 +85,30 @@
         }
       }
     },
+    "share-extension.name.title" : {
+      "comment" : "Title for name configuration item",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "share-extension.nav.title" : {
+      "comment" : "Navigation title for share extension",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Flinky"
+          }
+        }
+      }
+    },
     "share-extension.placeholder.add-to-list" : {
       "comment" : "Placeholder text for share extension",
       "extractionState" : "manual",
@@ -97,6 +121,18 @@
         }
       }
     },
+    "share-extension.placeholder.loading" : {
+      "comment" : "Placeholder text while loading shared content",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading…"
+          }
+        }
+      }
+    },
     "share-extension.success.link-saved" : {
       "comment" : "Success message when link is saved",
       "extractionState" : "manual",
@@ -105,6 +141,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Link saved successfully"
+          }
+        }
+      }
+    },
+    "share-extension.url.accessibility.hint" : {
+      "comment" : "Accessibility hint for URL field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read-only URL to be saved"
+          }
+        }
+      }
+    },
+    "share-extension.url.accessibility.label" : {
+      "comment" : "Accessibility label for URL field",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
           }
         }
       }
