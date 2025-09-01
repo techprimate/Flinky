@@ -279,7 +279,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         // Accessibility
         self.textView.accessibilityLabel = L10n.ShareExtension.Url.Accessibility.label
         self.textView.accessibilityHint = L10n.ShareExtension.Url.Accessibility.hint
-        self.textView.accessibilityTraits = .staticText
 
         // Navigation
         self.navigationItem.title = L10n.ShareExtension.Nav.title
@@ -585,7 +584,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     /// Creates a configuration item to select the list
     private var listPickerConfigurationItem: SLComposeSheetConfigurationItem? {
         guard let item = SLComposeSheetConfigurationItem() else {
-            Self.logger.error("Failed to create name configuration item")
+            Self.logger.error("Failed to create list picker configuration item")
             let event = Event(level: .error)
             event.message = SentryMessage(formatted: "Failed to create list picker configuration item")
             event.extra = [
