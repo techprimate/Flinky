@@ -1,0 +1,6 @@
+We update our app regularly to make it even better for you to easily share links with others.
+
+This release includes:
+
+- Added shake gesture to quickly open the feedback form.
+- Added a share extension so you can easily add links from other apps.
