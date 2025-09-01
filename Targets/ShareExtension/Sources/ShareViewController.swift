@@ -443,7 +443,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             return
         }
         guard let name = self.name, !name.isEmpty else {
-            Self.logger.warning("Link created without a name")
+            Self.logger.error("Link created without a name")
             let event = Event(level: .error)
             event.message = SentryMessage(formatted: "Link created without a name")
             event.extra = [
