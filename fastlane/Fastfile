@@ -1,6 +1,23 @@
 default_platform(:ios)
 
 platform :ios do
+  lane :build do
+    build_app(
+      project: "Flinky.xcodeproj",
+      scheme: "App",
+      archive_path: "./Flinky.xcarchive",
+      build_path: "."
+    )
+
+    # Upload the archive to Sentry for further analysis
+    sentry_upload_mobile_app(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
+    ) if is_ci
+  end
+
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
   lane :generate_app_icons do
     UI.message "Generating app icon sizes using fastlane-plugin-appicon"
@@ -109,14 +126,23 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
     # Get version info to match what the app uses
-    version_number = get_version_number(xcodeproj: "Flinky.xcodeproj")
+    version_number = get_version_number(
+      xcodeproj: "Flinky.xcodeproj",
+      target: "Flinky"
+    )
 
     # Increment build number before building
     increment_build_number(xcodeproj: "Flinky.xcodeproj")
     build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
 
     # Build the app
-    build_app(scheme: "App")
+    build_app(
+      project: "Flinky.xcodeproj",
+      scheme: "App",
+
+      xcarchive_path: "./Flinky.xcarchive",
+      build_path: "."
+    )
 
     # Validate the app
     deliver(
@@ -145,6 +171,14 @@ platform :ios do
       # can only be displayed if --wait is specified, but this will
       # significantly slow down the upload process
       wait: true
+    )
+
+    # Upload the xcarchive to Sentry for further analysis
+    sentry_upload_mobile_app(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
     )
 
     # Associate commits with the release

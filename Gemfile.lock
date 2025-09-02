@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/getsentry/sentry-fastlane-plugin.git
+  revision: 5e67fe3d2caa16edbb1322a9f1bd35a0c80cfd0b
+  branch: no/ios-mobile-upload
+  specs:
+    fastlane-plugin-sentry (1.33.0)
+      os (~> 1.1, >= 1.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -119,8 +127,6 @@ GEM
     fastlane-plugin-appicon (0.16.0)
       json
       mini_magick (>= 4.9.4, < 5.0.0)
-    fastlane-plugin-sentry (1.32.0)
-      os (~> 1.1, >= 1.1.4)
     fastlane-sirp (1.0.0)
       sysrandom (~> 1.0)
     gh_inspector (1.1.3)
@@ -235,7 +241,7 @@ DEPENDENCIES
   benchmark
   fastlane
   fastlane-plugin-appicon
-  fastlane-plugin-sentry
+  fastlane-plugin-sentry!
   ostruct
 
 BUNDLED WITH
