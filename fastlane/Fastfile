@@ -294,14 +294,4 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       }
     )
   end
-
-
-  lane :build_validate_app do
-    # build_app(scheme: "App")
-    Actions.lane_context[SharedValues::IPA_OUTPUT_PATH] = " /Volumes/Developer/techprimate/Flinky/Flinky.ipa"
-    deliver(
-      api_key_path: File.expand_path("./api-key.json"),
-      verify_only: true
-    )
-  end
 end
