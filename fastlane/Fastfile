@@ -1,7 +1,24 @@
 default_platform(:ios)
 
 platform :ios do
-  lane :build do
+  lane :build_ci do
+    # Setup code signing
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky",
+      password: ENV["MATCH_PASSWORD"],
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky.ShareExtension",
+      password: ENV["MATCH_PASSWORD"],
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+
+    # Build and export the app to an archive
     build_app(
       project: "Flinky.xcodeproj",
       scheme: "App",
@@ -327,5 +344,26 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
         phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
       }
     )
+  end
+
+  lane :setup_code_signing do
+    UI.message "Syncing code signing..."
+    sync_code_signing(
+      type: "development",
+      app_identifier: "com.techprimate.Flinky"
+    )
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: "com.techprimate.Flinky"
+    )
+    sync_code_signing(
+      type: "development",
+      app_identifier: "com.techprimate.Flinky.ShareExtension"
+    )
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: "com.techprimate.Flinky.ShareExtension"
+    )
+    UI.success "✅ Code signing synced successfully!"
   end
 end
