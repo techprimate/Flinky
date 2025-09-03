@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/getsentry/sentry-fastlane-plugin.git
-  revision: 5e67fe3d2caa16edbb1322a9f1bd35a0c80cfd0b
-  branch: no/ios-mobile-upload
+  revision: c76fc6cba6c0db6dff958d79fbc8880a570da75e
+  branch: master
   specs:
     fastlane-plugin-sentry (1.33.0)
       os (~> 1.1, >= 1.1.4)
