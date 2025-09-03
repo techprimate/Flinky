@@ -7,14 +7,12 @@ platform :ios do
       type: "appstore",
       readonly: true,
       app_identifier: "com.techprimate.Flinky",
-      password: ENV["MATCH_PASSWORD"],
       git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
     )
     sync_code_signing(
       type: "appstore",
       readonly: true,
       app_identifier: "com.techprimate.Flinky.ShareExtension",
-      password: ENV["MATCH_PASSWORD"],
       git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
     )
 
