@@ -28,7 +28,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - run: bundle exec fastlane build
+      - run: bundle exec fastlane build_ci
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
