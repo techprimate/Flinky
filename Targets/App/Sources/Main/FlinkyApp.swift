@@ -62,14 +62,17 @@ struct FlinkyApp: App {
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
 
-        #if DEBUG
-            options.environment = "development"
-        #else
-            options.environment = "production"
-        #endif
+        func pickEnvValue<T>(production: T, develop: T) -> T {
+            #if DEBUG
+                return develop
+            #else
+                return production
+            #endif
+        }
+        options.environment = pickEnvValue(production: "production", develop: "development")
 
-        options.sampleRate = 0.2
-        options.tracesSampleRate = 0.2
+        options.sampleRate = pickEnvValue(production: 0.2, develop: 1.0)
+        options.tracesSampleRate = pickEnvValue(production: 0.2, develop: 1.0)
 
         // Configure General Options
         options.sendDefaultPii = true
@@ -88,11 +91,11 @@ struct FlinkyApp: App {
 
         // Configure Profiling
         options.enableAppLaunchProfiling = true
-        options.profilesSampleRate = 0.2
+        options.profilesSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
 
         // Configure Session Replay
-        options.sessionReplay.onErrorSampleRate = 1.0
-        options.sessionReplay.sessionSampleRate = 0.1
+        options.sessionReplay.onErrorSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
+        options.sessionReplay.sessionSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
         options.sessionReplay.enableViewRendererV2 = true
         options.sessionReplay.enableFastViewRendering = false
 
@@ -264,6 +267,11 @@ struct FlinkyApp: App {
                 .toaster(toastManager)
                 .configureOnLaunch { options in
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                        SentrySDK.capture(error: NSError(domain: "com.techprimate.Flinky", code: 888))
+                    }
                 }
         }
         .modelContainer(sharedModelContainer)
