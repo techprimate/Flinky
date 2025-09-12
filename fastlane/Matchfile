@@ -1,0 +1,5 @@
+git_url("git@github.com:techprimate/certificates")
+
+storage_mode("git")
+
+type("development")

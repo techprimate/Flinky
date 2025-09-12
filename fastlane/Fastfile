@@ -1,6 +1,30 @@
 default_platform(:ios)
 
 platform :ios do
+  lane :build_ci do
+    # Setup code signing
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky",
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky.ShareExtension",
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+
+    # Build and export the app to an archive
+    build_app(
+      project: "Flinky.xcodeproj",
+      scheme: "App",
+      archive_path: "./Flinky.xcarchive",
+      build_path: "."
+    )
+  end
+
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
   lane :generate_app_icons do
     UI.message "Generating app icon sizes using fastlane-plugin-appicon"
@@ -109,14 +133,23 @@ platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
     # Get version info to match what the app uses
-    version_number = get_version_number(xcodeproj: "Flinky.xcodeproj")
+    version_number = get_version_number(
+      xcodeproj: "Flinky.xcodeproj",
+      target: "Flinky"
+    )
 
     # Increment build number before building
     increment_build_number(xcodeproj: "Flinky.xcodeproj")
     build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
 
     # Build the app
-    build_app(scheme: "App")
+    build_app(
+      project: "Flinky.xcodeproj",
+      scheme: "App",
+
+      archive_path: "./Flinky.xcarchive",
+      build_path: "."
+    )
 
     # Validate the app
     deliver(
@@ -293,5 +326,26 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
         phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
       }
     )
+  end
+
+  lane :setup_code_signing do
+    UI.message "Syncing code signing..."
+    sync_code_signing(
+      type: "development",
+      app_identifier: "com.techprimate.Flinky"
+    )
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: "com.techprimate.Flinky"
+    )
+    sync_code_signing(
+      type: "development",
+      app_identifier: "com.techprimate.Flinky.ShareExtension"
+    )
+    sync_code_signing(
+      type: "appstore",
+      app_identifier: "com.techprimate.Flinky.ShareExtension"
+    )
+    UI.success "✅ Code signing synced successfully!"
   end
 end
