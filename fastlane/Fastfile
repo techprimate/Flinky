@@ -21,7 +21,18 @@ platform :ios do
       project: "Flinky.xcodeproj",
       scheme: "App",
       archive_path: "./Flinky.xcarchive",
-      build_path: "."
+      build_path: ".",
+      export_options: {
+        "destination" => "export",
+        "method" => "app-store-connect",
+        "provisioningProfiles" => {
+          "com.techprimate.Flinky" => "match AppStore com.techprimate.Flinky",
+          "com.techprimate.Flinky.ShareExtension" => "match AppStore com.techprimate.Flinky.ShareExtension"
+        },
+        "signingCertificate" => "Apple Distribution",
+        "signingStyle" => "manual",
+        "teamID" => "BZ362SQ6AB",
+      }
     )
   end
 
@@ -148,7 +159,18 @@ platform :ios do
       scheme: "App",
 
       archive_path: "./Flinky.xcarchive",
-      build_path: "."
+      build_path: ".",
+      export_options: {
+        "destination" => "export",
+        "method" => "app-store-connect",
+        "provisioningProfiles" => {
+          "com.techprimate.Flinky" => "match AppStore com.techprimate.Flinky",
+          "com.techprimate.Flinky.ShareExtension" => "match AppStore com.techprimate.Flinky.ShareExtension"
+        },
+        "signingCertificate" => "Apple Distribution",
+        "signingStyle" => "manual",
+        "teamID" => "BZ362SQ6AB",
+      }
     )
 
     # Validate the app
