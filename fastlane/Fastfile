@@ -2,6 +2,9 @@ default_platform(:ios)
 
 platform :ios do
   lane :build_ci do
+    # Configure CI keychain and set match to readonly to avoid prompts
+    setup_ci if is_ci
+
     # Setup code signing
     sync_code_signing(
       type: "appstore",
@@ -34,6 +37,14 @@ platform :ios do
         "teamID" => "BZ362SQ6AB",
       }
     )
+    
+    # Upload the archive to Sentry for further analysis
+    sentry_upload_build(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
+    ) if is_ci
   end
 
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
@@ -200,6 +211,14 @@ platform :ios do
       # can only be displayed if --wait is specified, but this will
       # significantly slow down the upload process
       wait: true
+    )
+
+    # Upload the xcarchive to Sentry for further analysis
+    sentry_upload_build(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
     )
 
     # Associate commits with the release
