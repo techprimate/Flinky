@@ -1,5 +1,5 @@
 {
-  "originHash" : "4d85826d2c63c3479f29dc7ab35bf62c96617b4a03ca7b4b74c80b7638732346",
+  "originHash" : "1e1809b99168546be69b374deb4dd910fbd24cfab75a2f8407dbcccea8d8b800",
   "pins" : [
     {
       "identity" : "onlaunch-ios-client",
@@ -22,10 +22,10 @@
     {
       "identity" : "sfsafesymbols",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols",
+      "location" : "https://github.com/philprime/SFSafeSymbols",
       "state" : {
-        "revision" : "3dd282d3269b061853a3b3bcd23a509d2aa166ce",
-        "version" : "6.2.0"
+        "branch" : "philprime/optimize-binary-size",
+        "revision" : "868cdca0165eff5a24feab770401e535c763dd9b"
       }
     },
     {
