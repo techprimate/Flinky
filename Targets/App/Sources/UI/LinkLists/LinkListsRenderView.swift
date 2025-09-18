@@ -1,4 +1,5 @@
 import SFSafeSymbols
+import Sentry
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
@@ -71,6 +72,17 @@ struct LinkListsRenderView<Destination: View>: View {
         }
         .ifAvailable(.iOS26, modify: { view in
             view.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        // TODO: Display the feedback UI when available
+                        // SentrySDK.feedback.presentUI()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.feedback.button")
+                }
                 if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
@@ -111,6 +123,17 @@ struct LinkListsRenderView<Destination: View>: View {
             }
         }, elseModify: { view in
             view.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        // TODO: Display the feedback UI when available
+                        // SentrySDK.feedback.presentUI()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.feedback.button")
+                }
                 if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
                         EditButton()

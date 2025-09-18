@@ -1,5 +1,6 @@
 import FlinkyCore
 import SFSafeSymbols
+import Sentry
 import SwiftUI
 
 struct LinkInfoRenderView: View {
@@ -33,6 +34,17 @@ struct LinkInfoRenderView: View {
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
                 .accessibilityIdentifier("link-info.cancel.button")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    // TODO: Display the feedback UI when available
+                    // SentrySDK.feedback.presentUI()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("link-info.feedback.button")
             }
             if #available(iOS 26, *) {
                 ToolbarItem(placement: .confirmationAction) {
