@@ -7,9 +7,7 @@
       "depNameTemplate": "{{{replace 'https://github.com/' '' location}}}",
       "description": "Custom manager for Package.resolved",
       "extractVersionTemplate": "^(?<version>.+?)$",
-      "managerFilePatterns": [
-        "/(^|/)Package\\.resolved$/"
-      ],
+      "managerFilePatterns": ["/(^|/)Package\\.resolved$/"],
       "matchStrings": [
         "\"identity\"\\s*:\\s*\"(?<identity>.*?)\"[^}]*?\"kind\"\\s*:\\s*\"remoteSourceControl\"[^}]*?\"location\"\\s*:\\s*\"(?<location>.*?)\"[^}]*?\"state\"\\s*:\\s*{[^}]*?\"revision\"\\s*:\\s*\"(?<currentDigest>.*?)\"[^}]*?\"version\"\\s*:\\s*\"(?<currentValue>.*?)\""
       ],
@@ -21,66 +19,46 @@
       "depNameTemplate": "{{{replace 'https://github.com/' '' packageName}}}",
       "description": "Custom manager for project.pbxproj",
       "extractVersionTemplate": "^(?<version>.+?)$",
-      "managerFilePatterns": [
-        "/(^|/).*\\.xcodeproj/project\\.pbxproj$/"
-      ],
+      "managerFilePatterns": ["/(^|/).*\\.xcodeproj/project\\.pbxproj$/"],
       "matchStrings": [
         "repositoryURL\\s*=\\s*\"(?<packageName>.*?)\";\\n?\\s*requirement\\s*=\\s*\\{\\n?\\s*kind\\s*=\\s*exactVersion;\\n?\\s*version\\s*=\\s*(?<currentValue>.*?);\\n?\\s*\\}"
       ],
       "packageNameTemplate": "https://github.com/{{{replace 'https://github.com/' '' packageName}}}"
     }
   ],
-  "extends": [
-    "config:recommended"
-  ],
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": false,
+  "extends": ["config:recommended"],
+  "keepUpdatedLabel": "renovate:keep-updated",
   "lockFileMaintenance": {
     "enabled": false
   },
   "packageRules": [
     {
       "description": "Only allow semantic version updates for Swift packages",
-      "matchManagers": [
-        "swift"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "enabled": true
+      "enabled": true,
+      "matchManagers": ["swift"],
+      "matchUpdateTypes": ["major", "minor", "patch"]
     },
     {
       "description": "Disable digest-only updates for custom managers",
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchUpdateTypes": [
-        "digest"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["digest"]
     },
     {
       "description": "Allow version updates for custom managers",
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "enabled": true
+      "enabled": true,
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["major", "minor", "patch"]
     },
     {
       "description": "Disable lock file maintenance",
-      "matchUpdateTypes": [
-        "lockFileMaintenance"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchUpdateTypes": ["lockFileMaintenance"]
     }
   ],
+  "rebaseLabel": "renovate:rebase",
   "stopUpdatingLabel": "renovate:disabled",
   "timezone": "Europe/Vienna"
 }

@@ -40,6 +40,7 @@ xcuserdata/
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.xcarchive
 
 ## Playgrounds
 timeline.xctimeline
@@ -106,6 +107,9 @@ raw-build-share-extension-ios.log
 raw-test-ios.log
 raw-test-ios-core.log
 raw-test-ui-ios.log
+
+# Archive
+*.xcarchive
 
 # --- Ruby ---
 vendor
