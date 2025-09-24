@@ -43,7 +43,7 @@ platform :ios do
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
-      xcarchive_path: "./Flinky.xcarchive",
+      xcarchive_path: "./Flinky.xcarchive"
     ) if is_ci
   end
 
@@ -218,7 +218,7 @@ platform :ios do
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
-      xcarchive_path: "./Flinky.xcarchive",
+      xcarchive_path: "./Flinky.xcarchive"
     )
 
     # Associate commits with the release
