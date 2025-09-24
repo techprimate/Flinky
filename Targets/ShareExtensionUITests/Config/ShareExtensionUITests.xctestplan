@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "300A4DBC-F520-4BDC-B9CD-FC0E8AE78326",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Flinky.xcodeproj",
+      "identifier" : "D4D509DE2E4621120067A402",
+      "name" : "ShareExtension"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Flinky.xcodeproj",
+        "identifier" : "D4D50A032E46286D0067A402",
+        "name" : "ShareExtensionUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

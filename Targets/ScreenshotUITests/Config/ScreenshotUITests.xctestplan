@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "300A4DBC-F520-4BDC-B9CD-FC0E8AE78326",
+      "id" : "F79FD341-41BC-42CF-A11C-300AB8799BD6",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -9,6 +9,7 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : false,
     "targetForVariableExpansion" : {
       "containerPath" : "container:Flinky.xcodeproj",
       "identifier" : "D4D359D82E1BDF540006226D",
@@ -17,11 +18,10 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D4D50A032E46286D0067A402",
-        "name" : "ShareExtensionUITests"
+        "identifier" : "D4ECAAB32E3CF6FB00C757EA",
+        "name" : "ScreenshotUITests"
       }
     }
   ],
