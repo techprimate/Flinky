@@ -1026,6 +1026,42 @@
         }
       }
     },
+    "shared.button.feedback.accessibility.hint": {
+      "comment": "Feedback button accessibility hint",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send feedback to help improve the app"
+          }
+        }
+      }
+    },
+    "shared.button.feedback.accessibility.label": {
+      "comment": "Feedback button accessibility label",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send Feedback"
+          }
+        }
+      }
+    },
+    "shared.button.feedback.label": {
+      "comment": "Feedback button text",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send Feedback"
+          }
+        }
+      }
+    },
     "shared.color-picker.accessibility.label": {
       "comment": "Color picker accessibility label",
       "extractionState": "manual",
