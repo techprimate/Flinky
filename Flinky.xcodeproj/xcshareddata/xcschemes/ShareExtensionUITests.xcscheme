@@ -14,7 +14,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:ShareExtensionUITests.xctestplan"
+            reference = "container:Targets/ShareExtensionUITests/Config/ShareExtensionUITests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -60,6 +60,28 @@
                BlueprintIdentifier = "D4D50A032E46286D0067A402"
                BuildableName = "ShareExtensionUITests.xctest"
                BlueprintName = "ShareExtensionUITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4A014CB2E83DE2900117E01"
+               BuildableName = "UITests.xctest"
+               BlueprintName = "UITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4A014E42E83E11500117E01"
+               BuildableName = "ShareExtensionTests.xctest"
+               BlueprintName = "ShareExtensionTests"
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </TestableReference>
