@@ -1,4 +1,5 @@
 excluded:
+  - ".git"
   - "**/SnapshotHelper.swift"
   - "Libraries/**/*.swift"
 
