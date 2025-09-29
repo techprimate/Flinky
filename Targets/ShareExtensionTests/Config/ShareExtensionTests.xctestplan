@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "F15CC365-633C-4FC0-9E71-F72287DA5C5B",
+      "id" : "3504D2F0-A7DC-48C3-BF70-2FE382677B72",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -16,8 +16,8 @@
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D40BEC162E2EE0C500391C5A",
-        "name" : "Tests"
+        "identifier" : "D4A014E42E83E11500117E01",
+        "name" : "ShareExtensionTests"
       }
     }
   ],

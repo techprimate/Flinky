@@ -11,13 +11,14 @@
 		D430F9A12E38BC6500C0CDA3 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D430F9A02E38BC6500C0CDA3 /* SentrySwiftUI */; };
 		D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */ = {isa = PBXBuildFile; productRef = D44A62A52E33B2800018D789 /* OnLaunch */; };
 		D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D509DF2E4621120067A402 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A016242E83E4EB00117E01 /* SwiftUI.framework */; };
+		D4A016272E83E8FB00117E01 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A016262E83E8FB00117E01 /* SFSafeSymbols */; };
 		D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DC5A2E46133A00027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD8D2E46142D00027944 /* SFSafeSymbols */; };
 		D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD9A2E46160F00027944 /* SFSafeSymbols */; };
-		D4A5DD9D2E46163E00027944 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DD9C2E46163E00027944 /* SwiftUI.framework */; };
 		D4B471882E1F12FA005099F3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4B471872E1F12FA005099F3 /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 		D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
@@ -38,6 +39,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = D4D509DE2E4621120067A402;
 			remoteInfo = ShareExtension;
+		};
+		D4A014D22E83DE2900117E01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D359D82E1BDF540006226D;
+			remoteInfo = Flinky;
+		};
+		D4A014E92E83E11500117E01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D359D82E1BDF540006226D;
+			remoteInfo = Flinky;
 		};
 		D4A5DC572E46133A00027944 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -153,9 +168,10 @@
 
 /* Begin PBXFileReference section */
 		D40BEC172E2EE0C500391C5A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A014CC2E83DE2900117E01 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A014E52E83E11500117E01 /* ShareExtensionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A016242E83E4EB00117E01 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/iOSSupport/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		D4A5DC462E46133A00027944 /* FlinkyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlinkyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4A5DD9C2E46163E00027944 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/iOSSupport/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
-		D4A5DD9E2E4616AA00027944 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D509DF2E4621120067A402 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D50A042E46286D0067A402 /* ShareExtensionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareExtensionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,17 +180,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D4A014F42E83E1C400117E01 /* Exceptions for "Config" folder in "ShareExtensionTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ShareExtensionTests.xctestplan,
+			);
+			target = D4A014E42E83E11500117E01 /* ShareExtensionTests */;
+		};
 		D4D509EA2E4621120067A402 /* Exceptions for "Sources" folder in "ShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
-			);
-			target = D4D509DE2E4621120067A402 /* ShareExtension */;
-		};
-		D4E46BCE2E65B76A0071B1E4 /* Exceptions for "Config" folder in "ShareExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ShareExtensionUITests.xctestplan,
 			);
 			target = D4D509DE2E4621120067A402 /* ShareExtension */;
 		};
@@ -184,66 +200,6 @@
 				Resources/Localizable.xcstrings,
 			);
 			target = D4A5DC452E46133A00027944 /* FlinkyCore */;
-		};
-		D4E789232E461ADD005DA720 /* Exceptions for "Tests" folder in "Tests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Errors/PersistenceErrorTests.swift,
-				Models/LinkModelTests.swift,
-				Models/ListSymbolAnimalTests.swift,
-				Models/ListSymbolArrowTests.swift,
-				Models/ListSymbolBasicShapeTests.swift,
-				Models/ListSymbolClothingAccessoriesTests.swift,
-				Models/ListSymbolCommunicationTests.swift,
-				Models/ListSymbolCurrencyTests.swift,
-				Models/ListSymbolDocumentsReadingWritingTests.swift,
-				Models/ListSymbolEntertainmentTests.swift,
-				Models/ListSymbolFigureSportsActivityTests.swift,
-				Models/ListSymbolFoodTests.swift,
-				Models/ListSymbolHumanTests.swift,
-				Models/ListSymbolLetterTests.swift,
-				Models/ListSymbolMathTests.swift,
-				Models/ListSymbolMedicalTests.swift,
-				Models/ListSymbolNatureTests.swift,
-				Models/ListSymbolNumberTests.swift,
-				Models/ListSymbolObjectTests.swift,
-				Models/ListSymbolPlacesBuildingsTests.swift,
-				Models/ListSymbolSportRecreationTests.swift,
-				Models/ListSymbolTechnologyTests.swift,
-				Models/ListSymbolTransportationTests.swift,
-				Persistence/DatabaseMetadataTests.swift,
-			);
-			target = D40BEC162E2EE0C500391C5A /* Tests */;
-		};
-		D4E789242E461ADD005DA720 /* Exceptions for "Tests" folder in "FlinkyCoreTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Errors/PersistenceErrorTests.swift,
-				Models/LinkModelTests.swift,
-				Models/ListSymbolAnimalTests.swift,
-				Models/ListSymbolArrowTests.swift,
-				Models/ListSymbolBasicShapeTests.swift,
-				Models/ListSymbolClothingAccessoriesTests.swift,
-				Models/ListSymbolCommunicationTests.swift,
-				Models/ListSymbolCurrencyTests.swift,
-				Models/ListSymbolDocumentsReadingWritingTests.swift,
-				Models/ListSymbolEntertainmentTests.swift,
-				Models/ListSymbolFigureSportsActivityTests.swift,
-				Models/ListSymbolFoodTests.swift,
-				Models/ListSymbolHumanTests.swift,
-				Models/ListSymbolLetterTests.swift,
-				Models/ListSymbolMathTests.swift,
-				Models/ListSymbolMedicalTests.swift,
-				Models/ListSymbolNatureTests.swift,
-				Models/ListSymbolNumberTests.swift,
-				Models/ListSymbolObjectTests.swift,
-				Models/ListSymbolPlacesBuildingsTests.swift,
-				Models/ListSymbolSportRecreationTests.swift,
-				Models/ListSymbolTechnologyTests.swift,
-				Models/ListSymbolTransportationTests.swift,
-				Persistence/DatabaseMetadataTests.swift,
-			);
-			target = D4E789112E461A83005DA720 /* FlinkyCoreTests */;
 		};
 		D4F7B8E42E4205EF004A2D77 /* Exceptions for "Sources" folder in "Flinky" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -280,6 +236,59 @@
 			path = Templates;
 			sourceTree = "<group>";
 		};
+		D4A014872E83DDA500117E01 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4A0148B2E83DDB300117E01 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D4A0148D2E83DDCA00117E01 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D4A014A92E83DDCA00117E01 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4A014C32E83DDEC00117E01 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D4A014C52E83DDEC00117E01 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4A014DA2E83DE6400117E01 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4A014DE2E83DF3100117E01 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		D4A014F12E83E18700117E01 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D4A014F32E83E1BF00117E01 /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D4A014F42E83E1C400117E01 /* Exceptions for "Config" folder in "ShareExtensionTests" target */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		D4D359DB2E1BDF540006226D /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -294,19 +303,6 @@
 				D4D509EA2E4621120067A402 /* Exceptions for "Sources" folder in "ShareExtension" target */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		D4D50A052E46286D0067A402 /* UITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UITests;
-			sourceTree = "<group>";
-		};
-		D4E46BCD2E65B75B0071B1E4 /* Config */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D4E46BCE2E65B76A0071B1E4 /* Exceptions for "Config" folder in "ShareExtension" target */,
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 		D4E788512E461996005DA720 /* Sources */ = {
@@ -328,25 +324,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		D4E789082E4619D7005DA720 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		D4E789132E461A83005DA720 /* Tests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D4E789232E461ADD005DA720 /* Exceptions for "Tests" folder in "Tests" target */,
-				D4E789242E461ADD005DA720 /* Exceptions for "Tests" folder in "FlinkyCoreTests" target */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		D4E789222E461AC8005DA720 /* Config */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Config;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,11 +336,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4A014C92E83DE2900117E01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4A014E22E83E11500117E01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A5DC432E46133A00027944 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4A5DD9D2E46163E00027944 /* SwiftUI.framework in Frameworks */,
+				D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */,
 				D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +390,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A016272E83E8FB00117E01 /* SFSafeSymbols in Frameworks */,
 				D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,11 +405,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D4B471862E1F12FA005099F3 /* Frameworks */ = {
+		D4A014822E83DD4300117E01 /* FlinkyCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				D4A5DD9E2E4616AA00027944 /* SwiftUI.framework */,
-				D4A5DD9C2E46163E00027944 /* SwiftUI.framework */,
+				D4A0148D2E83DDCA00117E01 /* Config */,
+				D4A014A92E83DDCA00117E01 /* Sources */,
+			);
+			path = FlinkyCoreTests;
+			sourceTree = "<group>";
+		};
+		D4A014832E83DD6300117E01 /* ScreenshotUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A0148B2E83DDB300117E01 /* Config */,
+				D4A014872E83DDA500117E01 /* Sources */,
+			);
+			path = ScreenshotUITests;
+			sourceTree = "<group>";
+		};
+		D4A014842E83DD7500117E01 /* ShareExtensionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A014C32E83DDEC00117E01 /* Config */,
+				D4A014C52E83DDEC00117E01 /* Sources */,
+			);
+			path = ShareExtensionUITests;
+			sourceTree = "<group>";
+		};
+		D4A014D72E83DE4E00117E01 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A014DE2E83DF3100117E01 /* Config */,
+				D4A014DA2E83DE6400117E01 /* Sources */,
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
+		D4A014EF2E83E18300117E01 /* ShareExtensionTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A014F32E83E1BF00117E01 /* Config */,
+				D4A014F12E83E18700117E01 /* Sources */,
+			);
+			path = ShareExtensionTests;
+			sourceTree = "<group>";
+		};
+		D4A016232E83E4EB00117E01 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4A016242E83E4EB00117E01 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -428,7 +464,7 @@
 				D4E787FD2E46192F005DA720 /* Targets */,
 				D40BEF182E2EFFDD00391C5A /* Scripts */,
 				D40BEF1B2E2EFFE300391C5A /* Templates */,
-				D4B471862E1F12FA005099F3 /* Frameworks */,
+				D4A016232E83E4EB00117E01 /* Frameworks */,
 				D4D359DA2E1BDF540006226D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -443,6 +479,8 @@
 				D4E789122E461A83005DA720 /* FlinkyCoreTests.xctest */,
 				D4D509DF2E4621120067A402 /* ShareExtension.appex */,
 				D4D50A042E46286D0067A402 /* ShareExtensionUITests.xctest */,
+				D4A014CC2E83DE2900117E01 /* UITests.xctest */,
+				D4A014E52E83E11500117E01 /* ShareExtensionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -450,9 +488,7 @@
 		D4D509EF2E4621200067A402 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
-				D4E46BCD2E65B75B0071B1E4 /* Config */,
 				D4D509E02E4621120067A402 /* Sources */,
-				D4D50A052E46286D0067A402 /* UITests */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -470,10 +506,14 @@
 			isa = PBXGroup;
 			children = (
 				D4E787FC2E461909005DA720 /* App */,
-				D4E788962E4619C3005DA720 /* FlinkyCore */,
-				D4E789032E4619D0005DA720 /* ScreenshotUITests */,
-				D4D509EF2E4621200067A402 /* ShareExtension */,
 				D4E7881B2E461992005DA720 /* Tests */,
+				D4A014832E83DD6300117E01 /* ScreenshotUITests */,
+				D4A014D72E83DE4E00117E01 /* UITests */,
+				D4E788962E4619C3005DA720 /* FlinkyCore */,
+				D4A014822E83DD4300117E01 /* FlinkyCoreTests */,
+				D4D509EF2E4621200067A402 /* ShareExtension */,
+				D4A014842E83DD7500117E01 /* ShareExtensionUITests */,
+				D4A014EF2E83E18300117E01 /* ShareExtensionTests */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -490,19 +530,9 @@
 		D4E788962E4619C3005DA720 /* FlinkyCore */ = {
 			isa = PBXGroup;
 			children = (
-				D4E789222E461AC8005DA720 /* Config */,
-				D4E789132E461A83005DA720 /* Tests */,
 				D4E788DC2E4619C5005DA720 /* Sources */,
 			);
 			path = FlinkyCore;
-			sourceTree = "<group>";
-		};
-		D4E789032E4619D0005DA720 /* ScreenshotUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D4E789082E4619D7005DA720 /* Sources */,
-			);
-			path = ScreenshotUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,6 +574,53 @@
 			);
 			productName = Tests;
 			productReference = D40BEC172E2EE0C500391C5A /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D4A014CB2E83DE2900117E01 /* UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4A014D42E83DE2900117E01 /* Build configuration list for PBXNativeTarget "UITests" */;
+			buildPhases = (
+				D4A014C82E83DE2900117E01 /* Sources */,
+				D4A014C92E83DE2900117E01 /* Frameworks */,
+				D4A014CA2E83DE2900117E01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4A014D32E83DE2900117E01 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D4A014DA2E83DE6400117E01 /* Sources */,
+			);
+			name = UITests;
+			packageProductDependencies = (
+			);
+			productName = UITests;
+			productReference = D4A014CC2E83DE2900117E01 /* UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D4A014E42E83E11500117E01 /* ShareExtensionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4A014EB2E83E11500117E01 /* Build configuration list for PBXNativeTarget "ShareExtensionTests" */;
+			buildPhases = (
+				D4A014E12E83E11500117E01 /* Sources */,
+				D4A014E22E83E11500117E01 /* Frameworks */,
+				D4A014E32E83E11500117E01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4A014EA2E83E11500117E01 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D4A014F12E83E18700117E01 /* Sources */,
+				D4A014F32E83E1BF00117E01 /* Config */,
+			);
+			name = ShareExtensionTests;
+			packageProductDependencies = (
+			);
+			productName = ShareExtensionTests;
+			productReference = D4A014E52E83E11500117E01 /* ShareExtensionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D4A5DC452E46133A00027944 /* FlinkyCore */ = {
@@ -625,7 +702,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				D4D509E02E4621120067A402 /* Sources */,
-				D4E46BCD2E65B75B0071B1E4 /* Config */,
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
@@ -648,7 +724,7 @@
 				D4D50A0B2E46286D0067A402 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D4D50A052E46286D0067A402 /* UITests */,
+				D4A014C52E83DDEC00117E01 /* Sources */,
 			);
 			name = ShareExtensionUITests;
 			packageProductDependencies = (
@@ -673,10 +749,11 @@
 				D4E789262E461B19005DA720 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D4E789132E461A83005DA720 /* Tests */,
+				D4A014A92E83DDCA00117E01 /* Sources */,
 			);
 			name = FlinkyCoreTests;
 			packageProductDependencies = (
+				D4A016262E83E8FB00117E01 /* SFSafeSymbols */,
 			);
 			productName = FlinkyCoreTests;
 			productReference = D4E789122E461A83005DA720 /* FlinkyCoreTests.xctest */;
@@ -696,7 +773,7 @@
 				D4ECAABB2E3CF6FB00C757EA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D4E789082E4619D7005DA720 /* Sources */,
+				D4A014872E83DDA500117E01 /* Sources */,
 			);
 			name = ScreenshotUITests;
 			packageProductDependencies = (
@@ -716,6 +793,14 @@
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					D40BEC162E2EE0C500391C5A = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D4D359D82E1BDF540006226D;
+					};
+					D4A014CB2E83DE2900117E01 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = D4D359D82E1BDF540006226D;
+					};
+					D4A014E42E83E11500117E01 = {
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = D4D359D82E1BDF540006226D;
 					};
@@ -764,10 +849,12 @@
 			targets = (
 				D4D359D82E1BDF540006226D /* Flinky */,
 				D40BEC162E2EE0C500391C5A /* Tests */,
+				D4ECAAB32E3CF6FB00C757EA /* ScreenshotUITests */,
+				D4A014CB2E83DE2900117E01 /* UITests */,
 				D4A5DC452E46133A00027944 /* FlinkyCore */,
 				D4E789112E461A83005DA720 /* FlinkyCoreTests */,
-				D4ECAAB32E3CF6FB00C757EA /* ScreenshotUITests */,
 				D4D509DE2E4621120067A402 /* ShareExtension */,
+				D4A014E42E83E11500117E01 /* ShareExtensionTests */,
 				D4D50A032E46286D0067A402 /* ShareExtensionUITests */,
 			);
 		};
@@ -775,6 +862,20 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		D40BEC152E2EE0C500391C5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4A014CA2E83DE2900117E01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4A014E32E83E11500117E01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -920,6 +1021,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4A014C82E83DE2900117E01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4A014E12E83E11500117E01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A5DC422E46133A00027944 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -978,6 +1093,16 @@
 			isa = PBXTargetDependency;
 			target = D4D509DE2E4621120067A402 /* ShareExtension */;
 			targetProxy = D462B7822E659CC8006EB4FB /* PBXContainerItemProxy */;
+		};
+		D4A014D32E83DE2900117E01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D359D82E1BDF540006226D /* Flinky */;
+			targetProxy = D4A014D22E83DE2900117E01 /* PBXContainerItemProxy */;
+		};
+		D4A014EA2E83E11500117E01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D359D82E1BDF540006226D /* Flinky */;
+			targetProxy = D4A014E92E83E11500117E01 /* PBXContainerItemProxy */;
 		};
 		D4A5DC582E46133A00027944 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1074,6 +1199,84 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky";
+			};
+			name = Release;
+		};
+		D4A014D52E83DE2900117E01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Flinky;
+			};
+			name = Debug;
+		};
+		D4A014D62E83DE2900117E01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.UITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Flinky;
+			};
+			name = Release;
+		};
+		D4A014EC2E83E11500117E01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.ShareExtensionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky";
+			};
+			name = Debug;
+		};
+		D4A014ED2E83E11500117E01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.ShareExtensionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1473,13 +1676,14 @@
 		D4E789192E461A83005DA720 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.FlinkyCoreTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.CoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1492,13 +1696,14 @@
 		D4E7891A2E461A83005DA720 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.FlinkyCoreTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.CoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1554,6 +1759,24 @@
 			buildConfigurations = (
 				D40BEC1E2E2EE0C500391C5A /* Debug */,
 				D40BEC1F2E2EE0C500391C5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4A014D42E83DE2900117E01 /* Build configuration list for PBXNativeTarget "UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4A014D52E83DE2900117E01 /* Debug */,
+				D4A014D62E83DE2900117E01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4A014EB2E83E11500117E01 /* Build configuration list for PBXNativeTarget "ShareExtensionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4A014EC2E83E11500117E01 /* Debug */,
+				D4A014ED2E83E11500117E01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1645,7 +1868,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
 			requirement = {
 				kind = exactVersion;
-				version = "8.56.0-alpha.3";
+				version = 8.56.2;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
@@ -1678,6 +1901,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
+		};
+		D4A016262E83E8FB00117E01 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
 		};
 		D4A5DD8D2E46142D00027944 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
