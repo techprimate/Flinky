@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */; };
-		D430F9A12E38BC6500C0CDA3 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D430F9A02E38BC6500C0CDA3 /* SentrySwiftUI */; };
 		D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */ = {isa = PBXBuildFile; productRef = D44A62A52E33B2800018D789 /* OnLaunch */; };
 		D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D509DF2E4621120067A402 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A016242E83E4EB00117E01 /* SwiftUI.framework */; };
@@ -19,8 +18,15 @@
 		D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD9A2E46160F00027944 /* SFSafeSymbols */; };
-		D4B471882E1F12FA005099F3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4B471872E1F12FA005099F3 /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
+		D4E7626F2E8AA7EB00E839F7 /* Sentry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */; };
+		D4E762702E8AA7EB00E839F7 /* Sentry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4E762712E8AA7EB00E839F7 /* SentrySwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */; };
+		D4E762722E8AA7EB00E839F7 /* SentrySwiftUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4E762732E8AA80200E839F7 /* Sentry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */; };
+		D4E762742E8AA80200E839F7 /* Sentry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4E762752E8AA80200E839F7 /* SentrySwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */; };
+		D4E762762E8AA80200E839F7 /* SentrySwiftUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4E7891C2E461A95005DA720 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -32,13 +38,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D4D359D82E1BDF540006226D;
 			remoteInfo = Flinky;
-		};
-		D462B7822E659CC8006EB4FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4D509DE2E4621120067A402;
-			remoteInfo = ShareExtension;
 		};
 		D4A014D22E83DE2900117E01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -75,13 +74,6 @@
 			remoteGlobalIDString = D4A5DC452E46133A00027944;
 			remoteInfo = FlinkyShared;
 		};
-		D4D509E72E4621120067A402 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4D509DE2E4621120067A402;
-			remoteInfo = ShareExtension;
-		};
 		D4D509FD2E4627390067A402 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
@@ -95,6 +87,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = D4D359D82E1BDF540006226D;
 			remoteInfo = Flinky;
+		};
+		D4E7625A2E8AA7CE00E839F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 63AA759B1EB8AEF500D153DE;
+			remoteInfo = Sentry;
+		};
+		D4E7625E2E8AA7CE00E839F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8199DAA29376E9B0074249E;
+			remoteInfo = SentrySwiftUI;
+		};
+		D4E762782E8AA82500E839F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 63AA759A1EB8AEF500D153DE;
+			remoteInfo = Sentry;
+		};
+		D4E7627A2E8AA82500E839F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D8199DA929376E9B0074249E;
+			remoteInfo = SentrySwiftUI;
+		};
+		D4E7627C2E8AA82E00E839F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4D359D12E1BDF540006226D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4D509DE2E4621120067A402;
+			remoteInfo = ShareExtension;
 		};
 		D4E7891D2E461A95005DA720 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -127,6 +154,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D4A5DC5A2E46133A00027944 /* FlinkyCore.framework in Embed Frameworks */,
+				D4E762722E8AA7EB00E839F7 /* SentrySwiftUI.framework in Embed Frameworks */,
+				D4E762702E8AA7EB00E839F7 /* Sentry.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +182,18 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D4E762772E8AA80200E839F7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D4E762742E8AA80200E839F7 /* Sentry.framework in Embed Frameworks */,
+				D4E762762E8AA80200E839F7 /* SentrySwiftUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4E7891F2E461A95005DA720 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,6 +216,7 @@
 		D4D359D92E1BDF540006226D /* Flinky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D509DF2E4621120067A402 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D50A042E46286D0067A402 /* ShareExtensionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareExtensionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sentry.xcodeproj; path = "Libraries/getsentry/sentry-cocoa/Sentry.xcodeproj"; sourceTree = "<group>"; };
 		D4E789122E461A83005DA720 /* FlinkyCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlinkyCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -364,11 +406,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */,
-				D430F9A12E38BC6500C0CDA3 /* SentrySwiftUI in Frameworks */,
+				D4E7626F2E8AA7EB00E839F7 /* Sentry.framework in Frameworks */,
+				D4E762712E8AA7EB00E839F7 /* SentrySwiftUI.framework in Frameworks */,
 				D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */,
 				D40BECB32E2EFDAD00391C5A /* SwiftUIIntrospect in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
-				D4B471882E1F12FA005099F3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +418,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E762732E8AA80200E839F7 /* Sentry.framework in Frameworks */,
+				D4E762752E8AA80200E839F7 /* SentrySwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +505,7 @@
 		D4D359D02E1BDF540006226D = {
 			isa = PBXGroup;
 			children = (
+				D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */,
 				D4E787FD2E46192F005DA720 /* Targets */,
 				D40BEF182E2EFFDD00391C5A /* Scripts */,
 				D40BEF1B2E2EFFE300391C5A /* Templates */,
@@ -491,6 +536,15 @@
 				D4D509E02E4621120067A402 /* Sources */,
 			);
 			path = ShareExtension;
+			sourceTree = "<group>";
+		};
+		D4E7624F2E8AA7CE00E839F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */,
+				D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D4E787FC2E461909005DA720 /* App */ = {
@@ -665,11 +719,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4E7627D2E8AA82E00E839F7 /* PBXTargetDependency */,
+				D4E762792E8AA82500E839F7 /* PBXTargetDependency */,
+				D4E7627B2E8AA82500E839F7 /* PBXTargetDependency */,
 				D4A5DC582E46133A00027944 /* PBXTargetDependency */,
-				D4B4718C2E1F1303005099F3 /* PBXTargetDependency */,
 				D4B4718A2E1F1300005099F3 /* PBXTargetDependency */,
-				D4D509E82E4621120067A402 /* PBXTargetDependency */,
-				D462B7832E659CC8006EB4FB /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D4D359DB2E1BDF540006226D /* Sources */,
@@ -677,10 +731,8 @@
 			name = Flinky;
 			packageProductDependencies = (
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
-				D4B471872E1F12FA005099F3 /* Sentry */,
 				D40BECB22E2EFDAD00391C5A /* SwiftUIIntrospect */,
 				D44A62A52E33B2800018D789 /* OnLaunch */,
-				D430F9A02E38BC6500C0CDA3 /* SentrySwiftUI */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -693,11 +745,11 @@
 				D4D509DB2E4621120067A402 /* Sources */,
 				D4D509DC2E4621120067A402 /* Frameworks */,
 				D4D509DD2E4621120067A402 /* Resources */,
+				D4E762772E8AA80200E839F7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D462B7802E659C99006EB4FB /* PBXTargetDependency */,
 				D4D509FE2E4627390067A402 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -838,13 +890,18 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
-				D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 				D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D4E7624F2E8AA7CE00E839F7 /* Products */;
+					ProjectRef = D4E7624E2E8AA7CE00E839F7 /* Sentry.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D4D359D82E1BDF540006226D /* Flinky */,
@@ -859,6 +916,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D4E7625B2E8AA7CE00E839F7 /* Sentry.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sentry.framework;
+			remoteRef = D4E7625A2E8AA7CE00E839F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D4E7625F2E8AA7CE00E839F7 /* SentrySwiftUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SentrySwiftUI.framework;
+			remoteRef = D4E7625E2E8AA7CE00E839F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D40BEC152E2EE0C500391C5A /* Resources */ = {
@@ -1085,15 +1159,6 @@
 			target = D4D359D82E1BDF540006226D /* Flinky */;
 			targetProxy = D40BEC1B2E2EE0C500391C5A /* PBXContainerItemProxy */;
 		};
-		D462B7802E659C99006EB4FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D462B77F2E659C99006EB4FB /* Sentry */;
-		};
-		D462B7832E659CC8006EB4FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4D509DE2E4621120067A402 /* ShareExtension */;
-			targetProxy = D462B7822E659CC8006EB4FB /* PBXContainerItemProxy */;
-		};
 		D4A014D32E83DE2900117E01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4D359D82E1BDF540006226D /* Flinky */;
@@ -1131,15 +1196,6 @@
 			isa = PBXTargetDependency;
 			productRef = D4B471892E1F1300005099F3 /* SFSafeSymbols */;
 		};
-		D4B4718C2E1F1303005099F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D4B4718B2E1F1303005099F3 /* Sentry */;
-		};
-		D4D509E82E4621120067A402 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4D509DE2E4621120067A402 /* ShareExtension */;
-			targetProxy = D4D509E72E4621120067A402 /* PBXContainerItemProxy */;
-		};
 		D4D509FE2E4627390067A402 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4A5DC452E46133A00027944 /* FlinkyCore */;
@@ -1149,6 +1205,21 @@
 			isa = PBXTargetDependency;
 			target = D4D359D82E1BDF540006226D /* Flinky */;
 			targetProxy = D4D50A0A2E46286D0067A402 /* PBXContainerItemProxy */;
+		};
+		D4E762792E8AA82500E839F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sentry;
+			targetProxy = D4E762782E8AA82500E839F7 /* PBXContainerItemProxy */;
+		};
+		D4E7627B2E8AA82500E839F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SentrySwiftUI;
+			targetProxy = D4E7627A2E8AA82500E839F7 /* PBXContainerItemProxy */;
+		};
+		D4E7627D2E8AA82E00E839F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4D509DE2E4621120067A402 /* ShareExtension */;
+			targetProxy = D4E7627C2E8AA82E00E839F7 /* PBXContainerItemProxy */;
 		};
 		D4E7891E2E461A95005DA720 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1863,14 +1934,6 @@
 				version = 1.3.0;
 			};
 		};
-		D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
-			requirement = {
-				kind = exactVersion;
-				version = 8.56.2;
-			};
-		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
@@ -1887,20 +1950,10 @@
 			package = D470EA6B2E2E51D400F4FD16 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
 		};
-		D430F9A02E38BC6500C0CDA3 /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
-		};
 		D44A62A52E33B2800018D789 /* OnLaunch */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */;
 			productName = OnLaunch;
-		};
-		D462B77F2E659C99006EB4FB /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
 		};
 		D4A016262E83E8FB00117E01 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1927,20 +1980,10 @@
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
 		};
-		D4B471872E1F12FA005099F3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
-		};
 		D4B471892E1F1300005099F3 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
-		};
-		D4B4718B2E1F1303005099F3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4BB80702E1F12190013AEEB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
 		};
 		D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
