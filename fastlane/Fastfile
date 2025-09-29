@@ -39,12 +39,15 @@ platform :ios do
     )
     
     # Upload the archive to Sentry for further analysis
+    original_verbose = FastlaneCore::Globals.verbose
+    FastlaneCore::Globals.verbose = true # For debugging as it's experimental
     sentry_upload_build(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
       xcarchive_path: "./Flinky.xcarchive",
     ) if is_ci
+    FastlaneCore::Globals.verbose = original_verbose
   end
 
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
@@ -214,12 +217,15 @@ platform :ios do
     )
 
     # Upload the xcarchive to Sentry for further analysis
+    original_verbose = FastlaneCore::Globals.verbose
+    FastlaneCore::Globals.verbose = true # For debugging as it's experimental
     sentry_upload_build(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
       org_slug: "techprimate",
       project_slug: "flinky",
       xcarchive_path: "./Flinky.xcarchive",
     )
+    FastlaneCore::Globals.verbose = original_verbose
 
     # Associate commits with the release
     sentry_set_commits(
