@@ -12,10 +12,6 @@ public enum SharedModelContainerFactory {
             DatabaseMetadata.self
         ])
 
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupId) else {
-            throw NSError(domain: "Flinky", code: 1, userInfo: [NSLocalizedDescriptionKey: "App Group container URL not found for \(appGroupId)"])
-        }
-
         // iOS 18+: use groupContainer to co-locate the store in the App Group container
         let configuration = ModelConfiguration(
             schema: schema,
