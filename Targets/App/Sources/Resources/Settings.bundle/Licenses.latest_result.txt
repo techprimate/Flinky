@@ -1,12 +1,12 @@
 name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, version: 0.0.6, source: https://github.com/kula-app/OnLaunch-iOS-Client
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 8.56.2, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 8.57.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 6.2.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
 
 name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, version: 0.0.6, source: https://github.com/kula-app/OnLaunch-iOS-Client
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 8.56.2, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 8.57.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 6.2.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
 
