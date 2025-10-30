@@ -61,11 +61,21 @@ jobs:
 
       - name: Upload Logs
         uses: actions/upload-artifact@v5
+        if: always()
         with:
           name: test-logs
           path: |
             raw-test-ios.log
           retention-days: 1
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: test-results
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
+          retention-days: 7
 
       - name: Run CI Diagnostics
         if: failure()
@@ -86,11 +96,21 @@ jobs:
 
       - name: Upload Logs
         uses: actions/upload-artifact@v5
+        if: failure()
         with:
           name: ui-test-logs
           path: |
             raw-test-ui-ios.log
           retention-days: 1
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v5
+        if: failure()
+        with:
+          name: ui-test-results
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
+          retention-days: 7
 
       - name: Run CI Diagnostics
         if: failure()
