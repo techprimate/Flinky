@@ -1864,7 +1864,7 @@
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
 			requirement = {
 				kind = exactVersion;
-				version = 6.2.0;
+				version = 7.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
