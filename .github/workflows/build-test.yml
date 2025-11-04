@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
+        with:
+          submodules: true
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
@@ -53,6 +55,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
+        with:
+          submodules: true
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
@@ -90,6 +94,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
+        with:
+          submodules: true
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
