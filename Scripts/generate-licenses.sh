@@ -36,7 +36,61 @@ else
     echo "⚠️  No GitHub token available, licenses may be incomplete..."
 fi
 
-license-plist
+# Run license-plist but don't fail the script if it has network issues
+license-plist "$@" || {
+    echo "⚠️  license-plist completed with warnings (likely network issues)"
+}
+
+# Post-process sentry-cocoa license information
+SENTRY_SUBMODULE_PATH="Libraries/getsentry/sentry-cocoa"
+LICENSES_PLIST="Targets/App/Sources/Resources/Settings.bundle/Licenses.plist"
+SENTRY_LICENSE_PLIST="Targets/App/Sources/Resources/Settings.bundle/Licenses/sentry-cocoa.plist"
+
+if [[ -d "$SENTRY_SUBMODULE_PATH" && -f "$LICENSES_PLIST" ]]; then
+    echo "🔧 Post-processing sentry-cocoa license information..."
+    
+    # Get the current commit hash of the sentry-cocoa submodule
+    SENTRY_COMMIT=$(cd "$SENTRY_SUBMODULE_PATH" && git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+    
+    if [[ "$SENTRY_COMMIT" != "unknown" ]]; then
+        # Find the index of the sentry-cocoa entry in Licenses.plist
+        SENTRY_INDEX=$(/usr/libexec/PlistBuddy -c "Print :PreferenceSpecifiers" "$LICENSES_PLIST" 2>/dev/null | grep -n "Licenses/sentry-cocoa" | cut -d: -f1)
+        
+        if [[ -n "$SENTRY_INDEX" ]]; then
+            # PlistBuddy uses 0-based indexing, but our grep result is 1-based, and we need to account for the Dict structure
+            # The grep finds the line number, but we need the array index. Let's use a different approach:
+            
+            # Count the number of entries to find the right index
+            ENTRY_COUNT=$(/usr/libexec/PlistBuddy -c "Print :PreferenceSpecifiers" "$LICENSES_PLIST" 2>/dev/null | grep -c "Dict {")
+            
+            # Find the correct index by checking each entry
+            for ((i=1; i<ENTRY_COUNT; i++)); do
+                FILE_VALUE=$(/usr/libexec/PlistBuddy -c "Print :PreferenceSpecifiers:$i:File" "$LICENSES_PLIST" 2>/dev/null || echo "")
+                if [[ "$FILE_VALUE" == "Licenses/sentry-cocoa" ]]; then
+                    if /usr/libexec/PlistBuddy -c "Set :PreferenceSpecifiers:$i:Title 'Sentry ($SENTRY_COMMIT)'" "$LICENSES_PLIST" 2>/dev/null; then
+                        echo "✅ Updated sentry-cocoa title to: Sentry ($SENTRY_COMMIT)"
+                    else
+                        echo "⚠️  Could not update sentry-cocoa title in Licenses.plist"
+                    fi
+                    break
+                fi
+            done
+        else
+            echo "⚠️  Could not find sentry-cocoa entry in Licenses.plist"
+        fi
+        
+        # Fix the license type in sentry-cocoa.plist from "unknown" to "MIT"
+        if [[ -f "$SENTRY_LICENSE_PLIST" ]]; then
+            if /usr/libexec/PlistBuddy -c "Set :PreferenceSpecifiers:0:License MIT" "$SENTRY_LICENSE_PLIST" 2>/dev/null; then
+                echo "✅ Fixed sentry-cocoa license type to: MIT"
+            else
+                echo "⚠️  Could not update license type in sentry-cocoa.plist"
+            fi
+        fi
+    else
+        echo "⚠️  Could not determine sentry-cocoa commit hash"
+    fi
+fi
 
 echo "✅ License generation complete!"
 echo "📁 Generated files in: Targets/App/Sources/Resources/Settings.bundle/"

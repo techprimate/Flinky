@@ -1,0 +1,3 @@
+[submodule "Libraries/getsentry/sentry-cocoa"]
+	path = Libraries/getsentry/sentry-cocoa
+	url = git@github.com:getsentry/sentry-cocoa

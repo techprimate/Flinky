@@ -89,10 +89,6 @@ struct FlinkyApp: App {
         options.attachStacktrace = true
         options.enablePersistingTracesWhenCrashing = true
 
-        // Configure Profiling
-        options.enableAppLaunchProfiling = true
-        options.profilesSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
-
         // Configure Session Replay
         options.sessionReplay.onErrorSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
         options.sessionReplay.sessionSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
@@ -101,17 +97,15 @@ struct FlinkyApp: App {
 
         // Configure App Hang
         options.enableAppHangTracking = true
-        options.enableAppHangTrackingV2 = true
         options.enableReportNonFullyBlockingAppHangs = false
 
         // Configure File I/O
         options.enableFileIOTracing = true
-        options.experimental.enableDataSwizzling = true
-        options.experimental.enableFileManagerSwizzling = true
+        options.enableDataSwizzling = true
+        options.enableFileManagerSwizzling = true
 
         // Configure Tracing
         options.enableAutoPerformanceTracing = true
-        options.enablePerformanceV2 = true
         options.enableCoreDataTracing = true
         options.enablePreWarmedAppStartTracing = true
 

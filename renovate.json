@@ -29,6 +29,9 @@
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": false,
   "extends": ["config:recommended"],
+  "git-submodules": {
+    "enabled": true
+  },
   "keepUpdatedLabel": "renovate:keep-updated",
   "lockFileMaintenance": {
     "enabled": false
