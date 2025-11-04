@@ -182,9 +182,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D4563C922EBA0B4C005B33E2 /* FlinkyCore.framework in Embed Frameworks */,
-				D4563E3B2EBA0F79005B33E2 /* SentrySwiftUI.framework in Embed Frameworks */,
-				D4563E392EBA0F79005B33E2 /* Sentry.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
