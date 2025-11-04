@@ -49,8 +49,8 @@ SENTRY_LICENSE_PLIST="Targets/App/Sources/Resources/Settings.bundle/Licenses/sen
 if [[ -d "$SENTRY_SUBMODULE_PATH" && -f "$LICENSES_PLIST" ]]; then
     echo "🔧 Post-processing sentry-cocoa license information..."
     
-    # Get the current commit hash of the sentry-cocoa submodule
-    SENTRY_COMMIT=$(cd "$SENTRY_SUBMODULE_PATH" && git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+    # Get the pinned commit hash of the sentry-cocoa submodule from the parent repository
+    SENTRY_COMMIT=$(git ls-tree HEAD "$SENTRY_SUBMODULE_PATH" | awk '{print substr($3,1,7)}' 2>/dev/null || echo "unknown")
     
     if [[ "$SENTRY_COMMIT" != "unknown" ]]; then
         # Find the index of the sentry-cocoa entry in Licenses.plist
