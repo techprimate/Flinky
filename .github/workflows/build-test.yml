@@ -16,6 +16,7 @@ jobs:
   build:
     name: Build
     runs-on: macos-15
+    timeout-minutes: 60
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
@@ -52,6 +53,7 @@ jobs:
   build-test:
     name: Test
     runs-on: macos-15
+    timeout-minutes: 60
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
@@ -91,6 +93,7 @@ jobs:
   build-test-ui:
     name: Test UI
     runs-on: macos-15
+    timeout-minutes: 60
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
