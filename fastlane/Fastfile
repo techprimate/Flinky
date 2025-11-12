@@ -277,6 +277,7 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     version_tag = "v#{version_number}+#{build_number}"
 
     # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
+    sh("make format")
     git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"])
     git_commit(
       path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"],
