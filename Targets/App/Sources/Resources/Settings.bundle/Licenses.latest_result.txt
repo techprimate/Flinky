@@ -2,13 +2,9 @@ name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, 
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 6.2.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
 
-name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.6.4, source: https://github.com/apple/swift-log
-
 name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, version: 0.0.6, source: https://github.com/kula-app/OnLaunch-iOS-Client
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 6.2.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
-
-name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.6.4, source: https://github.com/apple/swift-log
 
 name: sentry-cocoa, nameSpecified: , version: 
 body: The MIT License (MIT…

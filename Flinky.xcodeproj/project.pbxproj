@@ -236,7 +236,7 @@
 
 /* Begin PBXFileReference section */
 		D40BEC172E2EE0C500391C5A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4563E0F2EBA0F55005B33E2 /* Sentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sentry.xcodeproj; path = "../../getsentry/sentry-cocoa/Sentry.xcodeproj"; sourceTree = "<group>"; };
+		D4563E0F2EBA0F55005B33E2 /* Sentry.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sentry.xcodeproj; path = "Libraries/getsentry/sentry-cocoa/Sentry.xcodeproj"; sourceTree = "<group>"; };
 		D4A014CC2E83DE2900117E01 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A014E52E83E11500117E01 /* ShareExtensionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A016242E83E4EB00117E01 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/iOSSupport/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
