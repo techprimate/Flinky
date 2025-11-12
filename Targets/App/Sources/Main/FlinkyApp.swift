@@ -94,6 +94,8 @@ struct FlinkyApp: App {
         options.sessionReplay.sessionSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
         options.sessionReplay.enableViewRendererV2 = true
         options.sessionReplay.enableFastViewRendering = false
+        options.experimental.enableSessionReplayInUnreliableEnvironment = true
+        options.experimental.sessionReplayMaskingStrategy = .wireframe
 
         // Configure App Hang
         options.enableAppHangTracking = true
