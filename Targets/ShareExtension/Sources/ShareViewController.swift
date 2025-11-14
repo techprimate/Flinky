@@ -81,7 +81,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     /// This method is defined as `private static` to because it is called from a non-mutating context.
     ///
     /// - Parameter options: Options structure to configure Sentry.
-    private static func configureSentry(options: Options) {
+    private static func configureSentry(options: Options) { // swiftlint:disable:this function_body_length
         // Disable Sentry for tests because it produces a lot of noise.
         if ProcessInfo.processInfo.environment["TESTING"] == "1" {
             Self.logger.warning("Sentry is disabled in test environment")
@@ -132,8 +132,10 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure File I/O
         options.enableFileIOTracing = true
-        options.enableDataSwizzling = true
-        options.enableFileManagerSwizzling = true
+        options.experimental.enableDataSwizzling = true        // <-- works but shouldn't
+        options.experimental.enableFileManagerSwizzling = true // <-- works but shouldn't
+        options.enableDataSwizzling = true                     // <-- doesn't work but should
+        options.enableFileManagerSwizzling = true              // <-- doesn't work but should
 
         // Configure Tracing
         options.enableAutoPerformanceTracing = true
