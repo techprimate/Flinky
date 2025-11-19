@@ -271,6 +271,63 @@ upload-metadata:
 # HELP & DOCUMENTATION
 # ============================================================================
 
+# Reusable awk script for detailed help output
+define HELP_DETAIL_AWK
+BEGIN { summary = ""; detailsCount = 0; printed = 0; lookingForDeps = 0 } \
+/^## / { summary = substr($$0, 4); delete details; detailsCount = 0; next } \
+/^#($$| )/ { \
+	if (summary != "") { \
+		line = $$0; \
+		if (substr(line,1,2)=="# ") detailLine = substr(line,3); else detailLine = ""; \
+		details[detailsCount++] = detailLine; \
+	} \
+	if (lookingForDeps && $$0 !~ /^#/) { lookingForDeps = 0 } \
+	next \
+} \
+/^\.PHONY: / && summary != "" { \
+	for (i = 2; i <= NF; i++) { \
+		if ($$i == T) { \
+			found = 1; \
+			lookingForDeps = 1; \
+			break \
+		} \
+	} \
+	if (!found) { summary = ""; detailsCount = 0; delete details } \
+	next \
+} \
+lookingForDeps && /^[A-Za-z0-9_.-]+[ \t]*:/ && $$0 !~ /^\.PHONY:/ && $$0 !~ /^\t/ && index($$0,"=")==0 { \
+	raw = $$0; \
+	split(raw, parts, ":"); \
+	tn = parts[1]; \
+	if (tn == T) { \
+		depStr = substr(raw, index(raw, ":")+1); \
+		gsub(/^[ \t]+|[ \t]+$$/, "", depStr); \
+		firstDep = depStr; \
+		split(depStr, depParts, /[ \t]+/); \
+		if (length(depParts[1]) > 0) firstDep = depParts[1]; \
+		lookingForDeps = 0; \
+	} \
+	next \
+} \
+found && !lookingForDeps { \
+	printf "%s\n\n", summary; \
+	for (j = 0; j < detailsCount; j++) { \
+		if (length(details[j]) > 0) printf "%s\n", details[j]; else print ""; \
+	} \
+	print ""; \
+	printf "Usage:\n"; \
+	if (length(firstDep) > 0) { \
+		printf "  make %s\n", firstDep; \
+	} else { \
+		printf "  make %s\n", T; \
+	} \
+	printed = 1; \
+	found = 0; summary = ""; detailsCount = 0; delete details; firstDep = ""; \
+	next \
+} \
+END { if (!printed) { printf "No detailed help found for target: %s\n", T } }
+endef
+
 ## Show this help message with all available commands
 #
 # Displays a formatted list of all available make targets with descriptions.
@@ -310,112 +367,8 @@ help:
 .PHONY: help-% help-target
 help-%:
 	@target="$*"; \
-	awk -v T="$$target" 'BEGIN { summary = ""; detailsCount = 0; printed = 0; lookingForDeps = 0 } \
-	/^## / { summary = substr($$0, 4); delete details; detailsCount = 0; next } \
-	/^#($$| )/ { \
-		if (summary != "") { \
-			line = $$0; \
-			if (substr(line,1,2)=="# ") detailLine = substr(line,3); else detailLine = ""; \
-			details[detailsCount++] = detailLine; \
-		} \
-		if (lookingForDeps && $$0 !~ /^#/) { lookingForDeps = 0 } \
-		next \
-	} \
-	/^\.PHONY: / && summary != "" { \
-		for (i = 2; i <= NF; i++) { \
-			if ($$i == T) { \
-				found = 1; \
-				lookingForDeps = 1; \
-				break \
-			} \
-		} \
-		if (!found) { summary = ""; detailsCount = 0; delete details } \
-		next \
-	} \
-	lookingForDeps && /^[A-Za-z0-9_.-]+[ \t]*:/ && $$0 !~ /^\.PHONY:/ && $$0 !~ /^\t/ && index($$0,"=")==0 { \
-		raw = $$0; \
-		split(raw, parts, ":"); \
-		tn = parts[1]; \
-		if (tn == T) { \
-			depStr = substr(raw, index(raw, ":")+1); \
-			gsub(/^[ \t]+|[ \t]+$$/, "", depStr); \
-			firstDep = depStr; \
-			split(depStr, depParts, /[ \t]+/); \
-			if (length(depParts[1]) > 0) firstDep = depParts[1]; \
-			lookingForDeps = 0; \
-		} \
-		next \
-	} \
-	found && !lookingForDeps { \
-		printf "%s\n", summary; \
-		for (j = 0; j < detailsCount; j++) { \
-			if (length(details[j]) > 0) printf "%s\n", details[j]; else print ""; \
-		} \
-		print ""; \
-		printf "Usage:\n"; \
-		if (length(firstDep) > 0) { \
-			printf "  make %s\n", firstDep; \
-		} else { \
-			printf "  make %s\n", T; \
-		} \
-		printed = 1; \
-		found = 0; summary = ""; detailsCount = 0; delete details; firstDep = ""; \
-		next \
-	} \
-	END { if (!printed) { printf "No detailed help found for target: %s\n", T } }' $(MAKEFILE_LIST)
+	awk -v T="$$target" '$(HELP_DETAIL_AWK)' $(MAKEFILE_LIST)
 
 help-target:
 	@[ -n "$(name)" ] || { echo "Usage: make help name=<target>"; exit 1; }; \
-	awk -v T="$(name)" 'BEGIN { summary = ""; detailsCount = 0; printed = 0; lookingForDeps = 0 } \
-	/^## / { summary = substr($$0, 4); delete details; detailsCount = 0; next } \
-	/^#($$| )/ { \
-		if (summary != "") { \
-			line = $$0; \
-			if (substr(line,1,2)=="# ") detailLine = substr(line,3); else detailLine = ""; \
-			details[detailsCount++] = detailLine; \
-		} \
-		if (lookingForDeps && $$0 !~ /^#/) { lookingForDeps = 0 } \
-		next \
-	} \
-	/^\.PHONY: / && summary != "" { \
-		for (i = 2; i <= NF; i++) { \
-			if ($$i == T) { \
-				found = 1; \
-				lookingForDeps = 1; \
-				break \
-			} \
-		} \
-		if (!found) { summary = ""; detailsCount = 0; delete details } \
-		next \
-	} \
-	lookingForDeps && /^[A-Za-z0-9_.-]+[ \t]*:/ && $$0 !~ /^\.PHONY:/ && $$0 !~ /^\t/ && index($$0,"=")==0 { \
-		raw = $$0; \
-		split(raw, parts, ":"); \
-		tn = parts[1]; \
-		if (tn == T) { \
-			depStr = substr(raw, index(raw, ":")+1); \
-			gsub(/^[ \t]+|[ \t]+$$/, "", depStr); \
-			firstDep = depStr; \
-			split(depStr, depParts, /[ \t]+/); \
-			if (length(depParts[1]) > 0) firstDep = depParts[1]; \
-			lookingForDeps = 0; \
-		} \
-		next \
-	} \
-	found && !lookingForDeps { \
-		printf "%s\n\n", summary; \
-		for (j = 0; j < detailsCount; j++) { \
-			if (length(details[j]) > 0) printf "%s\n", details[j]; else print ""; \
-		} \
-		print ""; \
-		printf "Usage:\n"; \
-		if (length(firstDep) > 0) { \
-			printf "  make %s\n", firstDep; \
-		} else { \
-			printf "  make %s\n", T; \
-		} \
-		printed = 1; \
-		found = 0; summary = ""; detailsCount = 0; delete details; firstDep = ""; \
-		next \
-	} \
-	END { if (!printed) { printf "No detailed help found for target: %s\n", T } }' $(MAKEFILE_LIST)
+	awk -v T="$(name)" '$(HELP_DETAIL_AWK)' $(MAKEFILE_LIST)
