@@ -5,7 +5,7 @@ This guide explains how to add and document Makefile targets so they show up in 
 ## Principles
 
 - Each user-facing target must have a short description line immediately above it using `##`.
-- Further detailed descriptions can be added below the target using `#`.
+- Further detailed descriptions can be added between the `##` summary and `.PHONY:` declaration using `#`.
 - Every target that users can invoke should be declared `.PHONY`.
 - Keep names concise and action-oriented (build, test, format, generate, publish).
 - Group related targets under the existing sections: Setup, Building, Testing, Formatting, Generating, Publishing.
@@ -112,14 +112,13 @@ test-ios-app:
 	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' test | tee raw-test-ios-app.log | xcbeautify --preserve-unbeautified
 ```
 
-Multi-line example (details appear in `make help`, indented under the target):
+Multi-line example (details appear in `make help`, shown under the target without indentation):
 
 ```make
 ## Lint the migration directory
 #
 # Lints the migration directory to ensure that the migrations are valid.
 # This is useful to catch any issues with the migrations before applying them.
-.PHONY: test-ios-app
 .PHONY: migrate-lint
 migrate-lint:
 	atlas migrate lint \

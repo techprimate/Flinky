@@ -67,7 +67,7 @@ build-ios: build-ios-app build-ios-core build-ios-share-extension
 #
 # Builds the main app for the latest iOS Simulator (iPhone 16 Pro).
 # Outputs raw logs to raw-build-ios-app.log and pretty-prints with xcbeautify.
-.PHONY: build-ios-app 
+.PHONY: build-ios-app
 build-ios-app: 
 	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' build | tee raw-build-ios-app.log | xcbeautify --preserve-unbeautified
 
@@ -75,7 +75,7 @@ build-ios-app:
 #
 # Builds the core module for the latest iOS Simulator (iPhone 16 Pro).
 # Validates changes to the core module compile successfully in isolation.
-.PHONY: build-ios-core 
+.PHONY: build-ios-core
 build-ios-core: 
 	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' build | tee raw-build-ios-core.log | xcbeautify --preserve-unbeautified
 
@@ -109,7 +109,7 @@ test-ios-app:
 #
 # Runs unit tests for the FlinkyCore scheme on the latest iOS Simulator (iPhone 16 Pro).
 # Core module tests to validate shared logic and utilities.
-.PHONY: test-ios-core 
+.PHONY: test-ios-core
 test-ios-core: 
 	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16 Pro' test | tee raw-test-ios-core.log | xcbeautify --preserve-unbeautified
 
