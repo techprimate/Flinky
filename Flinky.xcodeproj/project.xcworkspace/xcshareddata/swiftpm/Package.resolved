@@ -1,5 +1,5 @@
 {
-  "originHash" : "066cfc47cc61a840261a149c1b34351630f14c135197fe29f5e52638d4613460",
+  "originHash" : "0cf836f62cf5d74120586679b999b7a16356a44a747f8145082548a73f781113",
   "pins" : [
     {
       "identity" : "onlaunch-ios-client",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "branch" : "main",
-        "revision" : "a4e1541f3daecfc52d812a12b1a90e2312f599e0"
+        "branch" : "levelObjC",
+        "revision" : "f9cb39d4c38993f199983c02a3bd34c0e1443adc"
       }
     },
     {

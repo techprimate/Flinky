@@ -1897,7 +1897,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				branch = main;
+				branch = levelObjC;
 				kind = branch;
 			};
 		};
