@@ -18,11 +18,17 @@ We welcome contributions to Flinky! Whether you're learning iOS development or a
 git clone https://github.com/techprimate/Flinky.git
 cd Flinky
 
-# Generate localization and other resources
-make generate
+# One-time setup (installs dependencies, hooks, Ruby via rbenv, Bundler, gems, and runs generators)
+make setup
 
-# Build and test for your own device
+# Build for simulator
 make build-ios
+```
+
+List all available Makefile commands with descriptions:
+
+```bash
+make help
 ```
 
 🎯 Perfect for learning SwiftUI, SwiftData, or studying a real-world iOS app architecture!
@@ -46,21 +52,22 @@ make build-ios
 
 ## 📚 Documentation
 
-Please refer to our detailed documentation in the `docs/` folder:
+Please refer to our detailed documentation in the `Documentation/` folder:
 
-- **[Analytics.md](docs/Analytics.md)** - Sentry implementation, privacy-first analytics, and error tracking
-- **[Accessibility-Guide.md](docs/Accessibility-Guide.md)** - Comprehensive VoiceOver support and accessibility implementation
-- **[SwiftGen-Localization.md](docs/SwiftGen-Localization.md)** - Localization workflow and string management
-- **[Version-Generation.md](docs/Version-Generation.md)** - Automated version and build management
+- **[Analytics.md](Documentation/Analytics.md)** - Sentry implementation, privacy-first analytics, and error tracking
+- **[Accessibility-Guide.md](Documentation/Accessibility-Guide.md)** - Comprehensive VoiceOver support and accessibility implementation
+- **[SwiftGen-Localization.md](Documentation/SwiftGen-Localization.md)** - Localization workflow and string management
+- **[Version-Generation.md](Documentation/Version-Generation.md)** - Automated version and build management
+- **[Makefile-Targets.md](Documentation/Makefile-Targets.md)** - How to write and document Makefile targets
 
 ## 🔧 Development Guidelines
 
 ### Code Quality Standards
 
-- 🌍 **Localization**: Use the hierarchical `view-name.component.property` structure (see [SwiftGen-Localization.md](docs/SwiftGen-Localization.md))
-- 🚨 **Error Handling**: Follow the established pattern: local string → Sentry capture → user notification (see [Analytics.md](docs/Analytics.md))
+- 🌍 **Localization**: Use the hierarchical `view-name.component.property` structure (see [SwiftGen-Localization.md](Documentation/SwiftGen-Localization.md))
+- 🚨 **Error Handling**: Follow the established pattern: local string → Sentry capture → user notification (see [Analytics.md](Documentation/Analytics.md))
 - ⚡ **SwiftUI**: Avoid `@EnvironmentObject`, prefer explicit dependency injection
-- ♿ **Accessibility**: Always provide labels and hints for interactive elements (see [Accessibility-Guide.md](docs/Accessibility-Guide.md))
+- ♿ **Accessibility**: Always provide labels and hints for interactive elements (see [Accessibility-Guide.md](Documentation/Accessibility-Guide.md))
 
 ### Before Submitting
 
@@ -90,7 +97,7 @@ Please refer to our detailed documentation in the `docs/` folder:
 
 ### Analytics Implementation
 
-We use Sentry for anonymous error reporting and performance monitoring. See [Analytics.md](docs/Analytics.md) for detailed information about what data is collected and how privacy is maintained.
+We use Sentry for anonymous error reporting and performance monitoring. See [Analytics.md](Documentation/Analytics.md) for detailed information about what data is collected and how privacy is maintained.
 
 ## 📄 License
 
