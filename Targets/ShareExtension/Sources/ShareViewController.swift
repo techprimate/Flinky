@@ -83,7 +83,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     /// - Parameter options: Options structure to configure Sentry.
     private static func configureSentry(options: Options) {
         // Disable Sentry for tests because it produces a lot of noise.
-        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+        if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
             return
         }

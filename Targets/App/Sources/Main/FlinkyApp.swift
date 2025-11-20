@@ -17,29 +17,16 @@ struct FlinkyApp: App {
             Self.configureSentry(options: options)
         }
 
-        // Build shared model container (App Group) for app runtime, in-memory for tests
-        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
-            // Keep existing testing behavior using in-memory store
-            let schema = Schema([
-                LinkListModel.self,
-                LinkModel.self,
-                DatabaseMetadata.self
-            ])
-            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-            do {
-                sharedModelContainer = try ModelContainer(for: schema, configurations: [config])
-            } catch {
-                fatalError("Failed to create in-memory ModelContainer: \(error)")
-            }
-        } else {
-            do {
-                sharedModelContainer = try SharedModelContainerFactory.make()
-                // Seed if needed on first app launch
-                DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
-            } catch {
-                fatalError("Failed to create shared ModelContainer: \(error)")
-            }
+        do {
+            sharedModelContainer = try SharedModelContainerFactory.make(
+                isStoredInMemoryOnly: ProcessInfo.processInfo.isTestingEnabled
+            )
+        } catch {
+            fatalError("Failed to create shared ModelContainer: \(error)")
         }
+
+        // Seed if needed on first app launch
+        DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
     }
 
     /// Configures the Sentry SDK options.
@@ -49,7 +36,7 @@ struct FlinkyApp: App {
     /// - Parameter options: Options structure to configure Sentry.
     private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
         // Disable Sentry for tests because it produces a lot of noise.
-        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+        if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
             return
         }
