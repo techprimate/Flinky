@@ -15,7 +15,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 60
     steps:
       - name: Checkout Code
@@ -52,7 +52,7 @@ jobs:
 
   build-test:
     name: Test
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 60
     steps:
       - name: Checkout Code
@@ -92,7 +92,7 @@ jobs:
 
   build-test-ui:
     name: Test UI
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 60
     steps:
       - name: Checkout Code
