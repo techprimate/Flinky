@@ -20,25 +20,43 @@ struct LinkInfoRenderView: View {
         }
         .accessibilityIdentifier("link-info.container")
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button(role: .cancel) {
                     cancelAction()
                 } label: {
-                    Text(L10n.Shared.Button.Cancel.label)
+                    if #available(iOS 26, *) {
+                        Label(L10n.Shared.Button.Cancel.label, systemSymbol: .xmark)
+                    } else {
+                        Text(L10n.Shared.Button.Cancel.label)
+                    }
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
                 .accessibilityIdentifier("link-info.cancel.button")
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    saveAction()
-                } label: {
-                    Text(L10n.Shared.Button.Done.label)
+            if #available(iOS 26, *) {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(role: .confirm) {
+                        saveAction()
+                    } label: {
+                        Label(L10n.Shared.Button.Done.label, systemSymbol: .checkmark)
+                    }
+                    .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
+                    .accessibilityIdentifier("link-info.save.button")
                 }
-                .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
-                .accessibilityIdentifier("link-info.save.button")
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        saveAction()
+                    } label: {
+                        Text(L10n.Shared.Button.Done.label)
+                            .bold()
+                    }
+                    .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Done.Accessibility.hint)
+                    .accessibilityIdentifier("link-info.save.button")
+                }
             }
         }
     }

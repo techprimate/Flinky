@@ -28,21 +28,43 @@ struct CreateLinkListEditorRenderView: View {
         .accessibilityIdentifier("create-link-list.container")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(L10n.Shared.Button.Cancel.label) {
-                    dismiss()
+                    Button(role: .cancel) {
+                        dismiss()
+                    } label: {
+                        if #available(iOS 26, *) {
+                            Label(L10n.Shared.Button.Cancel.label, systemSymbol: .xmark)
+                        } else {
+                            Text(L10n.Shared.Button.Cancel.label)
+                        }
+                    }
+                    .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+                    .accessibilityIdentifier("create-link-list.cancel-button")
                 }
-                .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
-                .accessibilityIdentifier("create-link-list.cancel-button")
-            }
-            ToolbarItem(placement: .confirmationAction) {
-                Button(L10n.Shared.Button.Save.label) {
-                    submit()
+            if #available(iOS 26, *) {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(role: .confirm) {
+                        submit()
+                    } label: {
+                        Label(L10n.Shared.Button.Save.label, systemSymbol: .checkmark)
+                    }
+                    .disabled(!isValid())
+                    .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
+                    .accessibilityIdentifier("create-link-list.save-button")
                 }
-                .disabled(!isValid())
-                .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
-                .accessibilityIdentifier("create-link-list.save-button")
+            } else {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        submit()
+                    } label: {
+                        Text(L10n.Shared.Button.Save.label)
+                    }
+                    .disabled(!isValid())
+                    .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Form.Name.Accessibility.hint)
+                    .accessibilityIdentifier("create-link-list.save-button")
+                }
             }
         }
         .onAppear {

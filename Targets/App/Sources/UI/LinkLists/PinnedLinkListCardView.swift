@@ -35,7 +35,11 @@ struct PinnedLinkListCardView: View {
         }
         .padding(12)
         .background(colorScheme == .light ? Color.white : Color(UIColor.secondarySystemBackground))
-        .cornerRadius(10)
+        .ifAvailable(.iOS26, modify: { view in
+            view.cornerRadius(16)
+        }, elseModify: { view in
+            view.cornerRadius(10)
+        })
         .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(L10n.Shared.Item.List.PinnedCard.Accessibility.label(item.name, item.count))
