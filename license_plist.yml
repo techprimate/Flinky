@@ -6,8 +6,3 @@ options:
   addVersionNumbers: true
   suppressOpeningDirectory: true
   failIfMissingLicense: true
-
-manual:
-  - source: https://github.com/getsentry/sentry-cocoa
-    name: sentry-cocoa
-    file: Libraries/getsentry/sentry-cocoa/LICENSE.md
