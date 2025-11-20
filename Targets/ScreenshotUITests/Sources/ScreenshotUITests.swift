@@ -39,12 +39,12 @@ final class ScreenshotUITests: XCTestCase {
 
         // Fill in the new link data
         titleField.tap()
-        titleField.typeText("philprime.dev")
+        titleField.typeText("techprimate.com")
 
         let urlField = app.textFields["create-link.url.text-field"]
         XCTAssert(urlField.waitForExistence(timeout: 3), "URL field not found")
         urlField.tap()
-        urlField.typeText("https://philprime.dev")
+        urlField.typeText("https://techprimate.com")
 
         // Save the link
         let saveButton = app.buttons["create-link.save.button"]
@@ -56,7 +56,7 @@ final class ScreenshotUITests: XCTestCase {
         XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Failed to return to list detail after saving")
 
         // 3. Find and edit the newly created link
-        let createdLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'philprime.dev'")).firstMatch
+        let createdLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'techprimate.com'")).firstMatch
         XCTAssert(createdLinkButton.waitForExistence(timeout: 5), "Newly created link not found after creation")
 
         // Long press to bring up context menu for edit
@@ -88,7 +88,7 @@ final class ScreenshotUITests: XCTestCase {
         XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Failed to return to list detail after edit")
 
         // 5. Navigate to the created link detail page for QR code
-        let updatedLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'philprime.dev'")).firstMatch
+        let updatedLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'techprimate.com'")).firstMatch
         XCTAssert(updatedLinkButton.waitForExistence(timeout: 3), "Updated link not found")
         updatedLinkButton.tap()
 
@@ -149,7 +149,7 @@ final class ScreenshotUITests: XCTestCase {
             XCTAssert(createdListButton.waitForExistence(timeout: 5), "Created list button not found for list \(idx)")
             createdListButton.press(forDuration: 1.0)
 
-            let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit'")).firstMatch
+            let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit \(lists[idx].name)'")).firstMatch
             XCTAssert(editButton.waitForExistence(timeout: 3), "Edit button not found in context menu")
             editButton.tap()
 
