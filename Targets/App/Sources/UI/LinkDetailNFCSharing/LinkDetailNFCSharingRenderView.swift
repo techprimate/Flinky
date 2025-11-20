@@ -46,11 +46,15 @@ struct LinkDetailNFCSharingRenderView: View {
             .navigationTitle(L10n.LinkDetailNfcSharing.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         dismiss()
                     } label: {
-                        Text(L10n.Shared.Button.Cancel.label)
+                        if #available(iOS 26, *) {
+                            Label(L10n.Shared.Button.Cancel.label, systemSymbol: .xmark)
+                        } else {
+                            Text(L10n.Shared.Button.Cancel.label)
+                        }
                     }
                     .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 }

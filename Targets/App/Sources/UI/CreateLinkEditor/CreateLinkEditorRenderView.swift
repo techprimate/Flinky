@@ -42,21 +42,41 @@ struct CreateLinkEditorRenderView: View {
         .accessibilityIdentifier("create-link.container")
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(L10n.Shared.Button.Cancel.label) {
+                Button(role: .cancel) {
                     dismiss()
+                } label: {
+                    if #available(iOS 26, *) {
+                        Label(L10n.Shared.Button.Cancel.label, systemSymbol: .xmark)
+                    } else {
+                        Text(L10n.Shared.Button.Cancel.label)
+                    }
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
                 .accessibilityIdentifier("create-link.cancel.button")
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button(L10n.Shared.Button.Save.label) {
-                    submit()
+                if #available(iOS 26, *) {
+                    Button(role: .confirm) {
+                        submit()
+                    } label: {
+                        Label(L10n.Shared.Button.Save.label, systemSymbol: .checkmark)
+                    }
+                    .disabled(!isValid())
+                    .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Save.Accessibility.hint)
+                    .accessibilityIdentifier("create-link.save.button")
+                } else {
+                    Button {
+                        submit()
+                    } label: {
+                        Text(L10n.Shared.Button.Save.label)
+                    }
+                    .disabled(!isValid())
+                    .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Save.Accessibility.hint)
+                    .accessibilityIdentifier("create-link.save.button")
                 }
-                .disabled(!isValid())
-                .accessibilityLabel(L10n.Shared.Button.Save.Accessibility.label)
-                .accessibilityHint(L10n.Shared.Button.Save.Accessibility.hint)
-                .accessibilityIdentifier("create-link.save.button")
             }
         }
         .onAppear {

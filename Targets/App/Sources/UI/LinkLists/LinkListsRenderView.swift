@@ -69,49 +69,91 @@ struct LinkListsRenderView<Destination: View>: View {
                 )
             }
         }
-        .toolbar {
-            if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+        .ifAvailable(.iOS26, modify: { view in
+            view.toolbar {
+                if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    if #available(iOS 26.0, *) {
+                        Button(
+                            action: {
+                                presentCreateLink()
+                            },
+                            label: {
+                                Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plus)
+                            }
+                        )
+                        .buttonStyle(.glassProminent)
+                        .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
+                        .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
+                        .accessibilityIdentifier("link-lists.create-link.button")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(
+                        action: {
+                            presentCreateList()
+                        },
+                        label: {
+                            Label(L10n.LinkLists.CreateList.title, systemSymbol: .folderBadgePlus)
+                        }
+                    )
+                    .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
+                    .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.create-list.button")
                 }
             }
-            ToolbarItem(placement: .bottomBar) {
-                Button(
-                    action: {
-                        presentCreateLink()
-                    },
-                    label: {
-                        Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
-                            .bold()
-                            .imageScale(.large)
-                            .labelStyle(.titleAndIcon)
+        }, elseModify: { view in
+            view.toolbar {
+                if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        EditButton()
                     }
-                )
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
-                .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
-                .accessibilityIdentifier("link-lists.create-link.button")
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(
+                        action: {
+                            presentCreateLink()
+                        },
+                        label: {
+                            Label(L10n.LinkLists.CreateLink.title, systemSymbol: .plusCircleFill)
+                                .bold()
+                                .imageScale(.large)
+                                .labelStyle(.titleAndIcon)
+                        }
+                    )
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel(L10n.LinkLists.CreateLink.Accessibility.label)
+                    .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.create-link.button")
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(
+                        action: {
+                            presentCreateList()
+                        },
+                        label: {
+                            Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
+                                .imageScale(.large)
+                                .labelStyle(.titleOnly)
+                        }
+                    )
+                    .buttonStyle(.borderless)
+                    .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
+                    .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.create-list.button")
+                }
             }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Button(
-                    action: {
-                        presentCreateList()
-                    },
-                    label: {
-                        Label(L10n.LinkLists.CreateList.title, systemSymbol: .plusCircleFill)
-                            .imageScale(.large)
-                            .labelStyle(.titleOnly)
-                    }
-                )
-                .buttonStyle(.borderless)
-                .accessibilityLabel(L10n.LinkLists.CreateList.Accessibility.label)
-                .accessibilityHint(L10n.LinkLists.CreateList.Accessibility.hint)
-                .accessibilityIdentifier("link-lists.create-list.button")
-            }
-        }
+        })
     }
 
     func itemViewForList(_ list: LinkListsDisplayItem) -> some View {

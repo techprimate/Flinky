@@ -15,7 +15,8 @@ struct PinnedLinkListsRenderView<T: View>: View {
             columns: [
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
-            ], spacing: 12
+            ],
+            spacing: 12
         ) {
             ForEach(items) { item in
                 itemViewForList(item)

@@ -1,3 +1,5 @@
 We update our app regularly to make it even better for you to easily share links with others.
 
-This release includes internal improvements and bug fixes.
+This release includes:
+
+- Support for Liquid Glass on iOS 26 and later.

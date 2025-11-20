@@ -26,7 +26,43 @@ struct LinkListDetailRenderView: View {
                 emptyStateView
             }
             .toolbar {
-                toolbarContent
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    moreMenu
+                }
+                if #available(iOS 26, *) {
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Button {
+                            presentCreateEditor()
+                        } label: {
+                            Label(L10n.LinkListDetail.newLink, systemSymbol: .plus)
+                        }
+                        .buttonStyle(.glassProminent)
+                        .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
+                        .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.hint)
+                        .accessibilityIdentifier("link-list-detail.new-link.button")
+                    }
+                } else {
+                    ToolbarItem(placement: .bottomBar) {
+                        Button {
+                            presentCreateEditor()
+                        } label: {
+                            Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
+                                .bold()
+                                .imageScale(.large)
+                                .labelStyle(.titleAndIcon)
+                        }
+                        .buttonStyle(.borderless)
+                        .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
+                        .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.hint)
+                        .accessibilityIdentifier("link-list-detail.new-link.button")
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        Spacer()
+                    }
+                }
             }
     }
 
@@ -53,26 +89,19 @@ struct LinkListDetailRenderView: View {
         }
     }
 
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
-            moreMenu
-        }
-        ToolbarItem(placement: .bottomBar) {
-            newLinkButton
-        }
-        ToolbarItem(placement: .bottomBar) {
-            Spacer()
-        }
-    }
-
     @ViewBuilder
     private var moreMenu: some View {
         Menu {
             editListButton
             deleteListButton
         } label: {
-            Label(L10n.LinkListDetail.MoreMenu.label, systemSymbol: .ellipsisCircle)
+            let symbol: SFSymbol = {
+                if #available(iOS 26, *) {
+                    return .ellipsis
+                }
+                return .ellipsisCircle
+            }()
+            Label(L10n.LinkListDetail.MoreMenu.label, systemSymbol: symbol)
                 .accessibilityLabel(L10n.LinkListDetail.MoreMenu.Accessibility.label)
                 .accessibilityHint(L10n.LinkListDetail.MoreMenu.Accessibility.hint)
         }
@@ -101,22 +130,6 @@ struct LinkListDetailRenderView: View {
         .accessibilityLabel(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.label)
         .accessibilityHint(L10n.LinkListDetail.MoreMenu.DeleteList.Accessibility.hint)
         .accessibilityIdentifier("link-list-detail.delete.button")
-    }
-
-    @ViewBuilder
-    private var newLinkButton: some View {
-        Button {
-            presentCreateEditor()
-        } label: {
-            Label(L10n.LinkListDetail.newLink, systemSymbol: .plusCircleFill)
-                .bold()
-                .imageScale(.large)
-                .labelStyle(.titleAndIcon)
-        }
-        .buttonStyle(.borderless)
-        .accessibilityLabel(L10n.Shared.Button.NewLink.Accessibility.label)
-        .accessibilityHint(L10n.Shared.Button.NewLink.Accessibility.hint)
-        .accessibilityIdentifier("link-list-detail.new-link.button")
     }
 
     private func itemViewForLink(_ link: LinkListDetailDisplayItem) -> some View {
