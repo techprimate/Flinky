@@ -322,22 +322,22 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
         def devices
           devices = original_devices
           # Add iPhone 17 Pro Max resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = devices[Deliver::AppScreenshot::ScreenSize::IOS_67] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_67] || []) + [
             [1320, 2868],
             [2868, 1320]
           ]
           # Add iPhone 17 Pro resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = devices[Deliver::AppScreenshot::ScreenSize::IOS_61] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_61] || []) + [
             [1206, 2622],
             [2622, 1206]
           ]
           # Add iPad Pro 13-inch (M5) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] || []) + [
             [2064, 2752],
             [2752, 2064]
           ]
           # Add iPad Pro 11-inch (M5) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] + [
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] || []) + [
             [1668, 2420],
             [2420, 1668]
           ]
