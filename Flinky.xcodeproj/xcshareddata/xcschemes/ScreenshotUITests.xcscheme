@@ -35,6 +35,20 @@
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D4D509DE2E4621120067A402"
+               BuildableName = "ShareExtension.appex"
+               BlueprintName = "ShareExtension"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -56,61 +70,6 @@
                BlueprintIdentifier = "D4ECAAB32E3CF6FB00C757EA"
                BuildableName = "ScreenshotUITests.xctest"
                BlueprintName = "ScreenshotUITests"
-               ReferencedContainer = "container:Flinky.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4A5DC4D2E46133A00027944"
-               BuildableName = "FlinkySharedTests.xctest"
-               BlueprintName = "FlinkySharedTests"
-               ReferencedContainer = "container:Flinky.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4E789112E461A83005DA720"
-               BuildableName = "FlinkyCoreTests.xctest"
-               BlueprintName = "FlinkyCoreTests"
-               ReferencedContainer = "container:Flinky.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4D50A032E46286D0067A402"
-               BuildableName = "ShareExtensionUITests.xctest"
-               BlueprintName = "ShareExtensionUITests"
-               ReferencedContainer = "container:Flinky.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4A014CB2E83DE2900117E01"
-               BuildableName = "UITests.xctest"
-               BlueprintName = "UITests"
-               ReferencedContainer = "container:Flinky.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4A014E42E83E11500117E01"
-               BuildableName = "ShareExtensionTests.xctest"
-               BlueprintName = "ShareExtensionTests"
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </TestableReference>
