@@ -130,6 +130,12 @@ test-ios-core:
 test-ios-share-extension:
 	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtensionTests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=iPhone 17 Pro' test | tee raw-test-ios-share-extension.log | xcbeautify --preserve-unbeautified
 
+## Run all UI test suites
+#
+# Runs all UI tests for all targets.
+.PHONY: test-ui
+test-ui: test-ui-ios
+
 ## Run all iOS UI test suites
 #
 # Runs all UI tests for all primary iOS targets.
