@@ -39,12 +39,12 @@ platform :ios do
     )
     
     # Upload the archive to Sentry for further analysis
-    # sentry_upload_build(
-    #   auth_token: ENV["SENTRY_AUTH_TOKEN"],
-    #   org_slug: "techprimate",
-    #   project_slug: "flinky",
-    #   xcarchive_path: "./Flinky.xcarchive",
-    # ) if is_ci
+    sentry_upload_build(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
+    ) if is_ci
   end
 
   desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
@@ -129,11 +129,11 @@ platform :ios do
     capture_screenshots(
       scheme: "ScreenshotUITests",
       devices: [
-        "iPhone 16 Pro Max", # iPhone 6.9" display
-        "iPhone 16 Pro", # iPhone 6.3" display
+        "iPhone 17 Pro Max", # iPhone 6.9" display
+        "iPhone 17 Pro", # iPhone 6.3" display
 
-        "iPad Pro 13-inch (M4)", # iPad 13" display
-        "iPad Pro 11-inch (M4)", # iPad 11" display
+        "iPad Pro 13-inch (M5)", # iPad 13" display
+        "iPad Pro 11-inch (M5)", # iPad 11" display
       ],
       languages: ["en-US"],
 
@@ -214,13 +214,13 @@ platform :ios do
     )
 
     # Upload the xcarchive to Sentry for further analysis
-    # sentry_upload_build(
-    #   auth_token: ENV["SENTRY_AUTH_TOKEN"],
-    #   org_slug: "techprimate",
-    #   project_slug: "flinky",
-    #   xcarchive_path: "./Flinky.xcarchive",
-    # )
-
+    sentry_upload_build(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
+    )
+    
     # Associate commits with the release
     sentry_set_commits(
       auth_token: ENV["SENTRY_AUTH_TOKEN"],
@@ -295,7 +295,7 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
 
   desc "Upload metadata to App Store Connect"
   lane :upload_metadata do
-    # Monkey patch to add iPhone 16 Pro Max resolutions to screenshot handling
+    # Monkey patch to add iPhone 17 Pro Max resolutions to screenshot handling
     require 'deliver/app_screenshot'
 
     Deliver::AppScreenshot.class_eval do
@@ -306,12 +306,12 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
 
         def device_messages
           messages = original_device_messages
-          # Add iPhone 16 Pro Max resolution to existing resolutions
+          # Add iPhone 17 Pro Max resolution to existing resolutions
           messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] + [
             [1320, 2868],
             [2868, 1320]
           ]
-          # Add iPhone 16 Pro resolution to existing resolutions
+          # Add iPhone 17 Pro resolution to existing resolutions
           messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] + [
             [1206, 2622],
             [2622, 1206]
@@ -321,23 +321,23 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
 
         def devices
           devices = original_devices
-          # Add iPhone 16 Pro Max resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = devices[Deliver::AppScreenshot::ScreenSize::IOS_67] + [
+          # Add iPhone 17 Pro Max resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_67] || []) + [
             [1320, 2868],
             [2868, 1320]
           ]
-          # Add iPhone 16 Pro resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = devices[Deliver::AppScreenshot::ScreenSize::IOS_61] + [
+          # Add iPhone 17 Pro resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_61] || []) + [
             [1206, 2622],
             [2622, 1206]
           ]
-          # Add iPad Pro 13-inch (M4) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] + [
+          # Add iPad Pro 13-inch (M5) resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] || []) + [
             [2064, 2752],
             [2752, 2064]
           ]
-          # Add iPad Pro 11-inch (M4) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] + [
+          # Add iPad Pro 11-inch (M5) resolution to existing resolutions
+          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] || []) + [
             [1668, 2420],
             [2420, 1668]
           ]

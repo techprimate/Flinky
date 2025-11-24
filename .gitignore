@@ -101,18 +101,18 @@ xcuserdata/
 .env
 
 # Build logs
-raw-build-ios.log
+raw-build-ios-app.log
 raw-build-ios-core.log
 raw-build-share-extension-ios.log
-raw-test-ios.log
+raw-test-ios-app.log
 raw-test-ios-core.log
-raw-test-ui-ios.log
+raw-test-ios-share-extension.log
+raw-test-ui-ios-app.log
+raw-test-ui-screenshot-ios.log
+raw-test-ui-share-extension-ios.log
 
 # Archive
 *.xcarchive
 
 # --- Ruby ---
 vendor
-
-# --- Libraries ---
-Libraries/

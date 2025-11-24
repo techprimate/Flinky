@@ -66,23 +66,46 @@ struct LinkDetailRenderView: View {
                             .tint(color.color)
                     }
                 } label: {
-                    Label(L10n.LinkDetail.MoreMenu.label, systemSymbol: .ellipsisCircleFill)
-                        .accessibilityLabel(L10n.LinkDetail.MoreMenu.Accessibility.label)
-                        .accessibilityHint(L10n.LinkDetail.MoreMenu.Accessibility.hint)
+                    if #available(iOS 26, *) {
+                        Label(L10n.LinkDetail.MoreMenu.label, systemSymbol: .ellipsis)
+                            .accessibilityLabel(L10n.LinkDetail.MoreMenu.Accessibility.label)
+                            .accessibilityHint(L10n.LinkDetail.MoreMenu.Accessibility.hint)
+                    } else {
+                        Label(L10n.LinkDetail.MoreMenu.label, systemSymbol: .ellipsisCircleFill)
+                            .accessibilityLabel(L10n.LinkDetail.MoreMenu.Accessibility.label)
+                            .accessibilityHint(L10n.LinkDetail.MoreMenu.Accessibility.hint)
+                    }
                 }
-                .tint(.white)
+                .ifUnavailable(.iOS26) { menu in
+                    menu.tint(.white)
+                }
                 .accessibilityIdentifier("link-detail.more-menu.button")
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text(L10n.Shared.Button.Done.label)
+            if #available(iOS 26, *) {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(role: .confirm) {
+                        dismiss()
+                    } label: {
+                        Label(L10n.Shared.Button.Done.label, systemSymbol: .checkmark)
+                    }
+                    .tint(.white)
+                    .fontWeight(.bold)
+                    .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                    .accessibilityIdentifier("link-detail.done.button")
                 }
-                .tint(.white)
-                .fontWeight(.bold)
-                .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
-                .accessibilityIdentifier("link-detail.done.button")
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text(L10n.Shared.Button.Done.label)
+                            .bold()
+                    }
+                    .tint(.white)
+                    .fontWeight(.bold)
+                    .accessibilityLabel(L10n.Shared.Button.Done.Accessibility.label)
+                    .accessibilityIdentifier("link-detail.done.button")
+                }
             }
         }
     }

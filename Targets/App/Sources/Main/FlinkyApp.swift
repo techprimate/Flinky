@@ -17,29 +17,16 @@ struct FlinkyApp: App {
             Self.configureSentry(options: options)
         }
 
-        // Build shared model container (App Group) for app runtime, in-memory for tests
-        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
-            // Keep existing testing behavior using in-memory store
-            let schema = Schema([
-                LinkListModel.self,
-                LinkModel.self,
-                DatabaseMetadata.self
-            ])
-            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-            do {
-                sharedModelContainer = try ModelContainer(for: schema, configurations: [config])
-            } catch {
-                fatalError("Failed to create in-memory ModelContainer: \(error)")
-            }
-        } else {
-            do {
-                sharedModelContainer = try SharedModelContainerFactory.make()
-                // Seed if needed on first app launch
-                DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
-            } catch {
-                fatalError("Failed to create shared ModelContainer: \(error)")
-            }
+        do {
+            sharedModelContainer = try SharedModelContainerFactory.make(
+                isStoredInMemoryOnly: ProcessInfo.processInfo.isTestingEnabled
+            )
+        } catch {
+            fatalError("Failed to create shared ModelContainer: \(error)")
         }
+
+        // Seed if needed on first app launch
+        DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
     }
 
     /// Configures the Sentry SDK options.
@@ -49,7 +36,7 @@ struct FlinkyApp: App {
     /// - Parameter options: Options structure to configure Sentry.
     private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
         // Disable Sentry for tests because it produces a lot of noise.
-        if ProcessInfo.processInfo.environment["TESTING"] == "1" {
+        if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
             return
         }
@@ -62,14 +49,17 @@ struct FlinkyApp: App {
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
 
-        #if DEBUG
-            options.environment = "development"
-        #else
-            options.environment = "production"
-        #endif
+        func pickEnvValue<T>(production: T, develop: T) -> T {
+            #if DEBUG
+                return develop
+            #else
+                return production
+            #endif
+        }
+        options.environment = pickEnvValue(production: "production", develop: "development")
 
-        options.sampleRate = 0.2
-        options.tracesSampleRate = 0.2
+        options.sampleRate = pickEnvValue(production: 0.2, develop: 1.0)
+        options.tracesSampleRate = pickEnvValue(production: 0.2, develop: 1.0)
 
         // Configure General Options
         options.sendDefaultPii = true
@@ -86,29 +76,24 @@ struct FlinkyApp: App {
         options.attachStacktrace = true
         options.enablePersistingTracesWhenCrashing = true
 
-        // Configure Profiling
-        options.enableAppLaunchProfiling = true
-        options.profilesSampleRate = 0.2
-
         // Configure Session Replay
-        options.sessionReplay.onErrorSampleRate = 1.0
-        options.sessionReplay.sessionSampleRate = 0.1
+        options.sessionReplay.onErrorSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
+        options.sessionReplay.sessionSampleRate = pickEnvValue(production: 0.1, develop: 1.0)
         options.sessionReplay.enableViewRendererV2 = true
         options.sessionReplay.enableFastViewRendering = false
+        options.experimental.enableSessionReplayInUnreliableEnvironment = true
 
         // Configure App Hang
         options.enableAppHangTracking = true
-        options.enableAppHangTrackingV2 = true
         options.enableReportNonFullyBlockingAppHangs = false
 
         // Configure File I/O
         options.enableFileIOTracing = true
-        options.experimental.enableDataSwizzling = true
-        options.experimental.enableFileManagerSwizzling = true
+        options.enableDataSwizzling = true
+        options.enableFileManagerSwizzling = true
 
         // Configure Tracing
         options.enableAutoPerformanceTracing = true
-        options.enablePerformanceV2 = true
         options.enableCoreDataTracing = true
         options.enablePreWarmedAppStartTracing = true
 

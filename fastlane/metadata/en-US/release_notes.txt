@@ -2,5 +2,4 @@ We update our app regularly to make it even better for you to easily share links
 
 This release includes:
 
-- Added shake gesture to quickly open the feedback form.
-- Added a share extension so you can easily add links from other apps.
+- Support for Liquid Glass on iOS 26 and later.

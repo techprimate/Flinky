@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "F15CC365-633C-4FC0-9E71-F72287DA5C5B",
+      "id" : "2615C0AE-FEFA-4742-92E5-AEEB7F7E26C7",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -9,15 +9,14 @@
     }
   ],
   "defaultOptions" : {
-
+    "codeCoverage" : false
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D40BEC162E2EE0C500391C5A",
-        "name" : "Tests"
+        "identifier" : "D4A014CB2E83DE2900117E01",
+        "name" : "UITests"
       }
     }
   ],

@@ -30,7 +30,16 @@ fi
 echo "📄 Running license-plist to generate dependency licenses..."
 
 # Generate licenses using license-plist
-license-plist
+if [[ -n "${LICENSE_PLIST_GITHUB_TOKEN:-}" ]]; then
+    echo "🔑 Using GitHub token for license downloads..."
+else
+    echo "⚠️  No GitHub token available, licenses may be incomplete..."
+fi
+
+# Run license-plist but don't fail the script if it has network issues
+license-plist "$@" || {
+    echo "⚠️  license-plist completed with warnings (likely network issues)"
+}
 
 echo "✅ License generation complete!"
 echo "📁 Generated files in: Targets/App/Sources/Resources/Settings.bundle/"

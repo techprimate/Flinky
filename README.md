@@ -29,7 +29,8 @@
   <a href="#features">Features</a> •
   <a href="#download">Download</a> •
   <a href="CONTRIBUTING.md">Contributing</a> •
-  <a href="docs/">Documentation</a> •
+  <a href="Documentation/">Documentation</a> •
+  <a href="#development">Development</a> •
   <a href="#support">Support</a>
 </p>
 
@@ -139,7 +140,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for dev
 
 - 📧 **[Email Support](mailto:support@techprimate.com)** - Direct help for any questions
 - 🐛 **[Report Issues](https://github.com/techprimate/Flinky/issues)** - Bug reports and feature requests
-- 📖 **[Documentation](docs/)** - Detailed guides and technical docs
+- 📖 **[Documentation](Documentation/)** - Detailed guides and technical docs
 
 ## License
 

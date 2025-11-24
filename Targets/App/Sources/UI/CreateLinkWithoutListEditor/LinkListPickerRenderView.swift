@@ -25,7 +25,8 @@ struct LinkListPickerRenderView: View {
                             .foregroundColor(.accentColor)
                     }
                 }
-            }, symbol: list.symbol
+            },
+            symbol: list.symbol
         )
         .labelStyle(RoundedIconLabelStyle(color: list.color.color))
         .foregroundStyle(.primary)
