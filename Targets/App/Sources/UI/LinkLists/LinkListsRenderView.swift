@@ -1,4 +1,5 @@
 import SFSafeSymbols
+import Sentry
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
@@ -94,6 +95,16 @@ struct LinkListsRenderView<Destination: View>: View {
                         .accessibilityHint(L10n.LinkLists.CreateLink.Accessibility.hint)
                         .accessibilityIdentifier("link-lists.create-link.button")
                     }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        SentrySDK.feedback.presentUI()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.feedback.button")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(

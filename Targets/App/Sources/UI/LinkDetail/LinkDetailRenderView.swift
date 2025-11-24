@@ -33,6 +33,16 @@ struct LinkDetailRenderView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
+                Button(action: {
+                    SentrySDK.feedback.showForm()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("link-detail.feedback.button")
+            }
+            ToolbarItemGroup(placement: .topBarLeading) {
                 Menu {
                     Button {
                         openInSafariAction()

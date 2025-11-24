@@ -1884,7 +1884,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				branch = main;
+				branch = "philprime/feedback-show-form-button";
 				kind = branch;
 			};
 		};

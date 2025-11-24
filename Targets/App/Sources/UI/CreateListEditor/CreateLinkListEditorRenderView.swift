@@ -1,3 +1,5 @@
+import SFSafeSymbols
+import Sentry
 import SwiftUI
 
 struct CreateLinkListEditorRenderView: View {
@@ -27,6 +29,16 @@ struct CreateLinkListEditorRenderView: View {
         .navigationTitle(L10n.CreateList.title)
         .accessibilityIdentifier("create-link-list.container")
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    SentrySDK.feedback.showForm()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("create-link-list.feedback.button")
+            }
             ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         dismiss()

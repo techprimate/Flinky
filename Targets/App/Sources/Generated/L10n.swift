@@ -281,6 +281,16 @@ internal enum L10n {
                     internal static let label = L10n.tr("shared.button.edit.accessibility.label", fallback: "Edit")
                 }
             }
+            internal enum Feedback {
+                /// Send Feedback
+                internal static let label = L10n.tr("shared.button.feedback.label", fallback: "Send Feedback")
+                internal enum Accessibility {
+                    /// Send feedback to help improve the app
+                    internal static let hint = L10n.tr("shared.button.feedback.accessibility.hint", fallback: "Send feedback to help improve the app")
+                    /// Send Feedback
+                    internal static let label = L10n.tr("shared.button.feedback.accessibility.label", fallback: "Send Feedback")
+                }
+            }
             internal enum NewLink {
                 internal enum Accessibility {
                     /// Create a new link in this list

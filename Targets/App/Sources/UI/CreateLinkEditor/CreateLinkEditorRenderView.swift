@@ -1,4 +1,6 @@
 import SwiftUI
+import SFSafeSymbols
+import Sentry
 
 struct CreateLinkEditorRenderView: View {
     private enum CreateField {
@@ -54,6 +56,16 @@ struct CreateLinkEditorRenderView: View {
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
                 .accessibilityIdentifier("create-link.cancel.button")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    SentrySDK.feedback.showForm()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("create-link.feedback.button")
             }
             ToolbarItem(placement: .confirmationAction) {
                 if #available(iOS 26, *) {
