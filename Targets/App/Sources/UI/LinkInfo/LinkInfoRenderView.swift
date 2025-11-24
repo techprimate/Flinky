@@ -37,8 +37,7 @@ struct LinkInfoRenderView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    // TODO: Display the feedback UI when available
-                    // SentrySDK.feedback.presentUI()
+                    SentrySDK.feedback.showForm()
                 }, label: {
                     Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                 })
@@ -183,8 +182,8 @@ extension LinkInfoRenderView {
                     .font(.system(size: 22, weight: .medium))
                     .foregroundStyle(
                         symbol.isEmoji
-                            ? Color.blue
-                            : (colorScheme == .light ? Color.gray.mix(with: Color.black, by: 0.3) : Color.gray)
+                        ? Color.blue
+                        : (colorScheme == .light ? Color.gray.mix(with: Color.black, by: 0.3) : Color.gray)
                     )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(6)
@@ -192,7 +191,7 @@ extension LinkInfoRenderView {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(
                         symbol.isEmoji
-                            ? Color.blue.opacity(0.15) : Color.gray.opacity(colorScheme == .light ? 0.1 : 0.2)
+                        ? Color.blue.opacity(0.15) : Color.gray.opacity(colorScheme == .light ? 0.1 : 0.2)
                     )
                     .clipShape(Circle())
                     .contentShape(Circle())

@@ -74,8 +74,7 @@ struct LinkListsRenderView<Destination: View>: View {
             view.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        // TODO: Display the feedback UI when available
-                        // SentrySDK.feedback.presentUI()
+                        SentrySDK.feedback.presentUI()
                     }, label: {
                         Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                     })
@@ -125,8 +124,7 @@ struct LinkListsRenderView<Destination: View>: View {
             view.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        // TODO: Display the feedback UI when available
-                        // SentrySDK.feedback.presentUI()
+                        SentrySDK.feedback.presentUI()
                     }, label: {
                         Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                     })
