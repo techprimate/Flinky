@@ -34,8 +34,7 @@ struct LinkDetailRenderView: View {
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
                 Button(action: {
-                    // TODO: Display the feedback UI when available
-                    // SentrySDK.feedback.presentUI()
+                    SentrySDK.feedback.showForm()
                 }, label: {
                     Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                 })
