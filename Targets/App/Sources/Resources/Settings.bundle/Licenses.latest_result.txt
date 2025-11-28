@@ -12,4 +12,4 @@ name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version
 
 add-version-numbers: true
 
-LicensePlist Version: 3.27.1
+LicensePlist Version: 3.27.2
