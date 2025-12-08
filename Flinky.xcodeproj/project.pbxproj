@@ -1884,8 +1884,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = 9.0.0;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
