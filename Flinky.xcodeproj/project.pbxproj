@@ -1885,7 +1885,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
 				kind = exactVersion;
-				version = 9.0.0;
+				version = 9.1.0;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
