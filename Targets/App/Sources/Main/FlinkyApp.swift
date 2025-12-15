@@ -41,7 +41,7 @@ struct FlinkyApp: App {
             return
         }
 
-        options.debug = true
+        options.debug = pickEnvValue(production: false, develop: true)
         options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
 
         let bundleId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
@@ -241,6 +241,9 @@ struct FlinkyApp: App {
 
         // Configure Other Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
+
+        // Configure Logs
+        options.enableLogs = true
     }
 
     var body: some Scene {
