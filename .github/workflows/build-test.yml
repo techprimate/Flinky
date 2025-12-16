@@ -64,7 +64,7 @@ jobs:
         run: brew bundle --file Brewfile-ci
 
       - name: Test
-        run: make test-ios SIMULATOR_OS=18.6 "DEVICE_NAME=iPhone 16 Pro"
+        run: make test-ios SIMULATOR_OS=26.1 "DEVICE_NAME=iPhone 17 Pro"
         env:
           LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -104,7 +104,7 @@ jobs:
         run: brew bundle --file Brewfile-ci
 
       - name: Test UI
-        run: make test-ui-ios SIMULATOR_OS=18.6 "DEVICE_NAME=iPhone 16 Pro"
+        run: make test-ui-ios SIMULATOR_OS=26.1 "DEVICE_NAME=iPhone 17 Pro"
         env:
           LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
