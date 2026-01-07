@@ -348,7 +348,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         //
         // Using Sentry we can capture these cases to ensure they are not happening in production.
         Self.logger.error("No valid URL found in shared items, cancelling extension request")
-        SentrySDK.capture(error: ShareExtensionError.noValidURL) { scope in
+        SentrySDK.capture(error: ShareExtensionError.noValidURLFound) { scope in
             scope.setTag(value: "share_extension", key: "operation")
             scope.setContext(
                 value: [
@@ -369,7 +369,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         do {
             let item = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
             guard let itemUrl = item as? URL else {
-                throw NSError(domain: "ShareExtensionError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Item is not a valid URL"])
+                throw ShareExtensionError.notAnURLExtensionItem
             }
             url = itemUrl
         } catch {

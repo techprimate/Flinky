@@ -17,12 +17,18 @@ internal enum L10n {
             internal static let name = L10n.tr("share-extension.default-list.name", fallback: "My Links")
         }
         internal enum Error {
-            /// Invalid URL shared
-            internal static let invalidUrl = L10n.tr("share-extension.error.invalid-url", fallback: "Invalid URL shared")
-            /// No URL found in shared content
-            internal static let noUrl = L10n.tr("share-extension.error.no-url", fallback: "No URL found in shared content")
-            /// Failed to save link
-            internal static let saveFailed = L10n.tr("share-extension.error.save-failed", fallback: "Failed to save link")
+            internal enum InvalidUrl {
+                /// Item is not an URL
+                internal static let description = L10n.tr("share-extension.error.invalid-url.description", fallback: "Item is not an URL")
+                /// This should not happen. The developer will be informed.
+                internal static let recoverySuggestion = L10n.tr("share-extension.error.invalid-url.recovery-suggestion", fallback: "This should not happen. The developer will be informed.")
+            }
+            internal enum NoUrl {
+                /// No URL found in shared content
+                internal static let description = L10n.tr("share-extension.error.no-url.description", fallback: "No URL found in shared content")
+                /// Try sharing the URL again.
+                internal static let recoverySuggestion = L10n.tr("share-extension.error.no-url.recovery-suggestion", fallback: "Try sharing the URL again.")
+            }
         }
         internal enum ListPicker {
             /// List
