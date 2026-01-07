@@ -13,19 +13,31 @@
         }
       }
     },
-    "share-extension.error.invalid-url" : {
+    "share-extension.error.invalid-url.description" : {
       "comment" : "Error when shared URL is invalid",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invalid URL shared"
+            "value" : "Item is not an URL"
           }
         }
       }
     },
-    "share-extension.error.no-url" : {
+    "share-extension.error.invalid-url.recovery-suggestion" : {
+      "comment" : "Recovery suggestion indicating that this is a valid error path which should not happen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This should not happen. The developer will be informed."
+          }
+        }
+      }
+    },
+    "share-extension.error.no-url.description" : {
       "comment" : "Error when no URL is found in shared content",
       "extractionState" : "manual",
       "localizations" : {
@@ -37,14 +49,14 @@
         }
       }
     },
-    "share-extension.error.save-failed" : {
-      "comment" : "Error when saving link fails",
+    "share-extension.error.no-url.recovery-suggestion" : {
+      "comment" : "Recovery suggestion when no URL was found in the sharing payload",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Failed to save link"
+            "value" : "Try sharing the URL again."
           }
         }
       }
