@@ -5,6 +5,8 @@
 # the Flinky app. Run 'make help' to see all available commands.
 # ============================================================================
 
+.DEFAULT_GOAL := help
+
 # ============================================================================
 # SETUP
 # ============================================================================
@@ -282,6 +284,15 @@ generate-screenshots:
 publish-beta-build:
 	bundle install
 	bundle exec fastlane beta
+
+## Publish a new build to the App Store and submit for review
+#
+# Generates screenshots, uploads metadata, builds and uploads the app, then submits for App Store review.
+# This is a complete publishing workflow that includes screenshot generation, Sentry integration, and git tagging.
+.PHONY: publish
+publish:
+	bundle install
+	bundle exec fastlane publish
 
 ## Upload App Store Connect metadata (descriptions, screenshots)
 #

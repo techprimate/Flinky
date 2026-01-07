@@ -154,84 +154,13 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
-    # Get version info to match what the app uses
-    version_number = get_version_number(
-      xcodeproj: "Flinky.xcodeproj",
-      target: "Flinky"
-    )
+    version_info = _increment_version_and_build
+    version_number = version_info[:version]
+    build_number = version_info[:build]
 
-    # Increment build number before building
-    increment_build_number(xcodeproj: "Flinky.xcodeproj")
-    build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
-
-    # Build the app
-    build_app(
-      project: "Flinky.xcodeproj",
-      scheme: "App",
-
-      archive_path: "./Flinky.xcarchive",
-      build_path: ".",
-      export_options: {
-        "destination" => "export",
-        "method" => "app-store-connect",
-        "provisioningProfiles" => {
-          "com.techprimate.Flinky" => "match AppStore com.techprimate.Flinky",
-          "com.techprimate.Flinky.ShareExtension" => "match AppStore com.techprimate.Flinky.ShareExtension"
-        },
-        "signingCertificate" => "Apple Distribution",
-        "signingStyle" => "manual",
-        "teamID" => "BZ362SQ6AB",
-      }
-    )
-
-    # Validate the app
-    deliver(
-      # API Key file must be located at fastlane/api-key.json
-      api_key_path: File.expand_path("./api-key.json"),
-      verify_only: true
-    )
-
-    # Create Sentry release using the same format as the app
-    sentry_create_release(
-      auth_token: ENV["SENTRY_AUTH_TOKEN"],
-      org_slug: "techprimate",
-      project_slug: "flinky",
-
-      app_identifier: "com.techprimate.Flinky",
-      version: version_number
-    )
-
-    # Upload debug symbols to Sentry
-    sentry_debug_files_upload(
-      auth_token: ENV["SENTRY_AUTH_TOKEN"],
-      org_slug: "techprimate",
-      project_slug: "flinky",
-
-      # Wait for the server to fully process uploaded files. Errors
-      # can only be displayed if --wait is specified, but this will
-      # significantly slow down the upload process
-      wait: true
-    )
-
-    # Upload the xcarchive to Sentry for further analysis
-    sentry_upload_build(
-      auth_token: ENV["SENTRY_AUTH_TOKEN"],
-      org_slug: "techprimate",
-      project_slug: "flinky",
-      xcarchive_path: "./Flinky.xcarchive",
-    )
-    
-    # Associate commits with the release
-    sentry_set_commits(
-      auth_token: ENV["SENTRY_AUTH_TOKEN"],
-      org_slug: "techprimate",
-      project_slug: "flinky",
-
-      app_identifier: "com.techprimate.Flinky",
-      version: version_number,
-      build: build_number,
-      auto: true
-    )
+    _build_app_for_store
+    _validate_app
+    _setup_sentry_release(version: version_number, build: build_number)
 
     # Upload to TestFlight
     upload_to_testflight(
@@ -262,90 +191,49 @@ In case you notice any issues, please use the \"Send Feedback\" button in the ap
 Your feedback helps us improve Flinky for everyone. Thank you!"
     )
 
-    # Finalize the Sentry release after successful upload
-    sentry_finalize_release(
-      auth_token: ENV["SENTRY_AUTH_TOKEN"],
-      org_slug: "techprimate",
-      project_slug: "flinky",
+    _finalize_sentry_release(version: version_number, build: build_number)
+    _commit_and_tag_version(version: version_number, build: build_number)
+  end
 
-      app_identifier: "com.techprimate.Flinky",
-      version: version_number,
-      build: build_number
+  desc "Publish a new build to the App Store and submit for review"
+  lane :publish do
+    version_info = _increment_version_and_build
+    version_number = version_info[:version]
+    build_number = version_info[:build]
+
+    _build_app_for_store
+    _validate_app
+    _setup_sentry_release(version: version_number, build: build_number)
+
+    # Upload metadata and binary to App Store Connect, then submit for review
+    upload_to_app_store(
+      api_key_path: File.expand_path("./api-key.json"),
+
+      skip_binary_upload: false,
+      overwrite_screenshots: true,
+      submit_for_review: true,
+
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+
+      languages: ["en-US"],
+      metadata_path: File.expand_path("./metadata"),
+      screenshots_path: File.expand_path("./screenshots"),
+
+      force: true, # Skip the preview HTML
+
+      app_review_information: {
+        email_address: ENV["APP_REVIEW_EMAIL_ADDRESS"],
+        phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
+      }
     )
 
-    # Create version tag
-    version_tag = "v#{version_number}+#{build_number}"
-
-    # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
-    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"])
-    git_commit(
-      path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"],
-      message: "chore: Bump version to #{version_number} (#{build_number})"
-    )
-
-    # Create git tag for this version
-    add_git_tag(tag: version_tag)
-
-    # Push the commit and tag to remote
-    push_to_git_remote(
-      remote: 'origin',
-      local_branch: version_tag,
-    )
+    _finalize_sentry_release(version: version_number, build: build_number)
+    _commit_and_tag_version(version: version_number, build: build_number)
   end
 
   desc "Upload metadata to App Store Connect"
   lane :upload_metadata do
-    # Monkey patch to add iPhone 17 Pro Max resolutions to screenshot handling
-    require 'deliver/app_screenshot'
-
-    Deliver::AppScreenshot.class_eval do
-      class << self
-        # Store original methods
-        alias_method :original_device_messages, :device_messages
-        alias_method :original_devices, :devices
-
-        def device_messages
-          messages = original_device_messages
-          # Add iPhone 17 Pro Max resolution to existing resolutions
-          messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_67_MESSAGES] + [
-            [1320, 2868],
-            [2868, 1320]
-          ]
-          # Add iPhone 17 Pro resolution to existing resolutions
-          messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] = messages[Deliver::AppScreenshot::ScreenSize::IOS_61_MESSAGES] + [
-            [1206, 2622],
-            [2622, 1206]
-          ]
-          messages
-        end
-
-        def devices
-          devices = original_devices
-          # Add iPhone 17 Pro Max resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_67] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_67] || []) + [
-            [1320, 2868],
-            [2868, 1320]
-          ]
-          # Add iPhone 17 Pro resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_61] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_61] || []) + [
-            [1206, 2622],
-            [2622, 1206]
-          ]
-          # Add iPad Pro 13-inch (M5) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_PRO_12_9] || []) + [
-            [2064, 2752],
-            [2752, 2064]
-          ]
-          # Add iPad Pro 11-inch (M5) resolution to existing resolutions
-          devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] = (devices[Deliver::AppScreenshot::ScreenSize::IOS_IPAD_11] || []) + [
-            [1668, 2420],
-            [2420, 1668]
-          ]
-          devices
-        end
-      end
-    end
-
     UI.message "Uploading metadata to App Store Connect"
     upload_to_app_store(
       api_key_path: File.expand_path("./api-key.json"),
@@ -388,5 +276,144 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       app_identifier: "com.techprimate.Flinky.ShareExtension"
     )
     UI.success "✅ Code signing synced successfully!"
+  end
+
+  # ============================================================================
+  # PRIVATE LANES
+  # ============================================================================
+  # These lanes are internal helpers and are not exposed in `fastlane lanes`
+  # ============================================================================
+
+  # Private lane: Increment version and build number, return both values
+  private_lane :_increment_version_and_build do
+    version_number = get_version_number(
+      xcodeproj: "Flinky.xcodeproj",
+      target: "Flinky"
+    )
+
+    increment_build_number(xcodeproj: "Flinky.xcodeproj")
+    build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
+
+    { version: version_number, build: build_number }
+  end
+
+  # Private lane: Build the app for App Store distribution
+  private_lane :_build_app_for_store do
+    build_app(
+      project: "Flinky.xcodeproj",
+      scheme: "App",
+
+      archive_path: "./Flinky.xcarchive",
+      build_path: ".",
+      export_options: {
+        "destination" => "export",
+        "method" => "app-store-connect",
+        "provisioningProfiles" => {
+          "com.techprimate.Flinky" => "match AppStore com.techprimate.Flinky",
+          "com.techprimate.Flinky.ShareExtension" => "match AppStore com.techprimate.Flinky.ShareExtension"
+        },
+        "signingCertificate" => "Apple Distribution",
+        "signingStyle" => "manual",
+        "teamID" => "BZ362SQ6AB",
+      }
+    )
+  end
+
+  # Private lane: Validate the app before upload
+  private_lane :_validate_app do
+    deliver(
+      # API Key file must be located at fastlane/api-key.json
+      api_key_path: File.expand_path("./api-key.json"),
+      verify_only: true
+    )
+  end
+
+  # Private lane: Setup Sentry release (create release, upload symbols, upload build, set commits)
+  private_lane :_setup_sentry_release do |options|
+    version_number = options[:version]
+    build_number = options[:build]
+
+    # Create Sentry release using the same format as the app
+    sentry_create_release(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+
+      app_identifier: "com.techprimate.Flinky",
+      version: version_number
+    )
+
+    # Upload debug symbols to Sentry
+    sentry_debug_files_upload(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+
+      # Wait for the server to fully process uploaded files. Errors
+      # can only be displayed if --wait is specified, but this will
+      # significantly slow down the upload process
+      wait: true
+    )
+
+    # Upload the xcarchive to Sentry for further analysis
+    sentry_upload_build(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+      xcarchive_path: "./Flinky.xcarchive",
+    )
+    
+    # Associate commits with the release
+    sentry_set_commits(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+
+      app_identifier: "com.techprimate.Flinky",
+      version: version_number,
+      build: build_number,
+      auto: true
+    )
+  end
+
+  # Private lane: Finalize Sentry release after successful upload
+  private_lane :_finalize_sentry_release do |options|
+    version_number = options[:version]
+    build_number = options[:build]
+
+    sentry_finalize_release(
+      auth_token: ENV["SENTRY_AUTH_TOKEN"],
+      org_slug: "techprimate",
+      project_slug: "flinky",
+
+      app_identifier: "com.techprimate.Flinky",
+      version: version_number,
+      build: build_number
+    )
+  end
+
+  # Private lane: Commit version changes and create git tag
+  private_lane :_commit_and_tag_version do |options|
+    version_number = options[:version]
+    build_number = options[:build]
+
+    # Create version tag
+    version_tag = "v#{version_number}+#{build_number}"
+
+    # Commit the version changes (project.pbxproj and Root.plist are updated by build scripts)
+    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"])
+    git_commit(
+      path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"],
+      message: "chore: Bump version to #{version_number} (#{build_number})"
+    )
+
+    # Create git tag for this version
+    add_git_tag(tag: version_tag)
+
+    # Push the commit and tag to remote
+    push_to_git_remote(
+      remote: 'origin',
+      local_branch: version_tag,
+    )
   end
 end
