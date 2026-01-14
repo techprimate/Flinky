@@ -2,5 +2,5 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-sentry'
+gem 'fastlane-plugin-sentry', git: 'https://github.com/getsentry/sentry-fastlane-plugin', tag: '2.0.0-rc.1'
 gem 'fastlane-plugin-appicon'
