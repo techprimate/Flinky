@@ -24,7 +24,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
-          ref: main
           submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,11 +41,15 @@ jobs:
           bundler-cache: true
 
       - name: Create App Store Connect API Key
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ vars.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
         run: |
           jq -n \
-            --arg key_id "${{ vars.APP_STORE_CONNECT_API_KEY_ID }}" \
-            --arg issuer_id "${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}" \
-            --arg key "${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}" \
+            --arg key_id "${{ env.APP_STORE_CONNECT_API_KEY_ID }}" \
+            --arg issuer_id "${{ env.APP_STORE_CONNECT_API_ISSUER_ID }}" \
+            --arg key "${{ env.APP_STORE_CONNECT_API_PRIVATE_KEY }}" \
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
       - run: bundle exec fastlane beta
