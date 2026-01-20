@@ -413,7 +413,9 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     # Push the commit and tag to remote
     push_to_git_remote(
       remote: 'origin',
-      local_branch: version_tag,
+      local_branch: 'main',
+      remote_branch: 'main',
+      tags: true
     )
   end
 end
