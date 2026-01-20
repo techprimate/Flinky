@@ -41,6 +41,14 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Create App Store Connect API Key
+        run: |
+          jq -n \
+            --arg key_id "${{ vars.APP_STORE_CONNECT_API_KEY_ID }}" \
+            --arg issuer_id "${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}" \
+            --arg key "${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
+
       - run: bundle exec fastlane beta
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
