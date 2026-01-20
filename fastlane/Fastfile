@@ -6,18 +6,7 @@ platform :ios do
     setup_ci if is_ci
 
     # Setup code signing
-    sync_code_signing(
-      type: "appstore",
-      readonly: true,
-      app_identifier: "com.techprimate.Flinky",
-      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
-    )
-    sync_code_signing(
-      type: "appstore",
-      readonly: true,
-      app_identifier: "com.techprimate.Flinky.ShareExtension",
-      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
-    )
+    _setup_code_signing
 
     # Build and export the app to an archive
     build_app(
@@ -154,10 +143,14 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do |options|
+    # Configure CI keychain and set match to readonly to avoid prompts
+    setup_ci if is_ci
+
     version_info = _increment_version_and_build
     version_number = version_info[:version]
     build_number = version_info[:build]
 
+    _setup_code_signing
     _build_app_for_store
     _validate_app
     _setup_sentry_release(version: version_number, build: build_number)
@@ -283,6 +276,22 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
   # ============================================================================
   # These lanes are internal helpers and are not exposed in `fastlane lanes`
   # ============================================================================
+
+  # Private lane: Setup code signing for App Store Connect
+  private_lane :_setup_code_signing do
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky",
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      app_identifier: "com.techprimate.Flinky.ShareExtension",
+      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+    )
+  end
 
   # Private lane: Increment version and build number, return both values
   private_lane :_increment_version_and_build do
@@ -413,7 +422,7 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     # Push the commit and tag to remote
     push_to_git_remote(
       remote: 'origin',
-      local_branch: version_tag,
+      tags: true
     )
   end
 end
