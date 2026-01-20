@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: "0 4 * * 1" # Every Monday at 04:00 UTC
   workflow_dispatch:
-  push:
-    branches:
-      - philprime/publish-beta-build
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job.name}}
