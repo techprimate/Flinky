@@ -6,18 +6,7 @@ platform :ios do
     setup_ci if is_ci
 
     # Setup code signing
-    sync_code_signing(
-      type: "appstore",
-      readonly: true,
-      app_identifier: "com.techprimate.Flinky",
-      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
-    )
-    sync_code_signing(
-      type: "appstore",
-      readonly: true,
-      app_identifier: "com.techprimate.Flinky.ShareExtension",
-      git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
-    )
+    _setup_code_signing
 
     # Build and export the app to an archive
     build_app(
