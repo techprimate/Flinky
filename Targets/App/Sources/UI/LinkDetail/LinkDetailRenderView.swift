@@ -151,15 +151,8 @@ struct LinkDetailRenderView: View {
                         ]
                         SentrySDK.addBreadcrumb(breadcrumb)
 
-                        // Track sharing event for analytics - using detailed Event object
-                        // to capture structured data for better analytics queries
-                        let event = Event(level: .info)
-                        event.message = SentryMessage(formatted: "link_shared")
-                        event.extra = [
-                            "link_id": linkId.uuidString,
-                            "sharing_method": "system_share"
-                        ]
-                        SentrySDK.capture(event: event)
+                        // Track sharing using metrics - better for aggregate counts than individual events
+                        SentryMetricsHelper.trackLinkShared(sharingMethod: "system_share", linkId: linkId.uuidString)
                     }
                 )
             }

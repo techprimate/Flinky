@@ -72,17 +72,8 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                         ]
                         SentrySDK.addBreadcrumb(breadcrumb)
 
-                        // Track usage event with structured data for analytics segmentation
-                        // This helps distinguish between different link creation flows
-                        let event = Event(level: .info)
-                        event.message = SentryMessage(formatted: "link_created")
-                        event.extra = [
-                            "link_id": newItem.id.uuidString,
-                            "list_id": list.id.uuidString,
-                            "entity_type": "link",
-                            "creation_flow": "list_picker"  // Distinguish from direct list creation
-                        ]
-                        SentrySDK.capture(event: event)
+                        // Track link creation using metrics - better for aggregate counts than individual events
+                        SentryMetricsHelper.trackLinkCreated(creationFlow: "list_picker", listId: list.id.uuidString)
 
                         dismiss()
                     } catch {

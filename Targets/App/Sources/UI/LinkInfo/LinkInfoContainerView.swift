@@ -58,26 +58,14 @@ struct LinkInfoContainerView: View {
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track color selection only when changed to avoid noise
-                    // Separate events for color/symbol enable customization feature analysis
+                    // Using metrics for better aggregate counts than individual events
                     if isColorChanged {
-                        let colorEvent = Event(level: .info)
-                        colorEvent.message = SentryMessage(formatted: "link_color_selected")
-                        colorEvent.extra = [
-                            "color": color.rawValue,  // Track which colors are popular
-                            "entity_type": "link"  // Enables comparison with list color usage
-                        ]
-                        SentrySDK.capture(event: colorEvent)
+                        SentryMetricsHelper.trackColorSelected(color: color.rawValue, entityType: "link")
                     }
 
                     // Track symbol selection separately for granular customization analytics
                     if isSymbolChanged {
-                        let symbolEvent = Event(level: .info)
-                        symbolEvent.message = SentryMessage(formatted: "link_symbol_selected")
-                        symbolEvent.extra = [
-                            "symbol": symbol.rawValue,  // Track symbol popularity
-                            "entity_type": "link"  // Cross-entity symbol usage comparison
-                        ]
-                        SentrySDK.capture(event: symbolEvent)
+                        SentryMetricsHelper.trackSymbolSelected(symbol: symbol.rawValue, entityType: "link")
                     }
 
                     dismiss()

@@ -1,5 +1,6 @@
 import FlinkyCore
 import Foundation
+import Sentry
 import UIKit
 import os.log
 
@@ -40,6 +41,9 @@ class QRCodeCache: NSObject {
 
     @objc private func handleMemoryWarning() {
         Self.logger.warning("Received memory warning, clearing QR code cache")
+        let cacheSize = storage.countLimit
+        let appState = UIApplication.shared.applicationState == .active ? "foreground" : "background"
+        SentryMetricsHelper.trackMemoryWarningReceived(cacheSizeAtWarning: cacheSize, appState: appState)
         clearCache()
     }
 
@@ -49,8 +53,10 @@ class QRCodeCache: NSObject {
 
         if image != nil {
             Self.logger.debug("QR code cache hit for content")
+            SentryMetricsHelper.trackQRCodeCacheHit()
         } else {
             Self.logger.debug("QR code cache miss for content")
+            SentryMetricsHelper.trackQRCodeCacheMiss()
         }
 
         return image
@@ -78,7 +84,15 @@ class QRCodeCache: NSObject {
     }
 
     var cacheInfo: (count: Int, totalCost: Int) {
+        // Note: NSCache doesn't expose current count/cost, only limits
         return (storage.countLimit, storage.totalCostLimit)
+    }
+
+    /// Returns current cache size metrics for tracking
+    var currentCacheSize: Int {
+        // NSCache doesn't expose current count, so we return the limit
+        // Actual tracking happens via hit/miss/eviction metrics
+        return storage.countLimit
     }
 
     deinit {
@@ -91,5 +105,6 @@ class QRCodeCache: NSObject {
 extension QRCodeCache: NSCacheDelegate {
     func cache(_: NSCache<AnyObject, AnyObject>, willEvictObject _: Any) {
         Self.logger.debug("QR code cache evicting object due to memory pressure")
+        SentryMetricsHelper.trackQRCodeCacheEviction(reason: "size_limit")
     }
 }

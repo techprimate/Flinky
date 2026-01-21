@@ -23,8 +23,24 @@ final class LinkDetailNFCSharingViewModel: ObservableObject {
             let appError = AppError.nfcError(localDescription)
             self.errorHandler?(appError)
             state = .error("NFC not available on this device")
+            // Track NFC availability (not available)
+            SentrySDK.metrics.gauge(
+                key: "nfc.available",
+                value: 0.0,
+                unit: .generic("capability")
+            )
             return
         }
+
+        // Track NFC availability (available)
+        SentrySDK.metrics.gauge(
+            key: "nfc.available",
+            value: 1.0,
+            unit: .generic("capability")
+        )
+
+        // Track NFC share initiated
+        SentryMetricsHelper.trackNFCShareInitiated()
 
         state = .scanning
 
@@ -43,7 +59,7 @@ final class LinkDetailNFCSharingViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.state = .success
 
-                    // Analytics breadcrumbs and events for NFC success
+                    // Analytics breadcrumbs and metrics for NFC success
                     let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
                     breadcrumb.message = "Link shared via NFC successfully"
                     breadcrumb.data = [
@@ -52,21 +68,10 @@ final class LinkDetailNFCSharingViewModel: ObservableObject {
                     ]
                     SentrySDK.addBreadcrumb(breadcrumb)
 
-                    let nfcEvent = Event(level: .info)
-                    nfcEvent.message = SentryMessage(formatted: "link_shared_nfc")
-                    nfcEvent.extra = [
-                        "link_id": self.link.id.uuidString,
-                        "sharing_method": "nfc"
-                    ]
-                    SentrySDK.capture(event: nfcEvent)
-
-                    let shareEvent = Event(level: .info)
-                    shareEvent.message = SentryMessage(formatted: "link_shared")
-                    shareEvent.extra = [
-                        "link_id": self.link.id.uuidString,
-                        "sharing_method": "nfc"
-                    ]
-                    SentrySDK.capture(event: shareEvent)
+                    // Track NFC-specific sharing and general sharing using metrics
+                    SentryMetricsHelper.trackLinkSharedNFC(linkId: self.link.id.uuidString)
+                    SentryMetricsHelper.trackLinkShared(sharingMethod: "nfc", linkId: self.link.id.uuidString)
+                    SentryMetricsHelper.trackNFCShareSuccess()
                 }
             },
             onError: { [weak self] errorMessage in
@@ -76,6 +81,8 @@ final class LinkDetailNFCSharingViewModel: ObservableObject {
                     let appError = AppError.nfcError(localDescription)
                     self.errorHandler?(appError)
                     self.state = .error(errorMessage)
+                    // Track NFC share failure
+                    SentryMetricsHelper.trackNFCShareFailed(errorType: "tag_error")
                 }
             }
         )

@@ -35,6 +35,17 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     /// The lists that can be selected in the share extension.
     private var lists: Result<[LinkListModel], Error>?
 
+    // MARK: - Share Extension State Tracking
+
+    /// Whether a list was selected (for metrics)
+    private var wasListSelected = false
+
+    /// Whether the name was edited (for metrics)
+    private var wasNameEdited = false
+
+    /// Initial name value to detect edits
+    private var initialName: String?
+
     // MARK: - Instance Life Cycle
 
     required init?(coder: NSCoder) {
@@ -57,6 +68,13 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Track share extension opened
+        SentrySDK.metrics.count(
+            key: "share_extension.opened",
+            value: 1,
+            unit: .generic("interaction")
+        )
 
         setupUI()
         loadShareItem()
@@ -81,7 +99,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     /// This method is defined as `private static` to because it is called from a non-mutating context.
     ///
     /// - Parameter options: Options structure to configure Sentry.
-    private static func configureSentry(options: Options) {
+    private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
         // Disable Sentry for tests because it produces a lot of noise.
         if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
@@ -155,6 +173,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure Other Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
+        options.experimental.enableMetrics = true
     }
 
     private func setupModelContainer() {
@@ -224,16 +243,18 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                 ]
                 SentrySDK.addBreadcrumb(breadcrumb)
 
-                // Analytics: list_created (no PII)
-                let event = Event(level: .info)
-                event.message = SentryMessage(formatted: "list_created")
-                event.extra = [
-                    "list_id": defaultList.id.uuidString,
-                    "entity_type": "list",
-                    "creation_flow": "share_extension",
-                    "auto_created": true
-                ]
-                SentrySDK.capture(event: event)
+                // Track list creation using metrics - better for aggregate counts than individual events
+                SentrySDK.metrics.count(
+                    key: "list.created",
+                    value: 1,
+                    unit: .generic("list"),
+                    attributes: [
+                        "list_id": defaultList.id.uuidString,
+                        "entity_type": "list",
+                        "creation_flow": "share_extension",
+                        "auto_created": true
+                    ]
+                )
             }
 
             self.lists = .success(lists)
@@ -310,6 +331,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                     guard let self = self else { return }
 
                     self.name = name
+                    self.initialName = name  // Store initial name to detect edits
                     self.rawUrl = url.absoluteString
 
                     // Show the URL
@@ -472,15 +494,29 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             ]
             SentrySDK.addBreadcrumb(breadcrumb)
 
-            let event = Event(level: .info)
-            event.message = SentryMessage(formatted: "link_created")
-            event.extra = [
-                "link_id": newLink.id.uuidString,
-                "list_id": list.id.uuidString,
-                "entity_type": "link",
-                "creation_flow": "share_extension"
-            ]
-            SentrySDK.capture(event: event)
+            // Track link creation using metrics - better for aggregate counts than individual events
+            SentrySDK.metrics.count(
+                key: "link.created",
+                value: 1,
+                unit: .generic("link"),
+                attributes: [
+                    "link_id": newLink.id.uuidString,
+                    "list_id": list.id.uuidString,
+                    "entity_type": "link",
+                    "creation_flow": "share_extension"
+                ]
+            )
+
+            // Track share extension completion
+            SentrySDK.metrics.count(
+                key: "share_extension.completed",
+                value: 1,
+                unit: .generic("completion"),
+                attributes: [
+                    "list_selected": wasListSelected,
+                    "name_edited": wasNameEdited
+                ]
+            )
 
             // Post an accessibility announcement to inform users, especially those using VoiceOver or other assistive technologies,
             // that the link has been successfully saved. This ensures that users with visual impairments receive immediate, audible feedback
@@ -513,6 +549,26 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         let breadcrumb = Breadcrumb(level: .info, category: "share_extension")
         breadcrumb.message = "User cancelled share extension"
         SentrySDK.addBreadcrumb(breadcrumb)
+
+        // Determine cancellation step
+        let step: String
+        if wasNameEdited {
+            step = "after_name_edit"
+        } else if wasListSelected {
+            step = "after_list_selection"
+        } else {
+            step = "initial"
+        }
+
+        // Track share extension cancellation
+        SentrySDK.metrics.count(
+            key: "share_extension.cancelled",
+            value: 1,
+            unit: .generic("cancellation"),
+            attributes: [
+                "step": step
+            ]
+        )
 
         // Post an accessibility announcement to inform users that the share action was cancelled.
         // This is especially useful for users relying on VoiceOver or other assistive technologies,
@@ -558,6 +614,10 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             controller.initialText = self.name ?? ""
             controller.onSave = { text in
                 self.name = text
+                // Track if name was edited (different from initial name)
+                if let initialName = self.initialName, text != initialName {
+                    self.wasNameEdited = true
+                }
                 self.reloadConfigurationItems()
                 self.validateContent()
             }
@@ -600,6 +660,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             let controller = ItemPickerViewController(options: items, selected: self.selectedList?.id)
             controller.onSelect = { itemId in
                 self.selectedList = lists.first(where: { $0.id == itemId })
+                self.wasListSelected = true  // Track that user selected a list
                 self.reloadConfigurationItems()
                 self.validateContent()
             }
