@@ -35,15 +35,8 @@ struct CreateLinkListEditorContainerView: View {
                     ]
                     SentrySDK.addBreadcrumb(breadcrumb)
 
-                    // Track usage event for analytics - all PII excluded for privacy compliance
-                    // Use Event object for consistent structured data across all creation events
-                    let event = Event(level: .info)
-                    event.message = SentryMessage(formatted: "list_created")
-                    event.extra = [
-                        "list_id": newItem.id.uuidString,
-                        "entity_type": "list"  // Enables cross-entity analytics queries
-                    ]
-                    SentrySDK.capture(event: event)
+                    // Track list creation using metrics - better for aggregate counts than individual events
+                    SentryMetricsHelper.trackListCreated(creationFlow: "direct")
 
                     dismiss()
                 } catch {

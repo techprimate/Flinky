@@ -4,11 +4,12 @@ This document describes the analytics and error tracking implementation in the F
 
 ## Overview
 
-Flinky implements a **privacy-first analytics strategy** that captures user behavior patterns and technical metrics while strictly protecting user-generated content (URLs, names, etc.). All tracking is implemented using Sentry with three primary mechanisms:
+Flinky implements a **privacy-first analytics strategy** that captures user behavior patterns and technical metrics while strictly protecting user-generated content (URLs, names, etc.). All tracking is implemented using Sentry with four primary mechanisms:
 
 - **SwiftUI View Tracing**: Automatic performance monitoring of view rendering and navigation flows
 - **Breadcrumbs**: Session-scoped debugging context for error investigation
-- **Analytics Events**: Persistent structured data for product insights
+- **Metrics**: Aggregate counters for user behavior patterns (replaces individual analytics events)
+- **Error Events**: Individual error events for debugging actual issues
 
 ## SwiftUI View Tracing
 
@@ -116,6 +117,75 @@ struct LinkDetailContainerView: View {
 - All sharing methods: copy URL, QR codes, NFC, system share
 - Sharing success/failure patterns
 
+## Metrics (Primary Analytics Mechanism)
+
+### Overview
+
+Sentry Metrics provide aggregate counters for tracking user behavior patterns. Unlike individual events, metrics don't create "issues" in Sentry and are better suited for analytics that only need aggregate counts. Metrics are enabled by default in Sentry SDK 9.2.0+.
+
+### When to Use Metrics vs Events
+
+**Use Metrics For:**
+
+- User actions (clicks, creations, sharing)
+- Feature usage tracking
+- Aggregate behavior patterns
+- Analytics that only need counts
+
+**Use Events For:**
+
+- Actual errors that need investigation
+- Exceptional conditions requiring debugging
+- Issues that need individual attention
+
+### Metrics Helper Utility
+
+The app provides `SentryMetricsHelper` with type-safe wrapper functions for common metrics:
+
+```swift
+import Sentry
+
+// Link creation
+SentryMetricsHelper.trackLinkCreated(creationFlow: "direct", listId: list.id.uuidString)
+
+// List creation
+SentryMetricsHelper.trackListCreated(creationFlow: "direct", autoCreated: false)
+
+// Link sharing
+SentryMetricsHelper.trackLinkShared(sharingMethod: "copy_url", linkId: link.id.uuidString)
+
+// Customization
+SentryMetricsHelper.trackColorSelected(color: color.rawValue, entityType: "link")
+SentryMetricsHelper.trackSymbolSelected(symbol: symbol.rawValue, entityType: "list")
+
+// Feedback
+SentryMetricsHelper.trackFeedbackFormOpened()
+SentryMetricsHelper.trackFeedbackFormClosed()
+
+// Database seeding
+SentryMetricsHelper.trackDatabaseSeedingStarted()
+SentryMetricsHelper.trackDatabaseSeedingCompleted()
+```
+
+### Direct Metrics API Usage
+
+For cases not covered by the helper, use Sentry's metrics API directly:
+
+```swift
+import Sentry
+
+// Counter metric
+SentrySDK.metrics.count(
+    key: "custom.metric.name",
+    value: 1,
+    unit: .generic("unit"),
+    attributes: [
+        "attribute_name": "value",
+        "entity_type": "link"
+    ]
+)
+```
+
 ## Implementation Patterns
 
 ### Breadcrumb Pattern
@@ -132,18 +202,31 @@ breadcrumb.data = [
 SentrySDK.addBreadcrumb(breadcrumb)
 ```
 
-### Analytics Event Pattern
+### Metrics Pattern (Preferred for Analytics)
 
 ```swift
-// Structured analytics event for product insights
-let event = Event(level: .info)
-event.message = SentryMessage(formatted: "event_name")
-event.extra = [
-    "entity_id": entity.id.uuidString,
-    "entity_type": "link|list",
-    "feature_context": "relevant_metadata"
-]
-SentrySDK.capture(event: event)
+// Use metrics helper for type-safe analytics tracking
+SentryMetricsHelper.trackLinkCreated(creationFlow: "direct", listId: list.id.uuidString)
+
+// Or use metrics API directly with attributes
+SentrySDK.metrics.count(
+    key: "link.created",
+    value: 1,
+    unit: .generic("link"),
+    attributes: [
+        "creation_flow": "direct",
+        "entity_type": "link",
+        "list_id": list.id.uuidString
+    ]
+)
+```
+
+### Error Event Pattern (For Actual Errors)
+
+```swift
+// Only use events for actual errors that need investigation
+let appError = AppError.persistenceError(.saveLinkFailed(underlyingError: error.localizedDescription))
+SentrySDK.capture(error: appError)
 ```
 
 ### Error Tracking Pattern
@@ -160,29 +243,119 @@ do {
 }
 ```
 
-## Event Taxonomy
+## Metrics Taxonomy
 
-### Creation Events
+### Currently Implemented Metrics
 
-- `link_created`: New link added to a list
-- `list_created`: New list created
+The following metrics are currently tracked via `SentryMetricsHelper`:
 
-### Update Events
+#### Creation Metrics
 
-- `link_color_selected`: Color customization for links
-- `link_symbol_selected`: Symbol customization for links
-- `list_color_selected`: Color customization for lists
-- `list_symbol_selected`: Symbol customization for lists
+- `link.created`: Counter for new links added to lists (attributes: `creation_flow`, `entity_type`, `list_id`)
+- `list.created`: Counter for new lists created (attributes: `creation_flow`, `entity_type`, `auto_created`)
 
-### Sharing Events
+#### Customization Metrics
 
-- `link_shared`: Universal sharing event with method specification
-- `link_shared_nfc`: NFC-specific sharing event for detailed analysis
+- `link.color.selected`: Counter for color customization on links (attributes: `color`, `entity_type`)
+- `link.symbol.selected`: Counter for symbol customization on links (attributes: `symbol`, `entity_type`)
+- `list.color.selected`: Counter for color customization on lists (attributes: `color`, `entity_type`)
+- `list.symbol.selected`: Counter for symbol customization on lists (attributes: `symbol`, `entity_type`)
 
-### Interaction Events
+#### Sharing Metrics
 
-- Link opening events (tracked via breadcrumbs)
-- Navigation patterns (tracked via breadcrumbs)
+- `link.shared`: Counter for all link sharing methods (attributes: `sharing_method`, `link_id`)
+- `link.shared.nfc`: Counter for NFC-specific sharing (attributes: `sharing_method`, `link_id`)
+
+#### Feedback Metrics
+
+- `feedback.form.opened`: Counter for feedback form openings
+- `feedback.form.closed`: Counter for feedback form closings
+
+#### Database Metrics
+
+- `database.seeding.started`: Counter for database seeding start
+- `database.seeding.completed`: Counter for database seeding completion
+
+### Recommended Development Metrics
+
+The following metrics are recommended for future implementation to gain deeper insights into app performance, user behavior, and feature adoption. These are organized by priority and category.
+
+#### High Priority Metrics (Immediate Value)
+
+**Performance Metrics**
+
+- `qr_code.generation.duration` (Distribution) - Track QR code generation time
+  - Attributes: `cache_hit` (boolean), `image_size` (string)
+  - Implementation: Measure in `LinkDetailContainerView.createQRCodeImageInBackground()`
+
+- `qr_code.cache.hit` (Counter) - Track cache hits
+  - Implementation: Track in `QRCodeCache.image(forContent:)` when image found
+
+- `qr_code.cache.miss` (Counter) - Track cache misses
+  - Implementation: Track in `QRCodeCache.image(forContent:)` when image not found
+
+**Error Rate Metrics**
+
+- `error.rate` (Counter) - Track error frequency by type
+  - Attributes: `error_type` ("persistence" | "qr_generation" | "nfc" | "validation" | "data_corruption")
+  - Implementation: Aggregate from existing `SentrySDK.capture(error:)` calls
+
+**Feature Adoption Metrics**
+
+- `share_extension.completed` (Counter) - Track successful share extension completions
+  - Attributes: `list_selected` (boolean), `name_edited` (boolean)
+  - Implementation: Track in `ShareViewController.didSelectPost()` when save succeeds
+
+- `search.performed` (Counter) - Track search usage
+  - Attributes: `search_context` ("lists" | "links"), `result_count` (number)
+  - Implementation: Track when `searchText` changes from empty to non-empty
+
+#### Medium Priority Metrics (Useful Insights)
+
+**User Behavior Metrics**
+
+- `list.pinned` / `list.unpinned` (Counter) - Track list pinning actions
+- `link.deleted` / `list.deleted` (Counter) - Track deletion patterns
+  - Attributes: `link_count` (for lists), `list_link_count` (for links)
+- `link.opened` (Counter) - Track Safari link opens
+  - Attributes: `sharing_method` (optional)
+
+**Feature Adoption Metrics**
+
+- `nfc.share.initiated` / `nfc.share.success` / `nfc.share.failed` (Counter) - Track NFC usage
+- `nfc.available` (Gauge) - Track devices with NFC capability
+
+**Performance Metrics**
+
+- `database.query.duration` (Distribution) - Track SwiftData query performance
+  - Attributes: `query_type` ("fetch_lists" | "fetch_links" | "save" | "delete")
+- `database.save.duration` (Distribution) - Track save operation performance
+  - Attributes: `entity_type`, `operation` ("create" | "update" | "delete")
+
+#### Low Priority Metrics (Nice to Have)
+
+**User Flow Metrics**
+
+- `flow.creation.abandoned` (Counter) - Track abandoned creation flows
+  - Attributes: `flow_type` ("link" | "list"), `step` ("name" | "url" | "customization")
+- `flow.creation.completed` (Counter) - Track completed creation flows
+  - Attributes: `flow_type`, `duration_seconds`
+
+**App Health Metrics**
+
+- `app.launch` (Counter) - Track app launches
+  - Attributes: `is_cold_start` (boolean)
+- `app.session.duration` (Distribution) - Track session duration
+- `memory.warning.received` (Counter) - Track memory warnings
+  - Attributes: `cache_size_at_warning` (number)
+
+**Data Health Metrics**
+
+- `data.links.per_list` (Distribution) - Average links per list (periodic calculation)
+- `data.lists.count` (Distribution) - Number of lists per user (periodic calculation)
+- `data.total.links` (Distribution) - Total links per user (periodic calculation)
+
+See the [Implementation Notes](#implementation-notes) section for detailed implementation guidance for each metric.
 
 ## Data Structure Standards
 
@@ -239,16 +412,8 @@ breadcrumb.data = [
 ]
 SentrySDK.addBreadcrumb(breadcrumb)
 
-// Analytics event for product insights
-let event = Event(level: .info)
-event.message = SentryMessage(formatted: "link_created")
-event.extra = [
-    "link_id": link.id.uuidString,
-    "list_id": list.id.uuidString,
-    "entity_type": "link",
-    "creation_flow": "direct"
-]
-SentrySDK.capture(event: event)
+// Track creation using metrics (preferred for analytics)
+SentryMetricsHelper.trackLinkCreated(creationFlow: "direct", listId: list.id.uuidString)
 ```
 
 ### Sharing Tracking
@@ -263,14 +428,8 @@ breadcrumb.data = [
 ]
 SentrySDK.addBreadcrumb(breadcrumb)
 
-// Universal sharing analytics
-let event = Event(level: .info)
-event.message = SentryMessage(formatted: "link_shared")
-event.extra = [
-    "link_id": item.id.uuidString,
-    "sharing_method": "qr_code_share"
-]
-SentrySDK.capture(event: event)
+// Track sharing using metrics (preferred for analytics)
+SentryMetricsHelper.trackLinkShared(sharingMethod: "qr_code_share", linkId: item.id.uuidString)
 ```
 
 ### Customization Tracking
@@ -278,14 +437,17 @@ SentrySDK.capture(event: event)
 ```swift
 // Only track when user actually makes changes
 if colorChanged {
-    let colorEvent = Event(level: .info)
-    colorEvent.message = SentryMessage(formatted: "link_color_selected")
-    colorEvent.extra = [
-        "color": color.rawValue,
-        "entity_type": "link"
-    ]
-    SentrySDK.capture(event: colorEvent)
+    // Track using metrics (preferred for analytics)
+    SentryMetricsHelper.trackColorSelected(color: color.rawValue, entityType: "link")
 }
+```
+
+### NFC Sharing (Dual Metrics)
+
+```swift
+// NFC sharing generates dual metrics for comprehensive analysis
+SentryMetricsHelper.trackLinkSharedNFC(linkId: link.id.uuidString)  // NFC-specific
+SentryMetricsHelper.trackLinkShared(sharingMethod: "nfc", linkId: link.id.uuidString)  // General sharing
 ```
 
 ## Special Considerations
@@ -344,8 +506,8 @@ event.context = [
 ### Data Retention
 
 - **Breadcrumbs**: Session-scoped, cleared on app restart
-- **Events**: Persistent analytics data (no PII)
-- **Errors**: Sanitized technical information only
+- **Metrics**: Aggregated counters for analytics (no PII)
+- **Error Events**: Sanitized technical information only
 
 ### Debugging Capability
 
@@ -353,14 +515,88 @@ event.context = [
 - Error reproduction without privacy concerns
 - Performance analysis with user behavior context
 
+## Metrics Migration
+
+### Migration from Events to Metrics
+
+As of the metrics migration, analytics tracking has moved from individual `SentrySDK.capture(event:)` calls to Sentry Metrics API. This provides:
+
+- **Better Aggregation**: Built-in aggregation and querying capabilities
+- **Reduced Noise**: Metrics don't create individual "issues" in Sentry
+- **Performance**: More efficient than individual events
+- **Cost**: Potentially lower cost than individual events
+
+### Migration Checklist
+
+All analytics events have been migrated to metrics:
+
+- ✅ Link creation events → `link.created` metric
+- ✅ List creation events → `list.created` metric
+- ✅ Sharing events → `link.shared` metric
+- ✅ Customization events → `link.color.selected`, `link.symbol.selected`, etc.
+- ✅ Feedback events → `feedback.form.opened`, `feedback.form.closed` metrics
+- ✅ Database seeding events → `database.seeding.started`, `database.seeding.completed` metrics
+
+Error events (`SentrySDK.capture(error:)`) remain as events since they represent actual issues that need investigation.
+
+## Implementation Notes
+
+### Metric Naming Convention
+
+Follow the established pattern: `category.subcategory.metric`
+
+- Use dot-delimited lowercase
+- Be descriptive but concise
+- Group related metrics by category
+- Examples:
+  - `qr_code.generation.duration`
+  - `link.deleted.bulk`
+  - `share_extension.completed`
+
+### Attributes Best Practices
+
+- Keep attributes minimal (max 5-7 per metric)
+- Use consistent attribute names across metrics
+- Prefer enums/strings over free-form text
+- Include context that enables filtering/grouping
+- Examples:
+  - `entity_type`: "link" | "list"
+  - `error_type`: "persistence" | "qr_generation" | "nfc"
+  - `search_context`: "lists" | "links"
+
+### Real-time vs Periodic Metrics
+
+- **Real-time**: User actions, errors, performance measurements
+- **Periodic**: Data distribution metrics (calculate on app launch or background)
+
+### Leveraging Existing Infrastructure
+
+- **Sentry Tracing**: Use for view rendering performance (already implemented)
+- **Error Events**: Aggregate existing error captures for error rate metrics
+- **QRCodeCache**: Add metrics tracking directly in cache class
+- **SwiftData**: Wrap operations for database performance metrics
+
+### Questions These Metrics Answer
+
+1. **Performance**: Are QR codes generating fast enough? Is cache effective?
+2. **Adoption**: Are users discovering and using key features (NFC, search, customization)?
+3. **Reliability**: What's the error rate? Are errors recoverable?
+4. **Usage Patterns**: How do users organize their links? How many links/lists do they have?
+5. **Feature Value**: Which features provide the most value? Which are rarely used?
+6. **User Experience**: Where do users abandon flows? How deep do they navigate?
+7. **Data Health**: Are users creating empty lists? How often do they update links?
+
 ## Future Considerations
 
-### Adding New Events
+### Adding New Metrics
 
-1. Follow established naming convention: `entity_action_context`
-2. Include standard fields: `entity_id`, `entity_type`
-3. Exclude any PII or user-generated content
-4. Document in this file with examples
+1. Use `SentryMetricsHelper` for common patterns when possible
+2. Follow established naming convention: `entity.action.detail` (dot-delimited lowercase)
+3. Include standard attributes: `entity_type`, `creation_flow`, etc.
+4. Exclude any PII or user-generated content
+5. Document in this file with examples
+6. Add helper function to `SentryMetricsHelper` if pattern is reusable
+7. Prioritize high-value metrics that answer specific development questions
 
 ### Privacy Reviews
 
@@ -379,9 +615,11 @@ event.context = [
 When adding new analytics:
 
 - [ ] Uses privacy-safe data only (no URLs, names, content)
-- [ ] Follows established event naming conventions
-- [ ] Includes standard entity identification fields
-- [ ] Has both breadcrumb (debugging) and event (analytics) tracking
+- [ ] Uses metrics (not events) for analytics tracking
+- [ ] Follows established metric naming conventions (`entity.action.detail`)
+- [ ] Includes standard entity identification attributes
+- [ ] Has both breadcrumb (debugging) and metric (analytics) tracking
+- [ ] Uses `SentryMetricsHelper` when possible, or metrics API directly
 - [ ] Includes explanatory comments explaining the tracking rationale
 - [ ] Tested to ensure compilation and runtime success
 - [ ] Documented in this file with examples

@@ -41,26 +41,14 @@ final class DataSeedingService {
         seedingBreadcrumb.timestamp = Date()
         SentrySDK.addBreadcrumb(seedingBreadcrumb)
 
-        // Capture seeding event for analytics
-        SentrySDK.capture(message: "Database seeding started") { scope in
-            scope.setLevel(.info)
-            scope.setTag(value: "database_seeding", key: "operation")
-            scope.setContext(
-                value: [
-                    "action": "initial_seed",
-                    "timestamp": ISO8601DateFormatter().string(from: Date())
-                ], key: "seeding")
-        }
+        // Track seeding start using metrics - better for aggregate counts than individual events
+        SentryMetricsHelper.trackDatabaseSeedingStarted()
 
         seedInitialData(modelContext: modelContext)
         markDatabaseAsSeeded(modelContext: modelContext)
 
-        // Capture successful seeding completion
-        SentrySDK.capture(message: "Database seeding completed successfully") { scope in
-            scope.setLevel(.info)
-            scope.setTag(value: "database_seeding", key: "operation")
-            scope.setTag(value: "success", key: "status")
-        }
+        // Track seeding completion using metrics - better for aggregate counts than individual events
+        SentryMetricsHelper.trackDatabaseSeedingCompleted()
     }
 
     // MARK: - Private Implementation

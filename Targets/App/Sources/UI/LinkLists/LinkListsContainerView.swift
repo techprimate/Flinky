@@ -28,6 +28,7 @@ struct LinkListsContainerView: View {
 
     @State private var presentedInfoList: LinkListModel?
     @State private var searchText = ""
+    @State private var previousSearchText = ""
 
     @State private var listToDelete: LinkListModel?
     @State private var isDeleteListPresented = false
@@ -45,10 +46,13 @@ struct LinkListsContainerView: View {
                 isPresented: $isDeleteListPresented, presenting: listToDelete
             ) { list in
                 Button(role: .destructive) {
+                    let linkCount = list.links.count
                     modelContext.delete(list)
 
                     do {
                         try modelContext.save()
+                        // Track list deletion
+                        SentryMetricsHelper.trackListDeleted(linkCount: linkCount)
                     } catch {
                         Self.logger.error("Failed to delete list: \(error)")
                         let appError = AppError.persistenceError(
@@ -131,6 +135,8 @@ struct LinkListsContainerView: View {
 
                 do {
                     try modelContext.save()
+                    // Track list pinning
+                    SentryMetricsHelper.trackListPinned()
                 } catch {
                     Self.logger.error("Failed to pin list: \(error)")
                     let appError = AppError.persistenceError(
@@ -152,6 +158,8 @@ struct LinkListsContainerView: View {
 
                 do {
                     try modelContext.save()
+                    // Track list unpinning
+                    SentryMetricsHelper.trackListUnpinned()
                 } catch {
                     Self.logger.error("Failed to unpin list: \(error)")
                     let appError = AppError.persistenceError(
@@ -192,6 +200,15 @@ struct LinkListsContainerView: View {
             // Auto-injecting Sentry feedback widget is currently not supported in SwiftUI.
             // Therefore we manually trigger it when the view appears.
             SentrySDK.feedback.showWidget()
+        }
+        .onChange(of: searchText) { oldValue, newValue in
+            // Track search when user starts searching (transitions from empty to non-empty)
+            if oldValue.isEmpty && !newValue.isEmpty {
+                let resultCount = filteredPinnedLists.count + filteredUnpinnedLists.count
+                SentryMetricsHelper.trackSearchPerformed(searchContext: "lists", resultCount: resultCount)
+                SentryMetricsHelper.trackSearchQueryLength(length: newValue.count, searchContext: "lists")
+            }
+            previousSearchText = oldValue
         }
     }
 

@@ -62,6 +62,9 @@ struct LinkDetailContainerView: View {
                             "link_id": item.id.uuidString  // Enables correlation with link usage patterns
                         ]
                         SentrySDK.addBreadcrumb(breadcrumb)
+
+                        // Track link opened using metrics
+                        SentryMetricsHelper.trackLinkOpened(linkId: item.id.uuidString)
                     }
                 }
             },
@@ -81,15 +84,8 @@ struct LinkDetailContainerView: View {
                 ]
                 SentrySDK.addBreadcrumb(breadcrumb)
 
-                // Track sharing event for analytics - standardized sharing_method field
-                // enables cross-method comparison of sharing popularity
-                let event = Event(level: .info)
-                event.message = SentryMessage(formatted: "link_shared")
-                event.extra = [
-                    "link_id": item.id.uuidString,
-                    "sharing_method": "copy_url"  // Consistent taxonomy across all sharing methods
-                ]
-                SentrySDK.capture(event: event)
+                // Track sharing using metrics - better for aggregate counts than individual events
+                SentryMetricsHelper.trackLinkShared(sharingMethod: "copy_url", linkId: item.id.uuidString)
             },
             shareQRCodeImageAction: { image in
                 imageToShare = .init(image: image)
@@ -104,15 +100,8 @@ struct LinkDetailContainerView: View {
                 ]
                 SentrySDK.addBreadcrumb(breadcrumb)
 
-                // Track sharing event with consistent method taxonomy
-                // Enables comparison between QR sharing vs other sharing methods
-                let event = Event(level: .info)
-                event.message = SentryMessage(formatted: "link_shared")
-                event.extra = [
-                    "link_id": item.id.uuidString,
-                    "sharing_method": "qr_code_share"  // Part of standardized sharing method vocabulary
-                ]
-                SentrySDK.capture(event: event)
+                // Track sharing using metrics - better for aggregate counts than individual events
+                SentryMetricsHelper.trackLinkShared(sharingMethod: "qr_code_share", linkId: item.id.uuidString)
             },
             saveQRCodeImageToPhotos: { image in
                 saveImageToPhotos(image)
@@ -142,7 +131,12 @@ struct LinkDetailContainerView: View {
     }
 
     func createQRCodeImageInBackground() async {
+        let startTime = CFAbsoluteTimeGetCurrent()
+
         if let cachedImage = qrcodeCache.image(forContent: item.url.absoluteString) {
+            let duration = CFAbsoluteTimeGetCurrent() - startTime
+            let imageSize = "\(Int(cachedImage.size.width))x\(Int(cachedImage.size.height))"
+            SentryMetricsHelper.trackQRCodeGenerationDuration(duration: duration, cacheHit: true, imageSize: imageSize)
             image = .success(cachedImage)
             return
         }
@@ -169,10 +163,14 @@ struct LinkDetailContainerView: View {
         let uiImage = UIImage(cgImage: cgImage)
         qrcodeCache.setImage(uiImage, forContent: item.url.absoluteString)
 
+        let duration = CFAbsoluteTimeGetCurrent() - startTime
+        let imageSize = "\(Int(uiImage.size.width))x\(Int(uiImage.size.height))"
+        SentryMetricsHelper.trackQRCodeGenerationDuration(duration: duration, cacheHit: false, imageSize: imageSize)
+
         image = .success(uiImage)
     }
 
-    func saveImageToPhotos(_ image: UIImage) {  // swiftlint:disable:this function_body_length
+    func saveImageToPhotos(_ image: UIImage) {
         PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
             switch status {
             case .authorized, .limited:
@@ -193,15 +191,8 @@ struct LinkDetailContainerView: View {
                             ]
                             SentrySDK.addBreadcrumb(breadcrumb)
 
-                            // Track as sharing event even though it's save-for-later
-                            // Indicates sharing intent and helps measure QR code popularity
-                            let event = Event(level: .info)
-                            event.message = SentryMessage(formatted: "link_shared")
-                            event.extra = [
-                                "link_id": item.id.uuidString,
-                                "sharing_method": "qr_code_save"  // Distinct from qr_code_share
-                            ]
-                            SentrySDK.capture(event: event)
+                            // Track sharing using metrics - better for aggregate counts than individual events
+                            SentryMetricsHelper.trackLinkShared(sharingMethod: "qr_code_save", linkId: item.id.uuidString)
                         } else {
                             let localDescription =
                                 "Failed to save QR code to Photos: \(error?.localizedDescription ?? "Unknown error")"

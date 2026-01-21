@@ -224,23 +224,22 @@ struct FlinkyApp: App {
                 breadcrumb.message = "User opened feedback form"
                 SentrySDK.addBreadcrumb(breadcrumb)
 
-                let event = Event(level: .info)
-                event.message = SentryMessage(formatted: "User opened feedback form")
-                SentrySDK.capture(event: event)
+                // Track feedback form opening using metrics - better for aggregate counts than individual events
+                SentryMetricsHelper.trackFeedbackFormOpened()
             }
             feedbackOptions.onFormClose = {
                 let breadcrumb = Breadcrumb(level: .info, category: "user_feedback")
                 breadcrumb.message = "User closed feedback form"
                 SentrySDK.addBreadcrumb(breadcrumb)
 
-                let event = Event(level: .info)
-                event.message = SentryMessage(formatted: "User closed feedback form")
-                SentrySDK.capture(event: event)
+                // Track feedback form closing using metrics - better for aggregate counts than individual events
+                SentryMetricsHelper.trackFeedbackFormClosed()
             }
         }
 
         // Configure Other Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
+        options.experimental.enableMetrics = true
 
         // Configure Logs
         options.enableLogs = true

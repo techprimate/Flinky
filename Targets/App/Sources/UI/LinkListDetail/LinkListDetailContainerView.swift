@@ -18,6 +18,7 @@ struct LinkListDetailContainerView: View {
     @State private var presentedLink: LinkModel?
     @State private var editingLink: LinkModel?
     @State private var searchText = ""
+    @State private var previousSearchText = ""
 
     @State private var linkToDelete: LinkModel?
     @State private var isDeleteLinkPresented = false
@@ -36,6 +37,9 @@ struct LinkListDetailContainerView: View {
                     modelContext.delete(link)
                     do {
                         try modelContext.save()
+                        // Track link deletion
+                        let remainingLinkCount = list.links.count - 1
+                        SentryMetricsHelper.trackLinkDeleted(listLinkCount: remainingLinkCount)
                     } catch {
                         Self.logger.error("Failed to delete link: \(error)")
                         let appError = AppError.persistenceError(
@@ -54,11 +58,14 @@ struct LinkListDetailContainerView: View {
                 presenting: linksToDelete
             ) { links in
                 Button(role: .destructive) {
+                    let count = links.count
                     for model in links {
                         modelContext.delete(model)
                     }
                     do {
                         try modelContext.save()
+                        // Track bulk link deletion
+                        SentryMetricsHelper.trackLinkDeletedBulk(count: count, listId: list.id.uuidString)
                     } catch {
                         Self.logger.error("Failed to delete multiple links: \(error)")
                         let appError = AppError.persistenceError(
@@ -74,10 +81,13 @@ struct LinkListDetailContainerView: View {
             }
             .alert(L10n.Shared.DeleteConfirmation.List.alertTitle(list.name), isPresented: $isDeleteListPresented) {
                 Button(role: .destructive) {
+                    let linkCount = list.links.count
                     modelContext.delete(list)
 
                     do {
                         try modelContext.save()
+                        // Track list deletion
+                        SentryMetricsHelper.trackListDeleted(linkCount: linkCount)
                         dismiss()
                     } catch {
                         Self.logger.error("Failed to delete list: \(error)")
@@ -159,6 +169,15 @@ struct LinkListDetailContainerView: View {
             }
         )
         .sentryTrace("LINK_LIST_DETAIL_VIEW")
+        .onChange(of: searchText) { oldValue, newValue in
+            // Track search when user starts searching (transitions from empty to non-empty)
+            if oldValue.isEmpty && !newValue.isEmpty {
+                let resultCount = filteredLinks.count
+                SentryMetricsHelper.trackSearchPerformed(searchContext: "links", resultCount: resultCount)
+                SentryMetricsHelper.trackSearchQueryLength(length: newValue.count, searchContext: "links")
+            }
+            previousSearchText = oldValue
+        }
     }
 
     // MARK: - Data

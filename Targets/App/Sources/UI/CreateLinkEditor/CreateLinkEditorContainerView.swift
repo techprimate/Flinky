@@ -47,16 +47,8 @@ struct CreateLinkEditorContainerView: View {
                     ]
                     SentrySDK.addBreadcrumb(breadcrumb)
 
-                    // Track usage event for analytics - using Event object instead of simple message
-                    // to capture structured metadata for better analytics querying and filtering
-                    let event = Event(level: .info)
-                    event.message = SentryMessage(formatted: "link_created")
-                    event.extra = [
-                        "link_id": link.id.uuidString,
-                        "list_id": list.id.uuidString,
-                        "entity_type": "link"  // Consistent entity typing for cross-feature analytics
-                    ]
-                    SentrySDK.capture(event: event)
+                    // Track link creation using metrics - better for aggregate counts than individual events
+                    SentryMetricsHelper.trackLinkCreated(creationFlow: "direct", listId: list.id.uuidString)
 
                     dismiss()
                 } catch {

@@ -52,26 +52,14 @@ struct LinkListInfoContainerView: View {
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track list color selection for customization feature analytics
-                    // Only fire when actually changed to reduce event volume
+                    // Using metrics for better aggregate counts than individual events
                     if isColorChanged {
-                        let colorEvent = Event(level: .info)
-                        colorEvent.message = SentryMessage(formatted: "list_color_selected")
-                        colorEvent.extra = [
-                            "color": color.rawValue,  // Track which list colors are popular
-                            "entity_type": "list"  // Enables cross-entity color preference analysis
-                        ]
-                        SentrySDK.capture(event: colorEvent)
+                        SentryMetricsHelper.trackColorSelected(color: color.rawValue, entityType: "list")
                     }
 
-                    // Track list symbol selection with consistent event structure
+                    // Track list symbol selection with consistent structure
                     if isSymbolChanged {
-                        let symbolEvent = Event(level: .info)
-                        symbolEvent.message = SentryMessage(formatted: "list_symbol_selected")
-                        symbolEvent.extra = [
-                            "symbol": symbol.rawValue,  // Measure symbol popularity for lists
-                            "entity_type": "list"  // Compare with link symbol usage patterns
-                        ]
-                        SentrySDK.capture(event: symbolEvent)
+                        SentryMetricsHelper.trackSymbolSelected(symbol: symbol.rawValue, entityType: "list")
                     }
 
                     dismiss()
