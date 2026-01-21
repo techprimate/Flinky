@@ -1,6 +1,7 @@
 // swiftlint:disable type_body_length file_length
 import Foundation
 import Sentry
+import FlinkyCore
 
 /// Helper utility for tracking analytics metrics using Sentry Metrics API.
 ///
@@ -254,7 +255,7 @@ enum SentryMetricsHelper {
 
         // Capture error with Sentry
         if let configureScope = configureScope {
-            SentrySDK.capture(error: error, configureScope: configureScope)
+            SentrySDK.capture(error: error, block: configureScope)
         } else {
             SentrySDK.capture(error: error)
         }
@@ -402,7 +403,7 @@ enum SentryMetricsHelper {
             key: "share_extension.opened",
             value: 1,
             unit: .generic("interaction"),
-            attributes: attributes.isEmpty ? nil : attributes
+            attributes: attributes
         )
     }
 
@@ -475,7 +476,7 @@ enum SentryMetricsHelper {
             key: "nfc.share.failed",
             value: 1,
             unit: .generic("share"),
-            attributes: attributes.isEmpty ? nil : attributes
+            attributes: attributes
         )
     }
 
