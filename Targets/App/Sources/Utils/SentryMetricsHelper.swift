@@ -1,15 +1,186 @@
 // swiftlint:disable type_body_length file_length
+import FlinkyCore
 import Foundation
 import Sentry
-import FlinkyCore
+
+// MARK: - SentryMetricsHelper
 
 /// Helper utility for tracking analytics metrics using Sentry Metrics API.
 ///
-/// This utility provides type-safe wrapper functions for common metric patterns,
-/// replacing the previous `SentrySDK.capture(event:)` calls for analytics tracking.
-/// Metrics are better suited for tracking aggregate counts and don't create individual "issues" in Sentry.
+/// This utility provides type-safe wrapper functions for metric patterns that
+/// **DO NOT overlap with Sentry's automatic tracing**. Before adding new metrics,
+/// verify they don't duplicate what's already tracked automatically.
 enum SentryMetricsHelper {
+
+    // MARK: - App Health Signals
+    // These track system-level signals that don't overlap with tracing.
+    // They provide quick app/runtime health insights.
+
+    /// Tracks memory warning received from the system.
+    ///
+    /// **Why Metrics (not Events):**
+    /// - High-volume signal (can happen frequently under pressure)
+    /// - Aggregate count is more valuable than individual occurrences
+    /// - Doesn't need stack traces (unlike OOM crashes)
+    ///
+    /// **Not Covered By:**
+    /// - Watchdog Terminations (those track the final crash, not warnings)
+    /// - MetricKit (doesn't expose memory warnings)
+    ///
+    /// - Parameter cacheSizeAtWarning: Number of items in cache when warning received
+    /// - Parameter appState: Current app state ("foreground" or "background")
+    static func trackMemoryWarningReceived(cacheSizeAtWarning: Int, appState: String = "foreground") {
+        SentrySDK.metrics.count(
+            key: "memory.warning.received",
+            value: 1,
+            unit: .generic("warning"),
+            attributes: [
+                "cache_size_at_warning": String(cacheSizeAtWarning),
+                "app_state": appState
+            ]
+        )
+    }
+
+    /// Tracks thermal state transitions.
+    ///
+    /// **Why Metrics:**
+    /// - Thermal throttling affects performance but isn't captured by tracing
+    /// - Aggregate patterns are useful (e.g., "20% of sessions reach serious thermal state")
+    ///
+    /// **Not Covered By:**
+    /// - Any existing Sentry feature
+    /// - Partially related to App Hangs (thermal throttling can cause slowdowns), but distinct
+    ///
+    /// - Parameters:
+    ///   - fromState: Previous thermal state ("nominal", "fair", "serious", "critical")
+    ///   - toState: New thermal state after transition
+    ///   - isEscalation: True if thermal state worsened
+    static func trackThermalStateTransition(fromState: String, toState: String, isEscalation: Bool) {
+        SentrySDK.metrics.count(
+            key: "device.thermal.transition",
+            value: 1,
+            unit: .generic("transition"),
+            attributes: [
+                "from_state": fromState,
+                "to_state": toState,
+                "is_escalation": String(isEscalation)
+            ]
+        )
+    }
+
+    /// Tracks network reachability changes.
+    ///
+    /// **Why Metrics:**
+    /// - Network changes correlate with errors but aren't the errors themselves
+    /// - Helps contextualize "why did errors spike?"
+    ///
+    /// **Not Covered By:**
+    /// - Network Tracking (which tracks request performance, not connectivity state)
+    /// - HTTP Client Errors (which track failures, not connectivity)
+    ///
+    /// - Parameters:
+    ///   - status: "connected" or "disconnected"
+    ///   - interfaceType: "wifi", "cellular", "wired", "loopback", "other"
+    ///   - isExpensive: True if on cellular (metered connection)
+    ///   - isConstrained: True if Low Data Mode is enabled
+    static func trackNetworkReachabilityChanged(
+        status: String,
+        interfaceType: String,
+        isExpensive: Bool,
+        isConstrained: Bool
+    ) {
+        SentrySDK.metrics.count(
+            key: "network.reachability.changed",
+            value: 1,
+            unit: .generic("transition"),
+            attributes: [
+                "status": status,
+                "interface": interfaceType,
+                "is_expensive": String(isExpensive),
+                "is_constrained": String(isConstrained)
+            ]
+        )
+    }
+
+    /// Tracks app state transitions (foreground/background).
+    ///
+    /// **Why Metrics:**
+    /// - Helps correlate other metrics with app state
+    /// - Useful for understanding user session patterns
+    ///
+    /// **Not Covered By:**
+    /// - App Start Tracing (only tracks initial launch, not subsequent transitions)
+    ///
+    /// - Parameters:
+    ///   - toState: New app state ("active", "inactive", "background")
+    ///   - fromState: Previous app state
+    static func trackAppStateTransition(toState: String, fromState: String) {
+        SentrySDK.metrics.count(
+            key: "app.state.transition",
+            value: 1,
+            unit: .generic("transition"),
+            attributes: [
+                "to_state": toState,
+                "from_state": fromState
+            ]
+        )
+    }
+
+    // MARK: - Background Task Lifecycle
+    // Track background task completions, expirations, and failures.
+    // Not covered by Tracing (which focuses on foreground operations).
+
+    /// Tracks background task completion.
+    /// - Parameters:
+    ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
+    ///   - taskIdentifier: The registered task identifier
+    static func trackBackgroundTaskCompleted(taskType: String, taskIdentifier: String) {
+        SentrySDK.metrics.count(
+            key: "background.task.completed",
+            value: 1,
+            unit: .generic("task"),
+            attributes: [
+                "task_type": taskType,
+                "task_identifier": taskIdentifier
+            ]
+        )
+    }
+
+    /// Tracks background task expiration.
+    /// - Parameters:
+    ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
+    ///   - timeRemaining: Seconds remaining when task expired
+    static func trackBackgroundTaskExpired(taskType: String, timeRemaining: Double) {
+        SentrySDK.metrics.count(
+            key: "background.task.expired",
+            value: 1,
+            unit: .generic("task"),
+            attributes: [
+                "task_type": taskType,
+                "time_remaining": String(format: "%.1f", timeRemaining)
+            ]
+        )
+    }
+
+    /// Tracks background task duration.
+    /// - Parameters:
+    ///   - duration: Task duration in seconds
+    ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
+    ///   - outcome: Result of the task ("completed", "expired", "cancelled")
+    static func trackBackgroundTaskDuration(duration: Double, taskType: String, outcome: String) {
+        SentrySDK.metrics.distribution(
+            key: "background.task.duration",
+            value: duration,
+            unit: .second,
+            attributes: [
+                "task_type": taskType,
+                "outcome": outcome
+            ]
+        )
+    }
+
     // MARK: - Link Creation
+    // User action tracking - doesn't overlap with tracing.
 
     /// Tracks link creation with creation flow and entity type attributes.
     /// - Parameters:
@@ -42,7 +213,7 @@ enum SentryMetricsHelper {
             attributes: [
                 "creation_flow": creationFlow,
                 "entity_type": "list",
-                "auto_created": autoCreated
+                "auto_created": String(autoCreated)
             ]
         )
     }
@@ -155,7 +326,10 @@ enum SentryMetricsHelper {
         )
     }
 
-    // MARK: - Performance Metrics
+    // MARK: - QR Code Performance
+    // Performance metrics for QR code generation and caching.
+    // Note: This doesn't overlap with File I/O Tracing since QR generation
+    // is CPU-bound image processing, not file operations.
 
     /// Tracks QR code generation duration.
     /// - Parameters:
@@ -168,7 +342,7 @@ enum SentryMetricsHelper {
             value: duration,
             unit: .second,
             attributes: [
-                "cache_hit": cacheHit,
+                "cache_hit": String(cacheHit),
                 "image_size": imageSize
             ]
         )
@@ -201,6 +375,49 @@ enum SentryMetricsHelper {
             unit: .generic("eviction"),
             attributes: [
                 "reason": reason
+            ]
+        )
+    }
+
+    // MARK: - Link Metadata (LinkPresentation Framework)
+    // Track link metadata fetching for rich previews.
+
+    /// Tracks link metadata fetch completion.
+    /// - Parameters:
+    ///   - outcome: Result of fetch ("success", "failed", "cached")
+    ///   - hasImage: Whether the metadata includes an image
+    ///   - hasVideo: Whether the metadata includes video
+    ///   - contentType: Type of content ("article", "video", "audio", "generic")
+    static func trackLinkMetadataFetched(
+        outcome: String,
+        hasImage: Bool,
+        hasVideo: Bool,
+        contentType: String
+    ) {
+        SentrySDK.metrics.count(
+            key: "link.metadata.fetched",
+            value: 1,
+            unit: .generic("fetch"),
+            attributes: [
+                "outcome": outcome,
+                "has_image": String(hasImage),
+                "has_video": String(hasVideo),
+                "content_type": contentType
+            ]
+        )
+    }
+
+    /// Tracks link metadata fetch duration.
+    /// - Parameters:
+    ///   - duration: Fetch duration in seconds
+    ///   - outcome: Result of fetch ("success", "failed", "cached")
+    static func trackLinkMetadataFetchDuration(duration: Double, outcome: String) {
+        SentrySDK.metrics.distribution(
+            key: "link.metadata.fetch.duration",
+            value: duration,
+            unit: .second,
+            attributes: [
+                "outcome": outcome
             ]
         )
     }
@@ -274,7 +491,7 @@ enum SentryMetricsHelper {
             unit: .generic("search"),
             attributes: [
                 "search_context": searchContext,
-                "result_count": resultCount
+                "result_count": String(resultCount)
             ]
         )
     }
@@ -322,7 +539,7 @@ enum SentryMetricsHelper {
             value: 1,
             unit: .generic("deletion"),
             attributes: [
-                "link_count": linkCount
+                "link_count": String(linkCount)
             ]
         )
     }
@@ -335,7 +552,7 @@ enum SentryMetricsHelper {
             value: 1,
             unit: .generic("deletion"),
             attributes: [
-                "count": count
+                "count": String(count)
             ]
         )
     }
@@ -350,7 +567,7 @@ enum SentryMetricsHelper {
             value: 1,
             unit: .generic("deletion"),
             attributes: [
-                "list_link_count": listLinkCount
+                "list_link_count": String(listLinkCount)
             ]
         )
     }
@@ -365,7 +582,7 @@ enum SentryMetricsHelper {
             value: 1,
             unit: .generic("deletion"),
             attributes: [
-                "count": count,
+                "count": String(count),
                 "list_id": listId
             ]
         )
@@ -417,8 +634,8 @@ enum SentryMetricsHelper {
             value: 1,
             unit: .generic("completion"),
             attributes: [
-                "list_selected": listSelected,
-                "name_edited": nameEdited
+                "list_selected": String(listSelected),
+                "name_edited": String(nameEdited)
             ]
         )
     }
@@ -437,15 +654,7 @@ enum SentryMetricsHelper {
     }
 
     // MARK: - NFC Metrics
-
-    /// Tracks NFC availability (gauge).
-    static func trackNFCAvailable() {
-        SentrySDK.metrics.gauge(
-            key: "nfc.available",
-            value: 1.0,
-            unit: .generic("capability")
-        )
-    }
+    // CoreNFC framework usage tracking.
 
     /// Tracks NFC share initiation.
     static func trackNFCShareInitiated() {
@@ -480,7 +689,27 @@ enum SentryMetricsHelper {
         )
     }
 
+    /// Tracks NFC operation performed.
+    /// - Parameters:
+    ///   - operation: Type of operation ("read", "write", "scan")
+    ///   - tagType: Type of NFC tag ("ndef", "iso7816", "iso15693", "felica")
+    ///   - outcome: Result of operation ("success", "failed", "cancelled")
+    static func trackNFCOperationPerformed(operation: String, tagType: String, outcome: String) {
+        SentrySDK.metrics.count(
+            key: "nfc.operation.performed",
+            value: 1,
+            unit: .generic("operation"),
+            attributes: [
+                "operation": operation,
+                "tag_type": tagType,
+                "outcome": outcome
+            ]
+        )
+    }
+
     // MARK: - Database Performance
+    // Note: SwiftData is used (not Core Data), so these don't overlap with
+    // Sentry's Core Data Tracing which specifically instruments NSManagedObjectContext.
 
     /// Tracks database query duration.
     /// - Parameters:
@@ -514,19 +743,86 @@ enum SentryMetricsHelper {
         )
     }
 
-    // MARK: - App Health
+    // MARK: - Spotlight Search (CoreSpotlight)
+    // Track Spotlight indexing for searchable links.
 
-    /// Tracks memory warning received.
-    /// - Parameter cacheSizeAtWarning: Number of items in cache when warning received
-    static func trackMemoryWarningReceived(cacheSizeAtWarning: Int) {
+    /// Tracks Spotlight item indexed.
+    /// - Parameters:
+    ///   - count: Number of items indexed
+    ///   - contentType: Type of content indexed
+    static func trackSpotlightItemIndexed(count: Int, contentType: String) {
         SentrySDK.metrics.count(
-            key: "memory.warning.received",
-            value: 1,
-            unit: .generic("warning"),
+            key: "spotlight.item.indexed",
+            value: UInt(count),
+            unit: .generic("item"),
             attributes: [
-                "cache_size_at_warning": cacheSizeAtWarning
+                "content_type": contentType
+            ]
+        )
+    }
+
+    /// Tracks Spotlight search performed from system.
+    /// - Parameters:
+    ///   - resultCountBucket: Bucketed result count ("0", "1-10", "10-50", "50+")
+    ///   - querySource: Source of query ("in_app", "system_spotlight")
+    static func trackSpotlightSearchPerformed(resultCountBucket: String, querySource: String) {
+        SentrySDK.metrics.count(
+            key: "spotlight.search.performed",
+            value: 1,
+            unit: .generic("search"),
+            attributes: [
+                "result_count_bucket": resultCountBucket,
+                "query_source": querySource
             ]
         )
     }
 }
+
+// MARK: - Thermal State Helpers
+
+extension SentryMetricsHelper {
+
+    /// Converts ProcessInfo.ThermalState to a string for metrics.
+    /// - Parameter state: The thermal state to convert
+    /// - Returns: String representation ("nominal", "fair", "serious", "critical")
+    static func thermalStateString(_ state: ProcessInfo.ThermalState) -> String {
+        switch state {
+        case .nominal:
+            return "nominal"
+        case .fair:
+            return "fair"
+        case .serious:
+            return "serious"
+        case .critical:
+            return "critical"
+        @unknown default:
+            return "unknown"
+        }
+    }
+}
+
+// MARK: - App State Helpers
+
+#if canImport(UIKit)
+import UIKit
+
+extension SentryMetricsHelper {
+
+    /// Converts UIApplication.State to a string for metrics.
+    /// - Parameter state: The application state to convert
+    /// - Returns: String representation ("active", "inactive", "background")
+    static func appStateString(_ state: UIApplication.State) -> String {
+        switch state {
+        case .active:
+            return "active"
+        case .inactive:
+            return "inactive"
+        case .background:
+            return "background"
+        @unknown default:
+            return "unknown"
+        }
+    }
+}
+#endif
 // swiftlint:enable type_body_length file_length

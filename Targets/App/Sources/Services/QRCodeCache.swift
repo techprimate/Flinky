@@ -42,7 +42,8 @@ class QRCodeCache: NSObject {
     @objc private func handleMemoryWarning() {
         Self.logger.warning("Received memory warning, clearing QR code cache")
         let cacheSize = storage.countLimit
-        SentryMetricsHelper.trackMemoryWarningReceived(cacheSizeAtWarning: cacheSize)
+        let appState = UIApplication.shared.applicationState == .active ? "foreground" : "background"
+        SentryMetricsHelper.trackMemoryWarningReceived(cacheSizeAtWarning: cacheSize, appState: appState)
         clearCache()
     }
 

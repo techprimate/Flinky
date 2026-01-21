@@ -123,6 +123,29 @@ struct LinkDetailContainerView: View {
 
 Sentry Metrics provide aggregate counters for tracking user behavior patterns. Unlike individual events, metrics don't create "issues" in Sentry and are better suited for analytics that only need aggregate counts. Metrics are enabled by default in Sentry SDK 9.2.0+.
 
+### Avoiding Overlap with Tracing
+
+Before adding new metrics, verify they don't duplicate what Sentry already tracks automatically. Reference: [sentry-cocoa#7000](https://github.com/getsentry/sentry-cocoa/issues/7000)
+
+**Already Tracked via Tracing (DO NOT DUPLICATE):**
+
+- App Start (cold/warm start duration)
+- UIViewController load times
+- Slow/Frozen frames
+- Network request performance (NSURLSession)
+- File I/O operations (NSData, NSFileManager)
+- Core Data fetch/save
+- User interaction clicks
+- Time to Initial/Full Display (TTID/TTFD)
+
+**Already Tracked via Events/Sessions:**
+
+- App Hangs (main thread blocking)
+- Watchdog Terminations (OOM, system kills)
+- MetricKit diagnostics
+- Release health (crash-free sessions)
+- HTTP client errors (4xx/5xx)
+
 ### When to Use Metrics vs Events
 
 **Use Metrics For:**
@@ -131,6 +154,7 @@ Sentry Metrics provide aggregate counters for tracking user behavior patterns. U
 - Feature usage tracking
 - Aggregate behavior patterns
 - Analytics that only need counts
+- System health signals (memory warnings, thermal state, network changes)
 
 **Use Events For:**
 
@@ -276,6 +300,26 @@ The following metrics are currently tracked via `SentryMetricsHelper`:
 - `database.seeding.started`: Counter for database seeding start
 - `database.seeding.completed`: Counter for database seeding completion
 
+#### App Health Metrics (System-Level Signals)
+
+These metrics track system-level signals that don't overlap with Sentry's automatic tracing. They provide quick app/runtime health insights.
+
+- `memory.warning.received`: Counter for memory warnings (attributes: `cache_size_at_warning`, `app_state`)
+- `device.thermal.transition`: Counter for thermal state changes (attributes: `from_state`, `to_state`, `is_escalation`)
+- `network.reachability.changed`: Counter for network connectivity changes (attributes: `status`, `interface`, `is_expensive`, `is_constrained`)
+- `app.state.transition`: Counter for app state transitions (attributes: `to_state`, `from_state`)
+
+#### Background Task Metrics
+
+- `background.task.completed`: Counter for completed background tasks (attributes: `task_type`, `task_identifier`)
+- `background.task.expired`: Counter for expired background tasks (attributes: `task_type`, `time_remaining`)
+- `background.task.duration`: Distribution of background task duration (attributes: `task_type`, `outcome`)
+
+#### Link Metadata Metrics
+
+- `link.metadata.fetched`: Counter for link metadata fetches (attributes: `outcome`, `has_image`, `has_video`, `content_type`)
+- `link.metadata.fetch.duration`: Distribution of metadata fetch duration (attributes: `outcome`)
+
 ### Recommended Development Metrics
 
 The following metrics are recommended for future implementation to gain deeper insights into app performance, user behavior, and feature adoption. These are organized by priority and category.
@@ -341,13 +385,25 @@ The following metrics are recommended for future implementation to gain deeper i
 - `flow.creation.completed` (Counter) - Track completed creation flows
   - Attributes: `flow_type`, `duration_seconds`
 
-**App Health Metrics**
+**App Health Metrics** ✅ IMPLEMENTED
 
-- `app.launch` (Counter) - Track app launches
-  - Attributes: `is_cold_start` (boolean)
+The following metrics are now implemented via `AppHealthObserver`:
+
+- ✅ `memory.warning.received` (Counter) - Track memory warnings
+  - Attributes: `cache_size_at_warning` (number), `app_state` (string)
+- ✅ `device.thermal.transition` (Counter) - Track thermal state changes
+  - Attributes: `from_state`, `to_state`, `is_escalation`
+  - Reference: [sentry-cocoa#7000](https://github.com/getsentry/sentry-cocoa/issues/7000)
+- ✅ `network.reachability.changed` (Counter) - Track network connectivity changes
+  - Attributes: `status`, `interface`, `is_expensive`, `is_constrained`
+  - Reference: [sentry-cocoa#7000](https://github.com/getsentry/sentry-cocoa/issues/7000)
+- ✅ `app.state.transition` (Counter) - Track foreground/background transitions
+  - Attributes: `to_state`, `from_state`
+
+**Still TODO:**
+
+- `app.launch` (Counter) - Track app launches (overlaps with App Start Tracing, consider if needed)
 - `app.session.duration` (Distribution) - Track session duration
-- `memory.warning.received` (Counter) - Track memory warnings
-  - Attributes: `cache_size_at_warning` (number)
 
 **Data Health Metrics**
 

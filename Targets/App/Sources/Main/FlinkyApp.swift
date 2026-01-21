@@ -17,6 +17,11 @@ struct FlinkyApp: App {
             Self.configureSentry(options: options)
         }
 
+        // Start app health observation for system-level metrics
+        // (thermal state, network reachability, app state transitions)
+        // Reference: https://github.com/getsentry/sentry-cocoa/issues/7000
+        AppHealthObserver.shared.startObserving()
+
         do {
             sharedModelContainer = try SharedModelContainerFactory.make(
                 isStoredInMemoryOnly: ProcessInfo.processInfo.isTestingEnabled
