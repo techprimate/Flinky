@@ -18,7 +18,6 @@ struct LinkListDetailContainerView: View {
     @State private var presentedLink: LinkModel?
     @State private var editingLink: LinkModel?
     @State private var searchText = ""
-    @State private var previousSearchText = ""
 
     @State private var linkToDelete: LinkModel?
     @State private var isDeleteLinkPresented = false
@@ -176,7 +175,6 @@ struct LinkListDetailContainerView: View {
                 SentryMetricsHelper.trackSearchPerformed(searchContext: "links", resultCount: resultCount)
                 SentryMetricsHelper.trackSearchQueryLength(length: newValue.count, searchContext: "links")
             }
-            previousSearchText = oldValue
         }
     }
 
