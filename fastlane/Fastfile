@@ -274,16 +274,19 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
   desc "Bump the major version number (e.g., 1.1.2 -> 2.0.0)"
   lane :bump_version_major do
     _bump_version(bump_type: "major")
+    _make(target: "generate")
   end
 
   desc "Bump the minor version number (e.g., 1.1.2 -> 1.2.0)"
   lane :bump_version_minor do
     _bump_version(bump_type: "minor")
+    _make(target: "generate")
   end
 
   desc "Bump the patch version number (e.g., 1.1.2 -> 1.1.3)"
   lane :bump_version_patch do
     _bump_version(bump_type: "patch")
+    _make(target: "generate")
   end
 
   # ============================================================================
@@ -488,5 +491,16 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       remote: 'origin',
       tags: true
     )
+  end
+
+  # Private lane: Run a make target
+  private_lane :_make do |options|
+    UI.message "Running make target #{options[:target]}"
+    target = options[:target]
+    UI.user_error!("target is required") unless target
+    Dir.chdir("..") do
+      sh("make", target)
+    end
+    UI.success "✅ Make target #{target} run successfully!"
   end
 end
