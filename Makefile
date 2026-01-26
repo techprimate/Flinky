@@ -303,6 +303,37 @@ upload-metadata:
 	bundle exec fastlane upload_metadata
 
 # ============================================================================
+# VERSION MANAGEMENT
+# ============================================================================
+
+## Bump the major version number (e.g., 1.1.2 -> 2.0.0)
+#
+# Increments the major version number and resets minor and patch to 0.
+# This should be used for breaking changes or major feature releases.
+.PHONY: bump-version-major
+bump-version-major:
+	bundle install
+	bundle exec fastlane bump_version_major
+
+## Bump the minor version number (e.g., 1.1.2 -> 1.2.0)
+#
+# Increments the minor version number and resets patch to 0.
+# This should be used for new features or significant improvements.
+.PHONY: bump-version-minor
+bump-version-minor:
+	bundle install
+	bundle exec fastlane bump_version_minor
+
+## Bump the patch version number (e.g., 1.1.2 -> 1.1.3)
+#
+# Increments the patch version number.
+# This should be used for bug fixes and minor updates.
+.PHONY: bump-version-patch
+bump-version-patch:
+	bundle install
+	bundle exec fastlane bump_version_patch
+
+# ============================================================================
 # HELP & DOCUMENTATION
 # ============================================================================
 
