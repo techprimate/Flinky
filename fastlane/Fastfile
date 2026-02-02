@@ -433,15 +433,15 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
           target: "Flinky"
         )
         UI.success "✅ Version bumped from #{current_version} to #{new_version}"
-        return { version: new_version, bumped: true }
+        next { version: new_version, bumped: true }
       else
         UI.success "✅ Version #{current_version} is not yet published, using current version"
-        return { version: current_version, bumped: false }
+        next { version: current_version, bumped: false }
       end
     rescue => e
       UI.important "⚠️ Failed to check App Store Connect: #{e.message}"
       UI.important "Falling back to current version without bumping"
-      return { version: current_version, bumped: false }
+      next { version: current_version, bumped: false }
     end
   end
 
@@ -457,14 +457,14 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       published_part = published_parts[i] || 0
       
       if current_part < published_part
-        return false # Current version is lower, not published
+        next false # Current version is lower, not published
       elsif current_part > published_part
-        return false # Current version is higher, not published yet
+        next false # Current version is higher, not published yet
       end
     end
     
     # Versions are equal, so current version is already published
-    true
+    next true
   end
 
   # Private lane: Increment version and build number, return both values
@@ -477,7 +477,7 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     increment_build_number(xcodeproj: "Flinky.xcodeproj")
     build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
 
-    { version: version_number, build: build_number }
+    next { version: version_number, build: build_number }
   end
 
   # Private lane: Build the app for App Store distribution
@@ -721,7 +721,7 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       UI.important "You may need to enable it manually in the PR: #{pr_url}"
     end
 
-    { pr_url: pr_url, pr_number: pr_number, branch: branch_name }
+    next { pr_url: pr_url, pr_number: pr_number, branch: branch_name }
   end
 
   # Private lane: Commit version changes and create git tag
