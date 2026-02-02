@@ -1,0 +1,68 @@
+name: Deploy Beta
+
+on:
+  push:
+    branches:
+      - "release/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job.name}}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy Beta Build
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - name: Generate GitHub App Token
+        id: github_app_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.TECHPRIMATE_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.TECHPRIMATE_RELEASE_BOT_PRIVATE_KEY }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+          token: ${{ steps.github_app_token.outputs.token }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "techprimate-release-bot"
+          git config user.email "techprimate-release-bot@users.noreply.github.com"
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create App Store Connect API Key
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ vars.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        run: |
+          jq -n \
+            --arg key_id "$APP_STORE_CONNECT_API_KEY_ID" \
+            --arg issuer_id "$APP_STORE_CONNECT_API_ISSUER_ID" \
+            --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
+
+      - run: bundle exec fastlane deploy_beta
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
