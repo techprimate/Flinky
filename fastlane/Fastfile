@@ -188,6 +188,41 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     _commit_and_tag_version(version: version_number, build: build_number)
   end
 
+  desc "Push a new beta build to TestFlight (CI version - creates PR instead of direct commit)"
+  lane :beta_ci do |options|
+    # Configure CI keychain and set match to readonly to avoid prompts
+    setup_ci if is_ci
+
+    # Check App Store Connect and bump version if needed
+    version_check_result = _check_and_bump_version_if_needed
+    version_number = version_check_result[:version]
+
+    # Increment build number
+    increment_build_number(xcodeproj: "Flinky.xcodeproj")
+    build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
+
+    _setup_code_signing
+    _build_app_for_store
+    _validate_app
+    _setup_sentry_release(version: version_number, build: build_number)
+
+    # Upload to TestFlight (internal build only, no external distribution)
+    upload_to_testflight(
+      # API Key file must be located at fastlane/api-key.json
+      api_key_path: File.expand_path("./api-key.json"),
+      app_version: version_number,
+      build_number: build_number,
+
+      distribute_external: false,
+      skip_waiting_for_build_processing: false
+    )
+
+    _finalize_sentry_release(version: version_number, build: build_number)
+    
+    # Create PR instead of committing directly
+    _create_version_pr(version: version_number, build: build_number)
+  end
+
   desc "Publish a new build to the App Store and submit for review"
   lane :publish do
     version_info = _increment_version_and_build
@@ -360,6 +395,78 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
     )
   end
 
+  # Private lane: Check App Store Connect and bump patch version if current version is already published
+  private_lane :_check_and_bump_version_if_needed do
+    current_version = get_version_number(
+      xcodeproj: "Flinky.xcodeproj",
+      target: "Flinky"
+    )
+
+    UI.message "Checking App Store Connect for published version..."
+    
+    begin
+      # Get the published version from App Store Connect
+      # This action sets lane_context[SharedValues::LATEST_VERSION] with the version number
+      app_store_build_number(
+        api_key_path: File.expand_path("./api-key.json"),
+        live: true
+      )
+      
+      # Get the published version from lane context
+      published_version = lane_context[SharedValues::LATEST_VERSION]
+      
+      unless published_version
+        raise "Could not retrieve published version from App Store Connect"
+      end
+      
+      UI.message "Published version on App Store Connect: #{published_version}"
+      
+      # Compare versions semantically
+      if _version_already_published?(current_version, published_version)
+        UI.important "Version #{current_version} is already published. Bumping patch version..."
+        _bump_version(bump_type: "patch")
+        _make(target: "generate")
+        
+        # Get the new version after bumping
+        new_version = get_version_number(
+          xcodeproj: "Flinky.xcodeproj",
+          target: "Flinky"
+        )
+        UI.success "✅ Version bumped from #{current_version} to #{new_version}"
+        return { version: new_version, bumped: true }
+      else
+        UI.success "✅ Version #{current_version} is not yet published, using current version"
+        return { version: current_version, bumped: false }
+      end
+    rescue => e
+      UI.important "⚠️ Failed to check App Store Connect: #{e.message}"
+      UI.important "Falling back to current version without bumping"
+      return { version: current_version, bumped: false }
+    end
+  end
+
+  # Private lane: Compare versions to check if current version is already published
+  private_lane :_version_already_published? do |current_version, published_version|
+    # Parse version strings into arrays of integers
+    current_parts = current_version.split(".").map(&:to_i)
+    published_parts = published_version.split(".").map(&:to_i)
+    
+    # Compare major, minor, patch
+    (0..2).each do |i|
+      current_part = current_parts[i] || 0
+      published_part = published_parts[i] || 0
+      
+      if current_part < published_part
+        return false # Current version is lower, not published
+      elsif current_part > published_part
+        return false # Current version is higher, not published yet
+      end
+    end
+    
+    # Versions are equal, so current version is already published
+    true
+  end
+
   # Private lane: Increment version and build number, return both values
   private_lane :_increment_version_and_build do
     version_number = get_version_number(
@@ -466,6 +573,155 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
       version: version_number,
       build: build_number
     )
+  end
+
+  # Private lane: Create PR for version bump (for CI use with protected branches)
+  private_lane :_create_version_pr do |options|
+    version_number = options[:version]
+    build_number = options[:build]
+
+    # Ensure we have GitHub token
+    github_token = ENV["GITHUB_TOKEN"] || ENV["GITHUB_APP_TOKEN"]
+    unless github_token
+      UI.user_error!("GITHUB_TOKEN or GITHUB_APP_TOKEN environment variable is required")
+    end
+
+    # Create release branch name
+    branch_name = "release/v#{version_number}+#{build_number}"
+    
+    UI.message "Creating release branch: #{branch_name}"
+
+    # Ensure we're on main and up to date
+    sh("git", "checkout", "main")
+    sh("git", "pull", "origin", "main")
+
+    # Create and checkout new branch
+    sh("git", "checkout", "-b", branch_name)
+
+    # Stage version changes (project.pbxproj and Root.plist are updated by build scripts)
+    git_add(path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"])
+    
+    # Create commit with structured message
+    commit_message = <<~MSG
+      chore: Bump version to #{version_number} (#{build_number})
+
+      action=bump,version=#{version_number},build=#{build_number}
+    MSG
+
+    git_commit(
+      path: ["Flinky.xcodeproj/project.pbxproj", "Targets/App/Sources/Resources/Settings.bundle/Root.plist"],
+      message: commit_message.strip
+    )
+
+    # Push branch to remote
+    sh("git", "push", "-u", "origin", branch_name)
+
+    # Create PR
+    UI.message "Creating pull request..."
+    
+    pr_body = <<~BODY
+      ## Version Bump
+
+      - **Version**: #{version_number}
+      - **Build**: #{build_number}
+      - **Tag**: `v#{version_number}+#{build_number}` (will be created after merge)
+
+      This PR bumps the version and build number for the beta release.
+
+      The build has already been uploaded to TestFlight and is ready for testing.
+
+      This PR will be automatically merged once all checks pass.
+    BODY
+
+    pr_result = create_pull_request(
+      api_token: github_token,
+      repo: "techprimate/Flinky",
+      title: "chore: Bump version to #{version_number} (#{build_number})",
+      body: pr_body.strip,
+      head: branch_name,
+      base: "main"
+    )
+
+    pr_url = pr_result[:html_url]
+    pr_number = pr_result[:number]
+
+    UI.success "✅ Pull request created: #{pr_url}"
+
+    # Enable auto-merge using GitHub GraphQL API
+    UI.message "Enabling auto-merge for PR ##{pr_number}..."
+    
+    begin
+      require 'net/http'
+      require 'json'
+      require 'uri'
+
+      # First, get the PR node_id using REST API
+      pr_details_uri = URI("https://api.github.com/repos/techprimate/Flinky/pulls/#{pr_number}")
+      pr_details_http = Net::HTTP.new(pr_details_uri.host, pr_details_uri.port)
+      pr_details_http.use_ssl = true
+
+      pr_details_request = Net::HTTP::Get.new(pr_details_uri)
+      pr_details_request["Authorization"] = "Bearer #{github_token}"
+      pr_details_request["Accept"] = "application/vnd.github+json"
+
+      pr_details_response = pr_details_http.request(pr_details_request)
+      
+      unless pr_details_response.code.to_i >= 200 && pr_details_response.code.to_i < 300
+        raise "Failed to fetch PR details: #{pr_details_response.body}"
+      end
+
+      pr_data = JSON.parse(pr_details_response.body)
+      node_id = pr_data["node_id"]
+
+      unless node_id
+        raise "Could not find node_id in PR response"
+      end
+
+      # Use GraphQL API to enable auto-merge
+      graphql_uri = URI("https://api.github.com/graphql")
+      graphql_http = Net::HTTP.new(graphql_uri.host, graphql_uri.port)
+      graphql_http.use_ssl = true
+
+      query = <<~GRAPHQL
+        mutation {
+          enablePullRequestAutoMerge(input: {
+            pullRequestId: "#{node_id}"
+            mergeMethod: SQUASH
+          }) {
+            pullRequest {
+              autoMergeRequest {
+                enabledAt
+              }
+            }
+          }
+        }
+      GRAPHQL
+
+      graphql_request = Net::HTTP::Post.new(graphql_uri)
+      graphql_request["Authorization"] = "Bearer #{github_token}"
+      graphql_request["Content-Type"] = "application/json"
+      graphql_request.body = { query: query }.to_json
+
+      graphql_response = graphql_http.request(graphql_request)
+      
+      if graphql_response.code.to_i >= 200 && graphql_response.code.to_i < 300
+        result = JSON.parse(graphql_response.body)
+        if result["errors"]
+          UI.important "⚠️ Could not enable auto-merge: #{result['errors'].map { |e| e['message'] }.join(', ')}"
+          UI.important "You may need to enable it manually in the PR: #{pr_url}"
+        else
+          UI.success "✅ Auto-merge enabled for PR ##{pr_number}"
+        end
+      else
+        UI.important "⚠️ Could not enable auto-merge automatically: #{graphql_response.body}"
+        UI.important "You may need to enable it manually in the PR: #{pr_url}"
+      end
+    rescue => e
+      UI.important "⚠️ Failed to enable auto-merge: #{e.message}"
+      UI.important "You may need to enable it manually in the PR: #{pr_url}"
+    end
+
+    { pr_url: pr_url, pr_number: pr_number, branch: branch_name }
   end
 
   # Private lane: Commit version changes and create git tag
