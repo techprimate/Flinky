@@ -72,8 +72,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         // Track share extension opened
         SentrySDK.metrics.count(
             key: "share_extension.opened",
-            value: 1,
-            unit: .generic("interaction")
+            value: 1
         )
 
         setupUI()
@@ -247,7 +246,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                 SentrySDK.metrics.count(
                     key: "list.created",
                     value: 1,
-                    unit: .generic("list"),
                     attributes: [
                         "list_id": defaultList.id.uuidString,
                         "entity_type": "list",
@@ -498,7 +496,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             SentrySDK.metrics.count(
                 key: "link.created",
                 value: 1,
-                unit: .generic("link"),
                 attributes: [
                     "link_id": newLink.id.uuidString,
                     "list_id": list.id.uuidString,
@@ -511,7 +508,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
             SentrySDK.metrics.count(
                 key: "share_extension.completed",
                 value: 1,
-                unit: .generic("completion"),
                 attributes: [
                     "list_selected": wasListSelected,
                     "name_edited": wasNameEdited
@@ -564,7 +560,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         SentrySDK.metrics.count(
             key: "share_extension.cancelled",
             value: 1,
-            unit: .generic("cancellation"),
             attributes: [
                 "step": step
             ]
