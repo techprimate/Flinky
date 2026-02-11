@@ -19,7 +19,6 @@
 		D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD9A2E46160F00027944 /* SFSafeSymbols */; };
-		D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = D4C71A132F3C8B05006E688D /* SentrySPM */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 		D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4E7891C2E461A95005DA720 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -384,7 +383,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */,
 				D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1860,7 +1858,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				branch = "philprime/spm-sample";
+				branch = main;
 				kind = branch;
 			};
 		};
