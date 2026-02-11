@@ -1,7 +1,7 @@
 // swiftlint:disable type_body_length file_length
 import FlinkyCore
 import Foundation
-import Sentry
+import SentrySPM
 
 // MARK: - SentryMetricsHelper
 

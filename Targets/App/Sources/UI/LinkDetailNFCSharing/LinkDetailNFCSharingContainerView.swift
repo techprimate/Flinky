@@ -1,6 +1,5 @@
 import FlinkyCore
-import Sentry
-import SentrySwiftUI
+import SentrySPM
 import SwiftUI
 import os.log
 

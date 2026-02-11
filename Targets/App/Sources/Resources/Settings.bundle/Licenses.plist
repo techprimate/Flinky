@@ -22,7 +22,7 @@
 			<key>File</key>
 			<string>Licenses/sentry-cocoa</string>
 			<key>Title</key>
-			<string>Sentry (9.4.0)</string>
+			<string>sentry-cocoa</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
