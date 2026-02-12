@@ -1860,8 +1860,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				branch = "philprime/spm-sample";
-				kind = branch;
+				kind = exactVersion;
+				version = 9.4.1;
 			};
 		};
 		D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */ = {

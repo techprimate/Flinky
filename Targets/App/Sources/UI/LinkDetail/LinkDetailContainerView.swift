@@ -1,7 +1,7 @@
 import CoreNFC
 import FlinkyCore
 import Photos
-import SentrySPM
+import SentrySwift
 import SwiftUI
 import os.log
 

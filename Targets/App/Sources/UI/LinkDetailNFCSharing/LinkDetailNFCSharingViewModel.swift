@@ -1,7 +1,7 @@
 import CoreNFC
 import FlinkyCore
 import Foundation
-import SentrySPM
+import SentrySwift
 
 final class LinkDetailNFCSharingViewModel: ObservableObject {
     @Published private(set) var state: NFCSharingState = .ready
