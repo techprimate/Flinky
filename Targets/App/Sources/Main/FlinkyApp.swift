@@ -1,6 +1,6 @@
 import FlinkyCore
 import OnLaunch
-import SentrySPM
+import SentrySwift
 import SwiftData
 import SwiftUI
 import os.log
