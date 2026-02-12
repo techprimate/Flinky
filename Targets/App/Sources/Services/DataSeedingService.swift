@@ -1,6 +1,6 @@
 import FlinkyCore
 import Foundation
-import Sentry
+import SentrySwift
 import SwiftData
 import os.log
 

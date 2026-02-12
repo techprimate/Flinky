@@ -1,7 +1,6 @@
 import FlinkyCore
 import SFSafeSymbols
-import Sentry
-import SentrySwiftUI
+import SentrySwift
 import SwiftData
 import SwiftUI
 import os.log

@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "f1eefffd88cd6dfe5751159a3b32ff3c8e5b3b32",
-        "version" : "9.4.0"
+        "revision" : "8a7ae8c0290c83fa0253c5bf8eaf88e49150b6d3",
+        "version" : "9.4.1"
       }
     },
     {
@@ -24,7 +24,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols",
       "state" : {
-        "revision" : "c6071a5f7bbd83d683c41f08e64d5ab4e248dbe4",
+        "revision" : "e01b3d4f861412f8dcee8d93c417d2c2b0cdfd77",
         "version" : "7.0.0"
       }
     }
