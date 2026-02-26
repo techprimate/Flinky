@@ -101,6 +101,7 @@ lane :publish do
   version_number = version_info[:version]
   build_number = version_info[:build]
 
+  _setup_code_signing
   _build_app_for_store
   _validate_app
   _setup_sentry_release(version: version_number, build: build_number)
