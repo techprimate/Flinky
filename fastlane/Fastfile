@@ -10,20 +10,16 @@
 #   ├── Fastfile              # This file - imports and platform definition
 #   ├── lanes/
 #   │   ├── build.rb          # build_ci lane
-#   │   ├── release.rb        # beta, prepare_release, deploy_beta, publish
+#   │   ├── release.rb        # beta, release_beta_ci, publish
 #   │   ├── utilities.rb      # generate_*, upload_metadata, setup_code_signing, bump_*
 #   │   ├── helpers.rb        # Private helper lanes (_bump_version, _build_app_for_store, etc.)
 #   │   ├── sentry.rb         # Sentry integration lanes
 #   │   ├── version.rb        # Version management lanes
-#   │   └── git.rb            # Git and GitHub lanes
-#   └── actions/
-#       └── enable_pr_auto_merge.rb  # Custom action for GitHub auto-merge
+#   │   └── git.rb            # Git commit/tag helper lanes
+#   └── actions/              # Custom actions (currently none)
 #
 # Run `fastlane lanes` to see available public lanes.
 # ============================================================================
-
-# Third-party dependencies
-fastlane_require 'octokit'
 
 default_platform(:ios)
 

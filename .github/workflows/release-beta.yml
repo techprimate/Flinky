@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job.name}}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job }}
   cancel-in-progress: true
 
 permissions:
@@ -63,7 +63,6 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
-          GITHUB_APP_TOKEN: ${{ steps.github_app_token.outputs.token }}
 
       - name: Run CI Diagnostics
         if: failure()

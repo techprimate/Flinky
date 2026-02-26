@@ -91,52 +91,6 @@ lane :release_beta_ci do
 end
 
 desc <<~DESC
-  Deploy beta build to TestFlight (triggered by release branch push)
-  Builds app, validates, uploads to TestFlight (internal only), and sets up Sentry release
-  Used by deploy-beta.yml workflow (triggered by pushes to release/** branches)
-  Idempotent: checks if build already exists on TestFlight and skips if already uploaded
-  Safe to re-run on failures - will skip upload if previous run succeeded
-DESC
-lane :deploy_beta do
-  # Configure CI keychain and set match to readonly to avoid prompts
-  setup_ci if is_ci
-
-  # Get version and build from project (already set in prepare_release)
-  version_number = get_version_number(
-    xcodeproj: "Flinky.xcodeproj",
-    target: "Flinky"
-  )
-  build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
-
-  # Check if this build is already uploaded to TestFlight
-  if _build_already_uploaded?(version: version_number, build: build_number)
-    UI.success "✅ Build #{version_number} (#{build_number}) already exists on TestFlight"
-    UI.success "Skipping upload - previous run succeeded. Nothing to do."
-    next
-  end
-
-  UI.message "Build #{version_number} (#{build_number}) not yet uploaded, proceeding with deployment..."
-
-  _setup_code_signing
-  _build_app_for_store
-  _validate_app
-  _setup_sentry_release(version: version_number, build: build_number)
-
-  # Upload to TestFlight (internal build only, no external distribution)
-  upload_to_testflight(
-    # API Key file must be located at fastlane/api-key.json
-    api_key_path: File.expand_path("./api-key.json"),
-    app_version: version_number,
-    build_number: build_number,
-
-    distribute_external: false,
-    skip_waiting_for_build_processing: false
-  )
-
-  _finalize_sentry_release(version: version_number, build: build_number)
-end
-
-desc <<~DESC
   Publish a new build to the App Store and submit for review
   Increments version/build, builds app, uploads metadata and binary, submits for review
   Commits and tags version changes after successful upload
