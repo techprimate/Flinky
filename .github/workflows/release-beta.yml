@@ -59,6 +59,7 @@ jobs:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
           RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Run CI Diagnostics
         if: failure()
