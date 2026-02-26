@@ -1,7 +1,7 @@
 // swiftlint:disable type_body_length file_length
 import FlinkyCore
 import Foundation
-import Sentry
+import SentrySwift
 
 // MARK: - SentryMetricsHelper
 
@@ -33,7 +33,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "memory.warning.received",
             value: 1,
-            unit: .generic("warning"),
             attributes: [
                 "cache_size_at_warning": String(cacheSizeAtWarning),
                 "app_state": appState
@@ -59,7 +58,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "device.thermal.transition",
             value: 1,
-            unit: .generic("transition"),
             attributes: [
                 "from_state": fromState,
                 "to_state": toState,
@@ -92,7 +90,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "network.reachability.changed",
             value: 1,
-            unit: .generic("transition"),
             attributes: [
                 "status": status,
                 "interface": interfaceType,
@@ -118,7 +115,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "app.state.transition",
             value: 1,
-            unit: .generic("transition"),
             attributes: [
                 "to_state": toState,
                 "from_state": fromState
@@ -138,7 +134,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "background.task.completed",
             value: 1,
-            unit: .generic("task"),
             attributes: [
                 "task_type": taskType,
                 "task_identifier": taskIdentifier
@@ -154,7 +149,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "background.task.expired",
             value: 1,
-            unit: .generic("task"),
             attributes: [
                 "task_type": taskType,
                 "time_remaining": String(format: "%.1f", timeRemaining)
@@ -190,7 +184,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.created",
             value: 1,
-            unit: .generic("link"),
             attributes: [
                 "creation_flow": creationFlow,
                 "entity_type": "link",
@@ -209,7 +202,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "list.created",
             value: 1,
-            unit: .generic("list"),
             attributes: [
                 "creation_flow": creationFlow,
                 "entity_type": "list",
@@ -228,7 +220,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.shared",
             value: 1,
-            unit: .generic("share"),
             attributes: [
                 "sharing_method": sharingMethod,
                 "link_id": linkId
@@ -242,7 +233,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.shared.nfc",
             value: 1,
-            unit: .generic("share"),
             attributes: [
                 "sharing_method": "nfc",
                 "link_id": linkId
@@ -261,7 +251,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: metricKey,
             value: 1,
-            unit: .generic("selection"),
             attributes: [
                 "color": color,
                 "entity_type": entityType
@@ -278,7 +267,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: metricKey,
             value: 1,
-            unit: .generic("selection"),
             attributes: [
                 "symbol": symbol,
                 "entity_type": entityType
@@ -293,7 +281,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "feedback.form.opened",
             value: 1,
-            unit: .generic("interaction")
         )
     }
 
@@ -301,8 +288,7 @@ enum SentryMetricsHelper {
     static func trackFeedbackFormClosed() {
         SentrySDK.metrics.count(
             key: "feedback.form.closed",
-            value: 1,
-            unit: .generic("interaction")
+            value: 1
         )
     }
 
@@ -312,8 +298,7 @@ enum SentryMetricsHelper {
     static func trackDatabaseSeedingStarted() {
         SentrySDK.metrics.count(
             key: "database.seeding.started",
-            value: 1,
-            unit: .generic("operation")
+            value: 1
         )
     }
 
@@ -321,8 +306,7 @@ enum SentryMetricsHelper {
     static func trackDatabaseSeedingCompleted() {
         SentrySDK.metrics.count(
             key: "database.seeding.completed",
-            value: 1,
-            unit: .generic("operation")
+            value: 1
         )
     }
 
@@ -352,8 +336,7 @@ enum SentryMetricsHelper {
     static func trackQRCodeCacheHit() {
         SentrySDK.metrics.count(
             key: "qr_code.cache.hit",
-            value: 1,
-            unit: .generic("hit")
+            value: 1
         )
     }
 
@@ -361,8 +344,7 @@ enum SentryMetricsHelper {
     static func trackQRCodeCacheMiss() {
         SentrySDK.metrics.count(
             key: "qr_code.cache.miss",
-            value: 1,
-            unit: .generic("miss")
+            value: 1
         )
     }
 
@@ -372,7 +354,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "qr_code.cache.eviction",
             value: 1,
-            unit: .generic("eviction"),
             attributes: [
                 "reason": reason
             ]
@@ -397,7 +378,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.metadata.fetched",
             value: 1,
-            unit: .generic("fetch"),
             attributes: [
                 "outcome": outcome,
                 "has_image": String(hasImage),
@@ -430,7 +410,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "error.rate",
             value: 1,
-            unit: .generic("error"),
             attributes: [
                 "error_type": errorType
             ]
@@ -488,7 +467,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "search.performed",
             value: 1,
-            unit: .generic("search"),
             attributes: [
                 "search_context": searchContext,
                 "result_count": String(resultCount)
@@ -517,8 +495,7 @@ enum SentryMetricsHelper {
     static func trackListPinned() {
         SentrySDK.metrics.count(
             key: "list.pinned",
-            value: 1,
-            unit: .generic("action")
+            value: 1
         )
     }
 
@@ -526,8 +503,7 @@ enum SentryMetricsHelper {
     static func trackListUnpinned() {
         SentrySDK.metrics.count(
             key: "list.unpinned",
-            value: 1,
-            unit: .generic("action")
+            value: 1
         )
     }
 
@@ -537,7 +513,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "list.deleted",
             value: 1,
-            unit: .generic("deletion"),
             attributes: [
                 "link_count": String(linkCount)
             ]
@@ -550,7 +525,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "list.deleted.bulk",
             value: 1,
-            unit: .generic("deletion"),
             attributes: [
                 "count": String(count)
             ]
@@ -565,7 +539,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.deleted",
             value: 1,
-            unit: .generic("deletion"),
             attributes: [
                 "list_link_count": String(listLinkCount)
             ]
@@ -580,7 +553,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.deleted.bulk",
             value: 1,
-            unit: .generic("deletion"),
             attributes: [
                 "count": String(count),
                 "list_id": listId
@@ -602,7 +574,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "link.opened",
             value: 1,
-            unit: .generic("interaction"),
             attributes: attributes
         )
     }
@@ -619,7 +590,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "share_extension.opened",
             value: 1,
-            unit: .generic("interaction"),
             attributes: attributes
         )
     }
@@ -632,7 +602,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "share_extension.completed",
             value: 1,
-            unit: .generic("completion"),
             attributes: [
                 "list_selected": String(listSelected),
                 "name_edited": String(nameEdited)
@@ -646,7 +615,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "share_extension.cancelled",
             value: 1,
-            unit: .generic("cancellation"),
             attributes: [
                 "step": step
             ]
@@ -660,8 +628,7 @@ enum SentryMetricsHelper {
     static func trackNFCShareInitiated() {
         SentrySDK.metrics.count(
             key: "nfc.share.initiated",
-            value: 1,
-            unit: .generic("share")
+            value: 1
         )
     }
 
@@ -669,8 +636,7 @@ enum SentryMetricsHelper {
     static func trackNFCShareSuccess() {
         SentrySDK.metrics.count(
             key: "nfc.share.success",
-            value: 1,
-            unit: .generic("share")
+            value: 1
         )
     }
 
@@ -684,7 +650,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "nfc.share.failed",
             value: 1,
-            unit: .generic("share"),
             attributes: attributes
         )
     }
@@ -698,7 +663,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "nfc.operation.performed",
             value: 1,
-            unit: .generic("operation"),
             attributes: [
                 "operation": operation,
                 "tag_type": tagType,
@@ -754,7 +718,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "spotlight.item.indexed",
             value: UInt(count),
-            unit: .generic("item"),
             attributes: [
                 "content_type": contentType
             ]
@@ -769,7 +732,6 @@ enum SentryMetricsHelper {
         SentrySDK.metrics.count(
             key: "spotlight.search.performed",
             value: 1,
-            unit: .generic("search"),
             attributes: [
                 "result_count_bucket": resultCountBucket,
                 "query_source": querySource

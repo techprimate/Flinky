@@ -1,5 +1,5 @@
 import FlinkyCore
-import SentrySwiftUI
+import SentrySwift
 import SwiftData
 import SwiftUI
 

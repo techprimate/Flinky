@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D410FC5D2F3C8AAB0028B18D /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = D410FC5C2F3C8AAB0028B18D /* SentrySPM */; };
 		D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */ = {isa = PBXBuildFile; productRef = D44A62A52E33B2800018D789 /* OnLaunch */; };
 		D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D509DF2E4621120067A402 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D48F65922EC7A2630027AFC3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D48F65912EC7A2630027AFC3 /* Sentry */; };
-		D48F65942EC7A2770027AFC3 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D48F65932EC7A2770027AFC3 /* SentrySwiftUI */; };
-		D48F659A2EC7A28A0027AFC3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D48F65992EC7A28A0027AFC3 /* Sentry */; };
-		D48F659C2EC7A28A0027AFC3 /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D48F659B2EC7A28A0027AFC3 /* SentrySwiftUI */; };
 		D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A016242E83E4EB00117E01 /* SwiftUI.framework */; };
 		D4A016272E83E8FB00117E01 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A016262E83E8FB00117E01 /* SFSafeSymbols */; };
 		D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
@@ -22,6 +19,7 @@
 		D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD9A2E46160F00027944 /* SFSafeSymbols */; };
+		D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = D4C71A132F3C8B05006E688D /* SentrySPM */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 		D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4E7891C2E461A95005DA720 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -376,10 +374,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */,
-				D48F65942EC7A2770027AFC3 /* SentrySwiftUI in Frameworks */,
 				D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */,
+				D410FC5D2F3C8AAB0028B18D /* SentrySPM in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
-				D48F65922EC7A2630027AFC3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,9 +384,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */,
 				D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */,
-				D48F659C2EC7A28A0027AFC3 /* SentrySwiftUI in Frameworks */,
-				D48F659A2EC7A28A0027AFC3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,8 +675,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D48F65962EC7A27F0027AFC3 /* PBXTargetDependency */,
-				D48F65982EC7A27F0027AFC3 /* PBXTargetDependency */,
+				D4C71A182F3C8B0E006E688D /* PBXTargetDependency */,
 				D4A5DC582E46133A00027944 /* PBXTargetDependency */,
 				D4B4718A2E1F1300005099F3 /* PBXTargetDependency */,
 				D4D509E82E4621120067A402 /* PBXTargetDependency */,
@@ -693,8 +688,7 @@
 			packageProductDependencies = (
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
 				D44A62A52E33B2800018D789 /* OnLaunch */,
-				D48F65912EC7A2630027AFC3 /* Sentry */,
-				D48F65932EC7A2770027AFC3 /* SentrySwiftUI */,
+				D410FC5C2F3C8AAB0028B18D /* SentrySPM */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -712,17 +706,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4C71A162F3C8B0A006E688D /* PBXTargetDependency */,
 				D4CD57112ECF2A4900C36BF6 /* PBXTargetDependency */,
-				D48F659E2EC7A2930027AFC3 /* PBXTargetDependency */,
-				D48F65A02EC7A2930027AFC3 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D4D509E02E4621120067A402 /* Sources */,
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
-				D48F65992EC7A28A0027AFC3 /* Sentry */,
-				D48F659B2EC7A28A0027AFC3 /* SentrySwiftUI */,
+				D4C71A132F3C8B05006E688D /* SentrySPM */,
 			);
 			productName = ShareExtension;
 			productReference = D4D509DF2E4621120067A402 /* ShareExtension.appex */;
@@ -857,7 +849,7 @@
 			packageReferences = (
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */,
-				D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
@@ -1107,22 +1099,6 @@
 			target = D4D509DE2E4621120067A402 /* ShareExtension */;
 			targetProxy = D462B7822E659CC8006EB4FB /* PBXContainerItemProxy */;
 		};
-		D48F65962EC7A27F0027AFC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D48F65952EC7A27F0027AFC3 /* Sentry */;
-		};
-		D48F65982EC7A27F0027AFC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D48F65972EC7A27F0027AFC3 /* SentrySwiftUI */;
-		};
-		D48F659E2EC7A2930027AFC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D48F659D2EC7A2930027AFC3 /* Sentry */;
-		};
-		D48F65A02EC7A2930027AFC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D48F659F2EC7A2930027AFC3 /* SentrySwiftUI */;
-		};
 		D4A014D32E83DE2900117E01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4D359D82E1BDF540006226D /* Flinky */;
@@ -1159,6 +1135,14 @@
 		D4B4718A2E1F1300005099F3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = D4B471892E1F1300005099F3 /* SFSafeSymbols */;
+		};
+		D4C71A162F3C8B0A006E688D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4C71A152F3C8B0A006E688D /* SentrySPM */;
+		};
+		D4C71A182F3C8B0E006E688D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4C71A172F3C8B0E006E688D /* SentrySPM */;
 		};
 		D4CD57112ECF2A4900C36BF6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1872,20 +1856,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = exactVersion;
+				version = 9.5.1;
+			};
+		};
 		D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kula-app/OnLaunch-iOS-Client";
 			requirement = {
 				kind = exactVersion;
 				version = 0.0.6;
-			};
-		};
-		D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
-			requirement = {
-				kind = exactVersion;
-				version = 9.3.0;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
@@ -1899,50 +1883,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D410FC5C2F3C8AAB0028B18D /* SentrySPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SentrySPM;
+		};
 		D44A62A52E33B2800018D789 /* OnLaunch */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */;
 			productName = OnLaunch;
-		};
-		D48F65912EC7A2630027AFC3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
-		};
-		D48F65932EC7A2770027AFC3 /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
-		};
-		D48F65952EC7A27F0027AFC3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
-		};
-		D48F65972EC7A27F0027AFC3 /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
-		};
-		D48F65992EC7A28A0027AFC3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
-		};
-		D48F659B2EC7A28A0027AFC3 /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
-		};
-		D48F659D2EC7A2930027AFC3 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
-		};
-		D48F659F2EC7A2930027AFC3 /* SentrySwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySwiftUI;
 		};
 		D4A016262E83E8FB00117E01 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1973,6 +1921,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		D4C71A132F3C8B05006E688D /* SentrySPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySPM;
+		};
+		D4C71A152F3C8B0A006E688D /* SentrySPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySPM;
+		};
+		D4C71A172F3C8B0E006E688D /* SentrySPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = SentrySPM;
 		};
 		D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
