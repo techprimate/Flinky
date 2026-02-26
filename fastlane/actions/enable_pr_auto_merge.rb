@@ -8,6 +8,13 @@ module Fastlane
         pr_url = params[:pr_url]
         repo = params[:repo]
         merge_method = params[:merge_method]
+        allowed_merge_methods = %w[MERGE SQUASH REBASE]
+        normalized_merge_method = merge_method.to_s.upcase
+        unless allowed_merge_methods.include?(normalized_merge_method)
+          UI.user_error!(
+            "Invalid merge_method '#{merge_method}'. Allowed values: #{allowed_merge_methods.join(', ')}"
+          )
+        end
 
         UI.message("Enabling auto-merge for PR ##{pr_number}...")
 
@@ -32,7 +39,7 @@ module Fastlane
             mutation {
               enablePullRequestAutoMerge(input: {
                 pullRequestId: "#{node_id}"
-                mergeMethod: #{merge_method}
+                mergeMethod: #{normalized_merge_method}
               }) {
                 pullRequest {
                   autoMergeRequest {
