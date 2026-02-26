@@ -6,10 +6,12 @@
 # Lanes for releasing the app to TestFlight and App Store.
 # ============================================================================
 
-desc "Push a new beta build to TestFlight"
-desc "Increments version/build, builds app, uploads to TestFlight, and commits/tags changes"
-desc "Use this lane for local manual releases (commits directly to current branch)"
-desc "Options: distribute_external (default: false) - whether to distribute to external groups"
+desc <<~DESC
+  Push a new beta build to TestFlight
+  Increments version/build, builds app, uploads to TestFlight, and commits/tags changes
+  Use this lane for local manual releases (commits directly to current branch)
+  Options: distribute_external (default: false) - whether to distribute to external groups
+DESC
 lane :beta do |options|
   # Configure CI keychain and set match to readonly to avoid prompts
   setup_ci if is_ci
@@ -56,31 +58,45 @@ Your feedback helps us improve Flinky for everyone. Thank you!"
   _commit_and_tag_version(version: version_number, build: build_number)
 end
 
-desc "Prepare release: bump version and create release branch with PR"
-desc "Checks App Store Connect for published version and bumps patch if needed"
-desc "Queries TestFlight for latest build number and sets next build number"
-desc "Used by prepare-release.yml workflow (scheduled/manual trigger)"
-desc "The PR will trigger deploy-beta.yml workflow when the release branch is pushed"
-lane :prepare_release do
-  # Check App Store Connect and bump version if needed
+desc <<~DESC
+  Release beta: prepare version, deploy to TestFlight, then commit and tag on main
+  Single CI lane used by release-beta.yml (scheduled/manual). No PR.
+  Requires release bot token so push to main succeeds with branch protection.
+DESC
+lane :release_beta_ci do
+  setup_ci if is_ci
+
+  # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
   version_check_result = _check_and_bump_version_if_needed
   version_number = version_check_result[:version]
-
-  # Query TestFlight for latest build number and set next one
   build_number = _get_next_build_number(version: version_number)
-
-  # Generate version files
   _make(target: "generate")
 
-  # Create PR with version changes
-  _create_version_pr(version: version_number, build: build_number)
+  # Deploy to TestFlight
+  _setup_code_signing
+  _build_app_for_store
+  _validate_app
+  _setup_sentry_release(version: version_number, build: build_number)
+  upload_to_testflight(
+    api_key_path: File.expand_path("./api-key.json"),
+    app_version: version_number,
+    build_number: build_number,
+    distribute_external: false,
+    skip_waiting_for_build_processing: false
+  )
+  _finalize_sentry_release(version: version_number, build: build_number)
+
+  # Commit and tag on main, then push (release bot has rights)
+  _commit_and_tag_version(version: version_number, build: build_number)
 end
 
-desc "Deploy beta build to TestFlight (triggered by release branch push)"
-desc "Builds app, validates, uploads to TestFlight (internal only), and sets up Sentry release"
-desc "Used by deploy-beta.yml workflow (triggered by pushes to release/** branches)"
-desc "Idempotent: checks if build already exists on TestFlight and skips if already uploaded"
-desc "Safe to re-run on failures - will skip upload if previous run succeeded"
+desc <<~DESC
+  Deploy beta build to TestFlight (triggered by release branch push)
+  Builds app, validates, uploads to TestFlight (internal only), and sets up Sentry release
+  Used by deploy-beta.yml workflow (triggered by pushes to release/** branches)
+  Idempotent: checks if build already exists on TestFlight and skips if already uploaded
+  Safe to re-run on failures - will skip upload if previous run succeeded
+DESC
 lane :deploy_beta do
   # Configure CI keychain and set match to readonly to avoid prompts
   setup_ci if is_ci
@@ -120,10 +136,12 @@ lane :deploy_beta do
   _finalize_sentry_release(version: version_number, build: build_number)
 end
 
-desc "Publish a new build to the App Store and submit for review"
-desc "Increments version/build, builds app, uploads metadata and binary, submits for review"
-desc "Commits and tags version changes after successful upload"
-desc "Use this lane for production App Store releases"
+desc <<~DESC
+  Publish a new build to the App Store and submit for review
+  Increments version/build, builds app, uploads metadata and binary, submits for review
+  Commits and tags version changes after successful upload
+  Use this lane for production App Store releases
+DESC
 lane :publish do
   version_info = _increment_version_and_build
   version_number = version_info[:version]

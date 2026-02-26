@@ -1,4 +1,4 @@
-name: Prepare Release
+name: Release Beta
 
 on:
   schedule:
@@ -11,13 +11,12 @@ concurrency:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  prepare:
-    name: Prepare Release
+  release:
+    name: Release Beta
     runs-on: macos-26
-    timeout-minutes: 15
+    timeout-minutes: 60
     steps:
       - name: Generate GitHub App Token
         id: github_app_token
@@ -29,6 +28,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
+          ref: main
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
@@ -57,8 +57,11 @@ jobs:
             --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
-      - run: bundle exec fastlane prepare_release
+      - run: bundle exec fastlane release_beta_ci
         env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
           GITHUB_APP_TOKEN: ${{ steps.github_app_token.outputs.token }}
 

@@ -7,9 +7,11 @@
 # managing code signing, and version bumping.
 # ============================================================================
 
-desc "Generate app icon sizes from source image using fastlane-plugin-appicon"
-desc "Generates all required iOS app icon sizes from Resources/AppIcon.png"
-desc "Strips metadata to ensure git-reproducible output"
+desc <<~DESC
+  Generate app icon sizes from source image using fastlane-plugin-appicon
+  Generates all required iOS app icon sizes from Resources/AppIcon.png
+  Strips metadata to ensure git-reproducible output
+DESC
 lane :generate_app_icons do
   UI.message "Generating app icon sizes using fastlane-plugin-appicon"
 
@@ -84,9 +86,11 @@ lane :generate_app_icons do
   UI.message "📝 Icons are now git-reproducible (no metadata changes on regeneration)"
 end
 
-desc "Generate screenshots"
-desc "Captures localized screenshots for App Store using ScreenshotUITests scheme"
-desc "Generates screenshots for iPhone and iPad devices"
+desc <<~DESC
+  Generate screenshots
+  Captures localized screenshots for App Store using ScreenshotUITests scheme
+  Generates screenshots for iPhone and iPad devices
+DESC
 lane :generate_screenshots do
   UI.message "Generating screenshots"
 
@@ -116,9 +120,11 @@ lane :generate_screenshots do
   UI.message "Screenshots generated in: ScreenshotUITests/Screenshots/"
 end
 
-desc "Upload metadata to App Store Connect"
-desc "Uploads app descriptions, screenshots, and other metadata without building/uploading binary"
-desc "Useful for updating store listing without creating a new build"
+desc <<~DESC
+  Upload metadata to App Store Connect
+  Uploads app descriptions, screenshots, and other metadata without building/uploading binary
+  Useful for updating store listing without creating a new build
+DESC
 lane :upload_metadata do
   UI.message "Uploading metadata to App Store Connect"
   upload_to_app_store(
@@ -143,9 +149,11 @@ lane :upload_metadata do
   )
 end
 
-desc "Setup code signing certificates and provisioning profiles"
-desc "Syncs development and App Store certificates/profiles for app and share extension"
-desc "Uses match to manage certificates and profiles"
+desc <<~DESC
+  Setup code signing certificates and provisioning profiles
+  Syncs development and App Store certificates/profiles for app and share extension
+  Uses match to manage certificates and profiles
+DESC
 lane :setup_code_signing do
   UI.message "Syncing code signing..."
   sync_code_signing(
@@ -167,28 +175,34 @@ lane :setup_code_signing do
   UI.success "✅ Code signing synced successfully!"
 end
 
-desc "Bump the major version number (e.g., 1.1.2 -> 2.0.0)"
-desc "Increments major version and resets minor/patch to 0"
-desc "Regenerates version files after bumping"
-desc "Use for breaking changes or major feature releases"
+desc <<~DESC
+  Bump the major version number (e.g., 1.1.2 -> 2.0.0)
+  Increments major version and resets minor/patch to 0
+  Regenerates version files after bumping
+  Use for breaking changes or major feature releases
+DESC
 lane :bump_version_major do
   _bump_version(bump_type: "major")
   _make(target: "generate")
 end
 
-desc "Bump the minor version number (e.g., 1.1.2 -> 1.2.0)"
-desc "Increments minor version and resets patch to 0"
-desc "Regenerates version files after bumping"
-desc "Use for new features or significant improvements"
+desc <<~DESC
+  Bump the minor version number (e.g., 1.1.2 -> 1.2.0)
+  Increments minor version and resets patch to 0
+  Regenerates version files after bumping
+  Use for new features or significant improvements
+DESC
 lane :bump_version_minor do
   _bump_version(bump_type: "minor")
   _make(target: "generate")
 end
 
-desc "Bump the patch version number (e.g., 1.1.2 -> 1.1.3)"
-desc "Increments patch version number"
-desc "Regenerates version files after bumping"
-desc "Use for bug fixes and minor updates"
+desc <<~DESC
+  Bump the patch version number (e.g., 1.1.2 -> 1.1.3)
+  Increments patch version number
+  Regenerates version files after bumping
+  Use for bug fixes and minor updates
+DESC
 lane :bump_version_patch do
   _bump_version(bump_type: "patch")
   _make(target: "generate")
