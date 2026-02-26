@@ -32,11 +32,6 @@ jobs:
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
-      - name: Configure Git
-        run: |
-          git config user.name "techprimate-release-bot"
-          git config user.email "techprimate-release-bot@users.noreply.github.com"
-
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
 
@@ -63,6 +58,8 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Run CI Diagnostics
         if: failure()
