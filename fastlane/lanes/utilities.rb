@@ -121,6 +121,41 @@ lane :generate_screenshots do
 end
 
 desc <<~DESC
+  Upload screenshots to Sentry
+  Uploads generated screenshots to Sentry for visual regression testing
+  Requires screenshots to be generated first using generate_screenshots
+DESC
+lane :upload_screenshots_to_sentry do
+  UI.message "Uploading screenshots to Sentry"
+
+  screenshots_path = File.expand_path("../screenshots")
+
+  unless File.exist?(screenshots_path)
+    UI.user_error! "Screenshots directory not found at #{screenshots_path}. Run generate_screenshots first."
+  end
+
+  sentry_upload_snapshots(
+    auth_token: ENV["SENTRY_AUTH_TOKEN"],
+    org_slug: "techprimate",
+    project_slug: "flinky",
+    path: screenshots_path,
+    app_id: "com.techprimate.Flinky"
+  )
+
+  UI.success "✅ Screenshots uploaded to Sentry successfully!"
+end
+
+desc <<~DESC
+  Generate and upload screenshots to Sentry
+  Captures localized screenshots and uploads them to Sentry for visual regression testing
+  Combines generate_screenshots and upload_screenshots_to_sentry lanes
+DESC
+lane :generate_and_upload_screenshots do
+  generate_screenshots
+  upload_screenshots_to_sentry
+end
+
+desc <<~DESC
   Upload metadata to App Store Connect
   Uploads app descriptions, screenshots, and other metadata without building/uploading binary
   Useful for updating store listing without creating a new build
