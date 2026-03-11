@@ -158,9 +158,9 @@ DESC
 lane :upload_screenshots_to_sentry do
   UI.message "Uploading screenshots to Sentry"
 
-  screenshots_path = File.expand_path("../screenshots")
+  screenshots_path = File.expand_path("./screenshots")
 
-  unless File.exist?(screenshots_path)
+  unless Dir.exist?(screenshots_path)
     UI.user_error! "Screenshots directory not found at #{screenshots_path}. Run generate_screenshots first."
   end
 
