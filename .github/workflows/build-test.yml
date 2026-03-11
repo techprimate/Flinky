@@ -149,7 +149,7 @@ jobs:
           bundler-cache: true
 
       - name: Generate and Upload Screenshots to Sentry
-        run: bundle exec fastlane generate_and_upload_screenshots
+        run: bundle exec fastlane generate_and_upload_screenshots_ci
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

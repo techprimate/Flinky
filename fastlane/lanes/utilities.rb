@@ -121,6 +121,36 @@ lane :generate_screenshots do
 end
 
 desc <<~DESC
+  Generate screenshots for CI (single device)
+  Captures screenshots on a single iPhone device for faster CI builds
+  Use generate_screenshots for full multi-device App Store screenshots
+DESC
+lane :generate_screenshots_ci do
+  UI.message "Generating screenshots for CI (single device)"
+
+  capture_screenshots(
+    scheme: "ScreenshotUITests",
+    devices: [
+      "iPhone 17 Pro" # iPhone 6.3" display
+    ],
+    languages: ["en-US"],
+
+    clear_previous_screenshots: true,
+    concurrent_simulators: false,
+    skip_open_summary: true,
+
+    reinstall_app: true,
+    override_status_bar: true,
+    localize_simulator: true,
+    disable_slide_to_type: true,
+    number_of_retries: 0
+  )
+
+  UI.success "✅ CI screenshots generated successfully!"
+  UI.message "Screenshots generated in: fastlane/screenshots/"
+end
+
+desc <<~DESC
   Upload screenshots to Sentry
   Uploads generated screenshots to Sentry for visual regression testing
   Requires screenshots to be generated first using generate_screenshots
@@ -152,6 +182,16 @@ desc <<~DESC
 DESC
 lane :generate_and_upload_screenshots do
   generate_screenshots
+  upload_screenshots_to_sentry
+end
+
+desc <<~DESC
+  Generate and upload screenshots to Sentry (CI optimized)
+  Fast single-device screenshot generation for CI builds
+  Combines generate_screenshots_ci and upload_screenshots_to_sentry lanes
+DESC
+lane :generate_and_upload_screenshots_ci do
+  generate_screenshots_ci
   upload_screenshots_to_sentry
 end
 
