@@ -61,6 +61,20 @@ jobs:
           RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
 
+      - name: Generate and Upload Screenshots to Sentry
+        run: bundle exec fastlane generate_and_upload_screenshots_ci
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots
+          path: fastlane/screenshots/
+          retention-days: 7
+
       - name: Run CI Diagnostics
         if: failure()
         run: ./Scripts/ci-diagnostics.sh

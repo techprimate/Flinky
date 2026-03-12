@@ -129,3 +129,39 @@ jobs:
       - name: Run CI Diagnostics
         if: failure()
         run: ./Scripts/ci-diagnostics.sh
+
+  screenshots:
+    name: Generate and Upload Screenshots
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Generate and Upload Screenshots to Sentry
+        run: bundle exec fastlane generate_and_upload_screenshots_ci
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots
+          path: fastlane/screenshots/
+          retention-days: 7
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
