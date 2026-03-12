@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/getsentry/sentry-fastlane-plugin.git
-  revision: 1d64731b37798ba9dea04895149e7f52add64c27
-  branch: no/upload-snapshots-action
+  revision: 32c7a3632555f3eb3093b4295fc85684a4c518a7
+  branch: master
   specs:
     fastlane-plugin-sentry (2.2.0)
       os (~> 1.1, >= 1.1.4)
