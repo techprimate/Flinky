@@ -2,5 +2,6 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-sentry', '2.0.0.pre.rc.2'
+# Temporarily using branch with sentry_upload_snapshots action
+gem 'fastlane-plugin-sentry', git: 'https://github.com/getsentry/sentry-fastlane-plugin.git', branch: 'master'
 gem 'fastlane-plugin-appicon'
