@@ -214,7 +214,7 @@ enum SentryMetricsHelper {
 
     /// Tracks link sharing with sharing method attribute.
     /// - Parameters:
-    ///   - sharingMethod: The method used to share (e.g., "copy_url", "qr_code_share", "qr_code_save", "nfc", "system_share")
+    ///   - sharingMethod: The method used to share (e.g., "copy_url", "qr_code_share", "qr_code_save", "system_share")
     ///   - linkId: The ID of the link being shared
     static func trackLinkShared(sharingMethod: String, linkId: String) {
         SentrySDK.metrics.count(
@@ -222,19 +222,6 @@ enum SentryMetricsHelper {
             value: 1,
             attributes: [
                 "sharing_method": sharingMethod,
-                "link_id": linkId
-            ]
-        )
-    }
-
-    /// Tracks NFC-specific link sharing for detailed analysis.
-    /// - Parameter linkId: The ID of the link being shared via NFC
-    static func trackLinkSharedNFC(linkId: String) {
-        SentrySDK.metrics.count(
-            key: "link.shared.nfc",
-            value: 1,
-            attributes: [
-                "sharing_method": "nfc",
                 "link_id": linkId
             ]
         )
@@ -405,7 +392,7 @@ enum SentryMetricsHelper {
     // MARK: - Error Rate Metrics
 
     /// Tracks error rate by type.
-    /// - Parameter errorType: Type of error ("persistence" | "qr_generation" | "nfc" | "validation" | "data_corruption")
+    /// - Parameter errorType: Type of error ("persistence" | "qr_generation" | "validation" | "data_corruption")
     static func trackErrorRate(errorType: String) {
         SentrySDK.metrics.count(
             key: "error.rate",
@@ -429,8 +416,6 @@ enum SentryMetricsHelper {
                 errorType = "persistence"
             case .qrCodeGenerationError, .failedToGenerateQRCode:
                 errorType = "qr_generation"
-            case .nfcError:
-                errorType = "nfc"
             case .validationError:
                 errorType = "validation"
             case .dataCorruption:
@@ -617,56 +602,6 @@ enum SentryMetricsHelper {
             value: 1,
             attributes: [
                 "step": step
-            ]
-        )
-    }
-
-    // MARK: - NFC Metrics
-    // CoreNFC framework usage tracking.
-
-    /// Tracks NFC share initiation.
-    static func trackNFCShareInitiated() {
-        SentrySDK.metrics.count(
-            key: "nfc.share.initiated",
-            value: 1
-        )
-    }
-
-    /// Tracks successful NFC share.
-    static func trackNFCShareSuccess() {
-        SentrySDK.metrics.count(
-            key: "nfc.share.success",
-            value: 1
-        )
-    }
-
-    /// Tracks failed NFC share.
-    /// - Parameter errorType: Optional error type category
-    static func trackNFCShareFailed(errorType: String? = nil) {
-        var attributes: [String: String] = [:]
-        if let errorType = errorType {
-            attributes["error_type"] = errorType
-        }
-        SentrySDK.metrics.count(
-            key: "nfc.share.failed",
-            value: 1,
-            attributes: attributes
-        )
-    }
-
-    /// Tracks NFC operation performed.
-    /// - Parameters:
-    ///   - operation: Type of operation ("read", "write", "scan")
-    ///   - tagType: Type of NFC tag ("ndef", "iso7816", "iso15693", "felica")
-    ///   - outcome: Result of operation ("success", "failed", "cancelled")
-    static func trackNFCOperationPerformed(operation: String, tagType: String, outcome: String) {
-        SentrySDK.metrics.count(
-            key: "nfc.operation.performed",
-            value: 1,
-            attributes: [
-                "operation": operation,
-                "tag_type": tagType,
-                "outcome": outcome
             ]
         )
     }

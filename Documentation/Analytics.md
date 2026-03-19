@@ -42,7 +42,6 @@ All major views are instrumented for comprehensive performance monitoring:
 - `LINK_LIST_PICKER_VIEW` - List selection interface
 - `LINK_EDITOR_VIEW` - Link editing form
 - `LINK_LIST_EDITOR` - List editing form
-- `LINK_DETAIL_NFC_SHARING` - NFC sharing interface
 
 ### Benefits
 
@@ -114,7 +113,7 @@ struct LinkDetailContainerView: View {
 
 ### 4. Link Sharing (`link_sharing`)
 
-- All sharing methods: copy URL, QR codes, NFC, system share
+- All sharing methods: copy URL, QR codes, system share
 - Sharing success/failure patterns
 
 ## Metrics (Primary Analytics Mechanism)
@@ -288,7 +287,6 @@ The following metrics are currently tracked via `SentryMetricsHelper`:
 #### Sharing Metrics
 
 - `link.shared`: Counter for all link sharing methods (attributes: `sharing_method`, `link_id`)
-- `link.shared.nfc`: Counter for NFC-specific sharing (attributes: `sharing_method`, `link_id`)
 
 #### Feedback Metrics
 
@@ -341,7 +339,7 @@ The following metrics are recommended for future implementation to gain deeper i
 **Error Rate Metrics**
 
 - `error.rate` (Counter) - Track error frequency by type
-  - Attributes: `error_type` ("persistence" | "qr_generation" | "nfc" | "validation" | "data_corruption")
+  - Attributes: `error_type` ("persistence" | "qr_generation" | "validation" | "data_corruption")
   - Implementation: Aggregate from existing `SentrySDK.capture(error:)` calls
 
 **Feature Adoption Metrics**
@@ -363,11 +361,6 @@ The following metrics are recommended for future implementation to gain deeper i
   - Attributes: `link_count` (for lists), `list_link_count` (for links)
 - `link.opened` (Counter) - Track Safari link opens
   - Attributes: `sharing_method` (optional)
-
-**Feature Adoption Metrics**
-
-- `nfc.share.initiated` / `nfc.share.success` / `nfc.share.failed` (Counter) - Track NFC usage
-- `nfc.available` (Gauge) - Track devices with NFC capability
 
 **Performance Metrics**
 
@@ -429,7 +422,6 @@ See the [Implementation Notes](#implementation-notes) section for detailed imple
     "copy_url",        // Copy URL to clipboard
     "qr_code_share",   // Share QR code via system share sheet
     "qr_code_save",    // Save QR code to Photos
-    "nfc",             // Share via NFC
     "system_share"     // System share sheet for URL
 ]
 ```
@@ -498,22 +490,7 @@ if colorChanged {
 }
 ```
 
-### NFC Sharing (Dual Metrics)
-
-```swift
-// NFC sharing generates dual metrics for comprehensive analysis
-SentryMetricsHelper.trackLinkSharedNFC(linkId: link.id.uuidString)  // NFC-specific
-SentryMetricsHelper.trackLinkShared(sharingMethod: "nfc", linkId: link.id.uuidString)  // General sharing
-```
-
 ## Special Considerations
-
-### NFC Sharing
-
-NFC sharing generates **dual events** for comprehensive analysis:
-
-1. **Specific NFC Event** (`link_shared_nfc`): Detailed NFC success/failure patterns
-2. **General Sharing Event** (`link_shared`): Inclusion in overall sharing metrics
 
 ### ShareLink Integration
 
@@ -617,7 +594,7 @@ Follow the established pattern: `category.subcategory.metric`
 - Include context that enables filtering/grouping
 - Examples:
   - `entity_type`: "link" | "list"
-  - `error_type`: "persistence" | "qr_generation" | "nfc"
+  - `error_type`: "persistence" | "qr_generation"
   - `search_context`: "lists" | "links"
 
 ### Real-time vs Periodic Metrics
@@ -635,7 +612,7 @@ Follow the established pattern: `category.subcategory.metric`
 ### Questions These Metrics Answer
 
 1. **Performance**: Are QR codes generating fast enough? Is cache effective?
-2. **Adoption**: Are users discovering and using key features (NFC, search, customization)?
+2. **Adoption**: Are users discovering and using key features (search, customization)?
 3. **Reliability**: What's the error rate? Are errors recoverable?
 4. **Usage Patterns**: How do users organize their links? How many links/lists do they have?
 5. **Feature Value**: Which features provide the most value? Which are rarely used?
