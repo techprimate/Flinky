@@ -134,6 +134,7 @@ lane :generate_screenshots_ci do
       "iPhone 17 Pro" # iPhone 6.3" display
     ],
     languages: ["en-US"],
+    configuration: "Debug", # Use Debug to reduce build time (~5-6 min faster than Release)
 
     clear_previous_screenshots: true,
     concurrent_simulators: false,

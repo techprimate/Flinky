@@ -9,7 +9,7 @@ on:
       - main
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job.name}}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -131,7 +131,7 @@ jobs:
         run: ./Scripts/ci-diagnostics.sh
 
   screenshots:
-    name: Generate and Upload Screenshots
+    name: Screenshots
     runs-on: macos-26
     timeout-minutes: 60
     steps:
@@ -148,7 +148,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Generate and Upload Screenshots to Sentry
+      - name: Capture and Upload Screenshots
         run: bundle exec fastlane generate_and_upload_screenshots_ci
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
