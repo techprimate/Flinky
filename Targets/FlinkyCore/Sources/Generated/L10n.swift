@@ -67,12 +67,6 @@ public enum L10n {
                     return L10n.tr("shared.error.network.description", String(describing: p1), fallback: "Network Error: %@")
                 }
             }
-            public enum Nfc {
-                /// NFC Error: %@
-                public static func description(_ p1: Any) -> String {
-                    return L10n.tr("shared.error.nfc.description", String(describing: p1), fallback: "NFC Error: %@")
-                }
-            }
             public enum Persistence {
                 /// Save Error: %@
                 public static func description(_ p1: Any) -> String {
@@ -90,8 +84,6 @@ public enum L10n {
                 public static let dataCorruption = L10n.tr("shared.error.recovery.data-corruption", fallback: "Please try restarting the app. If the problem persists, contact support.")
                 /// Please check your internet connection and try again.
                 public static let network = L10n.tr("shared.error.recovery.network", fallback: "Please check your internet connection and try again.")
-                /// Make sure NFC is enabled on both devices and the other device is ready to receive.
-                public static let nfc = L10n.tr("shared.error.recovery.nfc", fallback: "Make sure NFC is enabled on both devices and the other device is ready to receive.")
                 /// Failed to save your changes. Please try again.
                 public static let persistence = L10n.tr("shared.error.recovery.persistence", fallback: "Failed to save your changes. Please try again.")
                 /// Unable to generate QR code for this link.

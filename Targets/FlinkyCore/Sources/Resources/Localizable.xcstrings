@@ -193,18 +193,6 @@
         }
       }
     },
-    "shared.error.nfc.description": {
-      "comment": "NFC error description",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "NFC Error: %@"
-          }
-        }
-      }
-    },
     "shared.error.ok-button": {
       "comment": "Error alert OK button",
       "extractionState": "manual",
@@ -261,18 +249,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Please check your internet connection and try again."
-          }
-        }
-      }
-    },
-    "shared.error.recovery.nfc": {
-      "comment": "NFC error recovery suggestion",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Make sure NFC is enabled on both devices and the other device is ready to receive."
           }
         }
       }

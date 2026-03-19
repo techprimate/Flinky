@@ -1,4 +1,3 @@
-import CoreNFC
 import FlinkyCore
 import Photos
 import SentrySwift
@@ -22,7 +21,6 @@ struct LinkDetailContainerView: View {
     @State private var isEditing = false
 
     @State private var imageToShare: ImageBox?
-    @State private var isSharingViaNFCPresented = false
 
     var body: some View {
         LinkDetailRenderView(
@@ -104,10 +102,6 @@ struct LinkDetailContainerView: View {
             },
             saveQRCodeImageToPhotos: { image in
                 saveImageToPhotos(image)
-            },
-            isNFCSharingSupported: NFCReaderSession.readingAvailable,
-            shareViaNFCAction: {
-                isSharingViaNFCPresented = true
             }
         )
         .task(priority: .utility) {
@@ -123,9 +117,6 @@ struct LinkDetailContainerView: View {
         }
         .sheet(item: $imageToShare) { image in
             ActivityViewController(activityItems: [image])
-        }
-        .sheet(isPresented: $isSharingViaNFCPresented) {
-            LinkDetailNFCSharingContainerView(link: item)
         }
     }
 

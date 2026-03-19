@@ -50,7 +50,7 @@ Turn any link into a **scannable QR code instantly**. Perfect for sharing social
 
 - 🔗 **Instant QR codes** - Generate a QR code from any URL with one tap
 - 📚 **Organize your links** - Create custom lists with colors and symbols
-- 📤 **Share anywhere** - Via QR codes, system share sheet, or NFC
+- 📤 **Share anywhere** - Via QR codes or system share sheet
 - 🔍 **Find quickly** - Search through your growing collection
 
 ## Privacy focused and lightning fast
