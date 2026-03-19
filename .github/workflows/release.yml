@@ -3,8 +3,9 @@ name: Release to App Store
 on:
   workflow_dispatch:
 
+# Static concurrency group since we always release from main, regardless of trigger branch
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.job }}
+  group: ${{ github.workflow }}-main
   cancel-in-progress: true
 
 permissions:
