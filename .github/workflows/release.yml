@@ -1,0 +1,76 @@
+name: Release to App Store
+
+on:
+  workflow_dispatch:
+
+# Static concurrency group since we always release from main, regardless of trigger branch
+concurrency:
+  group: ${{ github.workflow }}-main
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release to App Store
+    runs-on: macos-26
+    timeout-minutes: 120
+    steps:
+      - name: Generate GitHub App Token
+        id: github_app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.TECHPRIMATE_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.TECHPRIMATE_RELEASE_BOT_PRIVATE_KEY }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          submodules: true
+          token: ${{ steps.github_app_token.outputs.token }}
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create App Store Connect API Key
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ vars.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        run: |
+          jq -n \
+            --arg key_id "$APP_STORE_CONNECT_API_KEY_ID" \
+            --arg issuer_id "$APP_STORE_CONNECT_API_ISSUER_ID" \
+            --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
+
+      - name: Release to App Store
+        run: bundle exec fastlane release_ci
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+          APP_REVIEW_EMAIL_ADDRESS: ${{ secrets.APP_REVIEW_EMAIL_ADDRESS }}
+          APP_REVIEW_PHONE_NUMBER: ${{ secrets.APP_REVIEW_PHONE_NUMBER }}
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots
+          path: fastlane/screenshots/
+          retention-days: 7
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh

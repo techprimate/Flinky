@@ -90,6 +90,7 @@ private_lane :_build_app_for_store do
   build_app(
     project: "Flinky.xcodeproj",
     scheme: "App",
+    output_name: "Flinky", # Explicit name to avoid relying on PRODUCT_NAME
 
     archive_path: "./Flinky.xcarchive",
     build_path: ".",
