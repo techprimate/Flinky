@@ -132,3 +132,61 @@ lane :publish do
   _finalize_sentry_release(version: version_number, build: build_number)
   _commit_and_tag_version(version: version_number, build: build_number)
 end
+
+desc <<~DESC
+  Release to App Store: build, upload with metadata/screenshots, submit for review
+  Single CI lane used by release.yml (manual trigger). No PR.
+  Creates a signed, verified commit via the GitHub API linked to the GitHub App.
+  Generates screenshots, uploads metadata and binary, and submits for App Store review.
+DESC
+lane :release_ci do
+  setup_ci if is_ci
+
+  # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
+  version_check_result = _check_and_bump_version_if_needed
+  version_number = version_check_result[:version]
+  build_number = _get_next_build_number(version: version_number)
+  _make(target: "generate")
+
+  # Build and validate
+  _setup_code_signing
+  _build_app_for_store
+  _validate_app
+  _setup_sentry_release(version: version_number, build: build_number)
+
+  # Generate screenshots
+  UI.message "Generating screenshots for App Store..."
+  generate_screenshots
+
+  # Upload to App Store Connect with metadata, screenshots, and submit for review
+  upload_to_app_store(
+    api_key_path: File.expand_path("./api-key.json"),
+    ipa: File.expand_path("./Flinky.ipa"), # Explicit path to avoid relying on SharedValues
+
+    app_version: version_number,
+    build_number: build_number,
+
+    skip_binary_upload: false,
+    overwrite_screenshots: true,
+    submit_for_review: true,
+
+    run_precheck_before_submit: false,
+    precheck_include_in_app_purchases: false,
+
+    languages: ["en-US"],
+    metadata_path: File.expand_path("./metadata"),
+    screenshots_path: File.expand_path("./screenshots"),
+
+    force: true, # Skip the preview HTML
+
+    app_review_information: {
+      email_address: ENV["APP_REVIEW_EMAIL_ADDRESS"],
+      phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
+    }
+  )
+
+  _finalize_sentry_release(version: version_number, build: build_number)
+
+  # Commit and tag on main via GitHub API (creates a signed, verified commit)
+  _commit_and_tag_version_signed(version: version_number, build: build_number)
+end
