@@ -1,1 +1,3 @@
+This update removes the NFC sharing feature to streamline the app experience. You can continue to share links via QR codes and the system share sheet.
+
 We update our app regularly to make it even better for you to easily share links with others.
