@@ -480,6 +480,78 @@
           }
         }
       }
+    },
+    "shared.sort-order.name-ascending": {
+      "comment": "Sort order: Name A to Z",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name (A-Z)"
+          }
+        }
+      }
+    },
+    "shared.sort-order.name-descending": {
+      "comment": "Sort order: Name Z to A",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name (Z-A)"
+          }
+        }
+      }
+    },
+    "shared.sort-order.created-at-newest": {
+      "comment": "Sort order: Date Created, newest first",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Created (Newest)"
+          }
+        }
+      }
+    },
+    "shared.sort-order.created-at-oldest": {
+      "comment": "Sort order: Date Created, oldest first",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Created (Oldest)"
+          }
+        }
+      }
+    },
+    "shared.sort-order.updated-at-newest": {
+      "comment": "Sort order: Date Modified, newest first",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Modified (Newest)"
+          }
+        }
+      }
+    },
+    "shared.sort-order.updated-at-oldest": {
+      "comment": "Sort order: Date Modified, oldest first",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Modified (Oldest)"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

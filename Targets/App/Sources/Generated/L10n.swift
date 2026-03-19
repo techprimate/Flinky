@@ -114,6 +114,16 @@ internal enum L10n {
                 }
             }
         }
+        internal enum SortMenu {
+            /// Sort
+            internal static let label = L10n.tr("link-list-detail.sort-menu.label", fallback: "Sort")
+            internal enum Accessibility {
+                /// Change how links are sorted
+                internal static let hint = L10n.tr("link-list-detail.sort-menu.accessibility.hint", fallback: "Change how links are sorted")
+                /// Sort Links
+                internal static let label = L10n.tr("link-list-detail.sort-menu.accessibility.label", fallback: "Sort Links")
+            }
+        }
     }
     internal enum LinkLists {
         /// My Lists
