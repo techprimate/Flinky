@@ -132,6 +132,20 @@ public enum L10n {
                 public static let unpinListFailed = L10n.tr("shared.persistence.error.unpin-list-failed", fallback: "Failed to unpin list")
             }
         }
+        public enum SortOrder {
+            /// Date Created (Newest)
+            public static let createdAtNewest = L10n.tr("shared.sort-order.created-at-newest", fallback: "Date Created (Newest)")
+            /// Date Created (Oldest)
+            public static let createdAtOldest = L10n.tr("shared.sort-order.created-at-oldest", fallback: "Date Created (Oldest)")
+            /// Name (A-Z)
+            public static let nameAscending = L10n.tr("shared.sort-order.name-ascending", fallback: "Name (A-Z)")
+            /// Name (Z-A)
+            public static let nameDescending = L10n.tr("shared.sort-order.name-descending", fallback: "Name (Z-A)")
+            /// Date Modified (Newest)
+            public static let updatedAtNewest = L10n.tr("shared.sort-order.updated-at-newest", fallback: "Date Modified (Newest)")
+            /// Date Modified (Oldest)
+            public static let updatedAtOldest = L10n.tr("shared.sort-order.updated-at-oldest", fallback: "Date Modified (Oldest)")
+        }
     }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

@@ -207,6 +207,42 @@
         }
       }
     },
+    "link-list-detail.sort-menu.label": {
+      "comment": "Sort menu button label",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sort"
+          }
+        }
+      }
+    },
+    "link-list-detail.sort-menu.accessibility.label": {
+      "comment": "Sort menu accessibility label",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sort Links"
+          }
+        }
+      }
+    },
+    "link-list-detail.sort-menu.accessibility.hint": {
+      "comment": "Sort menu accessibility hint",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change how links are sorted"
+          }
+        }
+      }
+    },
     "link-list-detail.more-menu.accessibility.hint": {
       "comment": "More menu accessibility hint",
       "extractionState": "manual",

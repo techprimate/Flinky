@@ -131,6 +131,8 @@ struct LinkListDetailContainerView: View {
             list: listDisplayItem,
             links: linkDisplayItems,
             searchText: $searchText,
+            currentSortOrder: list.linkSortOrder ?? .default,
+            changeSortOrder: changeSortOrder,
             editItem: { item in
                 editingLink = links.first(where: { $0.id == item.id })
             },
@@ -212,6 +214,20 @@ struct LinkListDetailContainerView: View {
     }
 
     private var links: [LinkModel] {
-        list.links
+        let sortOrder = list.linkSortOrder ?? .default
+        return sortOrder.sorted(list.links)
+    }
+
+    private func changeSortOrder(_ sortOrder: LinkSortOrder) {
+        list.linkSortOrder = sortOrder
+        do {
+            try modelContext.save()
+        } catch {
+            Self.logger.error("Failed to save sort order: \(error)")
+            let appError = AppError.persistenceError(
+                .saveListChangesFailed(underlyingError: error.localizedDescription))
+            SentrySDK.capture(error: appError)
+            toaster.show(error: appError)
+        }
     }
 }

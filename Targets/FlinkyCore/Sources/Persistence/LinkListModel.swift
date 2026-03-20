@@ -27,6 +27,9 @@ public final class LinkListModel {
     /// Flag to indicate that the list is pinned
     public var isPinned: Bool
 
+    /// Sort order for links in this list
+    public var linkSortOrder: LinkSortOrder?
+
     /// Initializes a new instance of `LinkListModel`.
     ///
     /// - Parameters:
@@ -38,6 +41,7 @@ public final class LinkListModel {
     ///   - symbol: Optional symbol of the list.
     ///   - links: Links in the list.
     ///   - isPinned: Flag to indicate that the list is pinned.
+    ///   - linkSortOrder: Optional sort order for links in the list.
     public init(
         id: UUID,
         createdAt: Date,
@@ -46,7 +50,8 @@ public final class LinkListModel {
         color: ListColor?,
         symbol: ListSymbol?,
         links: [LinkModel],
-        isPinned: Bool
+        isPinned: Bool,
+        linkSortOrder: LinkSortOrder? = nil
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -56,10 +61,17 @@ public final class LinkListModel {
         self.symbol = symbol
         self.links = links
         self.isPinned = isPinned
+        self.linkSortOrder = linkSortOrder
     }
 
     /// Convenience initializer with default values for `id`, `createdAt`, and `updatedAt`.
-    public convenience init(name: String, color: ListColor? = nil, symbol: ListSymbol? = nil, isPinned: Bool = false) {
+    public convenience init(
+        name: String,
+        color: ListColor? = nil,
+        symbol: ListSymbol? = nil,
+        isPinned: Bool = false,
+        linkSortOrder: LinkSortOrder? = nil
+    ) {
         self.init(
             id: UUID(),
             createdAt: Date(),
@@ -68,7 +80,8 @@ public final class LinkListModel {
             color: color,
             symbol: symbol,
             links: [],
-            isPinned: isPinned
+            isPinned: isPinned,
+            linkSortOrder: linkSortOrder
         )
     }
 }

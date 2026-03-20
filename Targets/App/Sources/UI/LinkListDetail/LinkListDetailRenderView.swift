@@ -1,3 +1,4 @@
+import FlinkyCore
 import SFSafeSymbols
 import SwiftUI
 
@@ -6,6 +7,9 @@ struct LinkListDetailRenderView: View {
     let links: [LinkListDetailDisplayItem]
 
     @Binding var searchText: String
+
+    let currentSortOrder: LinkSortOrder
+    let changeSortOrder: (LinkSortOrder) -> Void
 
     let editItem: (LinkListDetailDisplayItem) -> Void
     let deleteItem: (LinkListDetailDisplayItem) -> Void
@@ -26,6 +30,9 @@ struct LinkListDetailRenderView: View {
                 emptyStateView
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    sortMenu
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     moreMenu
                 }
@@ -87,6 +94,28 @@ struct LinkListDetailRenderView: View {
                 description: Text(L10n.LinkListDetail.noLinksDescription)
             )
         }
+    }
+
+    @ViewBuilder
+    private var sortMenu: some View {
+        Menu {
+            ForEach(LinkSortOrder.allCases) { sortOrder in
+                Button {
+                    changeSortOrder(sortOrder)
+                } label: {
+                    if sortOrder == currentSortOrder {
+                        Label(sortOrder.name, systemSymbol: .checkmark)
+                    } else {
+                        Text(sortOrder.name)
+                    }
+                }
+            }
+        } label: {
+            Label(L10n.LinkListDetail.SortMenu.label, systemSymbol: .arrowUpArrowDownCircle)
+                .accessibilityLabel(L10n.LinkListDetail.SortMenu.Accessibility.label)
+                .accessibilityHint(L10n.LinkListDetail.SortMenu.Accessibility.hint)
+        }
+        .accessibilityIdentifier("link-list-detail.sort-menu.button")
     }
 
     @ViewBuilder
@@ -185,6 +214,8 @@ struct LinkListDetailRenderView: View {
                 )
             ],
             searchText: .constant(""),
+            currentSortOrder: .nameAscending,
+            changeSortOrder: { _ in },
             editItem: { _ in },
             deleteItem: { _ in },
             deleteItems: { _ in },
