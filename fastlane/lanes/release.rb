@@ -161,7 +161,7 @@ lane :release_ci do
   # Upload to App Store Connect with metadata, screenshots, and submit for review
   upload_to_app_store(
     api_key_path: File.expand_path("./api-key.json"),
-    ipa: File.expand_path("./Flinky.ipa"), # Explicit path to avoid relying on SharedValues
+    ipa: File.expand_path("../Flinky.ipa"), # Explicit path to avoid relying on SharedValues
 
     app_version: version_number,
     build_number: build_number,
