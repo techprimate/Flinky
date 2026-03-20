@@ -104,6 +104,7 @@ lane :generate_screenshots do
       "iPad Pro 11-inch (M5)" # iPad 11" display
     ],
     languages: ["en-US"],
+    configuration: "Debug", # Use Debug to reduce build time - UI layout is identical
 
     clear_previous_screenshots: true,
     concurrent_simulators: true,
