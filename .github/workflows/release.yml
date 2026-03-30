@@ -12,10 +12,13 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Release to App Store
+  # ============================================================================
+  # Phase 1: Build IPA and screenshot test bundle in parallel
+  # ============================================================================
+  release-build:
+    name: Build Release
     runs-on: macos-26
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - name: Generate GitHub App Token
         id: github_app_token
@@ -51,8 +54,190 @@ jobs:
             --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
-      - name: Release to App Store
-        run: bundle exec fastlane release_ci
+      - name: Build, Validate, and Setup Sentry
+        run: bundle exec fastlane release_ci_build
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Upload Release Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-build
+          path: |
+            Flinky.ipa
+            Flinky.app.dSYM.zip
+            Flinky.xcarchive
+            version.txt
+            build_number.txt
+            Flinky.xcodeproj/project.pbxproj
+            Targets/App/Sources/Resources/Settings.bundle/Root.plist
+          retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
+  build-screenshots:
+    name: Build Screenshots
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          submodules: true
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Build Screenshot Test Bundle
+        run: bundle exec fastlane build_screenshots derived_data_path:/tmp/screenshot_build
+        env:
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Test Bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-test-bundle
+          path: /tmp/screenshot_build/Build/Products/
+          retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
+  # ============================================================================
+  # Phase 2: Run screenshots on each device in parallel
+  # ============================================================================
+
+  screenshot:
+    name: Screenshot ${{ matrix.device }}
+    runs-on: macos-26
+    timeout-minutes: 30
+    needs: build-screenshots
+    strategy:
+      fail-fast: false
+      matrix:
+        device:
+          - "iPhone 17 Pro Max"
+          - "iPhone 17 Pro"
+          - "iPad Pro 13-inch (M5)"
+          - "iPad Pro 11-inch (M5)"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          submodules: true
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download Test Bundle
+        uses: actions/download-artifact@v7
+        with:
+          name: screenshot-test-bundle
+          path: /tmp/screenshot_build/Build/Products/
+
+      - name: Run Screenshots
+        run: bundle exec fastlane run_screenshot_on_device "device:${{ matrix.device }}" derived_data_path:/tmp/screenshot_build
+
+      - name: Upload Device Screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots-${{ matrix.device }}
+          path: ~/Library/Caches/tools.fastlane/screenshots/*.png
+          retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
+  # ============================================================================
+  # Phase 3: Collect screenshots and upload to App Store
+  # ============================================================================
+
+  release-upload:
+    name: Upload to App Store
+    runs-on: macos-26
+    timeout-minutes: 60
+    needs: [release-build, screenshot]
+    steps:
+      - name: Generate GitHub App Token
+        id: github_app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.TECHPRIMATE_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.TECHPRIMATE_RELEASE_BOT_PRIVATE_KEY }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          submodules: true
+          token: ${{ steps.github_app_token.outputs.token }}
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Create App Store Connect API Key
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ vars.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        run: |
+          jq -n \
+            --arg key_id "$APP_STORE_CONNECT_API_KEY_ID" \
+            --arg issuer_id "$APP_STORE_CONNECT_API_ISSUER_ID" \
+            --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
+
+      - name: Download Release Build
+        uses: actions/download-artifact@v7
+        with:
+          name: release-build
+          path: .
+
+      - name: Download All Screenshots
+        uses: actions/download-artifact@v7
+        with:
+          pattern: screenshots-*
+          path: ~/Library/Caches/tools.fastlane/screenshots/
+          merge-multiple: true
+
+      - name: Collect Screenshots
+        run: bundle exec fastlane collect_screenshots
+
+      - name: Read Version Info
+        id: version
+        run: |
+          echo "version=$(cat version.txt)" >> "$GITHUB_OUTPUT"
+          echo "build=$(cat build_number.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload to App Store and Submit for Review
+        run: bundle exec fastlane release_ci_upload version:${{ steps.version.outputs.version }} build:${{ steps.version.outputs.build }}
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
