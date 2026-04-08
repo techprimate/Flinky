@@ -190,3 +190,84 @@ lane :release_ci do
   # Commit and tag on main via GitHub API (creates a signed, verified commit)
   _commit_and_tag_version_signed(version: version_number, build: build_number)
 end
+
+desc <<~DESC
+  Release CI: Build phase
+  Prepares version, builds IPA, validates, and sets up Sentry release.
+  Outputs version and build number for downstream jobs.
+  Used by the parallel release workflow (release.yml).
+DESC
+lane :release_ci_build do
+  setup_ci if is_ci
+
+  # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
+  version_check_result = _check_and_bump_version_if_needed
+  version_number = version_check_result[:version]
+  build_number = _get_next_build_number(version: version_number)
+  _make(target: "generate")
+
+  # Build and validate
+  _setup_code_signing
+  _build_app_for_store
+  _validate_app
+  _setup_sentry_release(version: version_number, build: build_number)
+
+  # Write version info for downstream jobs
+  Dir.chdir("..") do
+    File.write("version.txt", version_number)
+    File.write("build_number.txt", build_number)
+  end
+
+  UI.success "✅ Release build complete: #{version_number} (#{build_number})"
+end
+
+desc <<~DESC
+  Release CI: Upload phase
+  Uploads IPA and screenshots to App Store Connect, submits for review,
+  finalizes Sentry release, and commits/tags the version.
+  Expects IPA at project root and screenshots in fastlane/screenshots/.
+  Options:
+    version: version number (required)
+    build: build number (required)
+DESC
+lane :release_ci_upload do |options|
+  setup_ci if is_ci
+
+  version_number = options[:version]
+  build_number = options[:build]
+
+  UI.user_error!("version is required") unless version_number
+  UI.user_error!("build is required") unless build_number
+
+  # Upload to App Store Connect with metadata, screenshots, and submit for review
+  upload_to_app_store(
+    api_key_path: File.expand_path("./api-key.json"),
+    ipa: File.expand_path("../Flinky.ipa"), # Explicit path to avoid relying on SharedValues
+
+    app_version: version_number,
+    build_number: build_number,
+
+    skip_binary_upload: false,
+    overwrite_screenshots: true,
+    submit_for_review: true,
+
+    run_precheck_before_submit: false,
+    precheck_include_in_app_purchases: false,
+
+    languages: ["en-US"],
+    metadata_path: File.expand_path("./metadata"),
+    screenshots_path: File.expand_path("./screenshots"),
+
+    force: true, # Skip the preview HTML
+
+    app_review_information: {
+      email_address: ENV["APP_REVIEW_EMAIL_ADDRESS"],
+      phone_number: ENV["APP_REVIEW_PHONE_NUMBER"]
+    }
+  )
+
+  _finalize_sentry_release(version: version_number, build: build_number)
+
+  # Commit and tag on main via GitHub API (creates a signed, verified commit)
+  _commit_and_tag_version_signed(version: version_number, build: build_number)
+end
