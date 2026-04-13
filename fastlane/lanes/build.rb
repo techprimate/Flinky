@@ -6,15 +6,15 @@
 # Lanes for building the app in CI and local environments.
 # ============================================================================
 
-desc "Build the app for CI (creates archive for App Store distribution)"
+desc "Build the app for CI (creates development archive and uploads to Sentry App Analysis)"
 lane :build_ci do
   # Configure CI keychain and set match to readonly to avoid prompts
   setup_ci if is_ci
 
-  # Setup code signing
-  _setup_code_signing
+  # Setup development code signing
+  _setup_code_signing_development
 
-  # Build and export the app to an archive
+  # Build and export the app as a development build
   build_app(
     project: "Flinky.xcodeproj",
     scheme: "App",
@@ -22,12 +22,12 @@ lane :build_ci do
     build_path: ".",
     export_options: {
       "destination" => "export",
-      "method" => "app-store-connect",
+      "method" => "development",
       "provisioningProfiles" => {
-        "com.techprimate.Flinky" => "match AppStore com.techprimate.Flinky",
-        "com.techprimate.Flinky.ShareExtension" => "match AppStore com.techprimate.Flinky.ShareExtension"
+        "com.techprimate.Flinky" => "match Development com.techprimate.Flinky",
+        "com.techprimate.Flinky.ShareExtension" => "match Development com.techprimate.Flinky.ShareExtension"
       },
-      "signingCertificate" => "Apple Distribution",
+      "signingCertificate" => "Apple Development",
       "signingStyle" => "manual",
       "teamID" => "BZ362SQ6AB"
     }

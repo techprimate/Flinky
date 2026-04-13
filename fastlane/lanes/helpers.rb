@@ -72,6 +72,22 @@ private_lane :_setup_code_signing do
   )
 end
 
+# Private lane: Setup code signing for Development builds
+private_lane :_setup_code_signing_development do
+  sync_code_signing(
+    type: "development",
+    readonly: true,
+    app_identifier: "com.techprimate.Flinky",
+    git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+  )
+  sync_code_signing(
+    type: "development",
+    readonly: true,
+    app_identifier: "com.techprimate.Flinky.ShareExtension",
+    git_private_key: ENV["MATCH_GIT_PRIVATE_KEY"]
+  )
+end
+
 # Private lane: Increment version and build number, return both values
 private_lane :_increment_version_and_build do
   version_number = get_version_number(
