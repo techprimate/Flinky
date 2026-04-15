@@ -18,6 +18,7 @@ lane :build_ci do
   build_app(
     project: "Flinky.xcodeproj",
     scheme: "App",
+    configuration: "Debug",
     archive_path: "./Flinky.xcarchive",
     build_path: ".",
     export_options: {
