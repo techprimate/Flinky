@@ -7,14 +7,14 @@ struct EDRMetalView: UIViewRepresentable {
     let imageProvider: (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?
 
     func makeUIView(context: Context) -> MTKView {
-        guard let device = MTLCreateSystemDefaultDevice() else {
+        guard let renderer = context.coordinator.renderer else {
             return MTKView()
         }
 
-        let view = MTKView(frame: .zero, device: device)
+        let view = MTKView(frame: .zero, device: renderer.device)
         view.preferredFramesPerSecond = 10
         view.framebufferOnly = false
-        view.delegate = context.coordinator
+        view.delegate = renderer
 
         if let layer = view.layer as? CAMetalLayer {
             layer.wantsExtendedDynamicRangeContent = true
@@ -26,48 +26,55 @@ struct EDRMetalView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: MTKView, context: Context) {
-        context.coordinator.imageProvider = imageProvider
-        view.delegate = context.coordinator
+        guard let renderer = context.coordinator.renderer else { return }
+        renderer.imageProvider = imageProvider
+        view.delegate = renderer
     }
 
-    func makeCoordinator() -> Renderer {
-        Renderer(imageProvider: imageProvider)
+    func makeCoordinator() -> Coordinator {
+        Coordinator(imageProvider: imageProvider)
     }
 }
 
 extension EDRMetalView {
+    final class Coordinator {
+        let renderer: Renderer?
+
+        init(imageProvider: @escaping (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?) {
+            self.renderer = Renderer(imageProvider: imageProvider)
+        }
+    }
+
     final class Renderer: NSObject, MTKViewDelegate {
-        private let device: MTLDevice?
-        private let commandQueue: MTLCommandQueue?
-        private let renderContext: CIContext?
+        let device: MTLDevice
+        let commandQueue: MTLCommandQueue
+        let renderContext: CIContext
         private let renderQueue = DispatchSemaphore(value: 3)
 
         var imageProvider: (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?
 
-        init(imageProvider: @escaping (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?) {
-            self.imageProvider = imageProvider
-            let device = MTLCreateSystemDefaultDevice()
-            self.device = device
-            let commandQueue = device?.makeCommandQueue()
-            self.commandQueue = commandQueue
-            if let commandQueue {
-                self.renderContext = CIContext(
-                    mtlCommandQueue: commandQueue,
-                    options: [
-                        .cacheIntermediates: true,
-                        .allowLowPower: true
-                    ]
-                )
-            } else {
-                self.renderContext = nil
+        init?(imageProvider: @escaping (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?) {
+            guard let device = MTLCreateSystemDefaultDevice(),
+                  let commandQueue = device.makeCommandQueue()
+            else {
+                return nil
             }
+            self.device = device
+            self.commandQueue = commandQueue
+            self.renderContext = CIContext(
+                mtlCommandQueue: commandQueue,
+                options: [
+                    .cacheIntermediates: true,
+                    .allowLowPower: true
+                ]
+            )
+            self.imageProvider = imageProvider
             super.init()
         }
 
         func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {}
 
         func draw(in view: MTKView) {
-            guard let commandQueue, let renderContext else { return }
             _ = renderQueue.wait(timeout: .distantFuture)
 
             guard let commandBuffer = commandQueue.makeCommandBuffer() else {
