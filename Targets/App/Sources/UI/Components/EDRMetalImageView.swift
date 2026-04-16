@@ -6,6 +6,7 @@ struct EDRMetalImageView: View {
 
     let ciImage: CIImage
     let size: CGFloat
+    var inset: CGFloat = 0
 
     var body: some View {
         EDRMetalView { contentScaleFactor, headroom in
@@ -14,11 +15,21 @@ struct EDRMetalImageView: View {
     }
 
     private func edrImage(scaleFactor: CGFloat, headroom: CGFloat) -> CIImage? {
+        let totalSize = size * scaleFactor
+        let qrSize = (size - 2 * inset) * scaleFactor
+        let insetPx = inset * scaleFactor
+
+        let cropRect = CGRect(x: 0, y: 0, width: totalSize, height: totalSize)
+
         let scale = CGAffineTransform(
-            scaleX: size * scaleFactor / ciImage.extent.width,
-            y: size * scaleFactor / ciImage.extent.height
+            scaleX: qrSize / ciImage.extent.width,
+            y: qrSize / ciImage.extent.height
         )
-        let scaledImage = ciImage.transformed(by: scale)
+        let scaledQR = ciImage
+            .transformed(by: scale)
+            .transformed(by: CGAffineTransform(translationX: insetPx, y: insetPx))
+
+        let mask = scaledQR.composited(over: CIImage.white.cropped(to: cropRect))
 
         guard let colorSpace = CGColorSpace(name: CGColorSpace.extendedLinearSRGB) else {
             return nil
@@ -52,13 +63,8 @@ struct EDRMetalImageView: View {
         let maskFilter = CIFilter.blendWithMask()
         maskFilter.inputImage = foreground
         maskFilter.backgroundImage = background
-        maskFilter.maskImage = scaledImage
+        maskFilter.maskImage = mask
 
-        let cropRect = CGRect(
-            x: 0, y: 0,
-            width: size * scaleFactor,
-            height: size * scaleFactor
-        )
         return maskFilter.outputImage?.cropped(to: cropRect)
     }
 }

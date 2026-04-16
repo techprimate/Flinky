@@ -176,7 +176,7 @@ struct LinkDetailRenderView: View {
             }
         }
         .frame(maxWidth: 200, maxHeight: 200)
-        .padding()
+//        .padding()
         .background(Color(UIColor.systemBackground))
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .shadow(radius: 12, x: 0, y: 6)
@@ -246,7 +246,7 @@ extension LinkDetailRenderView {
 
         @ViewBuilder private var image: some View {
             if let ciImage {
-                EDRMetalImageView(ciImage: ciImage, size: 200)
+                EDRMetalImageView(ciImage: ciImage, size: 200, inset: 12)
             } else if colorScheme == .light {
                 Image(uiImage: uiImage)
                     .resizable()
