@@ -1,10 +1,20 @@
 import SwiftUI
 
 struct ActivityViewController: UIViewControllerRepresentable {
-    let activityItems: [Any]
+    enum Item {
+        case image(UIImage)
+
+        var value: Any {
+            switch self {
+            case .image(let image): image
+            }
+        }
+    }
+
+    let activityItems: [Item]
 
     func makeUIViewController(context _: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        UIActivityViewController(activityItems: activityItems.map(\.value), applicationActivities: nil)
     }
 
     func updateUIViewController(_: UIActivityViewController, context _: Context) {

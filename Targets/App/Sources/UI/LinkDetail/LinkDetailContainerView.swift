@@ -115,8 +115,8 @@ struct LinkDetailContainerView: View {
                 LinkInfoContainerView(link: item)
             }
         }
-        .sheet(item: $imageToShare) { image in
-            ActivityViewController(activityItems: [image])
+        .sheet(item: $imageToShare) { imageBox in
+            ActivityViewController(activityItems: [.image(imageBox.image)])
         }
     }
 
