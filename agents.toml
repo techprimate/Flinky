@@ -99,10 +99,6 @@ name = "create-branch"
 source = "getsentry/sentry-skills"
 
 [[skills]]
-name = "create-pr"
-source = "getsentry/sentry-skills"
-
-[[skills]]
 name = "iterate-pr"
 source = "getsentry/sentry-skills"
 

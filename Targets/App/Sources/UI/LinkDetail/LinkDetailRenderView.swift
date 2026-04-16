@@ -14,6 +14,7 @@ struct LinkDetailRenderView: View {
     let url: URL
     let color: ListColor
     let image: Result<UIImage, Error>?
+    let ciImage: CIImage?
 
     let editAction: () -> Void
     let openInSafariAction: () -> Void
@@ -157,6 +158,7 @@ struct LinkDetailRenderView: View {
                 case let .success(uiImage):
                     QRCodeImageView(
                         uiImage: uiImage,
+                        ciImage: ciImage,
                         url: url,
                         shareQRCodeImageAction: shareQRCodeImageAction,
                         saveQRCodeImageToPhotos: saveQRCodeImageToPhotos
@@ -174,7 +176,7 @@ struct LinkDetailRenderView: View {
             }
         }
         .frame(maxWidth: 200, maxHeight: 200)
-        .padding()
+//        .padding()
         .background(Color(UIColor.systemBackground))
         .clipShape(RoundedRectangle(cornerSize: .init(width: 16, height: 16)))
         .shadow(radius: 12, x: 0, y: 6)
@@ -196,6 +198,7 @@ extension LinkDetailRenderView {
         @Environment(\.colorScheme) var colorScheme
 
         let uiImage: UIImage
+        let ciImage: CIImage?
         let url: URL
 
         let shareQRCodeImageAction: (_ image: UIImage) -> Void
@@ -242,7 +245,14 @@ extension LinkDetailRenderView {
         }
 
         @ViewBuilder private var image: some View {
-            if colorScheme == .light {
+            // When a CIImage is available and Metal is supported, the QR code is
+            // rendered through EDRMetalImageView which uses Extended Dynamic Range
+            // to display the image brighter than standard SDR. On devices without
+            // Metal (e.g. the iOS Simulator) the CIImage alone is not sufficient,
+            // so we fall back to the standard SwiftUI Image path using the UIImage.
+            if let ciImage, EDRMetalView.isSupported {
+                EDRMetalImageView(ciImage: ciImage, size: 200, inset: 12)
+            } else if colorScheme == .light {
                 Image(uiImage: uiImage)
                     .resizable()
                     .interpolation(.none)
@@ -250,7 +260,7 @@ extension LinkDetailRenderView {
                 Image(uiImage: uiImage)
                     .resizable()
                     .interpolation(.none)
-                    .colorInvert()  // Invert colors for dark mode
+                    .colorInvert()
             }
         }
     }
@@ -272,6 +282,7 @@ extension LinkDetailRenderView {
                                 "/9j/4AAQSkZJRgABAQAASABIAAD/4QCARXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAKgAgAEAAAAAQAAABugAwAEAAAAAQAAABsAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/AABEIABsAGwMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDABsbGxsbGy8bGy9CLy8vQllCQkJCWXBZWVlZWXCIcHBwcHBwiIiIiIiIiIijo6Ojo6O+vr6+vtXV1dXV1dXV1dX/2wBDASEjIzYyNl0yMl3fl3yX39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39//3QAEAAL/2gAMAwEAAhEDEQA/AEnncPIBJgDzcnzSGDAttAXcPQdqtTzyyLI28oyFtmDgYViMnBOeAcgjnHA4NV5Gu5blwCwjRnO4F1XC9s5x1znOOmAwGMWGkmaTyUZW37nUDABBY9VON2VzyDjv/tUAV7iaVQNj5bC8PJt6s+7oU7gDpkDsK2rJg1vkNuG5wCTngMcc9+Kx1mZpI/PO0uMhUYgMWYfdAI9+SeSc8qM1sWMrz2qSuck554554PBOD6j1oA//0HTXJSR41wGIkYYDdFZifmDgjJXnApfvtJFbnEm9kAZ1b5O4CHtx0wO3OK2GsrdgwO7DZJAdgOevGcc1J5EW4sRuzuHzEnhsZHPbjpQBzAWOFRdJE6YOTJjA2uGx0OOQQOAMHuK6SzcyW4dgASWzgFRkE54PPX1qN9Ps5JPNZPmzu4Yjn14PXirUcaRJsTpyeST1OTyaAP/Z"
                         )!)!),
                 // swiftlint:enable line_length
+                ciImage: nil,
                 editAction: {},
                 openInSafariAction: {},
                 copyURLAction: {},
@@ -292,6 +303,7 @@ extension LinkDetailRenderView {
                 url: URL(string: "https://example.com")!,
                 color: .blue,
                 image: nil,
+                ciImage: nil,
                 editAction: {},
                 openInSafariAction: {},
                 copyURLAction: {},
@@ -312,6 +324,7 @@ extension LinkDetailRenderView {
                 url: URL(string: "https://example.com")!,
                 color: .blue,
                 image: .failure(NSError(domain: "QR Code generation failed", code: 0, userInfo: nil)),
+                ciImage: nil,
                 editAction: {},
                 openInSafariAction: {},
                 copyURLAction: {},
