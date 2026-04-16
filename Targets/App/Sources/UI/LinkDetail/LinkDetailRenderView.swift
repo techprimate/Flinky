@@ -245,7 +245,12 @@ extension LinkDetailRenderView {
         }
 
         @ViewBuilder private var image: some View {
-            if let ciImage {
+            // When a CIImage is available and Metal is supported, the QR code is
+            // rendered through EDRMetalImageView which uses Extended Dynamic Range
+            // to display the image brighter than standard SDR. On devices without
+            // Metal (e.g. the iOS Simulator) the CIImage alone is not sufficient,
+            // so we fall back to the standard SwiftUI Image path using the UIImage.
+            if let ciImage, EDRMetalView.isSupported {
                 EDRMetalImageView(ciImage: ciImage, size: 200, inset: 12)
             } else if colorScheme == .light {
                 Image(uiImage: uiImage)

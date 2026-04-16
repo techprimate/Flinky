@@ -4,6 +4,14 @@ import MetalKit
 import SwiftUI
 
 struct EDRMetalView: UIViewRepresentable {
+    /// Whether the current device supports EDR rendering via Metal.
+    ///
+    /// Callers should check this before entering the EDR rendering path to avoid
+    /// displaying a blank view on unsupported devices (e.g. the iOS Simulator).
+    /// This property reads from `Renderer.device`, the same shared `MTLDevice`
+    /// that the renderer uses, so the check is consistent with actual rendering capability.
+    static var isSupported: Bool { Renderer.device != nil }
+
     let imageProvider: (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?
 
     func makeUIView(context: Context) -> MTKView {
@@ -46,6 +54,13 @@ extension EDRMetalView {
     }
 
     final class Renderer: NSObject, MTKViewDelegate {
+        /// The shared Metal device used for all EDR rendering.
+        ///
+        /// Created once and reused by every `Renderer` instance. `EDRMetalView.isSupported`
+        /// also reads this property, ensuring the availability check and the actual
+        /// rendering always agree on whether Metal is present.
+        static let device = MTLCreateSystemDefaultDevice()
+
         let device: MTLDevice
         let commandQueue: MTLCommandQueue
         let renderContext: CIContext
@@ -54,7 +69,7 @@ extension EDRMetalView {
         var imageProvider: (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?
 
         init?(imageProvider: @escaping (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?) {
-            guard let device = MTLCreateSystemDefaultDevice(),
+            guard let device = Self.device,
                   let commandQueue = device.makeCommandQueue()
             else {
                 return nil
