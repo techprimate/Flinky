@@ -246,9 +246,7 @@ extension LinkDetailRenderView {
 
         @ViewBuilder private var image: some View {
             if let ciImage {
-                EDRMetalView { contentScaleFactor, headroom in
-                    edrImage(from: ciImage, scaleFactor: contentScaleFactor, headroom: headroom)
-                }
+                EDRMetalImageView(ciImage: ciImage, size: 200)
             } else if colorScheme == .light {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -259,56 +257,6 @@ extension LinkDetailRenderView {
                     .interpolation(.none)
                     .colorInvert()
             }
-        }
-
-        private func edrImage(from qrCode: CIImage, scaleFactor: CGFloat, headroom: CGFloat) -> CIImage? {
-            let targetSize: CGFloat = 200
-            let scale = CGAffineTransform(
-                scaleX: targetSize * scaleFactor / qrCode.extent.width,
-                y: targetSize * scaleFactor / qrCode.extent.height
-            )
-            let scaledImage = qrCode.transformed(by: scale)
-
-            guard let colorSpace = CGColorSpace(name: CGColorSpace.extendedLinearSRGB) else {
-                return nil
-            }
-
-            let foregroundBrightness: CGFloat
-            let backgroundBrightness: CGFloat
-            if colorScheme == .light {
-                foregroundBrightness = headroom
-                backgroundBrightness = 0
-            } else {
-                foregroundBrightness = 0
-                backgroundBrightness = headroom
-            }
-
-            guard let foregroundColor = CIColor(
-                red: foregroundBrightness, green: foregroundBrightness, blue: foregroundBrightness,
-                colorSpace: colorSpace
-            ),
-                let backgroundColor = CIColor(
-                    red: backgroundBrightness, green: backgroundBrightness, blue: backgroundBrightness,
-                    colorSpace: colorSpace
-                )
-            else {
-                return nil
-            }
-
-            let foreground = CIImage(color: foregroundColor)
-            let background = CIImage(color: backgroundColor)
-
-            let maskFilter = CIFilter.blendWithMask()
-            maskFilter.inputImage = foreground
-            maskFilter.backgroundImage = background
-            maskFilter.maskImage = scaledImage
-
-            let cropRect = CGRect(
-                x: 0, y: 0,
-                width: targetSize * scaleFactor,
-                height: targetSize * scaleFactor
-            )
-            return maskFilter.outputImage?.cropped(to: cropRect)
         }
     }
 }
