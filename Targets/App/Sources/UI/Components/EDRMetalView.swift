@@ -85,13 +85,19 @@ extension EDRMetalView {
                 self?.renderQueue.signal()
             }
 
-            guard let drawable = view.currentDrawable else { return }
+            guard let drawable = view.currentDrawable else {
+                renderQueue.signal()
+                return
+            }
 
             let drawSize = view.drawableSize
             let contentScaleFactor = view.contentScaleFactor
             let headroom = view.window?.screen.currentEDRHeadroom ?? 1.0
 
-            guard var image = imageProvider(contentScaleFactor, headroom) else { return }
+            guard var image = imageProvider(contentScaleFactor, headroom) else {
+                renderQueue.signal()
+                return
+            }
 
             let destination = CIRenderDestination(
                 width: Int(drawSize.width),
