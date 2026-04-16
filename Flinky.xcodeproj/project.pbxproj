@@ -1861,6 +1861,8 @@
 				kind = exactVersion;
 				version = 9.8.0;
 			};
+			traits = (
+			);
 		};
 		D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */ = {
 			isa = XCRemoteSwiftPackageReference;
