@@ -7,10 +7,19 @@ struct EDRMetalView: UIViewRepresentable {
     /// Whether the current device supports EDR rendering via Metal.
     ///
     /// Callers should check this before entering the EDR rendering path to avoid
-    /// displaying a blank view on unsupported devices (e.g. the iOS Simulator).
-    /// This property reads from `Renderer.device`, the same shared `MTLDevice`
-    /// that the renderer uses, so the check is consistent with actual rendering capability.
-    static var isSupported: Bool { Renderer.device != nil }
+    /// displaying a blank view on unsupported devices. Always returns `false` on
+    /// the iOS Simulator: on Apple Silicon hosts `MTLCreateSystemDefaultDevice()`
+    /// returns a device, but Metal-backed views don't render correctly for
+    /// `XCUIScreenshot` capture, and the resulting `MTKView` doesn't expose as an
+    /// accessibility image element. Both matter for the App Store screenshot
+    /// pipeline, which renders on simulators.
+    static var isSupported: Bool {
+        #if targetEnvironment(simulator)
+        return false
+        #else
+        return Renderer.device != nil
+        #endif
+    }
 
     let imageProvider: (_ contentScaleFactor: CGFloat, _ headroom: CGFloat) -> CIImage?
 
