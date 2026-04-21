@@ -18,6 +18,7 @@ struct LinkDetailContainerView: View {
     let item: LinkModel
 
     @State private var image: Result<UIImage, Error>?
+    @State private var ciImage: CIImage?
     @State private var isEditing = false
 
     @State private var imageToShare: ImageBox?
@@ -29,6 +30,7 @@ struct LinkDetailContainerView: View {
             url: item.url,
             color: item.color ?? .defaultForLink,
             image: image,
+            ciImage: ciImage,
             editAction: {
                 isEditing = true
             },
@@ -115,13 +117,17 @@ struct LinkDetailContainerView: View {
                 LinkInfoContainerView(link: item)
             }
         }
-        .sheet(item: $imageToShare) { image in
-            ActivityViewController(activityItems: [image])
+        .sheet(item: $imageToShare) { imageBox in
+            ActivityViewController(activityItems: [.image(imageBox.image)])
         }
     }
 
     func createQRCodeImageInBackground() async {
         let startTime = CFAbsoluteTimeGetCurrent()
+
+        let filter = CIFilter.qrCodeGenerator()
+        filter.message = Data(item.url.absoluteString.utf8)
+        ciImage = filter.outputImage
 
         if let cachedImage = qrcodeCache.image(forContent: item.url.absoluteString) {
             let duration = CFAbsoluteTimeGetCurrent() - startTime
@@ -131,8 +137,6 @@ struct LinkDetailContainerView: View {
             return
         }
 
-        let filter = CIFilter.qrCodeGenerator()
-        filter.message = Data(item.url.absoluteString.utf8)
         guard let outputImage = filter.outputImage else {
             Self.logger.error("Failed to generate QR code for link: \(item.id.uuidString)")
             let error = AppError.qrCodeGenerationError("Failed to generate QR code for link: \(item.id.uuidString)")
