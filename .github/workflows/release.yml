@@ -2,10 +2,17 @@ name: Release to App Store
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref (branch, tag, or SHA) to release from. Defaults to main."
+        required: false
+        default: main
+        type: string
 
-# Static concurrency group since we always release from main, regardless of trigger branch
+# Static concurrency group: only one release may run at a time, regardless of ref,
+# to avoid App Store Connect contention.
 concurrency:
-  group: ${{ github.workflow }}-main
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 permissions:
@@ -13,8 +20,9 @@ permissions:
 
 jobs:
   # ============================================================================
-  # Phase 0: Resolve the exact main SHA once so every downstream job checks
-  # out the same commit. Prevents divergence if main advances mid-release.
+  # Phase 0: Resolve the dispatch ref to an exact SHA once so every downstream
+  # job checks out the same commit. Prevents divergence if the ref advances
+  # mid-release. Defaults to main; override via the `ref` dispatch input.
   # ============================================================================
   resolve-ref:
     name: Resolve Release SHA
@@ -23,14 +31,15 @@ jobs:
     outputs:
       sha: ${{ steps.resolve.outputs.sha }}
     steps:
-      - name: Resolve main SHA
+      - name: Resolve ref to SHA
         id: resolve
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_REF: ${{ inputs.ref }}
         run: |
-          SHA=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
+          SHA=$(gh api "repos/${{ github.repository }}/commits/$RELEASE_REF" --jq .sha)
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-          echo "Releasing from main @ $SHA"
+          echo "Releasing from $RELEASE_REF @ $SHA"
 
   # ============================================================================
   # Phase 1: Build IPA and screenshot test bundle in parallel
