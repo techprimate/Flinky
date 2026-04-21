@@ -104,11 +104,14 @@ lane :run_screenshot_on_device do |options|
   _override_status_bar(udid: simulator_udid)
 
   begin
-    # Run tests without building using the pre-built xctestrun
-    # Note: only pass xctestrun + destination, NOT project/scheme,
-    # otherwise scan ignores xctestrun and tries a full build.
+    # scan auto-discovers Flinky.xcodeproj from cwd and requires a scheme
+    # to disambiguate. test_without_building + xctestrun ensures the
+    # pre-built bundle is reused instead of triggering a rebuild.
     run_tests(
+      project: "Flinky.xcodeproj",
+      scheme: "ScreenshotUITests",
       xctestrun: xctestrun_path,
+      test_without_building: true,
       destination: "platform=iOS Simulator,name=#{device}",
       only_testing: ["ScreenshotUITests/ScreenshotUITests/testScreenshots"],
       reinstall_app: true,
