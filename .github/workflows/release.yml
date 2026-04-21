@@ -13,12 +13,33 @@ permissions:
 
 jobs:
   # ============================================================================
+  # Phase 0: Resolve the exact main SHA once so every downstream job checks
+  # out the same commit. Prevents divergence if main advances mid-release.
+  # ============================================================================
+  resolve-ref:
+    name: Resolve Release SHA
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      sha: ${{ steps.resolve.outputs.sha }}
+    steps:
+      - name: Resolve main SHA
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHA=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "Releasing from main @ $SHA"
+
+  # ============================================================================
   # Phase 1: Build IPA and screenshot test bundle in parallel
   # ============================================================================
   release-build:
     name: Build Release
     runs-on: macos-26
     timeout-minutes: 60
+    needs: resolve-ref
     steps:
       - name: Generate GitHub App Token
         id: github_app_token
@@ -30,7 +51,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
@@ -86,11 +107,12 @@ jobs:
     name: Build Screenshots
     runs-on: macos-26
     timeout-minutes: 30
+    needs: resolve-ref
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
 
       - name: Install Dependencies
@@ -125,7 +147,7 @@ jobs:
     name: Screenshot ${{ matrix.device }}
     runs-on: macos-26
     timeout-minutes: 30
-    needs: build-screenshots
+    needs: [resolve-ref, build-screenshots]
     strategy:
       fail-fast: false
       matrix:
@@ -138,7 +160,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
 
       - name: Install Dependencies
@@ -178,7 +200,7 @@ jobs:
     name: Upload to App Store
     runs-on: macos-26
     timeout-minutes: 60
-    needs: [release-build, screenshot]
+    needs: [resolve-ref, release-build, screenshot]
     steps:
       - name: Generate GitHub App Token
         id: github_app_token
@@ -190,7 +212,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
