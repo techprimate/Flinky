@@ -268,7 +268,7 @@ jobs:
           echo "build=$(cat build_number.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Upload to App Store and Submit for Review
-        run: bundle exec fastlane release_ci_upload version:${{ steps.version.outputs.version }} build:${{ steps.version.outputs.build }}
+        run: bundle exec fastlane release_ci_upload version:${{ steps.version.outputs.version }} build:${{ steps.version.outputs.build }} ref:${{ inputs.ref }}
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

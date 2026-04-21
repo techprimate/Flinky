@@ -229,12 +229,16 @@ desc <<~DESC
   Options:
     version: version number (required)
     build: build number (required)
+    ref: git ref the release was dispatched from (optional, default "main").
+         Commit+tag on main is skipped when ref != "main" to avoid creating
+         version tags whose tree doesn't match what was uploaded.
 DESC
 lane :release_ci_upload do |options|
   setup_ci if is_ci
 
   version_number = options[:version]
   build_number = options[:build]
+  release_ref = options[:ref] || "main"
 
   UI.user_error!("version is required") unless version_number
   UI.user_error!("build is required") unless build_number
@@ -268,6 +272,13 @@ lane :release_ci_upload do |options|
 
   _finalize_sentry_release(version: version_number, build: build_number)
 
-  # Commit and tag on main via GitHub API (creates a signed, verified commit)
-  _commit_and_tag_version_signed(version: version_number, build: build_number)
+  # Commit and tag on main via GitHub API (creates a signed, verified commit).
+  # Skipped for non-main dispatches: _commit_and_tag_version_signed overlays
+  # VERSION_BUMP_FILES onto main's tree, which would not match the IPA that
+  # was actually uploaded from a feature branch.
+  if release_ref == "main"
+    _commit_and_tag_version_signed(version: version_number, build: build_number)
+  else
+    UI.important "Skipping commit+tag: dispatched from ref '#{release_ref}', not main"
+  end
 end
