@@ -153,6 +153,12 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Simulator boot is slow on hosted runners. Without this, snapshot
+          # runs `simctl status_bar override` with a 0s wait (see bug in
+          # fastlane's simulator_launcher_base.rb:129 — `nil.to_i || 10` is 0,
+          # not 10) and the override silently no-ops against a not-yet-booted
+          # simulator, so the real clock time leaks into the screenshots.
+          SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT: "30"
 
       - name: Upload Screenshots
         uses: actions/upload-artifact@v7
