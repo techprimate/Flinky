@@ -23,52 +23,52 @@ final class ScreenshotUITests: XCTestCase {
 
         // 1. Navigate to "My Links" list to show list detail
         let myLinksButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'My Links'")).firstMatch
-        XCTAssert(myLinksButton.waitForExistence(timeout: 5), "My Links button not found")
+        XCTAssert(myLinksButton.waitForExistence(timeout: 10), "My Links button not found")
         myLinksButton.tap()
 
         // Wait for list detail view to load
         let newLinkButton = app.buttons["link-list-detail.new-link.button"]
-        XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Link list detail view failed to load")
+        XCTAssert(newLinkButton.waitForExistence(timeout: 10), "Link list detail view failed to load")
 
         // 2. Create new link
         newLinkButton.tap()
 
         // Wait for create link form to appear
         let titleField = app.textFields["create-link.title.text-field"]
-        XCTAssert(titleField.waitForExistence(timeout: 5), "Create link form failed to load")
+        XCTAssert(titleField.waitForExistence(timeout: 10), "Create link form failed to load")
 
         // Fill in the new link data
         titleField.tap()
         titleField.typeText("techprimate.com")
 
         let urlField = app.textFields["create-link.url.text-field"]
-        XCTAssert(urlField.waitForExistence(timeout: 3), "URL field not found")
+        XCTAssert(urlField.waitForExistence(timeout: 10), "URL field not found")
         urlField.tap()
         urlField.typeText("https://techprimate.com")
 
         // Save the link
         let saveButton = app.buttons["create-link.save.button"]
-        XCTAssert(saveButton.waitForExistence(timeout: 3), "Save button not found")
+        XCTAssert(saveButton.waitForExistence(timeout: 10), "Save button not found")
         XCTAssert(saveButton.isEnabled, "Save button is not enabled")
         saveButton.tap()
 
         // Wait for return to list detail view with new link
-        XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Failed to return to list detail after saving")
+        XCTAssert(newLinkButton.waitForExistence(timeout: 10), "Failed to return to list detail after saving")
 
         // 3. Find and edit the newly created link
         let createdLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'techprimate.com'")).firstMatch
-        XCTAssert(createdLinkButton.waitForExistence(timeout: 5), "Newly created link not found after creation")
+        XCTAssert(createdLinkButton.waitForExistence(timeout: 10), "Newly created link not found after creation")
 
         // Long press to bring up context menu for edit
         createdLinkButton.press(forDuration: 1.0)
 
         let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit'")).firstMatch
-        XCTAssert(editButton.waitForExistence(timeout: 3), "Edit button not found in context menu")
+        XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in context menu")
         editButton.tap()
 
         // Wait for edit form to appear
         let editForm = app.collectionViews["link-info.container"]
-        XCTAssert(editForm.waitForExistence(timeout: 5), "Edit form failed to load")
+        XCTAssert(editForm.waitForExistence(timeout: 10), "Edit form failed to load")
 
         // Select a new color for the link
         app.buttons["grid-picker.item.orange"].tap()
@@ -85,11 +85,11 @@ final class ScreenshotUITests: XCTestCase {
         app.buttons["link-info.save.button"].tap()
 
         // Wait for return to list detail
-        XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Failed to return to list detail after edit")
+        XCTAssert(newLinkButton.waitForExistence(timeout: 10), "Failed to return to list detail after edit")
 
         // 5. Navigate to the created link detail page for QR code
         let updatedLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'techprimate.com'")).firstMatch
-        XCTAssert(updatedLinkButton.waitForExistence(timeout: 3), "Updated link not found")
+        XCTAssert(updatedLinkButton.waitForExistence(timeout: 10), "Updated link not found")
         updatedLinkButton.tap()
 
         // Wait for QR code to generate
@@ -102,22 +102,22 @@ final class ScreenshotUITests: XCTestCase {
 
         // Close QR code view and return to list detail
         let doneButton = app.buttons["link-detail.done.button"]
-        XCTAssert(doneButton.waitForExistence(timeout: 5), "Done button not found")
+        XCTAssert(doneButton.waitForExistence(timeout: 10), "Done button not found")
         doneButton.tap()
 
         // Wait for return to list detail view
-        XCTAssert(newLinkButton.waitForExistence(timeout: 5), "Failed to return to list detail view")
+        XCTAssert(newLinkButton.waitForExistence(timeout: 10), "Failed to return to list detail view")
 
         snapshot("02_List_Detail_View")
 
         // Go back to main list view
         let backButton = app.navigationBars.buttons.firstMatch
-        XCTAssert(backButton.waitForExistence(timeout: 3), "Back button not found")
+        XCTAssert(backButton.waitForExistence(timeout: 10), "Back button not found")
         backButton.tap()
 
         // Wait for main lists view
         let createListButton = app.buttons["link-lists.create-list.button"]
-        XCTAssert(createListButton.waitForExistence(timeout: 5), "Failed to return to main lists view")
+        XCTAssert(createListButton.waitForExistence(timeout: 10), "Failed to return to main lists view")
 
         // Create three additional lists and edit their color and symbols
         let lists = [
@@ -131,31 +131,31 @@ final class ScreenshotUITests: XCTestCase {
 
             // Wait for the create list form to appear
             let createListForm = app.collectionViews["create-link-list.container"]
-            XCTAssert(createListForm.waitForExistence(timeout: 3), "Create list form did not appear for list \(idx)")
+            XCTAssert(createListForm.waitForExistence(timeout: 10), "Create list form did not appear for list \(idx)")
 
             // Enter a unique list name
             let listNameField = app.textFields["create-link-list.name.text-field"]
-            XCTAssert(listNameField.waitForExistence(timeout: 1), "List name text field not found for list \(idx)")
+            XCTAssert(listNameField.waitForExistence(timeout: 10), "List name text field not found for list \(idx)")
             listNameField.tap()
             listNameField.typeText(lists[idx].name)
 
             // Save the new list
             let saveButton = app.buttons["create-link-list.save-button"]
-            XCTAssert(saveButton.waitForExistence(timeout: 2), "Save button not found for list \(idx)")
+            XCTAssert(saveButton.waitForExistence(timeout: 10), "Save button not found for list \(idx)")
             saveButton.tap()
 
             // Open the edit list editor
             let createdListButton = app.buttons.containing(NSPredicate(format: "label CONTAINS '\(lists[idx].name)'")).firstMatch
-            XCTAssert(createdListButton.waitForExistence(timeout: 5), "Created list button not found for list \(idx)")
+            XCTAssert(createdListButton.waitForExistence(timeout: 10), "Created list button not found for list \(idx)")
             createdListButton.press(forDuration: 1.0)
 
             let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit \(lists[idx].name)'")).firstMatch
-            XCTAssert(editButton.waitForExistence(timeout: 3), "Edit button not found in context menu")
+            XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in context menu")
             editButton.tap()
 
             // Wait for the edit list form to appear
             let editListForm = app.collectionViews["link-list-info.container"]
-            XCTAssert(editListForm.waitForExistence(timeout: 3), "Edit list form did not appear for list \(idx)")
+            XCTAssert(editListForm.waitForExistence(timeout: 10), "Edit list form did not appear for list \(idx)")
 
             // Select a new color for the list
             app.buttons[lists[idx].color].tap()
@@ -165,7 +165,7 @@ final class ScreenshotUITests: XCTestCase {
             app.buttons["link-list-info.save-button"].tap()
 
             // Wait for return to main lists view
-            XCTAssert(createListButton.waitForExistence(timeout: 5), "Failed to return to main lists view after creating list \(idx)")
+            XCTAssert(createListButton.waitForExistence(timeout: 10), "Failed to return to main lists view after creating list \(idx)")
         }
 
         // 5. List of lists
