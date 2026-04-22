@@ -116,7 +116,10 @@ lane :run_screenshot_on_device do |options|
       only_testing: ["ScreenshotUITests/ScreenshotUITests/testScreenshots"],
       reinstall_app: true,
       output_types: "",
-      fail_build: true
+      fail_build: true,
+      # Absorb long-press / context-menu flake (notably on iPad). Mirrors
+      # the retries already configured on capture_screenshots in utilities.rb.
+      number_of_retries: 3
     )
   ensure
     # Always clear status bar, even on failure
