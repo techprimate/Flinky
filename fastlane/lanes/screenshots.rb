@@ -213,11 +213,16 @@ private_lane :_find_simulator_udid do |options|
   next match["udid"]
 end
 
-# Private lane: Boot a simulator by UDID
+# Private lane: Boot a simulator by UDID and block until it is fully booted.
+# `simctl boot` returns as soon as the boot process is kicked off, not when
+# the device is ready. `bootstatus -b` blocks until the simulator reaches the
+# home screen. Without this, subsequent `simctl status_bar override` calls
+# race the boot and silently no-op, leaking the real clock into screenshots.
 private_lane :_boot_simulator do |options|
   udid = options[:udid]
   UI.message "Booting simulator: #{udid}"
   sh("xcrun simctl boot #{udid} 2>/dev/null || true", log: false)
+  sh("xcrun simctl bootstatus #{udid} -b 2>/dev/null", log: false)
 end
 
 # Private lane: Override simulator status bar for clean screenshots
