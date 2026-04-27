@@ -103,27 +103,46 @@ lane :run_screenshot_on_device do |options|
   _boot_simulator(udid: simulator_udid)
   _override_status_bar(udid: simulator_udid)
 
-  begin
-    # scan auto-discovers Flinky.xcodeproj from cwd and requires a scheme
-    # to disambiguate. test_without_building + xctestrun ensures the
-    # pre-built bundle is reused instead of triggering a rebuild.
-    run_tests(
-      project: "Flinky.xcodeproj",
-      scheme: "ScreenshotUITests",
-      xctestrun: xctestrun_path,
-      test_without_building: true,
-      destination: "platform=iOS Simulator,name=#{device}",
-      only_testing: ["ScreenshotUITests/ScreenshotUITests/testScreenshots"],
-      reinstall_app: true,
-      output_types: "",
-      fail_build: true,
-      # Absorb long-press / context-menu flake (notably on iPad). Mirrors
-      # the retries already configured on capture_screenshots in utilities.rb.
-      number_of_retries: 3
-    )
-  ensure
-    # Always clear status bar, even on failure
-    _clear_status_bar(udid: simulator_udid)
+  # Two layers of retry:
+  #   - number_of_retries: xcodebuild reruns failing tests (-test-iterations + -retry-tests-on-failure).
+  #   - outer loop: full simulator reboot if even the in-test retries are exhausted, e.g. a wedged sim.
+  # output_remove_retry_attempts strips retried-then-passing iterations so scan's exit code reflects
+  # the final outcome rather than the first transient failure.
+  max_attempts = 2
+  last_failures = 0
+
+  (1..max_attempts).each do |attempt|
+    UI.message "Screenshot test attempt #{attempt}/#{max_attempts} on #{device}"
+    begin
+      result = run_tests(
+        project: "Flinky.xcodeproj",
+        scheme: "ScreenshotUITests",
+        xctestrun: xctestrun_path,
+        test_without_building: true,
+        destination: "platform=iOS Simulator,name=#{device}",
+        only_testing: ["ScreenshotUITests/ScreenshotUITests/testScreenshots"],
+        reinstall_app: true,
+        output_types: "",
+        number_of_retries: 3,
+        output_remove_retry_attempts: true,
+        fail_build: false
+      )
+      last_failures = result[:number_of_failures_excluding_retries] || 0
+    ensure
+      _clear_status_bar(udid: simulator_udid)
+    end
+
+    break if last_failures.zero?
+
+    if attempt < max_attempts
+      UI.important "Tests failed with #{last_failures} failure(s) after in-test retries; rebooting simulator and retrying"
+      _reboot_simulator(udid: simulator_udid)
+      _override_status_bar(udid: simulator_udid)
+    end
+  end
+
+  if last_failures.positive?
+    UI.user_error!("Screenshot tests on #{device} failed after #{max_attempts} attempts (#{last_failures} failure(s) excluding retries)")
   end
 
   # Verify screenshots were generated for this device
@@ -224,8 +243,20 @@ end
 private_lane :_boot_simulator do |options|
   udid = options[:udid]
   UI.message "Booting simulator: #{udid}"
-  sh("xcrun simctl boot #{udid} 2>/dev/null || true", log: false)
-  sh("xcrun simctl bootstatus #{udid} -b 2>/dev/null", log: false)
+  sh("xcrun simctl boot #{udid} 2>/dev/null || true")
+  sh("xcrun simctl bootstatus #{udid} -b")
+end
+
+# Private lane: Force a clean simulator reboot — used between outer test retries
+# to recover from wedged state that survives `-retry-tests-on-failure` (stuck
+# springboard, leaked test runner processes, frozen UI). Shutdown is best-effort
+# because the device may already be in a bad state.
+private_lane :_reboot_simulator do |options|
+  udid = options[:udid]
+  UI.message "Rebooting simulator: #{udid}"
+  sh("xcrun simctl shutdown #{udid} 2>/dev/null || true")
+  sh("xcrun simctl boot #{udid} 2>/dev/null || true")
+  sh("xcrun simctl bootstatus #{udid} -b")
 end
 
 # Private lane: Override simulator status bar for clean screenshots
@@ -250,5 +281,5 @@ end
 private_lane :_clear_status_bar do |options|
   udid = options[:udid]
   UI.message "Clearing status bar override..."
-  sh("xcrun simctl status_bar #{udid} clear 2>/dev/null || true", log: false)
+  sh("xcrun simctl status_bar #{udid} clear 2>/dev/null || true")
 end
