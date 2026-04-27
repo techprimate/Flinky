@@ -280,8 +280,8 @@ generate-screenshots:
 ## Build and upload a beta to TestFlight via Fastlane
 #
 # Runs Fastlane to build, sign, and upload a TestFlight build.
-.PHONY: publish-beta-build
-publish-beta-build:
+.PHONY: publish-testflight
+publish-testflight:
 	bundle install
 	bundle exec fastlane beta
 
@@ -289,8 +289,8 @@ publish-beta-build:
 #
 # Generates screenshots, uploads metadata, builds and uploads the app, then submits for App Store review.
 # This is a complete publishing workflow that includes screenshot generation, Sentry integration, and git tagging.
-.PHONY: publish
-publish:
+.PHONY: publish-appstore
+publish-appstore:
 	bundle install
 	bundle exec fastlane publish
 
