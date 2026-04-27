@@ -1,4 +1,4 @@
-name: Release Beta
+name: Publish to Testflight
 
 on:
   schedule:

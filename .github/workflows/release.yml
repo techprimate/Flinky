@@ -1,4 +1,4 @@
-name: Release to App Store
+name: Publish to App Store
 
 on:
   workflow_dispatch:
