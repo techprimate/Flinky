@@ -10,7 +10,7 @@
 #   ├── Fastfile              # This file - imports and platform definition
 #   ├── lanes/
 #   │   ├── build.rb          # build_ci lane
-#   │   ├── release.rb        # beta, release_beta_ci, publish, release_ci_build, release_ci_upload
+#   │   ├── release.rb        # beta, beta_ci, publish, publish_ci_build, publish_ci_upload
 #   │   ├── utilities.rb      # generate_*, upload_metadata, setup_code_signing, bump_*
 #   │   ├── screenshots.rb    # Parallel screenshot lanes (build_screenshots, run_screenshot_on_device, etc.)
 #   │   ├── helpers.rb        # Private helper lanes (_bump_version, _build_app_for_store, etc.)

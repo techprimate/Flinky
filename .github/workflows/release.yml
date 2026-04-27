@@ -85,7 +85,7 @@ jobs:
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
       - name: Build, Validate, and Setup Sentry
-        run: bundle exec fastlane release_ci_build
+        run: bundle exec fastlane publish_ci_build
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
@@ -268,7 +268,7 @@ jobs:
           echo "build=$(cat build_number.txt)" >> "$GITHUB_OUTPUT"
 
       - name: Upload to App Store and Submit for Review
-        run: bundle exec fastlane release_ci_upload version:${{ steps.version.outputs.version }} build:${{ steps.version.outputs.build }} ref:${{ inputs.ref }}
+        run: bundle exec fastlane publish_ci_upload version:${{ steps.version.outputs.version }} build:${{ steps.version.outputs.build }} ref:${{ inputs.ref }}
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
