@@ -63,7 +63,7 @@ desc <<~DESC
   Single CI lane used by release-beta.yml (scheduled/manual). No PR.
   Creates a signed, verified commit via the GitHub API linked to the GitHub App.
 DESC
-lane :release_beta_ci do
+lane :beta_ci do
   setup_ci if is_ci
 
   # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
@@ -134,12 +134,12 @@ lane :publish do
 end
 
 desc <<~DESC
-  Release to App Store: build, upload with metadata/screenshots, submit for review
-  Single CI lane used by release.yml (manual trigger). No PR.
-  Creates a signed, verified commit via the GitHub API linked to the GitHub App.
-  Generates screenshots, uploads metadata and binary, and submits for App Store review.
+  Release CI: Build phase
+  Prepares version, builds IPA, validates, and sets up Sentry release.
+  Outputs version and build number for downstream jobs.
+  Used by the parallel release workflow (release.yml).
 DESC
-lane :release_ci do
+lane :publish_ci_build do
   setup_ci if is_ci
 
   # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
@@ -154,9 +154,36 @@ lane :release_ci do
   _validate_app
   _setup_sentry_release(version: version_number, build: build_number)
 
-  # Generate screenshots
-  UI.message "Generating screenshots for App Store..."
-  generate_screenshots
+  # Write version info for downstream jobs
+  Dir.chdir("..") do
+    File.write("version.txt", version_number)
+    File.write("build_number.txt", build_number)
+  end
+
+  UI.success "✅ Release build complete: #{version_number} (#{build_number})"
+end
+
+desc <<~DESC
+  Release CI: Upload phase
+  Uploads IPA and screenshots to App Store Connect, submits for review,
+  finalizes Sentry release, and commits/tags the version.
+  Expects IPA at project root and screenshots in fastlane/screenshots/.
+  Options:
+    version: version number (required)
+    build: build number (required)
+    ref: git ref the release was dispatched from (optional, default "main").
+         Commit+tag on main is skipped when ref != "main" to avoid creating
+         version tags whose tree doesn't match what was uploaded.
+DESC
+lane :publish_ci_upload do |options|
+  setup_ci if is_ci
+
+  version_number = options[:version]
+  build_number = options[:build]
+  release_ref = options[:ref] || "main"
+
+  UI.user_error!("version is required") unless version_number
+  UI.user_error!("build is required") unless build_number
 
   # Upload to App Store Connect with metadata, screenshots, and submit for review
   upload_to_app_store(
@@ -164,7 +191,6 @@ lane :release_ci do
     ipa: File.expand_path("../Flinky.ipa"), # Explicit path to avoid relying on SharedValues
 
     app_version: version_number,
-    build_number: build_number,
 
     skip_binary_upload: false,
     overwrite_screenshots: true,
@@ -187,6 +213,13 @@ lane :release_ci do
 
   _finalize_sentry_release(version: version_number, build: build_number)
 
-  # Commit and tag on main via GitHub API (creates a signed, verified commit)
-  _commit_and_tag_version_signed(version: version_number, build: build_number)
+  # Commit and tag on main via GitHub API (creates a signed, verified commit).
+  # Skipped for non-main dispatches: _commit_and_tag_version_signed overlays
+  # VERSION_BUMP_FILES onto main's tree, which would not match the IPA that
+  # was actually uploaded from a feature branch.
+  if release_ref == "main"
+    _commit_and_tag_version_signed(version: version_number, build: build_number)
+  else
+    UI.important "Skipping commit+tag: dispatched from ref '#{release_ref}', not main"
+  end
 end
