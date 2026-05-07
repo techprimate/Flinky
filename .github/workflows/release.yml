@@ -181,7 +181,7 @@ jobs:
           bundler-cache: true
 
       - name: Download Test Bundle
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: screenshot-test-bundle
           path: /tmp/screenshot_build/Build/Products/
@@ -246,13 +246,13 @@ jobs:
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
       - name: Download Release Build
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: release-build
           path: .
 
       - name: Download All Screenshots
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: screenshots-*
           path: ~/Library/Caches/tools.fastlane/screenshots/
