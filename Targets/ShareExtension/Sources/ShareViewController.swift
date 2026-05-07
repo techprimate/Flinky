@@ -172,7 +172,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure Other Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
-        options.experimental.enableMetrics = true
+        options.enableMetrics = true
     }
 
     private func setupModelContainer() {
