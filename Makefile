@@ -334,6 +334,44 @@ bump-version-patch:
 	bundle exec fastlane bump_version_patch
 
 # ============================================================================
+# TOOLING
+# ============================================================================
+
+## Patch the Sentry package to a local path
+#
+# Patches the Sentry package to a local path to develop the SDK.
+#
+# Pass the path to sentry-cocoa with SENTRY_PACKAGE_PATH. The path is
+# relative to the project root.
+#
+# Example:
+# make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa
+#
+# The patch is applied to Flinky.xcodeproj/project.pbxproj.
+SENTRY_PACKAGE_PATCH ?= Scripts/patches/sentry-local-package.pbxproj.patch
+
+.PHONY: patch-sentry-package
+patch-sentry-package:
+	@if [ -z "$(SENTRY_PACKAGE_PATH)" ]; then \
+		echo "error: SENTRY_PACKAGE_PATH is required"; \
+		echo "usage: make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa"; \
+		exit 1; \
+	fi
+	@echo "Patching Sentry package to $(SENTRY_PACKAGE_PATH)..."
+	@tmp_patch=$$(mktemp); \
+	trap 'rm -f "$$tmp_patch"' EXIT; \
+	SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" perl -pe 's/__SENTRY_PACKAGE_PATH__/$$ENV{SENTRY_PACKAGE_PATH}/g' "$(SENTRY_PACKAGE_PATCH)" > "$$tmp_patch"; \
+	if git apply --check "$$tmp_patch" 2>/dev/null; then \
+		git apply "$$tmp_patch"; \
+	elif git apply --reverse --check "$$tmp_patch" 2>/dev/null; then \
+		echo "Sentry package patch is already applied."; \
+	else \
+		echo "error: could not apply Sentry package patch"; \
+		git apply --check "$$tmp_patch"; \
+		exit 1; \
+	fi
+
+# ============================================================================
 # HELP & DOCUMENTATION
 # ============================================================================
 
