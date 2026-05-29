@@ -1,3 +1,59 @@
+GIT
+  remote: https://github.com/philprime/fastlane.git
+  revision: 0818ad99cb4f047c5f715100786151936d458aa9
+  branch: fix/snapshot-simulator-destination-id
+  specs:
+    fastlane (2.235.0)
+      CFPropertyList (>= 2.3, < 5.0.0)
+      abbrev (~> 0.1)
+      addressable (>= 2.8, < 3.0.0)
+      artifactory (~> 3.0)
+      aws-sdk-s3 (~> 1.197)
+      babosa (>= 1.0.3, < 2.0.0)
+      base64 (~> 0.2)
+      benchmark (>= 0.1.0)
+      bundler (>= 2.4.0, < 5.0.0)
+      colored (~> 1.2)
+      commander (~> 4.6)
+      csv (~> 3.3)
+      dotenv (>= 2.1.1, < 3.0.0)
+      emoji_regex (>= 0.1, < 4.0)
+      excon (>= 0.71.0, < 1.0.0)
+      faraday (~> 1.0)
+      faraday-cookie_jar (~> 0.0.6)
+      faraday_middleware (~> 1.0)
+      fastimage (>= 2.1.0, < 3.0.0)
+      fastlane-sirp (>= 1.1.0)
+      gh_inspector (>= 1.1.2, < 2.0.0)
+      google-apis-androidpublisher_v3 (~> 0.3)
+      google-apis-playcustomapp_v1 (~> 0.1)
+      google-cloud-env (>= 1.6.0, < 2.3.0)
+      google-cloud-storage (~> 1.31)
+      highline (~> 2.0)
+      http-cookie (~> 1.0.5)
+      json (< 3.0.0)
+      jwt (>= 2.1.0, < 4)
+      logger (>= 1.6, < 2.0)
+      mini_magick (>= 4.9.4, < 5.0.0)
+      multipart-post (>= 2.0.0, < 3.0.0)
+      mutex_m (~> 0.3)
+      naturally (~> 2.2)
+      nkf (~> 0.2)
+      optparse (>= 0.1.1, < 1.0.0)
+      ostruct (>= 0.1.0)
+      plist (>= 3.1.0, < 4.0.0)
+      rubyzip (>= 2.0.0, < 3.0.0)
+      security (= 0.1.5)
+      simctl (~> 1.6.3)
+      terminal-notifier (>= 2.0.0, < 3.0.0)
+      terminal-table (~> 3)
+      tty-screen (>= 0.6.3, < 1.0.0)
+      tty-spinner (>= 0.8.0, < 1.0.0)
+      word_wrap (~> 1.0.0)
+      xcodeproj (>= 1.13.0, < 2.0.0)
+      xcpretty (~> 0.4.1)
+      xcpretty-travis-formatter (>= 0.0.3, < 2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,56 +128,6 @@ GEM
     faraday_middleware (1.2.1)
       faraday (~> 1.0)
     fastimage (2.4.1)
-    fastlane (2.235.0)
-      CFPropertyList (>= 2.3, < 5.0.0)
-      abbrev (~> 0.1)
-      addressable (>= 2.8, < 3.0.0)
-      artifactory (~> 3.0)
-      aws-sdk-s3 (~> 1.197)
-      babosa (>= 1.0.3, < 2.0.0)
-      base64 (~> 0.2)
-      benchmark (>= 0.1.0)
-      bundler (>= 2.4.0, < 5.0.0)
-      colored (~> 1.2)
-      commander (~> 4.6)
-      csv (~> 3.3)
-      dotenv (>= 2.1.1, < 3.0.0)
-      emoji_regex (>= 0.1, < 4.0)
-      excon (>= 0.71.0, < 1.0.0)
-      faraday (~> 1.0)
-      faraday-cookie_jar (~> 0.0.6)
-      faraday_middleware (~> 1.0)
-      fastimage (>= 2.1.0, < 3.0.0)
-      fastlane-sirp (>= 1.1.0)
-      gh_inspector (>= 1.1.2, < 2.0.0)
-      google-apis-androidpublisher_v3 (~> 0.3)
-      google-apis-playcustomapp_v1 (~> 0.1)
-      google-cloud-env (>= 1.6.0, < 2.3.0)
-      google-cloud-storage (~> 1.31)
-      highline (~> 2.0)
-      http-cookie (~> 1.0.5)
-      json (< 3.0.0)
-      jwt (>= 2.1.0, < 4)
-      logger (>= 1.6, < 2.0)
-      mini_magick (>= 4.9.4, < 5.0.0)
-      multipart-post (>= 2.0.0, < 3.0.0)
-      mutex_m (~> 0.3)
-      naturally (~> 2.2)
-      nkf (~> 0.2)
-      optparse (>= 0.1.1, < 1.0.0)
-      ostruct (>= 0.1.0)
-      plist (>= 3.1.0, < 4.0.0)
-      rubyzip (>= 2.0.0, < 3.0.0)
-      security (= 0.1.5)
-      simctl (~> 1.6.3)
-      terminal-notifier (>= 2.0.0, < 3.0.0)
-      terminal-table (~> 3)
-      tty-screen (>= 0.6.3, < 1.0.0)
-      tty-spinner (>= 0.8.0, < 1.0.0)
-      word_wrap (~> 1.0.0)
-      xcodeproj (>= 1.13.0, < 2.0.0)
-      xcpretty (~> 0.4.1)
-      xcpretty-travis-formatter (>= 0.0.3, < 2.0.0)
     fastlane-plugin-appicon (0.16.0)
       json
       mini_magick (>= 4.9.4, < 5.0.0)
@@ -248,7 +254,7 @@ PLATFORMS
 DEPENDENCIES
   abbrev
   benchmark
-  fastlane
+  fastlane!
   fastlane-plugin-appicon
   fastlane-plugin-sentry
   octokit
@@ -296,7 +302,7 @@ CHECKSUMS
   faraday-retry (1.0.4) sha256=dc659233777fabf96c69c2ffe56c0a5d2c102af90321a42cc6c90157bcd716aa
   faraday_middleware (1.2.1) sha256=d45b78c8ee864c4783fbc276f845243d4a7918a67301c052647bacabec0529e9
   fastimage (2.4.1) sha256=c64bebd46b6fd8943ab70c1e6e85ff728f970f2e48f92ecd249b6bc3a540ad20
-  fastlane (2.235.0) sha256=7de12cf4c4e242b68836aef859ba8e6b25bb1db7f6c8e2d705b024fb16a2ed65
+  fastlane (2.235.0)
   fastlane-plugin-appicon (0.16.0) sha256=e5a592f4566a06fcae5c30dad50500293885ae0a954b19189f3fea3c64ddbb8a
   fastlane-plugin-sentry (2.5.5) sha256=e363e09c73b909ab2599a1b68ac02ebabf051351d832fe01c771df076dc61b77
   fastlane-sirp (1.1.0) sha256=10bc94f9682efd8e1badfb31452a76dd8981f1f3a33717c765fde6d75b54d847
