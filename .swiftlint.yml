@@ -1,6 +1,9 @@
 excluded:
   - ".git"
   - "**/SnapshotHelper.swift"
+  - ".agents"
+  - ".bundle"
+  - "vendor"
 
 # Rules
 line_length:
