@@ -115,6 +115,8 @@ lane :generate_screenshots do
     localize_simulator: true,
     disable_slide_to_type: true,
 
+    skip_helper_version_check: true,
+
     # Absorb flake (long-press/wait timing in simulators) with 3 retries,
     # then fail the lane loudly. Without stop_after_first_error, snapshot
     # silently returns even after exhausting retries, so broken screenshot
@@ -151,6 +153,8 @@ lane :generate_screenshots_ci do
     override_status_bar: true,
     localize_simulator: true,
     disable_slide_to_type: true,
+
+    skip_helper_version_check: true,
 
     # See generate_screenshots: retry flakes, then fail loudly.
     number_of_retries: 3,
