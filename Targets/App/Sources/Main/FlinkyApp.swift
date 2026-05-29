@@ -187,42 +187,6 @@ struct FlinkyApp: App {
                 themeOptions.outlineStyle.cornerRadius = 5
                 themeOptions.outlineStyle.outlineWidth = 0.5
             }
-            feedbackOptions.configureDarkTheme = { themeOptions in
-                // Background color to use for text inputs in the feedback form.
-                themeOptions.inputBackground = UIColor.systemGray6
-
-                // Background color to use for text inputs in the feedback form.
-                themeOptions.inputForeground = UIColor.label
-
-                // The font family to use for form text elements.
-                themeOptions.fontFamily = nil  // Defaults to system font
-
-                // Foreground text color of the widget and form.
-                themeOptions.foreground = UIColor.label
-
-                // Background color of the widget and form.
-                themeOptions.background = UIColor.systemBackground
-
-                // Foreground color for the form submit button.
-                themeOptions.submitForeground = UIColor.systemBlue
-
-                // Background color for the form submit button in light and dark modes.
-                themeOptions.submitBackground = UIColor.systemBackground
-
-                // Foreground color for the cancel and screenshot buttons.
-                themeOptions.buttonForeground = UIColor.label
-
-                // Background color for the form cancel and screenshot buttons in light and dark modes.
-                themeOptions.buttonBackground = UIColor.systemBackground
-
-                // Color used for error-related components (such as text color when there's an error submitting feedback).
-                themeOptions.errorColor = UIColor.systemRed
-
-                // Options for styling the outline of input elements and buttons in the feedback form.
-                themeOptions.outlineStyle.color = UIColor.systemGray
-                themeOptions.outlineStyle.cornerRadius = 5
-                themeOptions.outlineStyle.outlineWidth = 0.5
-            }
             feedbackOptions.onFormOpen = {
                 let breadcrumb = Breadcrumb(level: .info, category: "user_feedback")
                 breadcrumb.message = "User opened feedback form"
@@ -241,12 +205,18 @@ struct FlinkyApp: App {
             }
         }
 
-        // Configure Other Options
-        options.experimental.enableUnhandledCPPExceptionsV2 = false
-        options.enableMetrics = true
-
         // Configure Logs
         options.enableLogs = true
+
+        // Configure Metrics
+        options.enableMetrics = true
+
+        // Configure Experimental Options
+        options.experimental.enableUnhandledCPPExceptionsV2 = false
+        options.experimental.enableReplayNetworkDetailsCapturing = true
+        options.experimental.enableWatchdogTerminationsV2 = true
+        options.experimental.enableStandaloneAppStartTracing = true
+
     }
 
     var body: some Scene {
