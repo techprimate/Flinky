@@ -50,7 +50,7 @@ jobs:
         if: failure()
         run: ./Scripts/ci-diagnostics.sh
 
-  build-test:
+  test:
     name: Test
     runs-on: macos-26
     timeout-minutes: 60
@@ -90,7 +90,7 @@ jobs:
         if: failure()
         run: ./Scripts/ci-diagnostics.sh
 
-  build-test-ui:
+  test-ui:
     name: Test UI
     runs-on: macos-26
     timeout-minutes: 60
@@ -124,48 +124,6 @@ jobs:
           name: ui-test-results
           path: |
             ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
-          retention-days: 7
-
-      - name: Run CI Diagnostics
-        if: failure()
-        run: ./Scripts/ci-diagnostics.sh
-
-  screenshots:
-    name: Screenshots
-    runs-on: macos-26
-    timeout-minutes: 60
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
-        with:
-          submodules: true
-
-      - name: Install Dependencies
-        run: brew bundle --file Brewfile-ci
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Capture and Upload Screenshots
-        run: bundle exec fastlane generate_and_upload_screenshots_ci
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Simulator boot is slow on hosted runners. Without this, snapshot
-          # runs `simctl status_bar override` with a 0s wait (see bug in
-          # fastlane's simulator_launcher_base.rb:129 — `nil.to_i || 10` is 0,
-          # not 10) and the override silently no-ops against a not-yet-booted
-          # simulator, so the real clock time leaks into the screenshots.
-          SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT: "30"
-
-      - name: Upload Screenshots
-        uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: screenshots
-          path: fastlane/screenshots/
           retention-days: 7
 
       - name: Run CI Diagnostics
