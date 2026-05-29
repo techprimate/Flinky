@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1640"
+   LastUpgradeVersion = "2650"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -114,15 +114,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4D359D82E1BDF540006226D"
-            BuildableName = "Flinky.app"
-            BlueprintName = "Flinky"
-            ReferencedContainer = "container:Flinky.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
