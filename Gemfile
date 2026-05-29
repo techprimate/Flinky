@@ -4,7 +4,7 @@ gem "abbrev" # Required by Ruby v3.4.X
 gem "ostruct" # Required by Ruby v3.5.X
 gem "benchmark" # Required by Ruby v3.5.X
 
-gem "fastlane"
+gem "fastlane", git: "https://github.com/philprime/fastlane.git", branch: "fix/snapshot-simulator-destination-id"
 gem "octokit"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
