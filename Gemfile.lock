@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/philprime/fastlane.git
-  revision: 0818ad99cb4f047c5f715100786151936d458aa9
-  branch: fix/snapshot-simulator-destination-id
+  remote: https://github.com/fastlane/fastlane.git
+  revision: 43dc4faf0eb899e6483b63252af9c53e09ba6190
+  branch: master
   specs:
     fastlane (2.235.0)
       CFPropertyList (>= 2.3, < 5.0.0)
