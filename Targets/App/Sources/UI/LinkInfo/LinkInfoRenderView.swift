@@ -1,9 +1,10 @@
 import FlinkyCore
 import SFSafeSymbols
-import Sentry
 import SwiftUI
 
 struct LinkInfoRenderView: View {
+    @Environment(\.feedback) private var feedback
+
     @Binding var name: String
     @Binding var url: String
     @Binding var color: ListColor
@@ -37,7 +38,7 @@ struct LinkInfoRenderView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    SentrySDK.feedback.showForm()
+                    feedback.show()
                 }, label: {
                     Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                 })

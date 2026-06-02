@@ -1,8 +1,9 @@
 import SFSafeSymbols
-import Sentry
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
+    @Environment(\.feedback) private var feedback
+
     let pinnedLists: [LinkListsDisplayItem]
     let unpinnedLists: [LinkListsDisplayItem]
 
@@ -74,7 +75,7 @@ struct LinkListsRenderView<Destination: View>: View {
             view.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        SentrySDK.feedback.presentUI()
+                        feedback.show()
                     }, label: {
                         Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                     })
@@ -124,7 +125,7 @@ struct LinkListsRenderView<Destination: View>: View {
             view.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        SentrySDK.feedback.presentUI()
+                        feedback.show()
                     }, label: {
                         Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                     })

@@ -1,9 +1,10 @@
 import FlinkyCore
 import SFSafeSymbols
-import Sentry
 import SwiftUI
 
 struct LinkListDetailRenderView: View {
+    @Environment(\.feedback) private var feedback
+
     let list: LinkListsDisplayItem
     let links: [LinkListDetailDisplayItem]
 
@@ -33,7 +34,7 @@ struct LinkListDetailRenderView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        SentrySDK.feedback.presentUI()
+                        feedback.show()
                     }, label: {
                         Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                     })

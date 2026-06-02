@@ -1,5 +1,4 @@
 import SFSafeSymbols
-import Sentry
 import SwiftUI
 
 struct CreateLinkListEditorRenderView: View {
@@ -8,6 +7,7 @@ struct CreateLinkListEditorRenderView: View {
     }
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedback) private var feedback
 
     @Binding var name: String
     @FocusState private var focusedField: CreateField?
@@ -31,7 +31,7 @@ struct CreateLinkListEditorRenderView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    SentrySDK.feedback.showForm()
+                    feedback.show()
                 }, label: {
                     Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                 })

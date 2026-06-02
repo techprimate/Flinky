@@ -7,6 +7,7 @@ import SwiftUI
 
 struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedback) private var feedback
 
     let linkId: UUID
 
@@ -32,7 +33,7 @@ struct LinkDetailRenderView: View {
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
                 Button(action: {
-                    SentrySDK.feedback.showForm()
+                    feedback.show()
                 }, label: {
                     Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
                 })

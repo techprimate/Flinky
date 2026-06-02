@@ -1859,8 +1859,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
-				kind = exactVersion;
-				version = 9.15.0;
+				branch = "ref/feedback-config-arg";
+				kind = branch;
 			};
 			traits = (
 			);
@@ -1871,14 +1871,6 @@
 			requirement = {
 				kind = exactVersion;
 				version = 0.0.6;
-			};
-		};
-		D48F65902EC7A2630027AFC3 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
-			requirement = {
-				branch = "philprime/feedback-show-form-button";
-				kind = branch;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
