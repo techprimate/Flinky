@@ -348,7 +348,7 @@ bump-version-patch:
 # make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa
 #
 # The patch is applied to Flinky.xcodeproj/project.pbxproj.
-SENTRY_PACKAGE_PATCH ?= Scripts/patches/sentry-local-package.pbxproj.patch
+SENTRY_PACKAGE_PROJECT ?= Flinky.xcodeproj/project.pbxproj
 
 .PHONY: patch-sentry-package
 patch-sentry-package:
@@ -358,18 +358,7 @@ patch-sentry-package:
 		exit 1; \
 	fi
 	@echo "Patching Sentry package to $(SENTRY_PACKAGE_PATH)..."
-	@tmp_patch=$$(mktemp); \
-	trap 'rm -f "$$tmp_patch"' EXIT; \
-	SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" perl -pe 's/__SENTRY_PACKAGE_PATH__/$$ENV{SENTRY_PACKAGE_PATH}/g' "$(SENTRY_PACKAGE_PATCH)" > "$$tmp_patch"; \
-	if git apply --check "$$tmp_patch" 2>/dev/null; then \
-		git apply "$$tmp_patch"; \
-	elif git apply --reverse --check "$$tmp_patch" 2>/dev/null; then \
-		echo "Sentry package patch is already applied."; \
-	else \
-		echo "error: could not apply Sentry package patch"; \
-		git apply --check "$$tmp_patch"; \
-		exit 1; \
-	fi
+	@SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" ruby Scripts/patch-sentry-package.rb "$(SENTRY_PACKAGE_PROJECT)"
 
 # ============================================================================
 # HELP & DOCUMENTATION
