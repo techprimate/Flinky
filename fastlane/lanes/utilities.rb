@@ -216,9 +216,14 @@ desc <<~DESC
   Useful for updating store listing without creating a new build
 DESC
 lane :upload_metadata do
-  UI.message "Uploading metadata to App Store Connect"
+  version_number = get_version_number(
+    xcodeproj: "Flinky.xcodeproj",
+    target: "Flinky"
+  )
+  UI.message "Uploading metadata to App Store Connect for version #{version_number}"
   upload_to_app_store(
     api_key_path: File.expand_path("./api-key.json"),
+    app_version: version_number,
 
     skip_binary_upload: true,
     overwrite_screenshots: true,
