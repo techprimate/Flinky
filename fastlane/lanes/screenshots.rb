@@ -100,7 +100,8 @@ lane :run_screenshot_on_device do |options|
   UI.message "Running screenshots on: #{device}"
 
   # Boot simulator and override status bar
-  simulator_udid = options[:simulator_udid]
+  simulator_udid = options[:simulator_udid]&.strip
+  simulator_udid = nil if simulator_udid&.empty?
   if simulator_udid
     UI.message "Using pre-resolved simulator UDID: #{simulator_udid}"
   else
