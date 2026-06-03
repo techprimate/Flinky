@@ -187,7 +187,7 @@ jobs:
           path: /tmp/screenshot_build/Build/Products/
 
       - name: Wait for iOS Simulator
-        uses: kula-app/wait-for-services-action/ios-simulator@v1
+        uses: kula-app/wait-for-services-action/ios-simulator@main
         with:
           device: ${{ matrix.device }}
           boot: true
