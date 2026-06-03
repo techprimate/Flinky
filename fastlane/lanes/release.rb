@@ -195,6 +195,7 @@ lane :publish_ci_upload do |options|
     skip_binary_upload: false,
     overwrite_screenshots: true,
     submit_for_review: true,
+    reject_if_possible: true,
 
     run_precheck_before_submit: false,
     precheck_include_in_app_purchases: false,
