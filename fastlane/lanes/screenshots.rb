@@ -72,6 +72,7 @@ desc <<~DESC
   Handles simulator status bar override and screenshot collection.
   Options:
     device: simulator device name (required, e.g. "iPhone 17 Pro")
+    simulator_udid: pre-resolved simulator UDID (skips lookup and boot if provided)
     derived_data_path: path to pre-built test products (default: /tmp/screenshot_derived_data)
     language: language code for screenshots (default: en-US)
 DESC
@@ -99,9 +100,25 @@ lane :run_screenshot_on_device do |options|
   UI.message "Running screenshots on: #{device}"
 
   # Boot simulator and override status bar
-  simulator_udid = _find_simulator_udid(device: device)
-  _boot_simulator(udid: simulator_udid)
+  simulator_udid = options[:simulator_udid]&.strip
+  simulator_udid = nil if simulator_udid&.empty?
+  if simulator_udid
+    UI.message "Using pre-resolved simulator UDID: #{simulator_udid}"
+  else
+    simulator_udid = _find_simulator_udid(device: device)
+    _boot_simulator(udid: simulator_udid)
+  end
   _override_status_bar(udid: simulator_udid)
+
+  # Uninstall app before testing to ensure clean state. We handle this ourselves
+  # rather than using run_tests' reinstall_app option because scan resolves
+  # Scan.devices independently and may target a different simulator UDID when
+  # multiple runtimes are installed.
+  app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+  if app_identifier
+    UI.message "Uninstalling #{app_identifier} from #{simulator_udid}..."
+    sh("xcrun simctl uninstall #{simulator_udid} #{app_identifier} 2>/dev/null || true")
+  end
 
   # Two layers of retry:
   #   - number_of_retries: xcodebuild reruns failing tests (-test-iterations + -retry-tests-on-failure).
@@ -119,15 +136,19 @@ lane :run_screenshot_on_device do |options|
         scheme: "ScreenshotUITests",
         xctestrun: xctestrun_path,
         test_without_building: true,
-        destination: "platform=iOS Simulator,name=#{device}",
+        destination: "platform=iOS Simulator,id=#{simulator_udid}",
         only_testing: ["ScreenshotUITests/ScreenshotUITests/testScreenshots"],
-        reinstall_app: true,
         output_types: "",
         number_of_retries: 3,
         output_remove_retry_attempts: true,
         fail_build: false
       )
-      last_failures = result[:number_of_failures_excluding_retries] || 0
+      if result.nil?
+        UI.error "run_tests returned no result — treating as failure"
+        last_failures = 1
+      else
+        last_failures = result[:number_of_failures_excluding_retries] || 0
+      end
     ensure
       _clear_status_bar(udid: simulator_udid)
     end
