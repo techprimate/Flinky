@@ -194,11 +194,6 @@ struct LinkListsContainerView: View {
             }
         }
         .sentryTrace("LINK_LISTS_VIEW")
-        .onAppear {
-            // Auto-injecting Sentry feedback widget is currently not supported in SwiftUI.
-            // Therefore we manually trigger it when the view appears.
-            SentrySDK.feedback.showWidget()
-        }
         .onChange(of: searchText) { oldValue, newValue in
             // Track search when user starts searching (transitions from empty to non-empty)
             if oldValue.isEmpty && !newValue.isEmpty {

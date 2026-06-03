@@ -117,15 +117,6 @@ struct FlinkyApp: App {
         // Configure User Feedback
         options.configureUserFeedback = { feedbackOptions in
             feedbackOptions.animations = true
-            feedbackOptions.configureWidget = { widgetOptions in
-                widgetOptions.autoInject = false  // Disable automatic injection of the widget, because it's not supported in SwiftUI.
-                widgetOptions.labelText = "Send Feedback"
-                widgetOptions.showIcon = true
-                widgetOptions.widgetAccessibilityLabel = "Feedback Widget"
-                widgetOptions.windowLevel = UIWindow.Level.normal + 1
-                widgetOptions.location = [.bottom, .trailing]
-                widgetOptions.layoutUIOffset = .init(horizontal: 18, vertical: 80)
-            }
             feedbackOptions.useShakeGesture = true
             feedbackOptions.showFormForScreenshots = true
             feedbackOptions.configureForm = { formOptions in
@@ -222,6 +213,10 @@ struct FlinkyApp: App {
     var body: some Scene {
         WindowGroup {
             MainContainerView()
+                .environment(\.feedback, FeedbackAction {
+                    let config = SentryFeedbackFormConfig()
+                    SentrySDK.feedback.show(config: config)
+                })
                 .toaster(toastManager)
                 .configureOnLaunch { options in
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
