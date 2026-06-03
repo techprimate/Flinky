@@ -127,7 +127,12 @@ lane :run_screenshot_on_device do |options|
         output_remove_retry_attempts: true,
         fail_build: false
       )
-      last_failures = result&.dig(:number_of_failures_excluding_retries) || 0
+      if result.nil?
+        UI.error "run_tests returned no result — treating as failure"
+        last_failures = 1
+      else
+        last_failures = result[:number_of_failures_excluding_retries] || 0
+      end
     ensure
       _clear_status_bar(udid: simulator_udid)
     end
