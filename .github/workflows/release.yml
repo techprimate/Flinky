@@ -186,6 +186,15 @@ jobs:
           name: screenshot-test-bundle
           path: /tmp/screenshot_build/Build/Products/
 
+      - name: Wait for iOS Simulator
+        uses: kula-app/wait-for-services-action/ios-simulator@v1
+        with:
+          device: ${{ matrix.device }}
+          boot: true
+          warm-xcodebuild-settings: true
+          project: Flinky.xcodeproj
+          scheme: ScreenshotUITests
+
       - name: Run Screenshots
         run: bundle exec fastlane run_screenshot_on_device "device:${{ matrix.device }}" derived_data_path:/tmp/screenshot_build
 
