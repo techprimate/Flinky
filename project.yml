@@ -448,6 +448,17 @@ schemes:
         - path: Targets/UITests/Config/UITests.xctestplan
         - path: Targets/ScreenshotUITests/Config/ScreenshotUITests.xctestplan
         - path: Targets/ShareExtensionUITests/Config/ShareExtensionUITests.xctestplan
+      targets:
+        - name: Tests
+          parallelizable: true
+        - name: FlinkyCoreTests
+          parallelizable: true
+        - name: ShareExtensionUITests
+          parallelizable: true
+        - name: UITests
+          parallelizable: true
+        - name: ShareExtensionTests
+          parallelizable: true
     profile:
       config: Release
     analyze:
@@ -482,6 +493,9 @@ schemes:
       testPlans:
         - path: Targets/FlinkyCoreTests/Config/FlinkyCoreTests.xctestplan
           defaultPlan: true
+      targets:
+        - name: FlinkyCoreTests
+          parallelizable: true
     run:
       config: Debug
     profile:
@@ -504,6 +518,8 @@ schemes:
       testPlans:
         - path: Targets/ScreenshotUITests/Config/ScreenshotUITests.xctestplan
           defaultPlan: true
+      targets:
+        - name: ScreenshotUITests
     profile:
       config: Release
     analyze:
@@ -524,6 +540,13 @@ schemes:
         - path: Targets/ShareExtensionTests/Config/ShareExtensionTests.xctestplan
           defaultPlan: true
         - path: Targets/ShareExtensionUITests/Config/ShareExtensionUITests.xctestplan
+      targets:
+        - name: ShareExtensionUITests
+          parallelizable: true
+        - name: UITests
+          parallelizable: true
+        - name: ShareExtensionTests
+          parallelizable: true
     profile:
       config: Release
     analyze:
@@ -540,6 +563,9 @@ schemes:
       testPlans:
         - path: Targets/ShareExtensionTests/Config/ShareExtensionTests.xctestplan
           defaultPlan: true
+      targets:
+        - name: ShareExtensionTests
+          parallelizable: true
     run:
       config: Debug
     profile:
@@ -558,6 +584,15 @@ schemes:
       testPlans:
         - path: Targets/ShareExtensionUITests/Config/ShareExtensionUITests.xctestplan
           defaultPlan: true
+      targets:
+        - name: ShareExtensionUITests
+          parallelizable: true
+        - name: FlinkyCoreTests
+          parallelizable: true
+        - name: UITests
+          parallelizable: true
+        - name: ShareExtensionTests
+          parallelizable: true
     run:
       config: Debug
     profile:
@@ -576,6 +611,11 @@ schemes:
       testPlans:
         - path: Targets/Tests/Config/Tests.xctestplan
           defaultPlan: true
+      targets:
+        - name: Tests
+          parallelizable: true
+        - name: ShareExtensionTests
+          parallelizable: true
     run:
       config: Debug
     profile:
@@ -594,6 +634,9 @@ schemes:
       testPlans:
         - path: Targets/UITests/Config/UITests.xctestplan
           defaultPlan: true
+      targets:
+        - name: UITests
+          parallelizable: true
     run:
       config: Debug
     profile:

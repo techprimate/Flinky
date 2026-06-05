@@ -45,6 +45,17 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "31222234B0F5EAD020CD23EE"
+               BuildableName = "UITests.xctest"
+               BlueprintName = "UITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

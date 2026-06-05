@@ -62,6 +62,39 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DC44702A3CEA6A63C027A551"
+               BuildableName = "ShareExtensionUITests.xctest"
+               BlueprintName = "ShareExtensionUITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "31222234B0F5EAD020CD23EE"
+               BuildableName = "UITests.xctest"
+               BlueprintName = "UITests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C7204C8FA7F18BE7B8526098"
+               BuildableName = "ShareExtensionTests.xctest"
+               BlueprintName = "ShareExtensionTests"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>
