@@ -42,28 +42,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
-      - type: syncedFolder
-        path: Targets/App
-    resources:
-      - Targets/App/Sources/Resources
-    info:
-      path: Targets/App/Sources/Resources/Info.plist
-      properties:
-        CFBundleDisplayName: Flinky
-        ITSAppUsesNonExemptEncryption: false
-        LSApplicationCategoryType: public.app-category.productivity
-        NFCReaderUsageDescription: "Share links with other NFC-capable devices by bringing them close together."
-        NSPhotoLibraryAddUsageDescription: "Save your QRCode to your Photos"
-        UIApplicationSceneManifest_Generation: true
-        UIApplicationSupportsIndirectInputEvents: true
-        UILaunchScreen_Generation: true
-        UISupportedInterfaceOrientations:
-          - UIInterfaceOrientationPortrait
-        UISupportedInterfaceOrientations_iPad:
-          - UIInterfaceOrientationLandscapeLeft
-          - UIInterfaceOrientationLandscapeRight
-          - UIInterfaceOrientationPortrait
-          - UIInterfaceOrientationPortraitUpsideDown
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/App/Config
+        type: group
+        buildPhase: none
+      - path: Targets/App/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/App/Sources
     entitlements:
       path: Targets/App/Sources/Resources/App.entitlements
       properties:
@@ -87,6 +73,18 @@ targets:
         ENABLE_PREVIEWS: true
         ENABLE_USER_SCRIPT_SANDBOXING: false
         GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_FILE: Targets/App/Sources/Resources/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: Flinky
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: false
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+        INFOPLIST_KEY_NFCReaderUsageDescription: "Share links with other NFC-capable devices by bringing them close together."
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Save your QRCode to your Photos"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown"
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -184,6 +182,13 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/FlinkyCore/Config
+        type: group
+        buildPhase: none
+      - path: Targets/FlinkyCore/Generated
+        type: group
+        buildPhase: none
       - path: Targets/FlinkyCore/Sources
         excludes:
           - "**/*.xcstrings"
@@ -246,20 +251,18 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/ShareExtension/Config
+        type: group
+        buildPhase: none
+      - path: Targets/ShareExtension/Generated
+        type: group
+        buildPhase: none
       - path: Targets/ShareExtension/Sources
         excludes:
           - "**/*.xcstrings"
     resources:
       - Targets/ShareExtension/Sources/Resources/Localizable.xcstrings
-    info:
-      path: Targets/ShareExtension/Sources/Resources/Info.plist
-      properties:
-        NSExtension:
-          NSExtensionAttributes:
-            NSExtensionActivationRule:
-              NSExtensionActivationSupportsWebURLWithMaxCount: 1
-          NSExtensionMainStoryboard: MainInterface
-          NSExtensionPointIdentifier: com.apple.share-services
     entitlements:
       path: Targets/ShareExtension/Sources/Resources/ShareExtension.entitlements
       properties:
@@ -280,6 +283,9 @@ targets:
         CODE_SIGN_IDENTITY: Apple Development
         PROVISIONING_PROFILE_SPECIFIER: ""
         GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_FILE: Targets/ShareExtension/Sources/Resources/Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: ShareExtension
+        INFOPLIST_KEY_NSHumanReadableCopyright: ""
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: "1,2"
         IPHONEOS_DEPLOYMENT_TARGET: "18.0"
@@ -291,7 +297,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
-      - Targets/Tests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/Tests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/Tests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/Tests/Sources
     dependencies:
       - target: Flinky
       - target: FlinkyCore
@@ -317,7 +330,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
-      - Targets/FlinkyCoreTests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/FlinkyCoreTests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/FlinkyCoreTests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/FlinkyCoreTests/Sources
     dependencies:
       - target: Flinky
       - target: FlinkyCore
@@ -343,7 +363,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
-      - Targets/ScreenshotUITests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/ScreenshotUITests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/ScreenshotUITests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/ScreenshotUITests/Sources
     dependencies:
       - target: Flinky
     settings:
@@ -366,7 +393,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.5"
     sources:
-      - Targets/UITests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/UITests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/UITests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/UITests/Sources
     dependencies:
       - target: Flinky
     settings:
@@ -389,7 +423,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.5"
     sources:
-      - Targets/ShareExtensionTests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/ShareExtensionTests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/ShareExtensionTests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/ShareExtensionTests/Sources
     dependencies:
       - target: Flinky
     settings:
@@ -413,7 +454,14 @@ targets:
     platform: iOS
     deploymentTarget: "18.0"
     sources:
-      - Targets/ShareExtensionUITests/Sources
+      # type: group to appear in navigator without target membership (synced folders get built)
+      - path: Targets/ShareExtensionUITests/Config
+        type: group
+        buildPhase: none
+      - path: Targets/ShareExtensionUITests/Generated
+        type: group
+        buildPhase: none
+      - path: Targets/ShareExtensionUITests/Sources
     dependencies:
       - target: Flinky
     settings:

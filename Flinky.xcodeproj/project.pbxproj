@@ -153,14 +153,33 @@
 
 /* Begin PBXFileReference section */
 		059BCB5750D9FA391DD12D81 /* ScreenshotUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ScreenshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		079EC5D290872123FB3932F7 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		0CD0E5B528681C37C5D9BFA8 /* Tests.xctestplan */ = {isa = PBXFileReference; path = Tests.xctestplan; sourceTree = "<group>"; };
+		0F0B94F3BDCFC52059CB276A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		17EA3DC70EB92B6918EB416D /* ScreenshotUITests.xctestplan */ = {isa = PBXFileReference; path = ScreenshotUITests.xctestplan; sourceTree = "<group>"; };
 		1D900CBF09B14E24193D89A4 /* UITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		36351257627C5D50DA20A632 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		38564E628219DE7E3AB7A218 /* Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A63C68C7CE52097D4D6A87 /* ShareExtensionUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShareExtensionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D5326755890014646F1A18 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		577A116C3CE64463030632D4 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlinkyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A78BDEF1343DB01FD30C085 /* Flinky.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		63F2719A154E0F147F282342 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		6C12F45D5D5C165AEDD528B0 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		6D6045792B8E63F5E6F67F60 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		7C6BB210F711DB71F2A873DB /* generated-en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "generated-en.strings"; sourceTree = "<group>"; };
+		853DB7017FF97DD3908F6C7F /* ShareExtensionTests.xctestplan */ = {isa = PBXFileReference; path = ShareExtensionTests.xctestplan; sourceTree = "<group>"; };
+		87313E6AE102FDC7EE6E3BF2 /* FlinkyCoreTests.xctestplan */ = {isa = PBXFileReference; path = FlinkyCoreTests.xctestplan; sourceTree = "<group>"; };
+		8FC31C8510DC1BCB55183C78 /* ShareExtensionUITests.xctestplan */ = {isa = PBXFileReference; path = ShareExtensionUITests.xctestplan; sourceTree = "<group>"; };
+		987257103FB94CF2DC77F06B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		A72A23B2DF367F098C641658 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		ACA557858781CC46D5336CFC /* ShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C125331DA10E849935655F97 /* ShareExtensionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShareExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E29C2ADD1C55FDD65047F6 /* FlinkyCoreTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FlinkyCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A18AE1941697EAE2F5D108 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		E14279C5A24404773D6EB183 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		E3083D8106034E78E306C15C /* UITests.xctestplan */ = {isa = PBXFileReference; path = UITests.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -172,19 +191,19 @@
 			);
 			target = 5DE7B4773E669E09577A0496 /* ShareExtension */;
 		};
-		BE3C127FE0C4A3162480CE38 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Sources/Resources/Info.plist,
-			);
-			target = 9198AA103876EC14A96930E2 /* Flinky */;
-		};
 		E651A0D863A3C222423586CC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Localizable.xcstrings,
 			);
 			target = 43502ECD46B23B0DE3807D91 /* FlinkyCore */;
+		};
+		F9F9BCB70222C50340A32881 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = 9198AA103876EC14A96930E2 /* Flinky */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -229,6 +248,19 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		70D1B52C7753D5F428D702C8 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F9F9BCB70222C50340A32881 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			name = Sources;
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		8C7AFEE60176D28EB8433EF0 /* Sources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			explicitFileTypes = {
@@ -250,19 +282,6 @@
 			);
 			name = Sources;
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		BC5F79CA9A38A9EE6E30D032 /* App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BE3C127FE0C4A3162480CE38 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			name = App;
-			path = App;
 			sourceTree = "<group>";
 		};
 		C61D7A355BA14243C5CB1404 /* Sources */ = {
@@ -340,9 +359,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04F97F31FB6C7194F6D2660F /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				36351257627C5D50DA20A632 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		05F6990A0720A8E9C7410F13 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				079EC5D290872123FB3932F7 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		0702235C70DB52ACFED3E44C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				87313E6AE102FDC7EE6E3BF2 /* FlinkyCoreTests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		07730552C5E182E06469F7A2 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				8FC31C8510DC1BCB55183C78 /* ShareExtensionUITests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		07E98CB4F7B53BE407E1537B /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				853DB7017FF97DD3908F6C7F /* ShareExtensionTests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		16DA5BF6534D49C9F2935B1C /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				6C12F45D5D5C165AEDD528B0 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		1A0019A19038AEB5DB058ADE /* ShareExtensionUITests */ = {
 			isa = PBXGroup;
 			children = (
+				07730552C5E182E06469F7A2 /* Config */,
+				49535E498560B1274F786DF2 /* Generated */,
 				00899E2C91190631EDD856E2 /* Sources */,
 			);
 			path = ShareExtensionUITests;
@@ -351,9 +420,27 @@
 		1BFAEE6BD3117452598FEF9E /* FlinkyCore */ = {
 			isa = PBXGroup;
 			children = (
+				7408F0D1BE0A8C567CE518C1 /* Config */,
+				05F6990A0720A8E9C7410F13 /* Generated */,
 				C806D5E5F780EFAF23B190B9 /* Sources */,
 			);
 			path = FlinkyCore;
+			sourceTree = "<group>";
+		};
+		1F7798A67CC543AD7CBD6FDD /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				6D6045792B8E63F5E6F67F60 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		1F8723944B3137893E4E0EE3 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				42D5326755890014646F1A18 /* .gitkeep */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		27F9FACA2BBF95F166C8D268 = {
@@ -364,33 +451,81 @@
 			);
 			sourceTree = "<group>";
 		};
+		2E56074AA4B79062A775926B /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				E14279C5A24404773D6EB183 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		307D936DE9A998C7E3F9F8C4 /* FlinkyCoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				0702235C70DB52ACFED3E44C /* Config */,
+				04F97F31FB6C7194F6D2660F /* Generated */,
 				8C7AFEE60176D28EB8433EF0 /* Sources */,
 			);
 			path = FlinkyCoreTests;
 			sourceTree = "<group>";
 		};
+		39CA1B2E40101735C5C32751 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				63F2719A154E0F147F282342 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		3E92154CA14A72C25E3763AD /* ScreenshotUITests */ = {
 			isa = PBXGroup;
 			children = (
+				F3F7B7178E110DECDFC9FFA8 /* Config */,
+				1F7798A67CC543AD7CBD6FDD /* Generated */,
 				C61D7A355BA14243C5CB1404 /* Sources */,
 			);
 			path = ScreenshotUITests;
 			sourceTree = "<group>";
 		};
+		49535E498560B1274F786DF2 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				D9A18AE1941697EAE2F5D108 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		50D41DDCC1D09F20C8859BC5 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				D053FEE68DB77FE6A3B86775 /* Config */,
+				39CA1B2E40101735C5C32751 /* Generated */,
 				5273A9C7338FEC307FF81394 /* Sources */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		73C7DF1B6EF6924539BF65F7 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				0CD0E5B528681C37C5D9BFA8 /* Tests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7408F0D1BE0A8C567CE518C1 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				987257103FB94CF2DC77F06B /* .gitkeep */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		A46B7CC8C36D029F9A827199 /* ShareExtensionTests */ = {
 			isa = PBXGroup;
 			children = (
+				07E98CB4F7B53BE407E1537B /* Config */,
+				16DA5BF6534D49C9F2935B1C /* Generated */,
 				68B44DF7DB1B234C2FE0515C /* Sources */,
 			);
 			path = ShareExtensionTests;
@@ -399,23 +534,44 @@
 		B738778E59EACA800DB85495 /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
+				EBCA59481FBAAB92D20A530E /* Config */,
+				2E56074AA4B79062A775926B /* Generated */,
 				A04DE5BF04B0E902D35CBE03 /* Sources */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
 		};
+		B93676FC44259188DB688040 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				A72A23B2DF367F098C641658 /* .gitkeep */,
+				7C6BB210F711DB71F2A873DB /* generated-en.strings */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		BFB02730826A464D54B00F64 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				73C7DF1B6EF6924539BF65F7 /* Config */,
+				EF52D776CBBFEF4E278581C4 /* Generated */,
 				3785698F0DB7A7D24A15CB42 /* Sources */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		D053FEE68DB77FE6A3B86775 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E3083D8106034E78E306C15C /* UITests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		D93A947CD72C6E70326EEFA5 /* Targets */ = {
 			isa = PBXGroup;
 			children = (
-				BC5F79CA9A38A9EE6E30D032 /* App */,
+				F5BB1CF0A7DBD9DDFA067BE0 /* App */,
 				1BFAEE6BD3117452598FEF9E /* FlinkyCore */,
 				307D936DE9A998C7E3F9F8C4 /* FlinkyCoreTests */,
 				3E92154CA14A72C25E3763AD /* ScreenshotUITests */,
@@ -442,6 +598,40 @@
 				1D900CBF09B14E24193D89A4 /* UITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EBCA59481FBAAB92D20A530E /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				0F0B94F3BDCFC52059CB276A /* .gitkeep */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		EF52D776CBBFEF4E278581C4 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				577A116C3CE64463030632D4 /* .gitkeep */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		F3F7B7178E110DECDFC9FFA8 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				17EA3DC70EB92B6918EB416D /* ScreenshotUITests.xctestplan */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		F5BB1CF0A7DBD9DDFA067BE0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1F8723944B3137893E4E0EE3 /* Config */,
+				B93676FC44259188DB688040 /* Generated */,
+				70D1B52C7753D5F428D702C8 /* Sources */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -611,7 +801,7 @@
 				A84479D92F7ACC81EDDAD250 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				BC5F79CA9A38A9EE6E30D032 /* App */,
+				70D1B52C7753D5F428D702C8 /* Sources */,
 			);
 			name = Flinky;
 			packageProductDependencies = (
@@ -1065,6 +1255,8 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/ShareExtension/Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1283,6 +1475,17 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/App/Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1483,6 +1686,8 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/ShareExtension/Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1566,6 +1771,17 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/App/Sources/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
