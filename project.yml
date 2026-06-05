@@ -534,6 +534,10 @@ schemes:
         Flinky: all
     run:
       config: Debug
+      askForAppToLaunch: true
+      launchAutomaticallySubstyle: "2"
+      debugEnabled: false
+      executable: Flinky
     test:
       config: Debug
       testPlans:
