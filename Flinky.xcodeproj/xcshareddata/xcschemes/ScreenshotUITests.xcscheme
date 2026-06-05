@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2650"
+   LastUpgradeVersion = "1640"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
-      buildArchitectures = "Automatic">
+      runPostActionsOnFailure = "NO">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4D359D82E1BDF540006226D"
+               BlueprintIdentifier = "9198AA103876EC14A96930E2"
                BuildableName = "Flinky.app"
                BlueprintName = "Flinky"
                ReferencedContainer = "container:Flinky.xcodeproj">
@@ -29,7 +29,7 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4ECAAB32E3CF6FB00C757EA"
+               BlueprintIdentifier = "60C904CE0B184F208257759C"
                BuildableName = "ScreenshotUITests.xctest"
                BlueprintName = "ScreenshotUITests"
                ReferencedContainer = "container:Flinky.xcodeproj">
@@ -43,7 +43,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4D509DE2E4621120067A402"
+               BlueprintIdentifier = "5DE7B4773E669E09577A0496"
                BuildableName = "ShareExtension.appex"
                BlueprintName = "ShareExtension"
                ReferencedContainer = "container:Flinky.xcodeproj">
@@ -55,25 +55,38 @@
       buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "NO">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Targets/ScreenshotUITests/Config/ScreenshotUITests.xctestplan"
-            default = "YES">
+            default = "YES"
+            reference = "container:Targets/ScreenshotUITests/Config/ScreenshotUITests.xctestplan">
          </TestPlanReference>
       </TestPlans>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
+            BuildableName = "Flinky.app"
+            BlueprintName = "Flinky"
+            ReferencedContainer = "container:Flinky.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D4ECAAB32E3CF6FB00C757EA"
+               BlueprintIdentifier = "60C904CE0B184F208257759C"
                BuildableName = "ScreenshotUITests.xctest"
                BlueprintName = "ScreenshotUITests"
                ReferencedContainer = "container:Flinky.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
@@ -89,12 +102,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4D359D82E1BDF540006226D"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
             BuildableName = "Flinky.app"
             BlueprintName = "Flinky"
             ReferencedContainer = "container:Flinky.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -102,15 +117,18 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4D359D82E1BDF540006226D"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
             BuildableName = "Flinky.app"
             BlueprintName = "Flinky"
             ReferencedContainer = "container:Flinky.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Release">

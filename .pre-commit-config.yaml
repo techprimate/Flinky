@@ -26,6 +26,15 @@ repos:
 
   - repo: local
     hooks:
+      - id: generate-project
+        name: Generate Xcode Project
+        entry: make
+        language: system
+        files: ^(project\.yml|Makefile|Scripts/generate-project\.sh)$
+        pass_filenames: false
+        args:
+          - "generate-project"
+
       - id: generate-localization
         name: Generate Localization
         entry: make

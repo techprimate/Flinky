@@ -1,3 +1,4 @@
 brew "licenseplist"
 brew "swiftgen"
 brew "jq"
+brew "xcodegen"
