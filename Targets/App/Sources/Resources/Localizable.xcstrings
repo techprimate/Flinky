@@ -1502,6 +1502,30 @@
           }
         }
       }
+    },
+    "feedback.toast.submit.success": {
+      "comment": "Toast message shown when feedback is submitted successfully",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feedback submitted successfully"
+          }
+        }
+      }
+    },
+    "feedback.toast.submit.error": {
+      "comment": "Toast message shown when feedback submission fails",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to submit feedback"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

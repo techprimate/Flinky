@@ -13,14 +13,9 @@ struct FlinkyApp: App {
     private let sharedModelContainer: ModelContainer
 
     init() {
-        SentrySDK.start { options in
-            Self.configureSentry(options: options)
+        SentrySDK.start { [_toastManager] options in
+            Self.configureSentry(options: options, toastManager: { _toastManager.wrappedValue })
         }
-
-        // Start app health observation for system-level metrics
-        // (thermal state, network reachability, app state transitions)
-        // Reference: https://github.com/getsentry/sentry-cocoa/issues/7000
-        AppHealthObserver.shared.startObserving()
 
         do {
             sharedModelContainer = try SharedModelContainerFactory.make(
@@ -29,6 +24,11 @@ struct FlinkyApp: App {
         } catch {
             fatalError("Failed to create shared ModelContainer: \(error)")
         }
+
+        // Start app health observation for system-level metrics
+        // (thermal state, network reachability, app state transitions)
+        // Reference: https://github.com/getsentry/sentry-cocoa/issues/7000
+        AppHealthObserver.shared.startObserving()
 
         // Seed if needed on first app launch
         DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
@@ -39,7 +39,11 @@ struct FlinkyApp: App {
     /// This method is defined as `private static` to because it is called from a non-mutating context.
     ///
     /// - Parameter options: Options structure to configure Sentry.
-    private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
+    /// - Parameter toastManager: Closure providing lazy access to the toast manager for feedback callbacks.
+    private static func configureSentry( // swiftlint:disable:this function_body_length
+        options: Options,
+        toastManager: @escaping () -> ToastManager
+    ) {
         // Disable Sentry for tests because it produces a lot of noise.
         if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
@@ -194,6 +198,24 @@ struct FlinkyApp: App {
                 // Track feedback form closing using metrics - better for aggregate counts than individual events
                 SentryMetricsHelper.trackFeedbackFormClosed()
             }
+            feedbackOptions.onSubmitSuccess = { _ in
+                let breadcrumb = Breadcrumb(level: .info, category: "user_feedback")
+                breadcrumb.message = "User successfully submitted feedback"
+                SentrySDK.addBreadcrumb(breadcrumb)
+
+                DispatchQueue.main.async {
+                    toastManager().success(description: L10n.Feedback.Toast.Submit.success)
+                }
+            }
+            feedbackOptions.onSubmitError = { error in
+                let breadcrumb = Breadcrumb(level: .error, category: "user_feedback")
+                breadcrumb.message = "Feedback submission failed: \(error.localizedDescription)"
+                SentrySDK.addBreadcrumb(breadcrumb)
+
+                DispatchQueue.main.async {
+                    toastManager().error(description: L10n.Feedback.Toast.Submit.error)
+                }
+            }
         }
 
         // Configure Logs
@@ -214,8 +236,7 @@ struct FlinkyApp: App {
         WindowGroup {
             MainContainerView()
                 .environment(\.feedback, FeedbackAction {
-                    let config = SentryFeedbackFormConfig()
-                    SentrySDK.feedback.show(config: config)
+                    SentrySDK.feedback.show()
                 })
                 .toaster(toastManager)
                 .configureOnLaunch { options in

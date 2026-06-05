@@ -39,6 +39,16 @@ internal enum L10n {
         /// New List
         internal static let title = L10n.tr("create-list.title", fallback: "New List")
     }
+    internal enum Feedback {
+        internal enum Toast {
+            internal enum Submit {
+                /// Failed to submit feedback
+                internal static let error = L10n.tr("feedback.toast.submit.error", fallback: "Failed to submit feedback")
+                /// Feedback submitted successfully
+                internal static let success = L10n.tr("feedback.toast.submit.success", fallback: "Feedback submitted successfully")
+            }
+        }
+    }
     internal enum LinkDetail {
         internal enum EditLink {
             /// Edit
