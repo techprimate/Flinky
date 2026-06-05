@@ -883,7 +883,7 @@
 				"$(SRCROOT)/Scripts/generate-licenses.sh",
 				"$(SRCROOT)/Scripts/generate-version-in-settings.sh",
 				"$(SRCROOT)/Scripts/generate-localization.sh",
-				"$(SRCROOT)/Sources/Resources/Localizable.xcstrings",
+				"$(SRCROOT)/Targets/App/Sources/Resources/Localizable.xcstrings",
 				"$(SRCROOT)/Templates/en-strings.stencil",
 				"$(SRCROOT)/Templates/l21strings.stencil",
 				"$(SRCROOT)/Flinky.xcodeproj/project.pbxproj",
@@ -893,10 +893,10 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.plist",
-				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.latest_result.txt",
-				"$(SRCROOT)/Sources/Resources/Settings.bundle/Root.plist",
-				"$(SRCROOT)/Sources/Utils/Localization.swift",
+				"$(SRCROOT)/Targets/App/Sources/Resources/Settings.bundle/Licenses.plist",
+				"$(SRCROOT)/Targets/App/Sources/Resources/Settings.bundle/Licenses.latest_result.txt",
+				"$(SRCROOT)/Targets/App/Sources/Resources/Settings.bundle/Root.plist",
+				"$(SRCROOT)/Targets/App/Sources/Generated/L10n.swift",
 				"$(SRCROOT)/Generated/generated-en.strings",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
