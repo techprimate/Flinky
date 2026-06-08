@@ -64,7 +64,7 @@ jobs:
         run: brew bundle --file Brewfile-ci
 
       - name: Wait for iOS Simulator
-        uses: kula-app/wait-for-services-action/ios-simulator@main
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: iPhone 17 Pro
           boot: true
@@ -113,7 +113,7 @@ jobs:
         run: brew bundle --file Brewfile-ci
 
       - name: Wait for iOS Simulator
-        uses: kula-app/wait-for-services-action/ios-simulator@main
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: iPhone 17 Pro
           boot: true

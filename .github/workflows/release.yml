@@ -188,7 +188,7 @@ jobs:
 
       - name: Wait for iOS Simulator
         id: simulator
-        uses: kula-app/wait-for-services-action/ios-simulator@main
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: ${{ matrix.device }}
           boot: true
