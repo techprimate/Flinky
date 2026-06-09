@@ -4,7 +4,7 @@ gem "abbrev" # Required by Ruby v3.4.X
 gem "ostruct" # Required by Ruby v3.5.X
 gem "benchmark" # Required by Ruby v3.5.X
 
-gem "fastlane", git: "https://github.com/fastlane/fastlane.git", branch: "master" 
+gem "fastlane" 
 gem "octokit"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
