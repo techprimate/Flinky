@@ -20,11 +20,6 @@ jobs:
     container:
       image: ghcr.io/kula-app/ship:0.0.3
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v6
-        with:
-          submodules: true
-
       - name: Publish Metadata
         env:
           SHIP_APP_ID: ${{ vars.SHIP_APP_ID }}
