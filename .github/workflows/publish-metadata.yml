@@ -1,0 +1,26 @@
+name: Publish Metadata
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 5 * * *" # Every day at 05:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish-metadata:
+    name: Publish Metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: ghcr.io/kula-app/ship:0.0.3
+    steps:
+      - name: Publish Metadata
+        env:
+          SHIP_APP_ID: ${{ vars.SHIP_APP_ID }}
+        run: ship publish metadata --app-id "$SHIP_APP_ID"
