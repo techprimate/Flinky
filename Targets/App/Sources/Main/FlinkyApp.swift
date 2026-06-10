@@ -22,6 +22,9 @@ struct FlinkyApp: App {
         // Reference: https://github.com/getsentry/sentry-cocoa/issues/7000
         AppHealthObserver.shared.startObserving()
 
+        // Subscribe to MetricKit payloads and report all values as Sentry metrics
+        MetricKitManager.shared.startReceiving()
+
         do {
             sharedModelContainer = try SharedModelContainerFactory.make(
                 isStoredInMemoryOnly: ProcessInfo.processInfo.isTestingEnabled
