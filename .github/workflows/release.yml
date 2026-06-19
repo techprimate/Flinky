@@ -58,7 +58,7 @@ jobs:
           private-key: ${{ secrets.TECHPRIMATE_RELEASE_BOT_PRIVATE_KEY }}
 
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
@@ -119,7 +119,7 @@ jobs:
     needs: resolve-ref
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
@@ -167,7 +167,7 @@ jobs:
           - "iPad Pro 11-inch (M5)"
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
@@ -229,7 +229,7 @@ jobs:
           private-key: ${{ secrets.TECHPRIMATE_RELEASE_BOT_PRIVATE_KEY }}
 
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
