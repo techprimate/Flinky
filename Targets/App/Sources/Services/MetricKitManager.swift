@@ -6,21 +6,11 @@ import SentrySwift
 
 final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
-    // MARK: - Singleton
-
-    static let shared = MetricKitManager()
-
     // MARK: - Properties
 
     private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Flinky", category: "MetricKitManager")
 
     private var isReceiving = false
-
-    // MARK: - Initialization
-
-    private override init() {
-        super.init()
-    }
 
     // MARK: - Public Methods
 
