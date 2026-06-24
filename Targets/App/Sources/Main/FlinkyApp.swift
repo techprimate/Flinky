@@ -9,33 +9,32 @@ import os.log
 struct FlinkyApp: App {
     private static let logger = Logger.forType(Self.self)
 
-    private static let sharedToastManager = ToastManager()
-    @StateObject private var toastManager = FlinkyApp.sharedToastManager
-    private let sharedModelContainer: ModelContainer
+    private static let isTestingEnabled = ProcessInfo.processInfo.isTestingEnabled
+    private static let deps = Dependencies(isTestingEnabled: Self.isTestingEnabled)
+
+    @StateObject private var toastManager = Self.deps.toastManager
+    private let modelContainer: ModelContainer
 
     init() {
-        let isTestingEnabled = ProcessInfo.processInfo.isTestingEnabled
         SentrySDK.start { options in
-            Self.configureSentry(options: options, toastManager: Self.sharedToastManager, isTestingEnabled: isTestingEnabled)
+            Self.configureSentry(options: options, toastManager: Self.deps.toastManager, isTestingEnabled: Self.isTestingEnabled)
         }
 
         // Start app health observation for system-level metrics
         // (thermal state, network reachability, app state transitions)
-        AppHealthObserver.shared.startObserving()
+        Self.deps.appHealthObserver.startObserving()
 
         // Subscribe to MetricKit payloads and report all values as Sentry metrics
-        MetricKitManager.shared.startReceiving()
+        Self.deps.metricKitManager.startReceiving()
 
         do {
-            sharedModelContainer = try SharedModelContainerFactory.make(
-                isStoredInMemoryOnly: isTestingEnabled
-            )
+            modelContainer = try Self.deps.modelContainer
         } catch {
+            SentrySDK.capture(error: error)
             fatalError("Failed to create shared ModelContainer: \(error)")
         }
 
-        // Seed if needed on first app launch
-        DataSeedingService.seedDataIfNeeded(modelContext: sharedModelContainer.mainContext)
+        DataSeedingService.seedDataIfNeeded(modelContext: modelContainer.mainContext)
     }
 
     /// Configures the Sentry SDK options.
@@ -63,11 +62,11 @@ struct FlinkyApp: App {
         options.releaseName = "\(bundleId ?? "unknown")@\(version ?? "unknown")+\(build ?? "unknown")"
 
         func pickEnvValue<T>(production: T, develop: T) -> T {
-            #if DEBUG
-                return develop
-            #else
-                return production
-            #endif
+#if DEBUG
+            return develop
+#else
+            return production
+#endif
         }
         options.environment = pickEnvValue(production: "production", develop: "development")
 
@@ -247,6 +246,6 @@ struct FlinkyApp: App {
                     options.publicKey = "30d2f7cc2fa469eaf8e4bdf958ad9d66bce491a7da1fb08ff0a7156a8e15a47d"
                 }
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(modelContainer)
     }
 }
