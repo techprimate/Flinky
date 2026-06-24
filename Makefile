@@ -99,6 +99,12 @@ build-ios-share-extension:
 # TESTING
 # ============================================================================
 
+# Optional: ONLY_TESTING=Target/ClassName or Target/ClassName/testMethodName to run specific tests
+# Examples:
+#   make test-ios-app ONLY_TESTING=AppTests/SomeTestClass
+#   make test-ui ONLY_TESTING=UITests/UITests/testFeedbackButtonExistsOnListsView
+ONLY_TESTING ?=
+
 ## Run all iOS UI test suites
 #
 # Runs all UI tests for all primary iOS targets.
@@ -115,25 +121,40 @@ test-ios: test-ios-app
 #
 # Runs unit tests for the App scheme on the latest iOS Simulator (iPhone 17 Pro).
 # Writes logs to raw-test-ios-app.log and formats output with xcbeautify.
+#
+# Optional: ONLY_TESTING=Target/ClassName to run specific test class(es)
+# Examples:
+#   make test-ios-app
+#   make test-ios-app ONLY_TESTING=AppTests/SomeTestClass
 .PHONY: test-ios-app
 test-ios-app:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ios-app.log | xcbeautify --preserve-unbeautified
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme App -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ios-app.log | xcbeautify --preserve-unbeautified
 
 ## Run unit tests for FlinkyCore on latest iOS Simulator
 #
 # Runs unit tests for the FlinkyCore scheme on the latest iOS Simulator (iPhone 17 Pro).
 # Core module tests to validate shared logic and utilities.
+#
+# Optional: ONLY_TESTING=Target/ClassName to run specific test class(es)
+# Examples:
+#   make test-ios-core
+#   make test-ios-core ONLY_TESTING=FlinkyCoreTests/SomeTestClass
 .PHONY: test-ios-core
-test-ios-core: 
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ios-core.log | xcbeautify --preserve-unbeautified
+test-ios-core:
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme FlinkyCore -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ios-core.log | xcbeautify --preserve-unbeautified
 
 ## Run tests for ShareExtension target on latest iOS Simulator
 #
 # Runs unit tests for the ShareExtension scheme on the latest iOS Simulator (iPhone 17 Pro).
 # Tests specific to the share extension behavior.
+#
+# Optional: ONLY_TESTING=Target/ClassName to run specific test class(es)
+# Examples:
+#   make test-ios-share-extension
+#   make test-ios-share-extension ONLY_TESTING=ShareExtensionTests/SomeTestClass
 .PHONY: test-ios-share-extension
 test-ios-share-extension:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtensionTests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ios-share-extension.log | xcbeautify --preserve-unbeautified
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtensionTests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ios-share-extension.log | xcbeautify --preserve-unbeautified
 
 ## Run all UI test suites
 #
@@ -156,25 +177,34 @@ test-ui-ios: test-ui-ios-app
 ## Run primary UI tests (UITests scheme) on latest iOS Simulator
 #
 # Runs UI tests for the App scheme on the latest iOS Simulator (iPhone 17 Pro).
+#
+# Optional: ONLY_TESTING=Target/ClassName/testMethodName to run specific test(s)
+# Examples:
+#   make test-ui-ios-app
+#   make test-ui-ios-app ONLY_TESTING=UITests/UITests/testFeedbackButtonExistsOnListsView
 .PHONY: test-ui-ios-app
 test-ui-ios-app:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme UITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ui-ios-app.log | xcbeautify --preserve-unbeautified
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme UITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ui-ios-app.log | xcbeautify --preserve-unbeautified
 
 ## Run screenshot UI tests (ScreenshotUITests scheme)
 #
 # Runs UI tests for the ScreenshotUITests scheme on the latest iOS Simulator (iPhone 17 Pro).
 # Generates localized marketing screenshots via UI automation.
+#
+# Optional: ONLY_TESTING=Target/ClassName/testMethodName to run specific test(s)
 .PHONY: test-ui-ios-screenshot
 test-ui-ios-screenshot:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ScreenshotUITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ui-screenshot-ios.log | xcbeautify --preserve-unbeautified
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ScreenshotUITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ui-screenshot-ios.log | xcbeautify --preserve-unbeautified
 
 ## Run UI tests for ShareExtension
 #
 # Runs UI tests for the ShareExtensionUITests scheme on the latest iOS Simulator (iPhone 17 Pro).
 # UI tests targeting the share extension interface.
+#
+# Optional: ONLY_TESTING=Target/ClassName/testMethodName to run specific test(s)
 .PHONY: test-ui-ios-share-extension
 test-ui-ios-share-extension:
-	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtensionUITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' test | tee raw-test-ui-share-extension-ios.log | xcbeautify --preserve-unbeautified
+	set -o pipefail && NSUnbufferedIO=YES xcrun xcodebuild -project Flinky.xcodeproj -scheme ShareExtensionUITests -destination 'platform=iOS Simulator,OS=$(SIMULATOR_OS),name=$(DEVICE_NAME)' $(if $(ONLY_TESTING),-only-testing:$(ONLY_TESTING)) test | tee raw-test-ui-share-extension-ios.log | xcbeautify --preserve-unbeautified
 
 # ============================================================================
 # FORMATTING
