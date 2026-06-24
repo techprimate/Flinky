@@ -2,6 +2,8 @@ import SFSafeSymbols
 import SwiftUI
 
 struct LinkListsRenderView<Destination: View>: View {
+    @Environment(\.feedback) private var feedback
+
     let pinnedLists: [LinkListsDisplayItem]
     let unpinnedLists: [LinkListsDisplayItem]
 
@@ -71,6 +73,16 @@ struct LinkListsRenderView<Destination: View>: View {
         }
         .ifAvailable(.iOS26, modify: { view in
             view.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        feedback.show()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.feedback.button")
+                }
                 if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
@@ -111,6 +123,16 @@ struct LinkListsRenderView<Destination: View>: View {
             }
         }, elseModify: { view in
             view.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        feedback.show()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-lists.feedback.button")
+                }
                 if !pinnedLists.isEmpty || !unpinnedLists.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
                         EditButton()

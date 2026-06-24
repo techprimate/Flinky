@@ -7,6 +7,7 @@ struct CreateLinkWithListPickerEditorRenderView<PickerDestination: View>: View {
     }
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedback) private var feedback
 
     @FocusState private var focusedField: Field?
 
@@ -36,6 +37,16 @@ struct CreateLinkWithListPickerEditorRenderView<PickerDestination: View>: View {
                 }
                 .accessibilityLabel(L10n.Shared.Button.Cancel.Accessibility.label)
                 .accessibilityHint(L10n.Shared.Button.Cancel.Accessibility.hint)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    feedback.show()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("create-link.feedback.button")
             }
             if #available(iOS 26, *) {
                 ToolbarItem(placement: .confirmationAction) {
