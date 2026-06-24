@@ -3,6 +3,8 @@ import SFSafeSymbols
 import SwiftUI
 
 struct LinkListDetailRenderView: View {
+    @Environment(\.feedback) private var feedback
+
     let list: LinkListsDisplayItem
     let links: [LinkListDetailDisplayItem]
 
@@ -30,10 +32,20 @@ struct LinkListDetailRenderView: View {
                 emptyStateView
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        feedback.show()
+                    }, label: {
+                        Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                    })
+                    .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                    .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                    .accessibilityIdentifier("link-list-detail.feedback.button")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     sortMenu
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     moreMenu
                 }
                 if #available(iOS 26, *) {
