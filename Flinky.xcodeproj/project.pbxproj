@@ -1860,7 +1860,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
 				kind = exactVersion;
-				version = 9.19.0;
+				version = 9.19.1;
 			};
 			traits = (
 			);
