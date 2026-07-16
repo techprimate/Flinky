@@ -229,7 +229,6 @@ struct FlinkyApp: App {
 
         // Configure Experimental Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
-        options.experimental.enableReplayNetworkDetailsCapturing = true
         options.experimental.enableWatchdogTerminationsV2 = true
         options.experimental.enableStandaloneAppStartTracing = true
 
