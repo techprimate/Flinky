@@ -2,24 +2,8 @@ version = 1
 agents = ["claude", "cursor", "codex"]
 
 [trust]
-github_orgs = ["getsentry"]
+github_orgs = ["getsentry", "philprime", "techprimate"]
 
 [[skills]]
 name = "dotagents"
 source = "getsentry/dotagents"
-
-[[skills]]
-name = "sentry-cocoa-sdk"
-source = "getsentry/sentry-for-ai"
-
-[[skills]]
-name = "sentry-fix-issues"
-source = "getsentry/sentry-for-ai"
-
-[[skills]]
-name = "sentry-pr-code-review"
-source = "getsentry/sentry-for-ai"
-
-[[skills]]
-name = "sentry-workflow"
-source = "getsentry/sentry-for-ai"
