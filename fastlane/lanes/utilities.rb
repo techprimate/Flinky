@@ -184,7 +184,8 @@ lane :upload_screenshots_to_sentry do
     org_slug: "techprimate",
     project_slug: "flinky",
     path: screenshots_path,
-    app_id: "com.techprimate.Flinky"
+    app_id: "com.techprimate.Flinky",
+    diff_threshold: 0.001
   )
 
   UI.success "✅ Screenshots uploaded to Sentry successfully!"
