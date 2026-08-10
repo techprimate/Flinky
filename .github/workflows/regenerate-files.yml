@@ -50,6 +50,11 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app_token.outputs.token }}
+          add-paths: |
+            Targets/App/Sources/Generated/
+            Targets/FlinkyCore/Sources/Generated/
+            Targets/ShareExtension/Sources/Generated/
+            Targets/App/Sources/Resources/Settings.bundle/
           branch: chore/regenerate-files
           commit-message: "chore: regenerate files"
           delete-branch: true
