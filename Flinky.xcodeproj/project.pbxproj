@@ -1924,8 +1924,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-apple-swift-log";
 			requirement = {
-				kind = exactVersion;
-				version = 9.25.0;
+				branch = "philprime/compile-from-source-setup";
+				kind = branch;
 			};
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {

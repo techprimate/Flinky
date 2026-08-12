@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-apple-swift-log",
       "state" : {
-        "revision" : "cb7505b9cacc6b0467c6c7f603d9d0c457c3d8d6",
-        "version" : "9.25.0"
+        "branch" : "philprime/compile-from-source-setup",
+        "revision" : "9c7a96398fc366950a8e20e0f527391ba8c6d225"
       }
     },
     {

@@ -22,7 +22,7 @@
 			<key>File</key>
 			<string>Licenses/sentry-apple-swift-log</string>
 			<key>Title</key>
-			<string>SentrySwiftLog (9.25.0)</string>
+			<string>sentry-apple-swift-log</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
