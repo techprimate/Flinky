@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D410FC5D2F3C8AAB0028B18D /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = D410FC5C2F3C8AAB0028B18D /* SentrySPM */; };
+		D410FC5D2F3C8AAB0028B18D /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D410FC5C2F3C8AAB0028B18D /* Sentry */; };
 		D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */ = {isa = PBXBuildFile; productRef = D44A62A52E33B2800018D789 /* OnLaunch */; };
 		D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D509DF2E4621120067A402 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -23,7 +23,7 @@
 		D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD9A2E46160F00027944 /* SFSafeSymbols */; };
-		D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = D4C71A132F3C8B05006E688D /* SentrySPM */; };
+		D4C71A142F3C8B05006E688D /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = D4C71A132F3C8B05006E688D /* Sentry */; };
 		D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */; };
 		D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4E7891C2E461A95005DA720 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -379,7 +379,7 @@
 			files = (
 				D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */,
 				D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */,
-				D410FC5D2F3C8AAB0028B18D /* SentrySPM in Frameworks */,
+				D410FC5D2F3C8AAB0028B18D /* Sentry in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
 				D4A1B40D302C9C3E004CD19F /* SentrySwiftLog in Frameworks */,
 				D4A1B40A302C9C2B004CD19F /* Logging in Frameworks */,
@@ -391,7 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4A1B419302C9CE6004CD19F /* Logging in Frameworks */,
-				D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */,
+				D4C71A142F3C8B05006E688D /* Sentry in Frameworks */,
 				D4A1B41B302C9CE9004CD19F /* SentrySwiftLog in Frameworks */,
 				D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */,
 			);
@@ -699,7 +699,7 @@
 			packageProductDependencies = (
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
 				D44A62A52E33B2800018D789 /* OnLaunch */,
-				D410FC5C2F3C8AAB0028B18D /* SentrySPM */,
+				D410FC5C2F3C8AAB0028B18D /* Sentry */,
 				D4A1B409302C9C2B004CD19F /* Logging */,
 				D4A1B40C302C9C3E004CD19F /* SentrySwiftLog */,
 			);
@@ -729,7 +729,7 @@
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
-				D4C71A132F3C8B05006E688D /* SentrySPM */,
+				D4C71A132F3C8B05006E688D /* Sentry */,
 				D4A1B418302C9CE6004CD19F /* Logging */,
 				D4A1B41A302C9CE9004CD19F /* SentrySwiftLog */,
 			);
@@ -1177,11 +1177,11 @@
 		};
 		D4C71A162F3C8B0A006E688D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = D4C71A152F3C8B0A006E688D /* SentrySPM */;
+			productRef = D4C71A152F3C8B0A006E688D /* Sentry */;
 		};
 		D4C71A182F3C8B0E006E688D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = D4C71A172F3C8B0E006E688D /* SentrySPM */;
+			productRef = D4C71A172F3C8B0E006E688D /* Sentry */;
 		};
 		D4CD57112ECF2A4900C36BF6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1939,9 +1939,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D410FC5C2F3C8AAB0028B18D /* SentrySPM */ = {
+		D410FC5C2F3C8AAB0028B18D /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SentrySPM;
+			productName = Sentry;
 		};
 		D44A62A52E33B2800018D789 /* OnLaunch */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2023,20 +2023,20 @@
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
 		};
-		D4C71A132F3C8B05006E688D /* SentrySPM */ = {
+		D4C71A132F3C8B05006E688D /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySPM;
+			productName = Sentry;
 		};
-		D4C71A152F3C8B0A006E688D /* SentrySPM */ = {
+		D4C71A152F3C8B0A006E688D /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySPM;
+			productName = Sentry;
 		};
-		D4C71A172F3C8B0E006E688D /* SentrySPM */ = {
+		D4C71A172F3C8B0E006E688D /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = SentrySPM;
+			productName = Sentry;
 		};
 		D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

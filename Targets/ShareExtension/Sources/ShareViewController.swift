@@ -4,7 +4,7 @@ import UIKit
 import Social
 import SwiftData
 import FlinkyCore
-import SentrySwift
+import Sentry
 import os.log
 import UniformTypeIdentifiers
 

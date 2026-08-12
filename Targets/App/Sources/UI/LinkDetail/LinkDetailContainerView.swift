@@ -1,6 +1,6 @@
 import FlinkyCore
 import Photos
-import SentrySwift
+import Sentry
 import SwiftUI
 import os.log
 

@@ -2,7 +2,7 @@ import CoreImage.CIFilterBuiltins
 import FlinkyCore
 import Photos
 import SFSafeSymbols
-import SentrySwift
+import Sentry
 import SwiftUI
 
 struct LinkDetailRenderView: View {
