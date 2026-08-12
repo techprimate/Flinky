@@ -13,6 +13,10 @@
 		D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D4D509DF2E4621120067A402 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A016242E83E4EB00117E01 /* SwiftUI.framework */; };
 		D4A016272E83E8FB00117E01 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A016262E83E8FB00117E01 /* SFSafeSymbols */; };
+		D4A1B40A302C9C2B004CD19F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B409302C9C2B004CD19F /* Logging */; };
+		D4A1B40D302C9C3E004CD19F /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B40C302C9C3E004CD19F /* SentrySwiftLog */; };
+		D4A1B419302C9CE6004CD19F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B418302C9CE6004CD19F /* Logging */; };
+		D4A1B41B302C9CE9004CD19F /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B41A302C9CE9004CD19F /* SentrySwiftLog */; };
 		D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DC5A2E46133A00027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD8D2E46142D00027944 /* SFSafeSymbols */; };
@@ -377,6 +381,8 @@
 				D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */,
 				D410FC5D2F3C8AAB0028B18D /* SentrySPM in Frameworks */,
 				D4CFD1792E1E38F2001447E9 /* SFSafeSymbols in Frameworks */,
+				D4A1B40D302C9C3E004CD19F /* SentrySwiftLog in Frameworks */,
+				D4A1B40A302C9C2B004CD19F /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +390,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A1B419302C9CE6004CD19F /* Logging in Frameworks */,
 				D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */,
+				D4A1B41B302C9CE9004CD19F /* SentrySwiftLog in Frameworks */,
 				D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -675,6 +683,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4A1B413302C9CC5004CD19F /* PBXTargetDependency */,
+				D4A1B411302C9CC2004CD19F /* PBXTargetDependency */,
+				D4A1B40F302C9CB8004CD19F /* PBXTargetDependency */,
 				D4C71A182F3C8B0E006E688D /* PBXTargetDependency */,
 				D4A5DC582E46133A00027944 /* PBXTargetDependency */,
 				D4B4718A2E1F1300005099F3 /* PBXTargetDependency */,
@@ -689,6 +700,8 @@
 				D4CFD1782E1E38F2001447E9 /* SFSafeSymbols */,
 				D44A62A52E33B2800018D789 /* OnLaunch */,
 				D410FC5C2F3C8AAB0028B18D /* SentrySPM */,
+				D4A1B409302C9C2B004CD19F /* Logging */,
+				D4A1B40C302C9C3E004CD19F /* SentrySwiftLog */,
 			);
 			productName = LinkManager;
 			productReference = D4D359D92E1BDF540006226D /* Flinky.app */;
@@ -706,6 +719,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4A1B417302C9CDF004CD19F /* PBXTargetDependency */,
+				D4A1B415302C9CDB004CD19F /* PBXTargetDependency */,
 				D4C71A162F3C8B0A006E688D /* PBXTargetDependency */,
 				D4CD57112ECF2A4900C36BF6 /* PBXTargetDependency */,
 			);
@@ -715,6 +730,8 @@
 			name = ShareExtension;
 			packageProductDependencies = (
 				D4C71A132F3C8B05006E688D /* SentrySPM */,
+				D4A1B418302C9CE6004CD19F /* Logging */,
+				D4A1B41A302C9CE9004CD19F /* SentrySwiftLog */,
 			);
 			productName = ShareExtension;
 			productReference = D4D509DF2E4621120067A402 /* ShareExtension.appex */;
@@ -850,6 +867,8 @@
 				D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */,
 				D410FC5E2F3C8ABD0028B18D /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */,
+				D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D4D359DA2E1BDF540006226D /* Products */;
@@ -1108,6 +1127,26 @@
 			isa = PBXTargetDependency;
 			target = D4D359D82E1BDF540006226D /* Flinky */;
 			targetProxy = D4A014E92E83E11500117E01 /* PBXContainerItemProxy */;
+		};
+		D4A1B40F302C9CB8004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B40E302C9CB8004CD19F /* OnLaunch */;
+		};
+		D4A1B411302C9CC2004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B410302C9CC2004CD19F /* Logging */;
+		};
+		D4A1B413302C9CC5004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B412302C9CC5004CD19F /* SentrySwiftLog */;
+		};
+		D4A1B415302C9CDB004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B414302C9CDB004CD19F /* Logging */;
+		};
+		D4A1B417302C9CDF004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B416302C9CDF004CD19F /* SentrySwiftLog */;
 		};
 		D4A5DC582E46133A00027944 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1873,6 +1912,22 @@
 				version = 0.0.6;
 			};
 		};
+		D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log";
+			requirement = {
+				kind = exactVersion;
+				version = 1.15.0;
+			};
+		};
+		D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-apple-swift-log";
+			requirement = {
+				kind = exactVersion;
+				version = 9.25.0;
+			};
+		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
@@ -1897,6 +1952,51 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		D4A1B409302C9C2B004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B40C302C9C3E004CD19F /* SentrySwiftLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */;
+			productName = SentrySwiftLog;
+		};
+		D4A1B40E302C9CB8004CD19F /* OnLaunch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D44A62A42E33B2800018D789 /* XCRemoteSwiftPackageReference "OnLaunch-iOS-Client" */;
+			productName = OnLaunch;
+		};
+		D4A1B410302C9CC2004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B412302C9CC5004CD19F /* SentrySwiftLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */;
+			productName = SentrySwiftLog;
+		};
+		D4A1B414302C9CDB004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B416302C9CDF004CD19F /* SentrySwiftLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */;
+			productName = SentrySwiftLog;
+		};
+		D4A1B418302C9CE6004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B41A302C9CE9004CD19F /* SentrySwiftLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */;
+			productName = SentrySwiftLog;
 		};
 		D4A5DD8D2E46142D00027944 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
