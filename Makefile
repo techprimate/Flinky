@@ -269,9 +269,11 @@ generate-localization:
 ## Generate third-party licenses for Settings
 #
 # Runs the generate-licenses.sh script to generate license acknowledgements for Settings.bundle.
+LICENSE_PLIST_ARGS ?=
+
 .PHONY: generate-licenses
 generate-licenses:
-	./Scripts/generate-licenses.sh
+	./Scripts/generate-licenses.sh $(LICENSE_PLIST_ARGS)
 
 ## Embed app version/build into Settings.bundle
 #

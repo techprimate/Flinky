@@ -42,7 +42,7 @@ jobs:
           bundler-cache: true
 
       - name: Regenerate Files
-        run: make generate
+        run: make generate LICENSE_PLIST_ARGS=--force
         env:
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.app_token.outputs.token }}
 
