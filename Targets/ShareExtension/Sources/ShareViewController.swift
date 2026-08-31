@@ -13,7 +13,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     // MARK: - Properties
 
     private static let logger = Logger(for: ShareViewController.self)
-    private static let initializeLogging: Void = {
+    private static let initializeLogging = Once {
         LoggingSystem.bootstrap { label in
             var consoleHandler = StreamLogHandler.standardOutput(label: label)
             consoleHandler.logLevel = .trace
@@ -23,7 +23,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                 SentryLogHandler(logLevel: .trace)
             ])
         }
-    }()
+    }
 
     // MARK: Form State
 
@@ -103,7 +103,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         SentrySDK.start { options in
             Self.configureSentry(options: options)
         }
-        _ = Self.initializeLogging
+        Self.initializeLogging()
 
         if ProcessInfo.processInfo.isTestingEnabled {
             Self.logger.warning("Sentry is disabled in test environment")
