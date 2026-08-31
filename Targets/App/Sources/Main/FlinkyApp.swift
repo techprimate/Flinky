@@ -107,6 +107,7 @@ struct FlinkyApp: App {
         options.enableAutoPerformanceTracing = true
         options.enableCoreDataTracing = true
         options.enablePreWarmedAppStartTracing = true
+        options.enableStandaloneAppStartTracing = true
 
         // Configure UI Insights
         options.enableUIViewControllerTracing = true
@@ -230,8 +231,6 @@ struct FlinkyApp: App {
         // Configure Experimental Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
         options.experimental.enableWatchdogTerminationsV2 = true
-        options.experimental.enableStandaloneAppStartTracing = true
-
     }
 
     var body: some Scene {
