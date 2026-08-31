@@ -3,10 +3,10 @@ import SFSafeSymbols
 import SentrySwift
 import SwiftData
 import SwiftUI
-import os.log
+import Logging
 
 struct LinkListsContainerView: View {
-    private static let logger = Logger.forType(Self.self)
+    private static let logger = Logger(for: Self.self)
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster

@@ -17,6 +17,8 @@
 		D4A1B40D302C9C3E004CD19F /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B40C302C9C3E004CD19F /* SentrySwiftLog */; };
 		D4A1B419302C9CE6004CD19F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B418302C9CE6004CD19F /* Logging */; };
 		D4A1B41B302C9CE9004CD19F /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B41A302C9CE9004CD19F /* SentrySwiftLog */; };
+		D4A1B41D302CA000004CD19F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B41C302CA000004CD19F /* Logging */; };
+		D4A1B421302CA100004CD19F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1B420302CA100004CD19F /* Logging */; };
 		D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; };
 		D4A5DC5A2E46133A00027944 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4A5DC462E46133A00027944 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D4A5DD8D2E46142D00027944 /* SFSafeSymbols */; };
@@ -334,6 +336,7 @@
 		D40BEC142E2EE0C500391C5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				D4A1B421302CA100004CD19F /* Logging in Frameworks */,
 				D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */,
 				D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */,
 			);
@@ -352,6 +355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */,
+				D4A1B41D302CA000004CD19F /* Logging in Frameworks */,
 				D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */,
 			);
 		};
@@ -548,6 +552,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4A1B423302CA100004CD19F /* PBXTargetDependency */,
 				D4A5DD992E46160B00027944 /* PBXTargetDependency */,
 				D4A5DD922E46143F00027944 /* PBXTargetDependency */,
 				D40BEC1C2E2EE0C500391C5A /* PBXTargetDependency */,
@@ -558,6 +563,7 @@
 			);
 			name = Tests;
 			packageProductDependencies = (
+				D4A1B420302CA100004CD19F /* Logging */,
 				D4A5DD9A2E46160F00027944 /* SFSafeSymbols */,
 			);
 			productName = Tests;
@@ -620,6 +626,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D4A1B41F302CA000004CD19F /* PBXTargetDependency */,
 				D4A5DD902E46143500027944 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -627,6 +634,7 @@
 			);
 			name = FlinkyCore;
 			packageProductDependencies = (
+				D4A1B41C302CA000004CD19F /* Logging */,
 				D4A5DD8D2E46142D00027944 /* SFSafeSymbols */,
 			);
 			productName = FlinkyShared;
@@ -1107,6 +1115,14 @@
 		D4A1B417302C9CDF004CD19F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = D4A1B416302C9CDF004CD19F /* SentrySwiftLog */;
+		};
+		D4A1B41F302CA000004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B41E302CA000004CD19F /* Logging */;
+		};
+		D4A1B423302CA100004CD19F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D4A1B422302CA100004CD19F /* Logging */;
 		};
 		D4A5DC582E46133A00027944 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1950,6 +1966,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4A1B40B302C9C3E004CD19F /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */;
 			productName = SentrySwiftLog;
+		};
+		D4A1B41C302CA000004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B41E302CA000004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B420302CA100004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		D4A1B422302CA100004CD19F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4A1B408302C9C2B004CD19F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 		D4A5DD8D2E46142D00027944 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;

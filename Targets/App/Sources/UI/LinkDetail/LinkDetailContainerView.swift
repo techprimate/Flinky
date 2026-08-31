@@ -2,7 +2,7 @@ import FlinkyCore
 import Photos
 import SentrySwift
 import SwiftUI
-import os.log
+import Logging
 
 struct LinkDetailContainerView: View {
     private struct ImageBox: Identifiable {
@@ -10,7 +10,7 @@ struct LinkDetailContainerView: View {
         let image: UIImage
     }
 
-    private static let logger = Logger.forType(Self.self)
+    private static let logger = Logger(for: Self.self)
 
     @Environment(\.qrcodeCache) private var qrcodeCache
     @Environment(\.toaster) private var toaster

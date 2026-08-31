@@ -1,6 +1,6 @@
 import Foundation
 import Network
-import os.log
+import Logging
 import SentrySwift
 import UIKit
 
@@ -19,7 +19,7 @@ final class AppHealthObserver {
 
     // MARK: - Properties
 
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Flinky", category: "AppHealthObserver")
+    private static let logger = Logger(for: AppHealthObserver.self)
 
     private var previousThermalState: ProcessInfo.ThermalState = ProcessInfo.processInfo.thermalState
     private var previousAppState: UIApplication.State = .inactive

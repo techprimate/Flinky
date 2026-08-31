@@ -1,17 +1,29 @@
 // swiftlint:disable file_length
 
-import UIKit
+import FlinkyCore
+import Logging
+import SentrySwift
+import SentrySwiftLog
 import Social
 import SwiftData
-import FlinkyCore
-import SentrySwift
-import os.log
+import UIKit
 import UniformTypeIdentifiers
 
 class ShareViewController: SLComposeServiceViewController { // swiftlint:disable:this type_body_length
     // MARK: - Properties
 
-    private static let logger = Logger.forType(ShareViewController.self)
+    private static let logger = Logger(for: ShareViewController.self)
+    private static let initializeLogging: Void = {
+        LoggingSystem.bootstrap { label in
+            var consoleHandler = StreamLogHandler.standardOutput(label: label)
+            consoleHandler.logLevel = .trace
+
+            return MultiplexLogHandler([
+                consoleHandler,
+                SentryLogHandler(logLevel: .trace)
+            ])
+        }
+    }()
 
     // MARK: Form State
 
@@ -91,6 +103,11 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         SentrySDK.start { options in
             Self.configureSentry(options: options)
         }
+        _ = Self.initializeLogging
+
+        if ProcessInfo.processInfo.isTestingEnabled {
+            Self.logger.warning("Sentry is disabled in test environment")
+        }
     }
 
     /// Configures the Sentry SDK options.
@@ -101,7 +118,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
     private static func configureSentry(options: Options) {  // swiftlint:disable:this function_body_length
         // Disable Sentry for tests because it produces a lot of noise.
         if ProcessInfo.processInfo.isTestingEnabled {
-            Self.logger.warning("Sentry is disabled in test environment")
             return
         }
 
@@ -124,6 +140,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure General Options
         options.sendDefaultPii = true
+        options.enableLogs = true
         options.enableAutoBreadcrumbTracking = true
         options.enableMetricKit = true
         options.enableTimeToFullDisplayTracing = true

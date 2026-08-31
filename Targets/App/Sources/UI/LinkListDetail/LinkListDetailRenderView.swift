@@ -233,9 +233,7 @@ struct LinkListDetailRenderView: View {
             deleteItems: { _ in },
             presentCreateEditor: {},
             presentEditEditor: {},
-            presentLinkDetail: { link in
-                print("Presenting link detail for: \(link.title)")
-            },
+            presentLinkDetail: { _ in },
             deleteListAction: {}
         )
     }

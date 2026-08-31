@@ -2,10 +2,10 @@ import FlinkyCore
 import SentrySwift
 import SwiftData
 import SwiftUI
-import os.log
+import Logging
 
 struct LinkListPickerContainerView: View {
-    private static let logger = Logger.forType(Self.self)
+    private static let logger = Logger(for: Self.self)
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.toaster) private var toaster
