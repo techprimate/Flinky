@@ -33,8 +33,14 @@ jobs:
           token: ${{ steps.app_token.outputs.token }}
           submodules: true
 
+      - name: Update Homebrew
+        run: brew update
+
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
+
+      - name: Show Generator Versions
+        run: license-plist --version
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -42,7 +48,7 @@ jobs:
           bundler-cache: true
 
       - name: Regenerate Files
-        run: make generate
+        run: make generate LICENSE_PLIST_ARGS=--force
         env:
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.app_token.outputs.token }}
 
