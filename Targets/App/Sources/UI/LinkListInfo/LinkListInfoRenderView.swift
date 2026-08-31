@@ -120,7 +120,7 @@ extension LinkListInfoRenderView {
 
             var body: some View {
                 color.color
-                    .aspectRatio(contentMode: .fill)
+                    .scaledToFill()
                     .clipShape(Circle())
             }
         }
