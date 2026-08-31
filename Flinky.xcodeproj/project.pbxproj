@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 100;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -126,57 +126,47 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		D4563C902EBA0B44005B33E2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A5DC5E2E46133A00027944 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				D4A5DC5A2E46133A00027944 /* FlinkyCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A5DD972E46146400027944 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				D4A5DD942E46146400027944 /* FlinkyCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D509EE2E4621120067A402 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolder = PlugIns;
 			files = (
 				D462B7812E659CC8006EB4FB /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4E7891F2E461A95005DA720 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 				D4E7891C2E461A95005DA720 /* FlinkyCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -343,39 +333,30 @@
 /* Begin PBXFrameworksBuildPhase section */
 		D40BEC142E2EE0C500391C5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D4A5DD9B2E46160F00027944 /* SFSafeSymbols in Frameworks */,
 				D4A5DD932E46146400027944 /* FlinkyCore.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014C92E83DE2900117E01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014E22E83E11500117E01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A5DC432E46133A00027944 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D4A016252E83E4EB00117E01 /* SwiftUI.framework in Frameworks */,
 				D4A5DD8E2E46142D00027944 /* SFSafeSymbols in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D359D62E1BDF540006226D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D44A62A62E33B2800018D789 /* OnLaunch in Frameworks */,
 				D4A5DC592E46133A00027944 /* FlinkyCore.framework in Frameworks */,
@@ -384,41 +365,32 @@
 				D4A1B40D302C9C3E004CD19F /* SentrySwiftLog in Frameworks */,
 				D4A1B40A302C9C2B004CD19F /* Logging in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D509DC2E4621120067A402 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D4A1B419302C9CE6004CD19F /* Logging in Frameworks */,
 				D4C71A142F3C8B05006E688D /* SentrySPM in Frameworks */,
 				D4A1B41B302C9CE9004CD19F /* SentrySwiftLog in Frameworks */,
 				D4563C912EBA0B4C005B33E2 /* FlinkyCore.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D50A012E46286D0067A402 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4E7890F2E461A83005DA720 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				D4A016272E83E8FB00117E01 /* SFSafeSymbols in Frameworks */,
 				D4E7891B2E461A95005DA720 /* FlinkyCore.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4ECAAB12E3CF6FB00C757EA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -558,10 +530,8 @@
 /* Begin PBXHeadersBuildPhase section */
 		D4A5DC412E46133A00027944 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
@@ -611,8 +581,6 @@
 				D4A014DA2E83DE6400117E01 /* Sources */,
 			);
 			name = UITests;
-			packageProductDependencies = (
-			);
 			productName = UITests;
 			productReference = D4A014CC2E83DE2900117E01 /* UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -635,8 +603,6 @@
 				D4A014F32E83E1BF00117E01 /* Config */,
 			);
 			name = ShareExtensionTests;
-			packageProductDependencies = (
-			);
 			productName = ShareExtensionTests;
 			productReference = D4A014E52E83E11500117E01 /* ShareExtensionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -754,8 +720,6 @@
 				D4A014C52E83DDEC00117E01 /* Sources */,
 			);
 			name = ShareExtensionUITests;
-			packageProductDependencies = (
-			);
 			productName = ShareExtensionUITests;
 			productReference = D4D50A042E46286D0067A402 /* ShareExtensionUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -803,8 +767,6 @@
 				D4A014872E83DDA500117E01 /* Sources */,
 			);
 			name = ScreenshotUITests;
-			packageProductDependencies = (
-			);
 			productName = ScreenshotUITests;
 			productReference = D4ECAAB42E3CF6FB00C757EA /* ScreenshotUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -891,66 +853,48 @@
 /* Begin PBXResourcesBuildPhase section */
 		D40BEC152E2EE0C500391C5A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014CA2E83DE2900117E01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014E32E83E11500117E01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A5DC442E46133A00027944 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D359D72E1BDF540006226D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D509DD2E4621120067A402 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D50A022E46286D0067A402 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4E789102E461A83005DA720 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4ECAAB22E3CF6FB00C757EA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -958,26 +902,32 @@
 		8260B96167064F3C9C0B45C7 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
 			inputPaths = (
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 			);
 			name = "Upload Debug Symbols to Sentry";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script is responsible for uploading debug symbols and source context for Sentry.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which sentry-cli >/dev/null; then\n    export SENTRY_ORG=techprimate\n    export SENTRY_PROJECT=flinky\n    ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\n    if [ ! $? -eq 0 ]; then\n        echo \"warning: sentry-cli - $ERROR\"\n    fi\nelse\n    echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+			shellScript = (
+				"# This script is responsible for uploading debug symbols and source context for Sentry.",
+				"if [[ \"$(uname -m)\" == arm64 ]]; then",
+				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
+				"fi",
+				"",
+				"if which sentry-cli >/dev/null; then",
+				"    export SENTRY_ORG=techprimate",
+				"    export SENTRY_PROJECT=flinky",
+				"    ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)",
+				"    if [ ! $? -eq 0 ]; then",
+				"        echo \"warning: sentry-cli - $ERROR\"",
+				"    fi",
+				"else",
+				"    echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"",
+				"fi",
+				"",
+			);
 		};
 		D4D359DC2E1BDF540006226D /* Run Script - Generate Files */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"$(SRCROOT)/Scripts/generate-licenses.sh",
 				"$(SRCROOT)/Scripts/generate-version-in-settings.sh",
@@ -989,8 +939,6 @@
 				"$(SRCROOT)/Flinky.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
 			);
 			name = "Run Script - Generate Files";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.plist",
 				"$(SRCROOT)/Sources/Resources/Settings.bundle/Licenses.latest_result.txt",
@@ -998,112 +946,124 @@
 				"$(SRCROOT)/Sources/Utils/Localization.swift",
 				"$(SRCROOT)/Generated/generated-en.strings",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate licenses\n./Scripts/generate-licenses.sh\n\n# Generate version in settings\n./Scripts/generate-version-in-settings.sh\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+			shellScript = (
+				"set -e",
+				"",
+				"# Set up PATH for Homebrew tools",
+				"if [[ \"$(uname -m)\" == arm64 ]]; then",
+				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
+				"else",
+				"    export PATH=\"/usr/local/bin:$PATH\"",
+				"fi",
+				"",
+				"# Change to project directory",
+				"cd \"$SRCROOT\"",
+				"",
+				"# Generate licenses",
+				"./Scripts/generate-licenses.sh",
+				"",
+				"# Generate version in settings",
+				"./Scripts/generate-version-in-settings.sh",
+				"",
+				"# Generate localization",
+				"./Scripts/generate-localization.sh",
+				"",
+				"echo \"✅ All generation tasks completed successfully\"",
+				"",
+			);
 		};
 		D4DB2E772E61DC15000ADF50 /* Run Script - Generate Files */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
 			name = "Run Script - Generate Files";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\n# Set up PATH for Homebrew tools\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nelse\n    export PATH=\"/usr/local/bin:$PATH\"\nfi\n\n# Change to project directory\ncd \"$SRCROOT\"\n\n# Generate localization\n./Scripts/generate-localization.sh\n\necho \"✅ All generation tasks completed successfully\"\n";
+			shellScript = (
+				"set -e",
+				"",
+				"# Set up PATH for Homebrew tools",
+				"if [[ \"$(uname -m)\" == arm64 ]]; then",
+				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
+				"else",
+				"    export PATH=\"/usr/local/bin:$PATH\"",
+				"fi",
+				"",
+				"# Change to project directory",
+				"cd \"$SRCROOT\"",
+				"",
+				"# Generate localization",
+				"./Scripts/generate-localization.sh",
+				"",
+				"echo \"✅ All generation tasks completed successfully\"",
+				"",
+			);
 		};
 		D4F7B8E32E41FA15004A2D77 /* Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
 			name = Lint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint --config .swiftlint.yml --strict\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = (
+				"if [[ \"$(uname -m)\" == arm64 ]]",
+				"then",
+				"    export PATH=\"/opt/homebrew/bin:$PATH\"",
+				"fi",
+				"",
+				"if command -v swiftlint >/dev/null 2>&1",
+				"then",
+				"    swiftlint --config .swiftlint.yml --strict",
+				"else",
+				"    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"",
+				"fi",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D40BEC132E2EE0C500391C5A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014C82E83DE2900117E01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A014E12E83E11500117E01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4A5DC422E46133A00027944 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D359D52E1BDF540006226D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D509DB2E4621120067A402 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4D50A002E46286D0067A402 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4E7890E2E461A83005DA720 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D4ECAAB02E3CF6FB00C757EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -1216,7 +1176,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		D40BEC1E2E2EE0C500391C5A /* Debug */ = {
+		D40BEC1E2E2EE0C500391C5A /* Debug configuration for PBXNativeTarget "Tests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1236,7 +1196,7 @@
 			};
 			name = Debug;
 		};
-		D40BEC1F2E2EE0C500391C5A /* Release */ = {
+		D40BEC1F2E2EE0C500391C5A /* Release configuration for PBXNativeTarget "Tests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1256,7 +1216,7 @@
 			};
 			name = Release;
 		};
-		D4A014D52E83DE2900117E01 /* Debug */ = {
+		D4A014D52E83DE2900117E01 /* Debug configuration for PBXNativeTarget "UITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1275,7 +1235,7 @@
 			};
 			name = Debug;
 		};
-		D4A014D62E83DE2900117E01 /* Release */ = {
+		D4A014D62E83DE2900117E01 /* Release configuration for PBXNativeTarget "UITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1294,7 +1254,7 @@
 			};
 			name = Release;
 		};
-		D4A014EC2E83E11500117E01 /* Debug */ = {
+		D4A014EC2E83E11500117E01 /* Debug configuration for PBXNativeTarget "ShareExtensionTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1314,7 +1274,7 @@
 			};
 			name = Debug;
 		};
-		D4A014ED2E83E11500117E01 /* Release */ = {
+		D4A014ED2E83E11500117E01 /* Release configuration for PBXNativeTarget "ShareExtensionTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1334,7 +1294,7 @@
 			};
 			name = Release;
 		};
-		D4A5DC5C2E46133A00027944 /* Debug */ = {
+		D4A5DC5C2E46133A00027944 /* Debug configuration for PBXNativeTarget "FlinkyCore" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -1372,7 +1332,7 @@
 			};
 			name = Debug;
 		};
-		D4A5DC5D2E46133A00027944 /* Release */ = {
+		D4A5DC5D2E46133A00027944 /* Release configuration for PBXNativeTarget "FlinkyCore" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -1410,7 +1370,7 @@
 			};
 			name = Release;
 		};
-		D4D359E42E1BDF560006226D /* Debug */ = {
+		D4D359E42E1BDF560006226D /* Debug configuration for PBXProject "Flinky" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1476,7 +1436,7 @@
 			};
 			name = Debug;
 		};
-		D4D359E52E1BDF560006226D /* Release */ = {
+		D4D359E52E1BDF560006226D /* Release configuration for PBXProject "Flinky" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1535,7 +1495,7 @@
 			};
 			name = Release;
 		};
-		D4D359E72E1BDF560006226D /* Debug */ = {
+		D4D359E72E1BDF560006226D /* Debug configuration for PBXNativeTarget "Flinky" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1576,7 +1536,7 @@
 			};
 			name = Debug;
 		};
-		D4D359E82E1BDF560006226D /* Release */ = {
+		D4D359E82E1BDF560006226D /* Release configuration for PBXNativeTarget "Flinky" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1618,7 +1578,7 @@
 			};
 			name = Release;
 		};
-		D4D509EC2E4621120067A402 /* Debug */ = {
+		D4D509EC2E4621120067A402 /* Debug configuration for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Targets/ShareExtension/Sources/Resources/ShareExtension.entitlements;
@@ -1650,7 +1610,7 @@
 			};
 			name = Debug;
 		};
-		D4D509ED2E4621120067A402 /* Release */ = {
+		D4D509ED2E4621120067A402 /* Release configuration for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Targets/ShareExtension/Sources/Resources/ShareExtension.entitlements;
@@ -1682,7 +1642,7 @@
 			};
 			name = Release;
 		};
-		D4D50A0D2E46286D0067A402 /* Debug */ = {
+		D4D50A0D2E46286D0067A402 /* Debug configuration for PBXNativeTarget "ShareExtensionUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1701,7 +1661,7 @@
 			};
 			name = Debug;
 		};
-		D4D50A0E2E46286D0067A402 /* Release */ = {
+		D4D50A0E2E46286D0067A402 /* Release configuration for PBXNativeTarget "ShareExtensionUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1720,7 +1680,7 @@
 			};
 			name = Release;
 		};
-		D4E789192E461A83005DA720 /* Debug */ = {
+		D4E789192E461A83005DA720 /* Debug configuration for PBXNativeTarget "FlinkyCoreTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1740,7 +1700,7 @@
 			};
 			name = Debug;
 		};
-		D4E7891A2E461A83005DA720 /* Release */ = {
+		D4E7891A2E461A83005DA720 /* Release configuration for PBXNativeTarget "FlinkyCoreTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1760,7 +1720,7 @@
 			};
 			name = Release;
 		};
-		D4ECAABC2E3CF6FB00C757EA /* Debug */ = {
+		D4ECAABC2E3CF6FB00C757EA /* Debug configuration for PBXNativeTarget "ScreenshotUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1779,7 +1739,7 @@
 			};
 			name = Debug;
 		};
-		D4ECAABD2E3CF6FB00C757EA /* Release */ = {
+		D4ECAABD2E3CF6FB00C757EA /* Release configuration for PBXNativeTarget "ScreenshotUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
@@ -1804,91 +1764,81 @@
 		D40BEC1D2E2EE0C500391C5A /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D40BEC1E2E2EE0C500391C5A /* Debug */,
-				D40BEC1F2E2EE0C500391C5A /* Release */,
+				D40BEC1E2E2EE0C500391C5A /* Debug configuration for PBXNativeTarget "Tests" */,
+				D40BEC1F2E2EE0C500391C5A /* Release configuration for PBXNativeTarget "Tests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4A014D42E83DE2900117E01 /* Build configuration list for PBXNativeTarget "UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4A014D52E83DE2900117E01 /* Debug */,
-				D4A014D62E83DE2900117E01 /* Release */,
+				D4A014D52E83DE2900117E01 /* Debug configuration for PBXNativeTarget "UITests" */,
+				D4A014D62E83DE2900117E01 /* Release configuration for PBXNativeTarget "UITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4A014EB2E83E11500117E01 /* Build configuration list for PBXNativeTarget "ShareExtensionTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4A014EC2E83E11500117E01 /* Debug */,
-				D4A014ED2E83E11500117E01 /* Release */,
+				D4A014EC2E83E11500117E01 /* Debug configuration for PBXNativeTarget "ShareExtensionTests" */,
+				D4A014ED2E83E11500117E01 /* Release configuration for PBXNativeTarget "ShareExtensionTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4A5DC5B2E46133A00027944 /* Build configuration list for PBXNativeTarget "FlinkyCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4A5DC5C2E46133A00027944 /* Debug */,
-				D4A5DC5D2E46133A00027944 /* Release */,
+				D4A5DC5C2E46133A00027944 /* Debug configuration for PBXNativeTarget "FlinkyCore" */,
+				D4A5DC5D2E46133A00027944 /* Release configuration for PBXNativeTarget "FlinkyCore" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4D359D42E1BDF540006226D /* Build configuration list for PBXProject "Flinky" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4D359E42E1BDF560006226D /* Debug */,
-				D4D359E52E1BDF560006226D /* Release */,
+				D4D359E42E1BDF560006226D /* Debug configuration for PBXProject "Flinky" */,
+				D4D359E52E1BDF560006226D /* Release configuration for PBXProject "Flinky" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4D359E62E1BDF560006226D /* Build configuration list for PBXNativeTarget "Flinky" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4D359E72E1BDF560006226D /* Debug */,
-				D4D359E82E1BDF560006226D /* Release */,
+				D4D359E72E1BDF560006226D /* Debug configuration for PBXNativeTarget "Flinky" */,
+				D4D359E82E1BDF560006226D /* Release configuration for PBXNativeTarget "Flinky" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4D509EB2E4621120067A402 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4D509EC2E4621120067A402 /* Debug */,
-				D4D509ED2E4621120067A402 /* Release */,
+				D4D509EC2E4621120067A402 /* Debug configuration for PBXNativeTarget "ShareExtension" */,
+				D4D509ED2E4621120067A402 /* Release configuration for PBXNativeTarget "ShareExtension" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4D50A0C2E46286D0067A402 /* Build configuration list for PBXNativeTarget "ShareExtensionUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4D50A0D2E46286D0067A402 /* Debug */,
-				D4D50A0E2E46286D0067A402 /* Release */,
+				D4D50A0D2E46286D0067A402 /* Debug configuration for PBXNativeTarget "ShareExtensionUITests" */,
+				D4D50A0E2E46286D0067A402 /* Release configuration for PBXNativeTarget "ShareExtensionUITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4E789182E461A83005DA720 /* Build configuration list for PBXNativeTarget "FlinkyCoreTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4E789192E461A83005DA720 /* Debug */,
-				D4E7891A2E461A83005DA720 /* Release */,
+				D4E789192E461A83005DA720 /* Debug configuration for PBXNativeTarget "FlinkyCoreTests" */,
+				D4E7891A2E461A83005DA720 /* Release configuration for PBXNativeTarget "FlinkyCoreTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D4ECAABE2E3CF6FB00C757EA /* Build configuration list for PBXNativeTarget "ScreenshotUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D4ECAABC2E3CF6FB00C757EA /* Debug */,
-				D4ECAABD2E3CF6FB00C757EA /* Release */,
+				D4ECAABC2E3CF6FB00C757EA /* Debug configuration for PBXNativeTarget "ScreenshotUITests" */,
+				D4ECAABD2E3CF6FB00C757EA /* Release configuration for PBXNativeTarget "ScreenshotUITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
@@ -1924,9 +1874,12 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-apple-swift-log";
 			requirement = {
-				branch = "philprime/compile-from-source-setup";
-				kind = branch;
+				kind = exactVersion;
+				version = 9.26.1;
 			};
+			traits = (
+				SentryFromSource,
+			);
 		};
 		D4CFD1772E1E38F2001447E9 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
