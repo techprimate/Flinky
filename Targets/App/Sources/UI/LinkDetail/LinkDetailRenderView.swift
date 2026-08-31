@@ -217,7 +217,7 @@ extension LinkDetailRenderView {
 
         var body: some View {
             image
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .accessibilityLabel(L10n.Shared.QrCode.Accessibility.label(url.absoluteString))
                 .accessibilityHint(L10n.Shared.QrCode.Accessibility.hint)
                 .accessibilityIdentifier("link-detail.qr-code.image")
