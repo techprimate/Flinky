@@ -38,6 +38,15 @@
   },
   "packageRules": [
     {
+      "description": "Keep Sentry packages on the same version",
+      "groupName": "Sentry packages",
+      "matchPackageNames": [
+        "getsentry/sentry-apple-swift-log",
+        "getsentry/sentry-cocoa"
+      ],
+      "minimumGroupSize": 2
+    },
+    {
       "description": "Only allow semantic version updates for Swift packages",
       "enabled": true,
       "matchManagers": ["swift"],
