@@ -37,7 +37,7 @@ jobs:
         with:
           device: iPhone 17 Pro
           boot: true
-          warm-xcodebuild-settings: false
+          warm-xcodebuild-settings: true
           project: Flinky.xcodeproj
           scheme: ScreenshotUITests
 
