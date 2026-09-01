@@ -184,6 +184,7 @@ desc <<~DESC
   Options:
     language: language code (default: en-US)
     output_dir: output directory (default: fastlane/screenshots)
+    expected_count: expected screenshot count (default: all configured devices)
 DESC
 lane :collect_screenshots do |options|
   language = options[:language] || SCREENSHOT_LANGUAGE
@@ -206,7 +207,7 @@ lane :collect_screenshots do |options|
     UI.message "   ✅ #{File.basename(file)}"
   end
 
-  expected = SCREENSHOT_DEVICES.length * 4 # 4 screenshots per device
+  expected = options[:expected_count]&.to_i || SCREENSHOT_DEVICES.length * 4
   if screenshots.length == expected
     UI.success "✅ All #{screenshots.length} screenshots collected!"
   else

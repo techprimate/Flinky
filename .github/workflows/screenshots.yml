@@ -32,6 +32,7 @@ jobs:
           bundler-cache: true
 
       - name: Wait for iOS Simulator
+        id: simulator
         uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: iPhone 17 Pro
@@ -41,7 +42,7 @@ jobs:
           scheme: ScreenshotUITests
 
       - name: Capture and Upload Screenshots
-        run: bundle exec fastlane generate_and_upload_screenshots_ci
+        run: bundle exec fastlane generate_and_upload_screenshots_ci "simulator_udid:${{ steps.simulator.outputs.udid }}"
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -134,32 +134,19 @@ desc <<~DESC
   Captures screenshots on a single iPhone device for faster CI builds
   Use generate_screenshots for full multi-device App Store screenshots
 DESC
-lane :generate_screenshots_ci do
+lane :generate_screenshots_ci do |options|
   UI.message "Generating screenshots for CI (single device)"
 
-  capture_screenshots(
-    scheme: "ScreenshotUITests",
-    devices: [
-      "iPhone 17 Pro" # iPhone 6.3" display
-    ],
-    languages: ["en-US"],
-    configuration: "Debug", # Use Debug to reduce build time (~5-6 min faster than Release)
+  derived_data_path = options[:derived_data_path] || "/tmp/screenshot_derived_data"
+  simulator_udid = options[:simulator_udid]
 
-    clear_previous_screenshots: true,
-    concurrent_simulators: false,
-    skip_open_summary: true,
-
-    reinstall_app: true,
-    override_status_bar: true,
-    localize_simulator: true,
-    disable_slide_to_type: true,
-
-    skip_helper_version_check: true,
-
-    # See generate_screenshots: retry flakes, then fail loudly.
-    number_of_retries: 3,
-    stop_after_first_error: true
+  build_screenshots(derived_data_path: derived_data_path)
+  run_screenshot_on_device(
+    device: "iPhone 17 Pro",
+    simulator_udid: simulator_udid,
+    derived_data_path: derived_data_path
   )
+  collect_screenshots(expected_count: 4)
 
   UI.success "✅ CI screenshots generated successfully!"
   UI.message "Screenshots generated in: fastlane/screenshots/"
@@ -206,8 +193,11 @@ desc <<~DESC
   Fast single-device screenshot generation for CI builds
   Combines generate_screenshots_ci and upload_screenshots_to_sentry lanes
 DESC
-lane :generate_and_upload_screenshots_ci do
-  generate_screenshots_ci
+lane :generate_and_upload_screenshots_ci do |options|
+  generate_screenshots_ci(
+    simulator_udid: options[:simulator_udid],
+    derived_data_path: options[:derived_data_path]
+  )
   upload_screenshots_to_sentry
 end
 
