@@ -1,3 +1,18 @@
+GIT
+  remote: https://github.com/techprimate/Xcodeproj.git
+  revision: 43bcf6ff6c84e380ccaeabede2a7e14856df331e
+  branch: feat/traits
+  specs:
+    xcodeproj (1.28.1)
+      CFPropertyList (>= 2.3.3, < 4.0)
+      atomos (~> 0.1.3)
+      base64
+      claide (>= 1.0.2, < 2.0)
+      colored2 (~> 3.1)
+      nanaimo (~> 0.4.0)
+      nkf
+      rexml (>= 3.3.6, < 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -247,15 +262,6 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     word_wrap (1.0.0)
-    xcodeproj (1.28.1)
-      CFPropertyList (>= 2.3.3, < 4.0)
-      atomos (~> 0.1.3)
-      base64
-      claide (>= 1.0.2, < 2.0)
-      colored2 (~> 3.1)
-      nanaimo (~> 0.4.0)
-      nkf
-      rexml (>= 3.3.6, < 4.0)
     xcpretty (0.4.1)
       rouge (~> 3.28.0)
     xcpretty-travis-formatter (1.0.1)
@@ -273,6 +279,7 @@ DEPENDENCIES
   fastlane-plugin-sentry
   octokit
   ostruct
+  xcodeproj!
 
 CHECKSUMS
   CFPropertyList (3.0.8) sha256=2c99d0d980536d3d7ab252f7bd59ac8be50fbdd1ff487c98c949bb66bb114261
@@ -378,7 +385,7 @@ CHECKSUMS
   unicode-emoji (4.2.0) sha256=519e69150f75652e40bf736106cfbc8f0f73aa3fb6a65afe62fefa7f80b0f80f
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   word_wrap (1.0.0) sha256=f556d4224c812e371000f12a6ee8102e0daa724a314c3f246afaad76d82accc7
-  xcodeproj (1.28.1) sha256=6f12670f00739d9817ca27ac89d6ef01cc86050e22a0bc08a3131487e5b5cddc
+  xcodeproj (1.28.1)
   xcpretty (0.4.1) sha256=b14c50e721f6589ee3d6f5353e2c2cfcd8541fa1ea16d6c602807dd7327f3892
   xcpretty-travis-formatter (1.0.1) sha256=aacc332f17cb7b2cba222994e2adc74223db88724fe76341483ad3098e232f93
 
