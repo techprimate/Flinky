@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/techprimate/Xcodeproj.git
-  revision: 43bcf6ff6c84e380ccaeabede2a7e14856df331e
+  revision: ec63acd48482a4108e294cb3685f184122b817a5
   branch: feat/traits
   specs:
     xcodeproj (1.28.1)
