@@ -1,5 +1,5 @@
 {
-  "originHash" : "0cf836f62cf5d74120586679b999b7a16356a44a747f8145082548a73f781113",
+  "originHash" : "679fc4901a3bcdd655939b479e259c382a95a57f3f4210125ba6c6a2e11f2cb3",
   "pins" : [
     {
       "identity" : "onlaunch-ios-client",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "f11d6ef11918b3f66b41dd041647629834f7bcb6",
         "version" : "0.0.6"
+      }
+    },
+    {
+      "identity" : "sentry-apple-swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/sentry-apple-swift-log",
+      "state" : {
+        "revision" : "a0718c960f5e3ca91558f7b0ebd43dee164a586e",
+        "version" : "9.26.1"
       }
     },
     {
@@ -26,6 +35,15 @@
       "state" : {
         "revision" : "e01b3d4f861412f8dcee8d93c417d2c2b0cdfd77",
         "version" : "7.0.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "3ffafb9722d5d918c614feb496c8789a3b59d222",
+        "version" : "1.15.0"
       }
     }
   ],

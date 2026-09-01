@@ -1,14 +1,13 @@
 import FlinkyCore
+import Logging
 import OnLaunch
 import SentrySwift
+import SentrySwiftLog
 import SwiftData
 import SwiftUI
-import os.log
 
 @main
 struct FlinkyApp: App {
-    private static let logger = Logger.forType(Self.self)
-
     private static let isTestingEnabled = ProcessInfo.processInfo.isTestingEnabled
     private static let deps = Dependencies(isTestingEnabled: Self.isTestingEnabled)
 
@@ -18,6 +17,15 @@ struct FlinkyApp: App {
     init() {
         SentrySDK.start { options in
             Self.configureSentry(options: options, toastManager: Self.deps.toastManager, isTestingEnabled: Self.isTestingEnabled)
+        }
+        LoggingSystem.bootstrap { label in
+            var consoleHandler = StreamLogHandler.standardOutput(label: label)
+            consoleHandler.logLevel = .trace
+
+            return MultiplexLogHandler([
+                consoleHandler,
+                SentryLogHandler(logLevel: .trace)
+            ])
         }
 
         // Start app health observation for system-level metrics
@@ -50,7 +58,7 @@ struct FlinkyApp: App {
         isTestingEnabled: Bool
     ) {
         options.enabled = !isTestingEnabled
-        options.debug = pickEnvValue(production: false, develop: true)
+        // options.debug = pickEnvValue(production: false, develop: true)
         options.dsn = "https://f371822cfa840de0c6a27a788a5fa48e@o188824.ingest.us.sentry.io/4509640637349888"
         if isTestingEnabled {
             options.dsn = "https://00000000000000000000000000000000@o0.ingest.sentry.io/0"

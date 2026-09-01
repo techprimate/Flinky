@@ -1,7 +1,7 @@
-import os.log
+import Logging
 
 public extension Logger {
-    static func forType<T>(_ type: T.Type) -> Logger {
-        Logger(subsystem: "com.techprimate.Flinky", category: String(describing: type))
+    init<T>(for type: T.Type) {
+        self.init(label: String(reflecting: type))
     }
 }

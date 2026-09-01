@@ -1,10 +1,10 @@
 import FlinkyCore
 import SentrySwift
 import SwiftUI
-import os.log
+import Logging
 
 struct LinkListDetailContainerView: View {
-    private static let logger = Logger.forType(Self.self)
+    private static let logger = Logger(for: Self.self)
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext

@@ -2,10 +2,10 @@ import FlinkyCore
 import Foundation
 import SentrySwift
 import UIKit
-import os.log
+import Logging
 
 class QRCodeCache: NSObject {
-    private static let logger = Logger.forType(QRCodeCache.self)
+    private static let logger = Logger(for: QRCodeCache.self)
 
     private let storage = NSCache<NSString, UIImage>()
 

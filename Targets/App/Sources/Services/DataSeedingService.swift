@@ -2,11 +2,11 @@ import FlinkyCore
 import Foundation
 import SentrySwift
 import SwiftData
-import os.log
+import Logging
 
 /// Service responsible for pre-seeding data on first app launch
 final class DataSeedingService {
-    private static let logger = Logger.forType(DataSeedingService.self)
+    private static let logger = Logger(for: DataSeedingService.self)
 
     // MARK: - Public API
 

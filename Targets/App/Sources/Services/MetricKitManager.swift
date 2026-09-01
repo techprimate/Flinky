@@ -1,14 +1,14 @@
 // swiftlint:disable file_length function_body_length type_body_length
 import Foundation
 import MetricKit
-import os.log
+import Logging
 import SentrySwift
 
 final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     // MARK: - Properties
 
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Flinky", category: "MetricKitManager")
+    private static let logger = Logger(for: MetricKitManager.self)
 
     private var isReceiving = false
 
