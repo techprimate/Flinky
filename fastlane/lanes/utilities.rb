@@ -139,8 +139,9 @@ lane :generate_screenshots_ci do |options|
 
   derived_data_path = options[:derived_data_path] || "/tmp/screenshot_derived_data"
   simulator_udid = options[:simulator_udid]
+  destination = simulator_udid ? "platform=iOS Simulator,id=#{simulator_udid}" : nil
 
-  build_screenshots(derived_data_path: derived_data_path)
+  build_screenshots(derived_data_path: derived_data_path, destination: destination)
   run_screenshot_on_device(
     device: "iPhone 17 Pro",
     simulator_udid: simulator_udid,

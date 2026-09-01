@@ -38,9 +38,11 @@ desc <<~DESC
   The output can then be used by run_screenshot_on_device for each device.
   Options:
     derived_data_path: path for build products (default: /tmp/screenshot_derived_data)
+    destination: xcodebuild destination (default: generic iOS Simulator)
 DESC
 lane :build_screenshots do |options|
   derived_data_path = options[:derived_data_path] || "/tmp/screenshot_derived_data"
+  destination = options[:destination] || "generic/platform=iOS Simulator"
 
   UI.message "Building screenshot test bundle..."
 
@@ -49,7 +51,7 @@ lane :build_screenshots do |options|
     scheme: "ScreenshotUITests",
     configuration: "Debug",
     derived_data_path: derived_data_path,
-    destination: "generic/platform=iOS Simulator",
+    destination: destination,
     build_for_testing: true,
     xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO"
   )
@@ -134,6 +136,7 @@ lane :run_screenshot_on_device do |options|
       result = run_tests(
         project: "Flinky.xcodeproj",
         scheme: "ScreenshotUITests",
+        derived_data_path: derived_data_path,
         xctestrun: xctestrun_path,
         test_without_building: true,
         destination: "platform=iOS Simulator,id=#{simulator_udid}",
