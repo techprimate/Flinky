@@ -3,10 +3,10 @@ import SFSafeSymbols
 import SentrySwift
 import SwiftData
 import SwiftUI
-import os.log
+import Logging
 
 struct LinkListsContainerView: View {
-    private static let logger = Logger.forType(Self.self)
+    private static let logger = Logger(for: Self.self)
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.toaster) private var toaster
@@ -194,11 +194,6 @@ struct LinkListsContainerView: View {
             }
         }
         .sentryTrace("LINK_LISTS_VIEW")
-        .onAppear {
-            // Auto-injecting Sentry feedback widget is currently not supported in SwiftUI.
-            // Therefore we manually trigger it when the view appears.
-            SentrySDK.feedback.showWidget()
-        }
         .onChange(of: searchText) { oldValue, newValue in
             // Track search when user starts searching (transitions from empty to non-empty)
             if oldValue.isEmpty && !newValue.isEmpty {

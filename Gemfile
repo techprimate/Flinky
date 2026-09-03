@@ -4,8 +4,9 @@ gem "abbrev" # Required by Ruby v3.4.X
 gem "ostruct" # Required by Ruby v3.5.X
 gem "benchmark" # Required by Ruby v3.5.X
 
-gem "fastlane", git: "https://github.com/fastlane/fastlane.git", branch: "master" 
+gem "fastlane" 
 gem "octokit"
+gem "xcodeproj", git: "https://github.com/techprimate/Xcodeproj.git", branch: "feat/traits"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)

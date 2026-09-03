@@ -1,6 +1,6 @@
 import Foundation
 import Network
-import os.log
+import Logging
 import SentrySwift
 import UIKit
 
@@ -17,14 +17,9 @@ import UIKit
 /// Reference: https://github.com/getsentry/sentry-cocoa/issues/7000
 final class AppHealthObserver {
 
-    // MARK: - Singleton
-
-    /// Shared instance of the app health observer.
-    static let shared = AppHealthObserver()
-
     // MARK: - Properties
 
-    private static let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "Flinky", category: "AppHealthObserver")
+    private static let logger = Logger(for: AppHealthObserver.self)
 
     private var previousThermalState: ProcessInfo.ThermalState = ProcessInfo.processInfo.thermalState
     private var previousAppState: UIApplication.State = .inactive
@@ -35,10 +30,6 @@ final class AppHealthObserver {
     private let networkQueue = DispatchQueue(label: "com.flinky.network-monitor")
 
     private var isObserving = false
-
-    // MARK: - Initialization
-
-    private init() {}
 
     // MARK: - Public Methods
 

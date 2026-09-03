@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: true
 
@@ -56,12 +56,21 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: true
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
+
+      - name: Wait for iOS Simulator
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
+        with:
+          device: iPhone 17 Pro
+          boot: true
+          warm-xcodebuild-settings: true
+          project: Flinky.xcodeproj
+          scheme: App
 
       - name: Test
         run: make test-ios "DEVICE_NAME=iPhone 17 Pro"
@@ -96,12 +105,21 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: true
 
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
+
+      - name: Wait for iOS Simulator
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
+        with:
+          device: iPhone 17 Pro
+          boot: true
+          warm-xcodebuild-settings: true
+          project: Flinky.xcodeproj
+          scheme: UITests
 
       - name: Test UI
         run: make test-ui-ios "DEVICE_NAME=iPhone 17 Pro"

@@ -1,3 +1,4 @@
+import SFSafeSymbols
 import SwiftUI
 
 struct CreateLinkListEditorRenderView: View {
@@ -6,6 +7,7 @@ struct CreateLinkListEditorRenderView: View {
     }
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedback) private var feedback
 
     @Binding var name: String
     @FocusState private var focusedField: CreateField?
@@ -27,6 +29,16 @@ struct CreateLinkListEditorRenderView: View {
         .navigationTitle(L10n.CreateList.title)
         .accessibilityIdentifier("create-link-list.container")
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    feedback.show()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("create-link-list.feedback.button")
+            }
             ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         dismiss()

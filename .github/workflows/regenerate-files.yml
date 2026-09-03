@@ -1,0 +1,69 @@
+name: Regenerate Files
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  regenerate:
+    name: Regenerate Files
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Generate GitHub App Token
+        id: app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.TECHPRIMATE_UPDATER_BOT_APP_ID }}
+          private-key: ${{ secrets.TECHPRIMATE_UPDATER_BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          submodules: true
+
+      - name: Update Homebrew
+        run: brew update
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Show Generator Versions
+        run: license-plist --version
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Regenerate Files
+        run: make generate LICENSE_PLIST_ARGS=--force
+        env:
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.app_token.outputs.token }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          add-paths: |
+            Targets/App/Sources/Generated/
+            Targets/FlinkyCore/Sources/Generated/
+            Targets/ShareExtension/Sources/Generated/
+            Targets/App/Sources/Resources/Settings.bundle/
+          branch: chore/regenerate-files
+          commit-message: "chore: regenerate files"
+          delete-branch: true
+          title: "chore: regenerate files"
+          body: |
+            Automated regeneration using `make generate`.

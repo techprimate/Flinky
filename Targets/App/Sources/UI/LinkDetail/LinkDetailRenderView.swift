@@ -7,6 +7,7 @@ import SwiftUI
 
 struct LinkDetailRenderView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedback) private var feedback
 
     let linkId: UUID
 
@@ -59,6 +60,16 @@ struct LinkDetailRenderView: View {
                     menu.tint(.white)
                 }
                 .accessibilityIdentifier("link-detail.more-menu.button")
+            }
+            ToolbarItemGroup(placement: .topBarLeading) {
+                Button(action: {
+                    feedback.show()
+                }, label: {
+                    Label(L10n.Shared.Button.Feedback.label, systemSymbol: .megaphone)
+                })
+                .accessibilityLabel(L10n.Shared.Button.Feedback.Accessibility.label)
+                .accessibilityHint(L10n.Shared.Button.Feedback.Accessibility.hint)
+                .accessibilityIdentifier("link-detail.feedback.button")
             }
             if #available(iOS 26, *) {
                 ToolbarItem(placement: .confirmationAction) {
@@ -206,7 +217,7 @@ extension LinkDetailRenderView {
 
         var body: some View {
             image
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .accessibilityLabel(L10n.Shared.QrCode.Accessibility.label(url.absoluteString))
                 .accessibilityHint(L10n.Shared.QrCode.Accessibility.hint)
                 .accessibilityIdentifier("link-detail.qr-code.image")
