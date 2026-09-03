@@ -9,6 +9,20 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9198AA103876EC14A96930E2"
+               BuildableName = "Flinky.app"
+               BlueprintName = "Flinky"
+               ReferencedContainer = "container:Flinky.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -38,9 +52,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31222234B0F5EAD020CD23EE"
-            BuildableName = "UITests.xctest"
-            BlueprintName = "UITests"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
+            BuildableName = "Flinky.app"
+            BlueprintName = "Flinky"
             ReferencedContainer = "container:Flinky.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,15 +84,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31222234B0F5EAD020CD23EE"
-            BuildableName = "UITests.xctest"
-            BlueprintName = "UITests"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
+            BuildableName = "Flinky.app"
+            BlueprintName = "Flinky"
             ReferencedContainer = "container:Flinky.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <CommandLineArguments>
       </CommandLineArguments>
    </LaunchAction>
@@ -88,17 +103,18 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <CommandLineArguments>
-      </CommandLineArguments>
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31222234B0F5EAD020CD23EE"
-            BuildableName = "UITests.xctest"
-            BlueprintName = "UITests"
+            BlueprintIdentifier = "9198AA103876EC14A96930E2"
+            BuildableName = "Flinky.app"
+            BlueprintName = "Flinky"
             ReferencedContainer = "container:Flinky.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -630,6 +630,7 @@ schemes:
   ShareExtensionUITests:
     build:
       targets:
+        Flinky: all
         ShareExtensionUITests: [test]
     test:
       config: Debug
@@ -647,6 +648,7 @@ schemes:
           parallelizable: true
     run:
       config: Debug
+      executable: Flinky
     profile:
       config: Release
     analyze:
@@ -680,6 +682,7 @@ schemes:
   UITests:
     build:
       targets:
+        Flinky: all
         UITests: [test]
     test:
       config: Debug
@@ -691,6 +694,7 @@ schemes:
           parallelizable: true
     run:
       config: Debug
+      executable: Flinky
     profile:
       config: Release
     analyze:

@@ -927,13 +927,13 @@
 			targets = (
 				9198AA103876EC14A96930E2 /* Flinky */,
 				43502ECD46B23B0DE3807D91 /* FlinkyCore */,
+				5DE7B4773E669E09577A0496 /* ShareExtension */,
+				5251C822963952BF41D07C48 /* Tests */,
 				4693EB40E5A585A7709559FF /* FlinkyCoreTests */,
 				60C904CE0B184F208257759C /* ScreenshotUITests */,
-				5DE7B4773E669E09577A0496 /* ShareExtension */,
+				31222234B0F5EAD020CD23EE /* UITests */,
 				C7204C8FA7F18BE7B8526098 /* ShareExtensionTests */,
 				DC44702A3CEA6A63C027A551 /* ShareExtensionUITests */,
-				5251C822963952BF41D07C48 /* Tests */,
-				31222234B0F5EAD020CD23EE /* UITests */,
 			);
 		};
 /* End PBXProject section */

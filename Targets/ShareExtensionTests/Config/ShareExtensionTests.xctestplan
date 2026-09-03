@@ -16,7 +16,7 @@
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D4A014E42E83E11500117E01",
+        "identifier" : "C7204C8FA7F18BE7B8526098",
         "name" : "ShareExtensionTests"
       }
     }
