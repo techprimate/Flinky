@@ -254,6 +254,8 @@ lane :setup_code_signing do
   UI.message "Syncing code signing..."
   sync_code_signing(
     type: "development",
+    include_all_certificates: true,
+    force_for_new_certificates: true,
     app_identifier: "com.techprimate.Flinky"
   )
   sync_code_signing(
@@ -262,6 +264,8 @@ lane :setup_code_signing do
   )
   sync_code_signing(
     type: "development",
+    include_all_certificates: true,
+    force_for_new_certificates: true,
     app_identifier: "com.techprimate.Flinky.ShareExtension"
   )
   sync_code_signing(
