@@ -2007,7 +2007,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-apple-swift-log";
 			requirement = {
 				kind = exactVersion;
-				version = 9.26.1;
+				version = 9.27.0;
 			};
 			traits = (
 				SentryFromSource,
