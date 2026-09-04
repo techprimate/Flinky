@@ -57,6 +57,7 @@ jobs:
         with:
           token: ${{ steps.app_token.outputs.token }}
           add-paths: |
+            Flinky.xcodeproj/
             Targets/App/Sources/Generated/
             Targets/FlinkyCore/Sources/Generated/
             Targets/ShareExtension/Sources/Generated/

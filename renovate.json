@@ -40,11 +40,21 @@
     {
       "description": "Keep Sentry packages on the same version",
       "groupName": "Sentry packages",
-      "matchDepNames": [
+      "matchManagers": ["xcodegen"],
+      "matchPackageNames": [
         "getsentry/sentry-apple-*",
         "getsentry/sentry-cocoa"
       ],
       "minimumGroupSize": 2
+    },
+    {
+      "description": "Only update Sentry packages in project.yml",
+      "enabled": false,
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": [
+        "getsentry/sentry-apple-*",
+        "getsentry/sentry-cocoa"
+      ]
     },
     {
       "description": "Only allow semantic version updates for Swift packages",
