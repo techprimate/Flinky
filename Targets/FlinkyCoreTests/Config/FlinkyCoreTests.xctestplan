@@ -15,7 +15,7 @@
     {
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D4E789112E461A83005DA720",
+        "identifier" : "4693EB40E5A585A7709559FF",
         "name" : "FlinkyCoreTests"
       }
     }

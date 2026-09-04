@@ -16,7 +16,7 @@
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D40BEC162E2EE0C500391C5A",
+        "identifier" : "5251C822963952BF41D07C48",
         "name" : "Tests"
       }
     }

@@ -12,7 +12,7 @@
     "codeCoverage" : false,
     "targetForVariableExpansion" : {
       "containerPath" : "container:Flinky.xcodeproj",
-      "identifier" : "D4D509DE2E4621120067A402",
+      "identifier" : "5DE7B4773E669E09577A0496",
       "name" : "ShareExtension"
     }
   },
@@ -20,7 +20,7 @@
     {
       "target" : {
         "containerPath" : "container:Flinky.xcodeproj",
-        "identifier" : "D4D50A032E46286D0067A402",
+        "identifier" : "DC44702A3CEA6A63C027A551",
         "name" : "ShareExtensionUITests"
       }
     }
