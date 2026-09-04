@@ -378,17 +378,14 @@ bump-version-patch:
 
 ## Patch the Sentry package to a local path
 #
-# Patches the Sentry package to a local path to develop the SDK.
+# Replaces the remote Sentry package in project.yml with a local path and
+# regenerates the Xcode project.
 #
 # Pass the path to sentry-cocoa with SENTRY_PACKAGE_PATH. The path is
 # relative to the project root.
 #
 # Example:
 # make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa
-#
-# The patch is applied to Flinky.xcodeproj/project.pbxproj.
-SENTRY_PACKAGE_PROJECT ?= Flinky.xcodeproj/project.pbxproj
-
 .PHONY: patch-sentry-package
 patch-sentry-package:
 	@if [ -z "$(SENTRY_PACKAGE_PATH)" ]; then \
@@ -397,7 +394,8 @@ patch-sentry-package:
 		exit 1; \
 	fi
 	@echo "Patching Sentry package to $(SENTRY_PACKAGE_PATH)..."
-	@SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" ruby Scripts/patch-sentry-package.rb "$(SENTRY_PACKAGE_PROJECT)"
+	@SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" yq -i '.packages.SentryCocoa = {"path": strenv(SENTRY_PACKAGE_PATH)}' project.yml
+	@$(MAKE) generate-project
 
 # ============================================================================
 # HELP & DOCUMENTATION
