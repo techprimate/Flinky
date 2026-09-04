@@ -40,7 +40,7 @@ packages:
     exactVersion: 1.15.0
   SentrySwiftLog:
     url: https://github.com/getsentry/sentry-apple-swift-log
-    exactVersion: 9.26.1
+    exactVersion: 9.27.0
     traits:
       - SentryFromSource
 
