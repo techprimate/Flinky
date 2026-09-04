@@ -40,8 +40,8 @@
     {
       "description": "Keep Sentry packages on the same version",
       "groupName": "Sentry packages",
-      "matchPackageNames": [
-        "getsentry/sentry-apple-swift-log",
+      "matchDepNames": [
+        "getsentry/sentry-apple-*",
         "getsentry/sentry-cocoa"
       ],
       "minimumGroupSize": 2
