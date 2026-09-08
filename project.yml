@@ -37,7 +37,7 @@ packages:
     exactVersion: 0.0.6
   SwiftLog:
     url: https://github.com/apple/swift-log
-    exactVersion: 1.15.0
+    exactVersion: 1.15.1
   SentrySwiftLog:
     url: https://github.com/getsentry/sentry-apple-swift-log
     exactVersion: 9.27.0
