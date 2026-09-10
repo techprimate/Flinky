@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "yaml"
+
 # ============================================================================
 # PRIVATE HELPER LANES
 # ============================================================================
@@ -11,14 +13,10 @@ PROJECT_SPEC_PATH = File.expand_path("../project.yml").freeze
 
 # Private lane: Read version information from the XcodeGen project specification
 private_lane :_read_version_info do
-  version_number = sh(
-    "yq", "-er", ".settings.base.MARKETING_VERSION", PROJECT_SPEC_PATH,
-    log: false
-  ).strip
-  build_number = sh(
-    "yq", "-er", ".settings.base.CURRENT_PROJECT_VERSION", PROJECT_SPEC_PATH,
-    log: false
-  ).strip
+  project_spec = YAML.safe_load_file(PROJECT_SPEC_PATH)
+  version_settings = project_spec.fetch("settings").fetch("base")
+  version_number = version_settings.fetch("MARKETING_VERSION").to_s
+  build_number = version_settings.fetch("CURRENT_PROJECT_VERSION").to_s
 
   unless version_number.match?(/\A\d+(\.\d+)*\z/)
     UI.user_error!("Invalid MARKETING_VERSION in project.yml: #{version_number}")
