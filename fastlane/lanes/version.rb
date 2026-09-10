@@ -8,59 +8,42 @@
 
 # Private lane: Check App Store Connect and bump patch version if current version is already published
 private_lane :_check_and_bump_version_if_needed do
-  current_version = get_version_number(
-    xcodeproj: "Flinky.xcodeproj",
-    target: "Flinky"
-  )
+  current_version = _read_version_info[:version]
 
   UI.message "Checking App Store Connect for published version..."
 
-  begin
-    # Get the published version from App Store Connect
-    # This action sets lane_context[SharedValues::LATEST_VERSION] with the version number
-    app_store_build_number(
-      api_key_path: File.expand_path("./api-key.json"),
-      live: true
-    )
+  # Get the published version from App Store Connect
+  # This action sets lane_context[SharedValues::LATEST_VERSION] with the version number
+  app_store_build_number(
+    api_key_path: File.expand_path("./api-key.json"),
+    live: true
+  )
 
-    # Get the published version from lane context
-    published_version = lane_context[SharedValues::LATEST_VERSION]
+  published_version = lane_context[SharedValues::LATEST_VERSION]
+  UI.user_error!("Could not retrieve published version from App Store Connect") unless published_version
 
-    unless published_version
-      raise "Could not retrieve published version from App Store Connect"
-    end
+  UI.message "Published version on App Store Connect: #{published_version}"
 
-    UI.message "Published version on App Store Connect: #{published_version}"
-
-    # Compare versions semantically
-    if _version_already_published?(current_version, published_version)
-      UI.important "Version #{current_version} is already published. Bumping patch version..."
-      _bump_version(bump_type: "patch")
-      _make(target: "generate")
-
-      # Get the new version after bumping
-      new_version = get_version_number(
-        xcodeproj: "Flinky.xcodeproj",
-        target: "Flinky"
-      )
-      UI.success "✅ Version bumped from #{current_version} to #{new_version}"
-      next({ version: new_version, bumped: true })
-    else
-      UI.success "✅ Version #{current_version} is not yet published, using current version"
-      next({ version: current_version, bumped: false })
-    end
-  rescue => e
-    UI.important "⚠️ Failed to check App Store Connect: #{e.message}"
-    UI.important "Falling back to current version without bumping"
-    next({ version: current_version, bumped: false })
+  if _version_already_published?(
+    current_version: current_version,
+    published_version: published_version
+  )
+    UI.important "Version #{current_version} is already published. Bumping patch version..."
+    _bump_version(bump_type: "patch")
+    new_version = _read_version_info[:version]
+    UI.success "✅ Version bumped from #{current_version} to #{new_version}"
+    next({ version: new_version, bumped: true })
   end
+
+  UI.success "✅ Version #{current_version} is not yet published, using current version"
+  next({ version: current_version, bumped: false })
 end
 
 # Private lane: Compare versions to check if current version is already published
-private_lane :_version_already_published? do |current_version, published_version|
+private_lane :_version_already_published? do |options|
   # Parse version strings into arrays of integers
-  current_parts = current_version.split(".").map(&:to_i)
-  published_parts = published_version.split(".").map(&:to_i)
+  current_parts = options[:current_version].split(".").map(&:to_i)
+  published_parts = options[:published_version].split(".").map(&:to_i)
 
   # Compare major, minor, patch
   (0..2).each do |i|
@@ -85,39 +68,26 @@ private_lane :_get_next_build_number do |options|
 
   UI.message "Querying TestFlight for latest build number for version #{version_number}..."
 
-  begin
-    # Query TestFlight for the latest build number for this version
-    latest_testflight_build_number(
-      api_key_path: File.expand_path("./api-key.json"),
-      version: version_number
-    )
+  # Query TestFlight for the latest build number for this version
+  latest_testflight_build_number(
+    api_key_path: File.expand_path("./api-key.json"),
+    version: version_number,
+    initial_build_number: 0
+  )
 
-    # Get the latest build number from lane context
-    latest_build = lane_context[SharedValues::LATEST_TESTFLIGHT_BUILD_NUMBER]
+  latest_build = lane_context[SharedValues::LATEST_TESTFLIGHT_BUILD_NUMBER].to_i
+  next_build = latest_build + 1
 
-    if latest_build
-      next_build = latest_build.to_i + 1
-      UI.message "Latest build on TestFlight: #{latest_build}, using next: #{next_build}"
-    else
-      next_build = 1
-      UI.message "No builds found on TestFlight for version #{version_number}, starting at 1"
-    end
-
-    # Set the build number in the project
-    increment_build_number(
-      xcodeproj: "Flinky.xcodeproj",
-      build_number: next_build.to_s
-    )
-
-    UI.success "✅ Build number set to #{next_build}"
-    next next_build.to_s
-  rescue => e
-    UI.important "⚠️ Could not query TestFlight: #{e.message}"
-    UI.important "Incrementing from current build number as fallback"
-    increment_build_number(xcodeproj: "Flinky.xcodeproj")
-    build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
-    next build_number
+  if latest_build.positive?
+    UI.message "Latest build on TestFlight: #{latest_build}, using next: #{next_build}"
+  else
+    UI.message "No builds found on TestFlight for version #{version_number}, starting at 1"
   end
+
+  _write_version_info(version: version_number, build: next_build)
+
+  UI.success "✅ Build number set to #{next_build}"
+  next next_build.to_s
 end
 
 # Private lane: Check if a specific version+build already exists on TestFlight

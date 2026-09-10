@@ -7,7 +7,7 @@
 # ============================================================================
 
 VERSION_BUMP_FILES = [
-  "Flinky.xcodeproj/project.pbxproj",
+  "project.yml",
   "Targets/App/Sources/Resources/Settings.bundle/Root.plist"
 ].freeze
 
