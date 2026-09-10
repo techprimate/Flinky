@@ -7,15 +7,53 @@
 # They are not exposed in `fastlane lanes`.
 # ============================================================================
 
-# Private lane: Bump version number in project.pbxproj
+PROJECT_SPEC_PATH = File.expand_path("../project.yml").freeze
+
+# Private lane: Read version information from the XcodeGen project specification
+private_lane :_read_version_info do
+  version_number = sh(
+    "yq", "-er", ".settings.base.MARKETING_VERSION", PROJECT_SPEC_PATH,
+    log: false
+  ).strip
+  build_number = sh(
+    "yq", "-er", ".settings.base.CURRENT_PROJECT_VERSION", PROJECT_SPEC_PATH,
+    log: false
+  ).strip
+
+  unless version_number.match?(/\A\d+(\.\d+)*\z/)
+    UI.user_error!("Invalid MARKETING_VERSION in project.yml: #{version_number}")
+  end
+  unless build_number.match?(/\A\d+\z/)
+    UI.user_error!("Invalid CURRENT_PROJECT_VERSION in project.yml: #{build_number}")
+  end
+
+  next({ version: version_number, build: build_number })
+end
+
+# Private lane: Write version information to the XcodeGen project specification
+private_lane :_write_version_info do |options|
+  version_number = options[:version].to_s
+  build_number = options[:build].to_s
+
+  unless version_number.match?(/\A\d+(\.\d+)*\z/)
+    UI.user_error!("version is required and must be numeric (e.g. 1.2.3)")
+  end
+  unless build_number.match?(/\A\d+\z/)
+    UI.user_error!("build is required and must be numeric")
+  end
+
+  expression = ".settings.base.MARKETING_VERSION = \"#{version_number}\" | " \
+               ".settings.base.CURRENT_PROJECT_VERSION = #{build_number}"
+  sh("yq", "-i", expression, PROJECT_SPEC_PATH)
+
+  next({ version: version_number, build: build_number })
+end
+
+# Private lane: Bump version number in project.yml
 private_lane :_bump_version do |options|
   bump_type = options[:bump_type] # "major", "minor", or "patch"
-
-  # Get current version
-  old_version = get_version_number(
-    xcodeproj: "Flinky.xcodeproj",
-    target: "Flinky"
-  )
+  version_info = _read_version_info
+  old_version = version_info[:version]
 
   # Parse version into components
   version_parts = old_version.split(".").map(&:to_i)
@@ -39,19 +77,7 @@ private_lane :_bump_version do |options|
   end
 
   new_version = "#{major}.#{minor}.#{patch}"
-
-  # Update all MARKETING_VERSION entries in project.pbxproj
-  project_file = File.expand_path("../Flinky.xcodeproj/project.pbxproj")
-  project_content = File.read(project_file)
-
-  # Replace all MARKETING_VERSION entries
-  updated_content = project_content.gsub(
-    /MARKETING_VERSION = #{Regexp.escape(old_version)};/,
-    "MARKETING_VERSION = #{new_version};"
-  )
-
-  # Write the updated content back
-  File.write(project_file, updated_content)
+  _write_version_info(version: new_version, build: version_info[:build])
 
   UI.success "✅ Version bumped from #{old_version} to #{new_version}"
 end
@@ -88,17 +114,12 @@ private_lane :_setup_code_signing_development do
   )
 end
 
-# Private lane: Increment version and build number, return both values
+# Private lane: Increment build number in project.yml, return version information
 private_lane :_increment_version_and_build do
-  version_number = get_version_number(
-    xcodeproj: "Flinky.xcodeproj",
-    target: "Flinky"
-  )
+  version_info = _read_version_info
+  build_number = version_info[:build].to_i + 1
 
-  increment_build_number(xcodeproj: "Flinky.xcodeproj")
-  build_number = get_build_number(xcodeproj: "Flinky.xcodeproj")
-
-  next({ version: version_number, build: build_number })
+  _write_version_info(version: version_info[:version], build: build_number)
 end
 
 # Private lane: Build the app for App Store distribution

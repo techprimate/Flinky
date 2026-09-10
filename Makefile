@@ -284,7 +284,7 @@ generate-licenses:
 
 ## Embed app version/build into Settings.bundle
 #
-# Runs the generate-version-in-settings.sh script to extract MARKETING_VERSION and CURRENT_PROJECT_VERSION and writes to Settings.bundle.
+# Reads MARKETING_VERSION and CURRENT_PROJECT_VERSION from project.yml and writes them to Settings.bundle.
 .PHONY: generate-version-in-settings
 generate-version-in-settings:
 	./Scripts/generate-version-in-settings.sh

@@ -19,6 +19,7 @@ lane :beta do |options|
   version_info = _increment_version_and_build
   version_number = version_info[:version]
   build_number = version_info[:build]
+  _make(target: "generate")
 
   _setup_code_signing
   _build_app_for_store
@@ -100,6 +101,7 @@ lane :publish do
   version_info = _increment_version_and_build
   version_number = version_info[:version]
   build_number = version_info[:build]
+  _make(target: "generate")
 
   _setup_code_signing
   _build_app_for_store

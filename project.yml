@@ -20,11 +20,9 @@ options:
   # Localization options
   useBaseInternationalization: false
   developmentLanguage: en
-
 configs:
   Debug: debug
   Release: release
-
 packages:
   SFSafeSymbols:
     url: https://github.com/SFSafeSymbols/SFSafeSymbols
@@ -43,7 +41,6 @@ packages:
     exactVersion: 9.28.0
     traits:
       - SentryFromSource
-
 targets:
   Flinky:
     type: application
@@ -77,8 +74,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: BZ362SQ6AB
         CODE_SIGN_STYLE: Manual
         ENABLE_PREVIEWS: true
@@ -147,7 +142,7 @@ targets:
           - "$(SRCROOT)/Targets/App/Sources/Resources/Localizable.xcstrings"
           - "$(SRCROOT)/Templates/en-strings.stencil"
           - "$(SRCROOT)/Templates/l21strings.stencil"
-          - "$(SRCROOT)/Flinky.xcodeproj/project.pbxproj"
+          - "$(SRCROOT)/project.yml"
           - "$(SRCROOT)/Flinky.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
         outputFiles:
           - "$(SRCROOT)/Targets/App/Sources/Resources/Settings.bundle/Licenses.plist"
@@ -193,7 +188,6 @@ targets:
         inputFiles:
           - "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
         runOnlyWhenInstalling: false
-
   FlinkyCore:
     type: framework
     platform: iOS
@@ -219,8 +213,7 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME:c99extidentifier)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.Core
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
+        CURRENT_PROJECT_VERSION: $(inherited)
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: ""
@@ -264,7 +257,6 @@ targets:
 
           echo "✅ All generation tasks completed successfully"
         shell: /bin/sh
-
   ShareExtension:
     type: app-extension
     platform: iOS
@@ -298,8 +290,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.ShareExtension
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: Apple Development
@@ -322,7 +312,6 @@ targets:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Distribution
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match AppStore com.techprimate.Flinky.ShareExtension
-
   Tests:
     type: bundle.unit-test
     platform: iOS
@@ -346,8 +335,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.Tests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -357,7 +344,6 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky"
         BUNDLE_LOADER: "$(TEST_HOST)"
-
   FlinkyCoreTests:
     type: bundle.unit-test
     platform: iOS
@@ -379,8 +365,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.CoreTests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -390,7 +374,6 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky"
         BUNDLE_LOADER: "$(TEST_HOST)"
-
   ScreenshotUITests:
     type: bundle.ui-testing
     platform: iOS
@@ -410,8 +393,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.ScreenshotUITests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -420,7 +401,6 @@ targets:
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_TARGET_NAME: Flinky
-
   UITests:
     type: bundle.ui-testing
     platform: iOS
@@ -440,8 +420,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.UITests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -450,7 +428,6 @@ targets:
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_TARGET_NAME: Flinky
-
   ShareExtensionTests:
     type: bundle.unit-test
     platform: iOS
@@ -470,8 +447,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.ShareExtensionTests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -481,7 +456,6 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Flinky.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flinky"
         BUNDLE_LOADER: "$(TEST_HOST)"
-
   ShareExtensionUITests:
     type: bundle.ui-testing
     platform: iOS
@@ -501,8 +475,6 @@ targets:
       base:
         PRODUCT_NAME: $(TARGET_NAME)
         PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.ShareExtensionUITests
-        CURRENT_PROJECT_VERSION: 4
-        MARKETING_VERSION: 1.1.7
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Manual
         GENERATE_INFOPLIST_FILE: true
@@ -511,7 +483,6 @@ targets:
         SWIFT_VERSION: 5.0
         TARGETED_DEVICE_FAMILY: "1,2"
         TEST_TARGET_NAME: Flinky
-
 schemes:
   App:
     build:
@@ -546,7 +517,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   FlinkyCore:
     build:
       targets:
@@ -564,7 +534,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   FlinkyCoreTests:
     build:
       targets:
@@ -585,7 +554,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   ScreenshotUITests:
     build:
       targets:
@@ -607,7 +575,6 @@ schemes:
       config: Release
     archive:
       config: Release
-
   ShareExtension:
     build:
       targets:
@@ -638,7 +605,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   ShareExtensionTests:
     build:
       targets:
@@ -659,7 +625,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   ShareExtensionUITests:
     build:
       targets:
@@ -688,7 +653,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   Tests:
     build:
       targets:
@@ -711,7 +675,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
   UITests:
     build:
       targets:
@@ -734,7 +697,6 @@ schemes:
       config: Debug
     archive:
       config: Release
-
 settingGroups:
   base:
     ALWAYS_SEARCH_USER_PATHS: false
@@ -784,9 +746,10 @@ settingGroups:
     MTL_FAST_MATH: true
     SDKROOT: iphoneos
     SWIFT_EMIT_LOC_STRINGS: true
-
 settings:
-  base: base
+  base:
+    CURRENT_PROJECT_VERSION: 4
+    MARKETING_VERSION: 1.1.7
   configs:
     Debug:
       DEBUG_INFORMATION_FORMAT: dwarf
@@ -808,7 +771,6 @@ settings:
       MTL_ENABLE_DEBUG_INFO: false
       SWIFT_COMPILATION_MODE: wholemodule
       VALIDATE_PRODUCT: true
-
 fileGroups:
   - type: syncedFolder
     path: Config
