@@ -104,7 +104,7 @@ jobs:
             Flinky.xcarchive
             version.txt
             build_number.txt
-            Flinky.xcodeproj/project.pbxproj
+            project.yml
             Targets/App/Sources/Resources/Settings.bundle/Root.plist
           retention-days: 1
 
