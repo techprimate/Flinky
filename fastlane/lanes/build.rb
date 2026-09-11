@@ -21,6 +21,7 @@ lane :build_ci do
     configuration: "Preprod",
     archive_path: "./Flinky.xcarchive",
     build_path: ".",
+    xcargs: "STRIPFLAGS=-rSTx SEPARATE_STRIP=YES",
     export_options: {
       "destination" => "export",
       "method" => "development",
