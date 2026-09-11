@@ -20,4 +20,4 @@ name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.15.1, source
 
 add-version-numbers: true
 
-LicensePlist Version: 3.28.2
+LicensePlist Version: 3.28.0
