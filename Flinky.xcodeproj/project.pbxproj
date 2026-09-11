@@ -166,6 +166,7 @@
 		1D900CBF09B14E24193D89A4 /* UITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36351257627C5D50DA20A632 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		38564E628219DE7E3AB7A218 /* Tests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BE3773459F4BF99B0039C94 /* ExportedSymbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ExportedSymbols.txt; sourceTree = "<group>"; };
 		42A63C68C7CE52097D4D6A87 /* ShareExtensionUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShareExtensionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D5326755890014646F1A18 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		577A116C3CE64463030632D4 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -175,6 +176,7 @@
 		6C12F45D5D5C165AEDD528B0 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		6D6045792B8E63F5E6F67F60 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		7C6BB210F711DB71F2A873DB /* generated-en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "generated-en.strings"; sourceTree = "<group>"; };
+		8167B7C1EE9813A67A3FBC5B /* ExportedSymbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ExportedSymbols.txt; sourceTree = "<group>"; };
 		853DB7017FF97DD3908F6C7F /* ShareExtensionTests.xctestplan */ = {isa = PBXFileReference; path = ShareExtensionTests.xctestplan; sourceTree = "<group>"; };
 		87313E6AE102FDC7EE6E3BF2 /* FlinkyCoreTests.xctestplan */ = {isa = PBXFileReference; path = FlinkyCoreTests.xctestplan; sourceTree = "<group>"; };
 		8FC31C8510DC1BCB55183C78 /* ShareExtensionUITests.xctestplan */ = {isa = PBXFileReference; path = ShareExtensionUITests.xctestplan; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				42D5326755890014646F1A18 /* .gitkeep */,
+				8167B7C1EE9813A67A3FBC5B /* ExportedSymbols.txt */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				0F0B94F3BDCFC52059CB276A /* .gitkeep */,
+				3BE3773459F4BF99B0039C94 /* ExportedSymbols.txt */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1350,9 +1354,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1369,6 +1374,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -1707,6 +1714,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Targets/App/Config/ExportedSymbols.txt";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/App/Sources/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
@@ -1769,9 +1777,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1788,6 +1797,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -1942,6 +1953,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BZ362SQ6AB;
+				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Targets/ShareExtension/Config/ExportedSymbols.txt";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/ShareExtension/Sources/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
@@ -1996,6 +2008,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BZ362SQ6AB;
+				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Targets/ShareExtension/Config/ExportedSymbols.txt";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/ShareExtension/Sources/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ShareExtension;
@@ -2055,6 +2068,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BZ362SQ6AB;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Targets/App/Config/ExportedSymbols.txt";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Targets/App/Sources/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;

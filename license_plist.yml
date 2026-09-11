@@ -6,3 +6,9 @@ options:
   addVersionNumbers: true
   suppressOpeningDirectory: true
   failIfMissingLicense: true
+exclude:
+  # Both Sentry packages currently use the same MIT license text.
+  - owner: getsentry
+    name: sentry-apple-swift-log
+rename:
+  sentry-cocoa: Sentry and SentrySwiftLog
