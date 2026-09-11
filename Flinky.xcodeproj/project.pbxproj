@@ -1494,7 +1494,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1775,7 +1774,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Flinky;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NFCReaderUsageDescription = "Share links with other NFC-capable devices by bringing them close together.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save your QRCode to your Photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
