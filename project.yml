@@ -22,6 +22,7 @@ options:
   developmentLanguage: en
 configs:
   Debug: debug
+  Preprod: release
   Release: release
 packages:
   SFSafeSymbols:
@@ -103,6 +104,12 @@ targets:
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           OTHER_SWIFT_FLAGS: ""
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky
+        Preprod:
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Developer
+          "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
+          OTHER_SWIFT_FLAGS: ""
+          "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: ANALYTICS
         Release:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Distribution
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
@@ -304,6 +311,10 @@ targets:
         SWIFT_EMIT_LOC_STRINGS: true
       configs:
         Debug:
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Developer
+          "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
+          "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky.ShareExtension
+        Preprod:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Developer
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky.ShareExtension
@@ -764,6 +775,12 @@ settings:
         - DEBUG
         - $(inherited)
       SWIFT_OPTIMIZATION_LEVEL: -Onone
+    Preprod:
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      ENABLE_NS_ASSERTIONS: false
+      MTL_ENABLE_DEBUG_INFO: false
+      SWIFT_COMPILATION_MODE: wholemodule
+      VALIDATE_PRODUCT: true
     Release:
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
       ENABLE_NS_ASSERTIONS: false

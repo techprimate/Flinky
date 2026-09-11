@@ -14,11 +14,11 @@ lane :build_ci do
   # Setup development code signing
   _setup_code_signing_development
 
-  # Build and export the app as a development build
+  # Build optimized code and export it with development signing
   build_app(
     project: "Flinky.xcodeproj",
     scheme: "App",
-    configuration: "Debug",
+    configuration: "Preprod",
     archive_path: "./Flinky.xcarchive",
     build_path: ".",
     export_options: {
