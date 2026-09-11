@@ -110,12 +110,14 @@ targets:
           OTHER_SWIFT_FLAGS: ""
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: ANALYTICS
+          EXPORTED_SYMBOLS_FILE: "$(SRCROOT)/Targets/App/Config/ExportedSymbols.txt"
         Release:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Distribution
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           OTHER_SWIFT_FLAGS: ""
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match AppStore com.techprimate.Flinky
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: ANALYTICS
+          EXPORTED_SYMBOLS_FILE: "$(SRCROOT)/Targets/App/Config/ExportedSymbols.txt"
     preBuildScripts:
       - name: "Run Script - Generate Files"
         script: |
@@ -318,10 +320,12 @@ targets:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Developer
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development com.techprimate.Flinky.ShareExtension
+          EXPORTED_SYMBOLS_FILE: "$(SRCROOT)/Targets/ShareExtension/Config/ExportedSymbols.txt"
         Release:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": iPhone Distribution
           "DEVELOPMENT_TEAM[sdk=iphoneos*]": BZ362SQ6AB
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match AppStore com.techprimate.Flinky.ShareExtension
+          EXPORTED_SYMBOLS_FILE: "$(SRCROOT)/Targets/ShareExtension/Config/ExportedSymbols.txt"
   Tests:
     type: bundle.unit-test
     platform: iOS
@@ -739,7 +743,6 @@ settingGroups:
     CLANG_WARN_UNGUARDED_AVAILABILITY: YES_AGGRESSIVE
     CLANG_WARN_UNREACHABLE_CODE: true
     CLANG_WARN__DUPLICATE_METHOD_MATCH: true
-    COPY_PHASE_STRIP: false
     DEVELOPMENT_TEAM: BZ362SQ6AB
     ENABLE_STRICT_OBJC_MSGSEND: true
     ENABLE_USER_SCRIPT_SANDBOXING: true
@@ -775,18 +778,18 @@ settings:
         - DEBUG
         - $(inherited)
       SWIFT_OPTIMIZATION_LEVEL: -Onone
-    Preprod:
+    Preprod: &optimizedConfig
+      COPY_PHASE_STRIP: true
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      DEPLOYMENT_POSTPROCESSING: true
       ENABLE_NS_ASSERTIONS: false
       MTL_ENABLE_DEBUG_INFO: false
+      STRIP_INSTALLED_PRODUCT: true
+      STRIP_SWIFT_SYMBOLS: true
       SWIFT_COMPILATION_MODE: wholemodule
       VALIDATE_PRODUCT: true
     Release:
-      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
-      ENABLE_NS_ASSERTIONS: false
-      MTL_ENABLE_DEBUG_INFO: false
-      SWIFT_COMPILATION_MODE: wholemodule
-      VALIDATE_PRODUCT: true
+      <<: *optimizedConfig
 fileGroups:
   - type: syncedFolder
     path: Config
