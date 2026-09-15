@@ -6,6 +6,18 @@ final class ScreenshotUITests: XCTestCase {
     }
 
     @MainActor
+    private func revealEditButton(for item: XCUIElement, named name: String, in app: XCUIApplication) -> XCUIElement {
+        let editButton = app.buttons["Edit \(name)"]
+
+        item.swipeLeft()
+        if !editButton.waitForExistence(timeout: 5) {
+            item.swipeLeft()
+        }
+
+        return editButton
+    }
+
+    @MainActor
     func testScreenshots() throws {  // swiftlint:disable:this function_body_length
         let app = XCUIApplication()
         app.launchEnvironment["TESTING"] = "1"
@@ -59,11 +71,8 @@ final class ScreenshotUITests: XCTestCase {
         let createdLinkButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'techprimate.com'")).firstMatch
         XCTAssert(createdLinkButton.waitForExistence(timeout: 10), "Newly created link not found after creation")
 
-        // Long press to bring up context menu for edit
-        createdLinkButton.press(forDuration: 1.0)
-
-        let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit'")).firstMatch
-        XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in context menu")
+        let editButton = revealEditButton(for: createdLinkButton, named: "techprimate.com", in: app)
+        XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in swipe actions")
         editButton.tap()
 
         // Wait for edit form to appear
@@ -147,10 +156,8 @@ final class ScreenshotUITests: XCTestCase {
             // Open the edit list editor
             let createdListButton = app.buttons.containing(NSPredicate(format: "label CONTAINS '\(lists[idx].name)'")).firstMatch
             XCTAssert(createdListButton.waitForExistence(timeout: 10), "Created list button not found for list \(idx)")
-            createdListButton.press(forDuration: 1.0)
-
-            let editButton = app.buttons.containing(NSPredicate(format: "label CONTAINS 'Edit \(lists[idx].name)'")).firstMatch
-            XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in context menu")
+            let editButton = revealEditButton(for: createdListButton, named: lists[idx].name, in: app)
+            XCTAssert(editButton.waitForExistence(timeout: 10), "Edit button not found in swipe actions")
             editButton.tap()
 
             // Wait for the edit list form to appear
