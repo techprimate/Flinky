@@ -30,7 +30,7 @@ packages:
     exactVersion: 7.0.0
   SentryCocoa:
     url: https://github.com/getsentry/sentry-cocoa
-    exactVersion: 9.28.0
+    exactVersion: 9.29.0
   OnLaunch:
     url: https://github.com/kula-app/OnLaunch-iOS-Client
     exactVersion: 0.0.6
@@ -39,7 +39,7 @@ packages:
     exactVersion: 1.15.1
   SentrySwiftLog:
     url: https://github.com/getsentry/sentry-apple-swift-log
-    exactVersion: 9.28.0
+    exactVersion: 9.29.0
     traits:
       - SentryFromSource
 targets:
