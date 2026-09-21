@@ -4,6 +4,7 @@ excluded:
   - ".agents"
   - ".bundle"
   - "vendor"
+  - ".build"
 
 # Rules
 line_length:
