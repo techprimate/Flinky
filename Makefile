@@ -381,20 +381,35 @@ bump-version-patch:
 # Replaces the remote Sentry package in project.yml with a local path and
 # regenerates the Xcode project.
 #
-# Pass the path to sentry-cocoa with SENTRY_PACKAGE_PATH. The path is
-# relative to the project root.
+# Pass an absolute path or a path relative to the project root with
+# SENTRY_PACKAGE_PATH. A git-ignored symlink preserves the sentry-cocoa
+# package identity even when the checkout directory has a different name.
 #
 # Example:
-# make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa
+# make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa-1
+export SENTRY_PACKAGE_PATH
 .PHONY: patch-sentry-package
 patch-sentry-package:
-	@if [ -z "$(SENTRY_PACKAGE_PATH)" ]; then \
+	@set -e; \
+	if [ -z "$$SENTRY_PACKAGE_PATH" ]; then \
 		echo "error: SENTRY_PACKAGE_PATH is required"; \
-		echo "usage: make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa"; \
+		echo "usage: make patch-sentry-package SENTRY_PACKAGE_PATH=../../getsentry/sentry-cocoa-1"; \
 		exit 1; \
-	fi
-	@echo "Patching Sentry package to $(SENTRY_PACKAGE_PATH)..."
-	@SENTRY_PACKAGE_PATH="$(SENTRY_PACKAGE_PATH)" yq -i '.packages.SentryCocoa = {"path": strenv(SENTRY_PACKAGE_PATH)}' project.yml
+	fi; \
+	if [ ! -f "$$SENTRY_PACKAGE_PATH/Package.swift" ]; then \
+		echo "error: SENTRY_PACKAGE_PATH must contain Package.swift"; \
+		exit 1; \
+	fi; \
+	package_path="$$(cd "$$SENTRY_PACKAGE_PATH" && pwd -P)"; \
+	local_path=".build/local-packages/sentry-cocoa"; \
+	if [ -e "$$local_path" ] && [ ! -L "$$local_path" ]; then \
+		echo "error: $$local_path already exists and is not a symlink"; \
+		exit 1; \
+	fi; \
+	mkdir -p .build/local-packages; \
+	ln -sfn "$$package_path" "$$local_path"; \
+	echo "Patching Sentry package to $$package_path via $$local_path..."; \
+	SENTRY_PACKAGE_PATH="$$local_path" yq -i '.packages.SentryCocoa = {"path": strenv(SENTRY_PACKAGE_PATH)}' project.yml
 	@$(MAKE) generate-project
 
 # ============================================================================
