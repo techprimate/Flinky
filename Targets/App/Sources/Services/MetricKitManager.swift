@@ -1,4 +1,4 @@
-// swiftlint:disable file_length function_body_length type_body_length
+// swiftlint:disable file_length type_body_length
 import Foundation
 import MetricKit
 import Logging
@@ -82,6 +82,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportCPUMetrics(_ metrics: MXCPUMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting CPU metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.cpu.cumulative_time",
             value: metrics.cumulativeCPUTime.converted(to: .seconds).value,
@@ -98,6 +99,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportGPUMetrics(_ metrics: MXGPUMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting GPU metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.gpu.cumulative_time",
             value: metrics.cumulativeGPUTime.converted(to: .seconds).value,
@@ -109,6 +111,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportAppTimeMetrics(_ metrics: MXAppRunTimeMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting App Time metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.app_time.foreground",
             value: metrics.cumulativeForegroundTime.converted(to: .seconds).value,
@@ -135,6 +138,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportLocationActivityMetrics(_ metrics: MXLocationActivityMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Location Activity metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.location.best_accuracy_time",
             value: metrics.cumulativeBestAccuracyTime.converted(to: .seconds).value,
@@ -171,6 +175,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportNetworkTransferMetrics(_ metrics: MXNetworkTransferMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Network Transfer metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.network.wifi_upload",
             value: metrics.cumulativeWifiUpload.converted(to: .bytes).value,
@@ -197,6 +202,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportAppLaunchMetrics(_ metrics: MXAppLaunchMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting App Launch metrics")
         reportDurationHistogram(
             metrics.histogrammedTimeToFirstDraw,
             key: "metrickit.launch.time_to_first_draw"
@@ -219,6 +225,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportAppResponsivenessMetrics(_ metrics: MXAppResponsivenessMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting App Responsiveness metrics")
         reportDurationHistogram(
             metrics.histogrammedApplicationHangTime,
             key: "metrickit.responsiveness.hang_time"
@@ -229,6 +236,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportDiskIOMetrics(_ metrics: MXDiskIOMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Disk IO metrics")
         SentrySDK.metrics.distribution(
             key: "metrickit.disk_io.logical_writes",
             value: metrics.cumulativeLogicalWrites.converted(to: .bytes).value,
@@ -240,6 +248,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportMemoryMetrics(_ metrics: MXMemoryMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Memory metrics")
         SentrySDK.metrics.gauge(
             key: "metrickit.memory.peak_usage",
             value: metrics.peakMemoryUsage.converted(to: .bytes).value,
@@ -258,6 +267,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportDisplayMetrics(_ metrics: MXDisplayMetric?) {
         guard let metrics, let luminance = metrics.averagePixelLuminance else { return }
+        Self.logger.info("Reporting Display metrics")
         SentrySDK.metrics.gauge(
             key: "metrickit.display.avg_pixel_luminance",
             value: luminance.averageMeasurement.value,
@@ -270,6 +280,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportAnimationMetrics(_ metrics: MXAnimationMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Animation metrics")
         SentrySDK.metrics.gauge(
             key: "metrickit.animation.scroll_hitch_time_ratio",
             value: metrics.scrollHitchTimeRatio.value,
@@ -288,6 +299,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportCellularConditionMetrics(_ metrics: MXCellularConditionMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Cellular Condition metrics")
         reportSignalBarsHistogram(
             metrics.histogrammedCellularConditionTime,
             key: "metrickit.cellular.condition_time"
@@ -298,6 +310,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
     private func reportAppExitMetrics(_ metrics: MXAppExitMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting App Exit metrics")
 
         let foreground = metrics.foregroundExitData
         SentrySDK.metrics.count(key: "metrickit.exit.fg.normal", value: UInt(foreground.cumulativeNormalAppExitCount))
@@ -327,6 +340,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     @available(iOS 26.0, *)
     private func reportDiskSpaceUsageMetrics(_ metrics: MXDiskSpaceUsageMetric?) {
         guard let metrics else { return }
+        Self.logger.info("Reporting Disk Space Usage metrics")
         SentrySDK.metrics.gauge(
             key: "metrickit.disk_space.binary_file_size",
             value: metrics.totalBinaryFileSize.converted(to: .bytes).value,
@@ -372,73 +386,11 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     // MARK: - Diagnostic Payload Processing
 
     private func reportDiagnostics(from payload: MXDiagnosticPayload) {
-        if let cpuExceptions = payload.cpuExceptionDiagnostics {
-            SentrySDK.metrics.count(
-                key: "metrickit.diagnostic.cpu_exception",
-                value: UInt(cpuExceptions.count)
-            )
-            for diagnostic in cpuExceptions {
-                SentrySDK.metrics.distribution(
-                    key: "metrickit.diagnostic.cpu_exception.total_cpu_time",
-                    value: diagnostic.totalCPUTime.converted(to: .seconds).value,
-                    unit: .second
-                )
-                SentrySDK.metrics.distribution(
-                    key: "metrickit.diagnostic.cpu_exception.total_sampled_time",
-                    value: diagnostic.totalSampledTime.converted(to: .seconds).value,
-                    unit: .second
-                )
-            }
-        }
-
-        if let diskWriteExceptions = payload.diskWriteExceptionDiagnostics {
-            SentrySDK.metrics.count(
-                key: "metrickit.diagnostic.disk_write_exception",
-                value: UInt(diskWriteExceptions.count)
-            )
-            for diagnostic in diskWriteExceptions {
-                SentrySDK.metrics.distribution(
-                    key: "metrickit.diagnostic.disk_write_exception.total_writes",
-                    value: diagnostic.totalWritesCaused.converted(to: .bytes).value,
-                    unit: .byte
-                )
-            }
-        }
-
-        if let hangDiagnostics = payload.hangDiagnostics {
-            SentrySDK.metrics.count(
-                key: "metrickit.diagnostic.hang",
-                value: UInt(hangDiagnostics.count)
-            )
-            for diagnostic in hangDiagnostics {
-                SentrySDK.metrics.distribution(
-                    key: "metrickit.diagnostic.hang.duration",
-                    value: diagnostic.hangDuration.converted(to: .seconds).value,
-                    unit: .second
-                )
-            }
-        }
-
-        if let crashDiagnostics = payload.crashDiagnostics {
-            SentrySDK.metrics.count(
-                key: "metrickit.diagnostic.crash",
-                value: UInt(crashDiagnostics.count)
-            )
-        }
-
-        if let appLaunchDiagnostics = payload.appLaunchDiagnostics {
-            SentrySDK.metrics.count(
-                key: "metrickit.diagnostic.app_launch",
-                value: UInt(appLaunchDiagnostics.count)
-            )
-            for diagnostic in appLaunchDiagnostics {
-                SentrySDK.metrics.distribution(
-                    key: "metrickit.diagnostic.app_launch.duration",
-                    value: diagnostic.launchDuration.converted(to: .seconds).value,
-                    unit: .second
-                )
-            }
-        }
+        reportCPUExceptionDiagnostics(payload.cpuExceptionDiagnostics)
+        reportDiskWriteExceptionDiagnostics(payload.diskWriteExceptionDiagnostics)
+        reportHangDiagnostics(payload.hangDiagnostics)
+        reportCrashDiagnostics(payload.crashDiagnostics)
+        reportAppLaunchDiagnostics(payload.appLaunchDiagnostics)
 
         let breadcrumb = Breadcrumb(level: .warning, category: "metrickit")
         breadcrumb.message = "Received MXDiagnosticPayload"
@@ -452,6 +404,94 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
             "app_launch_issues": String(payload.appLaunchDiagnostics?.count ?? 0)
         ]
         SentrySDK.addBreadcrumb(breadcrumb)
+    }
+
+    // MARK: - CPU Exception Diagnostics
+
+    private func reportCPUExceptionDiagnostics(_ diagnostics: [MXCPUExceptionDiagnostic]?) {
+        guard let diagnostics else { return }
+        Self.logger.info("Reporting CPU Exception diagnostics")
+        SentrySDK.metrics.count(
+            key: "metrickit.diagnostic.cpu_exception",
+            value: UInt(diagnostics.count)
+        )
+        for diagnostic in diagnostics {
+            SentrySDK.metrics.distribution(
+                key: "metrickit.diagnostic.cpu_exception.total_cpu_time",
+                value: diagnostic.totalCPUTime.converted(to: .seconds).value,
+                unit: .second
+            )
+            SentrySDK.metrics.distribution(
+                key: "metrickit.diagnostic.cpu_exception.total_sampled_time",
+                value: diagnostic.totalSampledTime.converted(to: .seconds).value,
+                unit: .second
+            )
+        }
+    }
+
+    // MARK: - Disk Write Exception Diagnostics
+
+    private func reportDiskWriteExceptionDiagnostics(_ diagnostics: [MXDiskWriteExceptionDiagnostic]?) {
+        guard let diagnostics else { return }
+        Self.logger.info("Reporting Disk Write Exception diagnostics")
+        SentrySDK.metrics.count(
+            key: "metrickit.diagnostic.disk_write_exception",
+            value: UInt(diagnostics.count)
+        )
+        for diagnostic in diagnostics {
+            SentrySDK.metrics.distribution(
+                key: "metrickit.diagnostic.disk_write_exception.total_writes",
+                value: diagnostic.totalWritesCaused.converted(to: .bytes).value,
+                unit: .byte
+            )
+        }
+    }
+
+    // MARK: - Hang Diagnostics
+
+    private func reportHangDiagnostics(_ diagnostics: [MXHangDiagnostic]?) {
+        guard let diagnostics else { return }
+        Self.logger.info("Reporting Hang diagnostics")
+        SentrySDK.metrics.count(
+            key: "metrickit.diagnostic.hang",
+            value: UInt(diagnostics.count)
+        )
+        for diagnostic in diagnostics {
+            SentrySDK.metrics.distribution(
+                key: "metrickit.diagnostic.hang.duration",
+                value: diagnostic.hangDuration.converted(to: .seconds).value,
+                unit: .second
+            )
+        }
+    }
+
+    // MARK: - Crash Diagnostics
+
+    private func reportCrashDiagnostics(_ diagnostics: [MXCrashDiagnostic]?) {
+        guard let diagnostics else { return }
+        Self.logger.info("Reporting Crash diagnostics")
+        SentrySDK.metrics.count(
+            key: "metrickit.diagnostic.crash",
+            value: UInt(diagnostics.count)
+        )
+    }
+
+    // MARK: - App Launch Diagnostics
+
+    private func reportAppLaunchDiagnostics(_ diagnostics: [MXAppLaunchDiagnostic]?) {
+        guard let diagnostics else { return }
+        Self.logger.info("Reporting App Launch diagnostics")
+        SentrySDK.metrics.count(
+            key: "metrickit.diagnostic.app_launch",
+            value: UInt(diagnostics.count)
+        )
+        for diagnostic in diagnostics {
+            SentrySDK.metrics.distribution(
+                key: "metrickit.diagnostic.app_launch.duration",
+                value: diagnostic.launchDuration.converted(to: .seconds).value,
+                unit: .second
+            )
+        }
     }
 
     // MARK: - Histogram Helpers
@@ -502,4 +542,4 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
         stopReceiving()
     }
 }
-// swiftlint:enable file_length function_body_length type_body_length
+// swiftlint:enable file_length type_body_length
