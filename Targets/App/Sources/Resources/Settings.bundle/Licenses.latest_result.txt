@@ -1,8 +1,8 @@
 name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, version: 0.0.6, source: https://github.com/kula-app/OnLaunch-iOS-Client
 
-name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.28.0, source: https://github.com/getsentry/sentry-apple-swift-log
+name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.29.0, source: https://github.com/getsentry/sentry-apple-swift-log
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.28.0, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.29.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 7.0.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
 
@@ -10,9 +10,9 @@ name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.15.1, source
 
 name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, version: 0.0.6, source: https://github.com/kula-app/OnLaunch-iOS-Client
 
-name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.28.0, source: https://github.com/getsentry/sentry-apple-swift-log
+name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.29.0, source: https://github.com/getsentry/sentry-apple-swift-log
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.28.0, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.29.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: SFSafeSymbols, nameSpecified: SFSafeSymbols, owner: SFSafeSymbols, version: 7.0.0, source: https://github.com/SFSafeSymbols/SFSafeSymbols
 
