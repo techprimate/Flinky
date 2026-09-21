@@ -85,6 +85,7 @@ struct FlinkyApp: App {
         options.sendDefaultPii = true
         options.enableAutoBreadcrumbTracking = true
         options.enableMetricKit = true
+        options.enableMetricKitRawPayload = true
         options.enableTimeToFullDisplayTracing = true
         options.enableSwizzling = true
         options.swiftAsyncStacktraces = true
