@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-apple-swift-log",
       "state" : {
-        "revision" : "fc1edc9f63d4d1a7a63bc3fe8897f2ba48b8f88a",
-        "version" : "9.29.2"
+        "revision" : "70f8ee9ada4a6774217fcab9b846f111c324044f",
+        "version" : "9.30.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "8689e780a295dfdc6501ac0dbb502461e16d6551",
-        "version" : "9.29.2"
+        "revision" : "b539e098293067be54fa5cf1f11d9e16cdbba94a",
+        "version" : "9.30.0"
       }
     },
     {
