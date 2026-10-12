@@ -22,7 +22,7 @@
 			<key>File</key>
 			<string>Licenses/sentry-apple-swift-log</string>
 			<key>Title</key>
-			<string>SentrySwiftLog (9.29.2)</string>
+			<string>SentrySwiftLog (9.30.1)</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -30,7 +30,7 @@
 			<key>File</key>
 			<string>Licenses/sentry-cocoa</string>
 			<key>Title</key>
-			<string>Sentry (9.29.2)</string>
+			<string>Sentry (9.30.1)</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -46,7 +46,7 @@
 			<key>File</key>
 			<string>Licenses/swift-log</string>
 			<key>Title</key>
-			<string>swift-log (1.15.1)</string>
+			<string>swift-log (1.16.1)</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
