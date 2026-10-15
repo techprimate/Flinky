@@ -13,7 +13,7 @@ PROJECT_SPEC_PATH = File.expand_path("../project.yml").freeze
 
 # Private lane: Read version information from the XcodeGen project specification
 private_lane :_read_version_info do
-  project_spec = YAML.safe_load_file(PROJECT_SPEC_PATH)
+  project_spec = YAML.safe_load_file(PROJECT_SPEC_PATH, aliases: true)
   version_settings = project_spec.fetch("settings").fetch("base")
   version_number = version_settings.fetch("MARKETING_VERSION").to_s
   build_number = version_settings.fetch("CURRENT_PROJECT_VERSION").to_s
