@@ -1,1 +1,2 @@
-_NSExtensionMain
+# No public exports are required.
+# NSExtensionMain is imported from Foundation, not defined by this extension.
