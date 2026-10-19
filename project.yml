@@ -761,8 +761,8 @@ settingGroups:
     SWIFT_EMIT_LOC_STRINGS: true
 settings:
   base:
-    CURRENT_PROJECT_VERSION: 2
-    MARKETING_VERSION: 1.1.11
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 1.1.12
   configs:
     Debug:
       DEBUG_INFORMATION_FORMAT: dwarf
