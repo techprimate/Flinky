@@ -142,7 +142,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         options.sendDefaultPii = true
         options.enableLogs = true
         options.enableAutoBreadcrumbTracking = true
-        options.enableMetricKit = true
         options.enableTimeToFullDisplayTracing = true
         options.enableSwizzling = true
         options.swiftAsyncStacktraces = true
@@ -186,6 +185,17 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         options.enableNetworkBreadcrumbs = true
         options.enableGraphQLOperationTracking = true
         options.enableCaptureFailedRequests = true
+
+        // Configure Logs
+        options.enableLogs = true
+
+        // Configure Metrics
+        options.enableMetrics = true
+
+        // Configure MetricKit
+        options.enableMetricKit = true
+        options.experimental.metrickit.hangReportingMode = .flamegraphAttachment
+        options.enableMetricKitRawPayload = true
 
         // Configure Other Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
