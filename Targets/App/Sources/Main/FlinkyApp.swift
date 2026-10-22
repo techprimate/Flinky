@@ -84,8 +84,6 @@ struct FlinkyApp: App {
         // Configure General Options
         options.sendDefaultPii = true
         options.enableAutoBreadcrumbTracking = true
-        options.enableMetricKit = true
-        options.enableMetricKitRawPayload = true
         options.enableTimeToFullDisplayTracing = true
         options.enableSwizzling = true
         options.swiftAsyncStacktraces = true
@@ -236,6 +234,11 @@ struct FlinkyApp: App {
 
         // Configure Metrics
         options.enableMetrics = true
+
+        // Configure MetricKit
+        options.enableMetricKit = true
+        options.experimental.metrickit.hangReportingMode = .flamegraphAttachment
+        options.enableMetricKitRawPayload = true
 
         // Configure Experimental Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
