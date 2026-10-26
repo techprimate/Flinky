@@ -762,7 +762,7 @@ settingGroups:
 settings:
   base:
     CURRENT_PROJECT_VERSION: 1
-    MARKETING_VERSION: 1.1.12
+    MARKETING_VERSION: 1.1.13
   configs:
     Debug:
       DEBUG_INFORMATION_FORMAT: dwarf
