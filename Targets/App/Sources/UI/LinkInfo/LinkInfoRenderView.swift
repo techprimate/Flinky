@@ -1,5 +1,4 @@
 import FlinkyCore
-import SFSafeSymbols
 import SwiftUI
 
 struct LinkInfoRenderView: View {

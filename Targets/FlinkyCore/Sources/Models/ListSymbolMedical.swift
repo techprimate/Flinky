@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolMedical {
     case thermometer
     case thermometerMedium
@@ -25,7 +23,7 @@ public enum ListSymbolMedical {
     case personBadgeShield
     case eyedropper
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .thermometer:
             return .medicalThermometerFill

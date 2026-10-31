@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolAnimal {
     case ant
     case bird
@@ -13,7 +11,7 @@ public enum ListSymbolAnimal {
     case pawPrint
     case teddyBear
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .ant:
             return .antFill

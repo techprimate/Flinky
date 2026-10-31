@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolCurrency {
     case dollar
     case euro
@@ -44,7 +42,7 @@ public enum ListSymbolCurrency {
     case turkishLira
     case won
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .dollar:
             return .dollarsign

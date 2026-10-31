@@ -1,12 +1,10 @@
-import SFSafeSymbols
-
 public enum ListSymbolFood {
     case popcorn
     case menuCard
     case forkKnife
     case wineGlass
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .popcorn:
             return .popcornFill

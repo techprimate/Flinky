@@ -1,7 +1,6 @@
 import CoreImage.CIFilterBuiltins
 import FlinkyCore
 import Photos
-import SFSafeSymbols
 import SentrySwift
 import SwiftUI
 

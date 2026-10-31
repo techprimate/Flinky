@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolHuman")
 class ListSymbolHumanTests {
-    private let symbolRawValuePairs: [(ListSymbolHuman, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolHuman, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.handRaised, "hand-raised", .handRaisedFill),
         (.handWave, "hand-wave", .handWaveFill),
         (.thumbsUp, "thumbs-up", .handThumbsupFill),

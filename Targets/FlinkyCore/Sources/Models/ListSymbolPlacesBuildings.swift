@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolPlacesBuildings {
     case house
     case office
@@ -12,7 +10,7 @@ public enum ListSymbolPlacesBuildings {
     case bathtub
     case chairLounge
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .house:
             return .houseFill

@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolPlacesBuildings")
 class ListSymbolPlacesBuildingsTests {
-    private let symbolRawValuePairs: [(ListSymbolPlacesBuildings, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolPlacesBuildings, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.house, "house", .houseFill),
         (.office, "office", .building2Fill),
         (.university, "university", .buildingColumnsFill),

@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolCommunication {
     case network
     case link
@@ -49,7 +47,7 @@ public enum ListSymbolCommunication {
     case wifi2
     case wrench
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .network:
             return .network

@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolMath {
     case plus
     case minus
@@ -12,7 +10,7 @@ public enum ListSymbolMath {
     case sum
     case plusForwardSlashMinus
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .plus:
             return .plus

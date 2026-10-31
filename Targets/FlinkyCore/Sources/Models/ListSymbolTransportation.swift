@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolTransportation {
     case airplane
     case car
@@ -22,7 +20,7 @@ public enum ListSymbolTransportation {
     case engineCombustion
     case truck
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .airplane:
             return .airplane

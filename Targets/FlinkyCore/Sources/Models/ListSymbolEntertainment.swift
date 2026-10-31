@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolEntertainment {
     case theaterMasks
     case balloon
@@ -11,7 +9,7 @@ public enum ListSymbolEntertainment {
     case tvPlay
     case musicNote
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .theaterMasks:
             return .theatermasksFill

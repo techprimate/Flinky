@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolNature {
     case tree
     case leaf
@@ -21,7 +19,7 @@ public enum ListSymbolNature {
     case cloudBoltRain
     case cloudSunBolt
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .tree:
             return .treeFill

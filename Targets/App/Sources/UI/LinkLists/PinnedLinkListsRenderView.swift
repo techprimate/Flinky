@@ -1,4 +1,4 @@
-import SFSafeSymbols
+import FlinkyCore
 import SwiftUI
 
 struct PinnedLinkListsRenderView<T: View>: View {

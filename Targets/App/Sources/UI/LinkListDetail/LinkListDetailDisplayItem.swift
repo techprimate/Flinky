@@ -1,6 +1,5 @@
 import FlinkyCore
 import Foundation
-import SFSafeSymbols
 import SwiftUI
 
 struct LinkListDetailDisplayItem: Hashable, Identifiable {

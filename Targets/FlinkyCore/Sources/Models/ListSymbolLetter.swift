@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolLetter {
     case letterA
     case letterB
@@ -28,7 +26,7 @@ public enum ListSymbolLetter {
     case letterY
     case letterZ
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .letterA:
             return .aCircleFill

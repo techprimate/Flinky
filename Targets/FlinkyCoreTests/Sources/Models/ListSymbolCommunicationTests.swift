@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolCommunication")
 class ListSymbolCommunicationTests {
-    private let symbolRawValuePairs: [(ListSymbolCommunication, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolCommunication, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.network, "network", .network),
         (.link, "link", .link),
         (.checkmark, "checkmark", .checkmarkCircleFill),

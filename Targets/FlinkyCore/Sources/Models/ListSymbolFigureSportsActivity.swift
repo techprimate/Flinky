@@ -1,7 +1,5 @@
 // swiftlint:disable file_length
 
-import SFSafeSymbols
-
 public enum ListSymbolFigureSportsActivity {  // swiftlint:disable:this type_body_length
     case figure
     case figure2ArmsOpen
@@ -89,7 +87,7 @@ public enum ListSymbolFigureSportsActivity {  // swiftlint:disable:this type_bod
     case figureWrestling
     case figureYoga
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .figure:
             return .figure

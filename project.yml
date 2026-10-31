@@ -25,9 +25,6 @@ configs:
   Preprod: release
   Release: release
 packages:
-  SFSafeSymbols:
-    url: https://github.com/SFSafeSymbols/SFSafeSymbols
-    exactVersion: 7.0.0
   SentryCocoa:
     url: https://github.com/getsentry/sentry-cocoa
     exactVersion: 9.31.0
@@ -64,7 +61,6 @@ targets:
     dependencies:
       - target: FlinkyCore
       - target: ShareExtension
-      - package: SFSafeSymbols
       - package: SentryCocoa
         product: SentrySPM
       - package: OnLaunch
@@ -214,7 +210,6 @@ targets:
     resources:
       - Targets/FlinkyCore/Sources/Resources/Localizable.xcstrings
     dependencies:
-      - package: SFSafeSymbols
       - package: SwiftLog
         product: Logging
     settings:
@@ -342,7 +337,6 @@ targets:
     dependencies:
       - target: Flinky
       - target: FlinkyCore
-      - package: SFSafeSymbols
       - package: SwiftLog
         product: Logging
     settings:
@@ -374,7 +368,6 @@ targets:
     dependencies:
       - target: Flinky
       - target: FlinkyCore
-      - package: SFSafeSymbols
     settings:
       base:
         PRODUCT_NAME: $(TARGET_NAME)

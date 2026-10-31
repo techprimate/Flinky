@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolMath")
 class ListSymbolMathTests {
-    private let symbolRawValuePairs: [(ListSymbolMath, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolMath, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.plus, "plus", .plus),
         (.minus, "minus", .minus),
         (.multiply, "multiply", .multiply),

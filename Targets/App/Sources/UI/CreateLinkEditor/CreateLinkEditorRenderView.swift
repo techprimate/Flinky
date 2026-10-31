@@ -1,4 +1,4 @@
-import SFSafeSymbols
+import FlinkyCore
 import SwiftUI
 
 struct CreateLinkEditorRenderView: View {

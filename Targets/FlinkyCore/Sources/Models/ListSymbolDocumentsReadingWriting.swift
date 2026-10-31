@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolDocumentsReadingWriting {
     case bookmark
     case book
@@ -25,7 +23,7 @@ public enum ListSymbolDocumentsReadingWriting {
     case creditcard
     case money
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .bookmark:
             return .bookmarkFill

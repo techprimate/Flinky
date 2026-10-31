@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolObject")
 class ListSymbolObjectTests {
-    private let symbolRawValuePairs: [(ListSymbolObject, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolObject, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.key, "key", .keyFill),
         (.keyHorizontal, "key-horizontal", .keyHorizontalFill),
         (.keyCard, "key-card", .keyCardFill),
