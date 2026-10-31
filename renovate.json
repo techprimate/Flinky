@@ -4,6 +4,17 @@
     {
       "customType": "regex",
       "datasourceTemplate": "git-tags",
+      "depNameTemplate": "{{{replace 'https://github.com/' '' packageName}}}",
+      "description": "Custom manager for .pre-commit-config.yaml",
+      "managerFilePatterns": ["/(^|/)\\.pre-commit-config\\.yaml$/"],
+      "matchStrings": [
+        "-\\s+repo:\\s*(?<packageName>https://github\\.com/[^\\s]+)\\s+rev:\\s*(?<currentValue>[^\\s]+)"
+      ],
+      "versioningTemplate": "loose"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "git-tags",
       "depNameTemplate": "{{{replace 'https://github.com/' '' location}}}",
       "description": "Custom manager for Package.resolved",
       "extractVersionTemplate": "^(?<version>.+?)$",
