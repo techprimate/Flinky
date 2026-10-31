@@ -60,10 +60,9 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Dependencies
-        run: brew bundle --file Brewfile-ci
-
       - name: Wait for iOS Simulator
+        id: simulator
+        background: true
         uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: iPhone 17 Pro
@@ -71,6 +70,12 @@ jobs:
           warm-xcodebuild-settings: true
           project: Flinky.xcodeproj
           scheme: App
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Wait for Simulator Readiness
+        wait: simulator
 
       - name: Test
         run: make test-ios "DEVICE_NAME=iPhone 17 Pro"
@@ -109,10 +114,9 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Dependencies
-        run: brew bundle --file Brewfile-ci
-
       - name: Wait for iOS Simulator
+        id: simulator
+        background: true
         uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
           device: iPhone 17 Pro
@@ -120,6 +124,12 @@ jobs:
           warm-xcodebuild-settings: true
           project: Flinky.xcodeproj
           scheme: UITests
+
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Wait for Simulator Readiness
+        wait: simulator
 
       - name: Test UI
         run: make test-ui-ios "DEVICE_NAME=iPhone 17 Pro"
