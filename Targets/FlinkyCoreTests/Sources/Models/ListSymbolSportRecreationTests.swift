@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolSportRecreation")
 class ListSymbolSportRecreationTests {
-    private let symbolRawValuePairs: [(ListSymbolSportRecreation, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolSportRecreation, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.soccerBall, "soccer-ball", .soccerball),
         (.basketball, "basketball", .basketballFill),
         (.americanFootball, "american-football", .americanFootballFill),

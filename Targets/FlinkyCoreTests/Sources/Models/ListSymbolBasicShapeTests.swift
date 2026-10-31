@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolBasicShape")
 class ListSymbolBasicShapeTests {
-    private let symbolRawValuePairs: [(ListSymbolBasicShape, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolBasicShape, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.circle, "circle", .circleFill),
         (.square, "square", .squareFill),
         (.triangle, "triangle", .triangleFill),
@@ -16,6 +15,14 @@ class ListSymbolBasicShapeTests {
         (.rhombus, "rhombus", .rhombusFill),
         (.rectangle, "rectangle", .rectangleFill)
     ]
+
+    @Test
+    func testSystemSymbolRawValuesPreserveSystemImageNames() {
+        #expect(SystemSymbol.circleFill.rawValue == "circle.fill")
+        #expect(SystemSymbol.number0CircleFill.rawValue == "0.circle.fill")
+        #expect(SystemSymbol.squareAndArrowUp.rawValue == "square.and.arrow.up")
+        #expect(SystemSymbol.listBullet.rawValue == "list.bullet")
+    }
 
     @Test
     func testRawValue_shouldReturnExpectedValue() {

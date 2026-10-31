@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolArrow {
     case arrowUp
     case arrowDown
@@ -12,7 +10,7 @@ public enum ListSymbolArrow {
     case arrowTurnUpLeft
     case arrowTurnUpRight
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .arrowUp:
             return .arrowshapeUpFill

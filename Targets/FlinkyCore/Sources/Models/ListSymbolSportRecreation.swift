@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolSportRecreation {
     case soccerBall
     case basketball
@@ -21,7 +19,7 @@ public enum ListSymbolSportRecreation {
     case trophy
     case running
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .soccerBall:
             return .soccerball

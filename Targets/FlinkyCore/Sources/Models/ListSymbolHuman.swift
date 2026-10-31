@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolHuman {
     case handRaised
     case handWave
@@ -12,7 +10,7 @@ public enum ListSymbolHuman {
     case personTextRectangle
     case mustache
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .handRaised:
             return .handRaisedFill

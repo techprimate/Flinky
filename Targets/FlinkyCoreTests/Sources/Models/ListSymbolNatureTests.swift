@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolNature")
 class ListSymbolNatureTests {
-    private let symbolRawValuePairs: [(ListSymbolNature, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolNature, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.tree, "tree", .treeFill),
         (.leaf, "leaf", .leafFill),
         (.carrot, "carrot", .carrotFill),

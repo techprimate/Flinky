@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolDocumentsReadingWriting")
 class ListSymbolDocumentsReadingWritingTests {
-    private let symbolRawValuePairs: [(ListSymbolDocumentsReadingWriting, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolDocumentsReadingWriting, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.bookmark, "bookmark", .bookmarkFill),
         (.book, "book", .bookFill),
         (.bookClosed, "book-closed", .bookClosedFill),

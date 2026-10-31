@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolBasicShape {
     case circle
     case square
@@ -12,7 +10,7 @@ public enum ListSymbolBasicShape {
     case rhombus
     case rectangle
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .circle:
             return .circleFill

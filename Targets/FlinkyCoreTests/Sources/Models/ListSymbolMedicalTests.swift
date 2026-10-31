@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolMedical")
 class ListSymbolMedicalTests {
-    private let symbolRawValuePairs: [(ListSymbolMedical, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolMedical, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.thermometer, "thermometer", .medicalThermometerFill),
         (.thermometerMedium, "thermometer-medium", .thermometerMedium),
         (.thermometerVariable, "thermometer-variable", .thermometerVariable),
@@ -52,7 +51,7 @@ class ListSymbolMedicalTests {
     @Test
     func testSFSymbol_shouldReturnExpectedValue() {
         for (symbol, _, sfsymbol) in symbolRawValuePairs {
-            #expect(symbol.sfsymbol == sfsymbol, "Expected \(symbol.rawValue) to have SFSymbol \(sfsymbol.rawValue)")
+            #expect(symbol.sfsymbol == sfsymbol, "Expected \(symbol.rawValue) to have SystemSymbol \(sfsymbol.rawValue)")
         }
     }
 

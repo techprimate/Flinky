@@ -1,10 +1,8 @@
-import SFSafeSymbols
-
 public enum ListSymbolClothingAccessories {
     case hat
     case tshirt
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .hat:
             return .hatWidebrimFill

@@ -1,4 +1,3 @@
-import SFSafeSymbols
 import SwiftUI
 
 struct PinnedLinkListCardView: View {

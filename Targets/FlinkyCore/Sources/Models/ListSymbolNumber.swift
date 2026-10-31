@@ -1,7 +1,5 @@
 // swiftlint:disable file_length
 
-import SFSafeSymbols
-
 public enum ListSymbolNumber {
     case number0
     case number1
@@ -65,130 +63,130 @@ public enum ListSymbolNumber {
     case number49
     case number50
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .number00:
-            return ._00CircleFill
+            return .number00CircleFill
         case .number0:
-            return ._0CircleFill
+            return .number0CircleFill
         case .number01:
-            return ._01CircleFill
+            return .number01CircleFill
         case .number1:
-            return ._1CircleFill
+            return .number1CircleFill
         case .number02:
-            return ._02CircleFill
+            return .number02CircleFill
         case .number2:
-            return ._2CircleFill
+            return .number2CircleFill
         case .number03:
-            return ._03CircleFill
+            return .number03CircleFill
         case .number3:
-            return ._3CircleFill
+            return .number3CircleFill
         case .number04:
-            return ._04CircleFill
+            return .number04CircleFill
         case .number4:
-            return ._4CircleFill
+            return .number4CircleFill
         case .number05:
-            return ._05CircleFill
+            return .number05CircleFill
         case .number5:
-            return ._5CircleFill
+            return .number5CircleFill
         case .number06:
-            return ._06CircleFill
+            return .number06CircleFill
         case .number6:
-            return ._6CircleFill
+            return .number6CircleFill
         case .number07:
-            return ._07CircleFill
+            return .number07CircleFill
         case .number7:
-            return ._7CircleFill
+            return .number7CircleFill
         case .number08:
-            return ._08CircleFill
+            return .number08CircleFill
         case .number8:
-            return ._8CircleFill
+            return .number8CircleFill
         case .number09:
-            return ._09CircleFill
+            return .number09CircleFill
         case .number9:
-            return ._9CircleFill
+            return .number9CircleFill
         case .number10:
-            return ._10CircleFill
+            return .number10CircleFill
         case .number11:
-            return ._11CircleFill
+            return .number11CircleFill
         case .number12:
-            return ._12CircleFill
+            return .number12CircleFill
         case .number13:
-            return ._13CircleFill
+            return .number13CircleFill
         case .number14:
-            return ._14CircleFill
+            return .number14CircleFill
         case .number15:
-            return ._15CircleFill
+            return .number15CircleFill
         case .number16:
-            return ._16CircleFill
+            return .number16CircleFill
         case .number17:
-            return ._17CircleFill
+            return .number17CircleFill
         case .number18:
-            return ._18CircleFill
+            return .number18CircleFill
         case .number19:
-            return ._19CircleFill
+            return .number19CircleFill
         case .number20:
-            return ._20CircleFill
+            return .number20CircleFill
         case .number21:
-            return ._21CircleFill
+            return .number21CircleFill
         case .number22:
-            return ._22CircleFill
+            return .number22CircleFill
         case .number23:
-            return ._23CircleFill
+            return .number23CircleFill
         case .number24:
-            return ._24CircleFill
+            return .number24CircleFill
         case .number25:
-            return ._25CircleFill
+            return .number25CircleFill
         case .number26:
-            return ._26CircleFill
+            return .number26CircleFill
         case .number27:
-            return ._27CircleFill
+            return .number27CircleFill
         case .number28:
-            return ._28CircleFill
+            return .number28CircleFill
         case .number29:
-            return ._29CircleFill
+            return .number29CircleFill
         case .number30:
-            return ._30CircleFill
+            return .number30CircleFill
         case .number31:
-            return ._31CircleFill
+            return .number31CircleFill
         case .number32:
-            return ._32CircleFill
+            return .number32CircleFill
         case .number33:
-            return ._33CircleFill
+            return .number33CircleFill
         case .number34:
-            return ._34CircleFill
+            return .number34CircleFill
         case .number35:
-            return ._35CircleFill
+            return .number35CircleFill
         case .number36:
-            return ._36CircleFill
+            return .number36CircleFill
         case .number37:
-            return ._37CircleFill
+            return .number37CircleFill
         case .number38:
-            return ._38CircleFill
+            return .number38CircleFill
         case .number39:
-            return ._39CircleFill
+            return .number39CircleFill
         case .number40:
-            return ._40CircleFill
+            return .number40CircleFill
         case .number41:
-            return ._41CircleFill
+            return .number41CircleFill
         case .number42:
-            return ._42CircleFill
+            return .number42CircleFill
         case .number43:
-            return ._43CircleFill
+            return .number43CircleFill
         case .number44:
-            return ._44CircleFill
+            return .number44CircleFill
         case .number45:
-            return ._45CircleFill
+            return .number45CircleFill
         case .number46:
-            return ._46CircleFill
+            return .number46CircleFill
         case .number47:
-            return ._47CircleFill
+            return .number47CircleFill
         case .number48:
-            return ._48CircleFill
+            return .number48CircleFill
         case .number49:
-            return ._49CircleFill
+            return .number49CircleFill
         case .number50:
-            return ._50CircleFill
+            return .number50CircleFill
         }
     }
 

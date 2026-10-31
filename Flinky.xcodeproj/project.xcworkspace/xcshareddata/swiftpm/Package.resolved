@@ -1,5 +1,5 @@
 {
-  "originHash" : "679fc4901a3bcdd655939b479e259c382a95a57f3f4210125ba6c6a2e11f2cb3",
+  "originHash" : "5c05c68c32043ffa494ece305bddaac3007008418f868a775c35c0daed98bd64",
   "pins" : [
     {
       "identity" : "onlaunch-ios-client",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "2f64c77f77514acd01780d1aac86ae75b7fccd04",
         "version" : "9.31.0"
-      }
-    },
-    {
-      "identity" : "sfsafesymbols",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols",
-      "state" : {
-        "revision" : "e01b3d4f861412f8dcee8d93c417d2c2b0cdfd77",
-        "version" : "7.0.0"
       }
     },
     {

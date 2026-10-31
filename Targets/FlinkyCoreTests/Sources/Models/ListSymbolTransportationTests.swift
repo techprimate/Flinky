@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolTransportation")
 class ListSymbolTransportationTests {
-    private let symbolRawValuePairs: [(ListSymbolTransportation, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolTransportation, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.airplane, "airplane", .airplane),
         (.car, "car", .carFill),
         (.carSide, "car-side", .carSideFill),

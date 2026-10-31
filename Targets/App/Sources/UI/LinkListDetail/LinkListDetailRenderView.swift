@@ -1,5 +1,4 @@
 import FlinkyCore
-import SFSafeSymbols
 import SwiftUI
 
 struct LinkListDetailRenderView: View {
@@ -136,7 +135,7 @@ struct LinkListDetailRenderView: View {
             editListButton
             deleteListButton
         } label: {
-            let symbol: SFSymbol = {
+            let symbol: SystemSymbol = {
                 if #available(iOS 26, *) {
                     return .ellipsis
                 }

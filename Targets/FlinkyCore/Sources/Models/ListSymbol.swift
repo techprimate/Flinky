@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbol {
     case emoji(String)
     case listBullet
@@ -26,7 +24,7 @@ public enum ListSymbol {
     case documentsReadingWriting(ListSymbolDocumentsReadingWriting)
     case clothingAccessories(ListSymbolClothingAccessories)
 
-    public var sfsymbol: SFSymbol {
+    public var sfsymbol: SystemSymbol {
         switch self {
         case .emoji:
             return .faceSmiling

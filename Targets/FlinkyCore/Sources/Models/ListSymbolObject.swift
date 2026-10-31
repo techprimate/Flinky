@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolObject {
     case key
     case keyHorizontal
@@ -45,7 +43,7 @@ public enum ListSymbolObject {
     case tent2
     case wallet
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .key:
             return .keyFill

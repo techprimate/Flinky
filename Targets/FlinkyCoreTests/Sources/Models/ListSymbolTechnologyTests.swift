@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolTechnology")
 class ListSymbolTechnologyTests {
-    private let symbolRawValuePairs: [(ListSymbolTechnology, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolTechnology, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.airPurifier, "air-purifier", .airPurifierFill),
         (.airpods, "airpods", .airpodsPro),
         (.alarm, "alarm", .alarmFill),

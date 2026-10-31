@@ -1,10 +1,9 @@
 @testable import FlinkyCore
 import Testing
-import SFSafeSymbols
 
 @Suite("ListSymbolClothingAccessories")
 class ListSymbolClothingAccessoriesTests {
-    private let symbolRawValuePairs: [(ListSymbolClothingAccessories, String, SFSymbol)] = [ // swiftlint:disable:this large_tuple
+    private let symbolRawValuePairs: [(ListSymbolClothingAccessories, String, SystemSymbol)] = [ // swiftlint:disable:this large_tuple
         (.hat, "hat", .hatWidebrimFill),
         (.tshirt, "tshirt", .tshirtFill)
     ]

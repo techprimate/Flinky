@@ -1,5 +1,4 @@
 import FlinkyCore
-import SFSafeSymbols
 import SentrySwift
 import SwiftData
 import SwiftUI

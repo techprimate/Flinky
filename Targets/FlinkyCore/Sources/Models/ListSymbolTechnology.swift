@@ -1,5 +1,3 @@
-import SFSafeSymbols
-
 public enum ListSymbolTechnology {
     case airPurifier
     case airpods
@@ -36,7 +34,7 @@ public enum ListSymbolTechnology {
     case tv  // swiftlint:disable:this identifier_name
     case headlightHighBeam
 
-    var sfsymbol: SFSymbol {
+    var sfsymbol: SystemSymbol {
         switch self {
         case .airPurifier:
             return .airPurifierFill
