@@ -13,10 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  screenshots:
-    name: Screenshots
+  build-screenshots:
+    name: Build Screenshots
     runs-on: macos-26
-    timeout-minutes: 60
+    timeout-minutes: 30
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
@@ -31,21 +31,120 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Build Screenshot Test Bundle
+        run: bundle exec fastlane build_screenshots derived_data_path:/tmp/screenshot_build
+        env:
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Test Bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-test-bundle
+          path: /tmp/screenshot_build/Build/Products/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
+  screenshot:
+    name: Screenshot ${{ matrix.device }}
+    runs-on: macos-26
+    timeout-minutes: 30
+    needs: build-screenshots
+    strategy:
+      fail-fast: false
+      matrix:
+        device:
+          - "iPhone 17 Pro"
+          - "iPad Pro 13-inch (M5)"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+          submodules: true
+
       - name: Wait for iOS Simulator
         id: simulator
+        background: true
         uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
         with:
-          device: iPhone 17 Pro
+          device: ${{ matrix.device }}
           boot: true
           warm-xcodebuild-settings: true
           project: Flinky.xcodeproj
           scheme: ScreenshotUITests
 
-      - name: Capture and Upload Screenshots
-        run: bundle exec fastlane generate_and_upload_screenshots_ci "simulator_udid:${{ steps.simulator.outputs.udid }}"
+      - name: Install Dependencies
+        run: brew bundle --file Brewfile-ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download Test Bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: screenshot-test-bundle
+          path: /tmp/screenshot_build/Build/Products/
+
+      - name: Wait for Simulator Readiness
+        wait: simulator
+
+      - name: Run Screenshots
+        run: bundle exec fastlane run_screenshot_on_device "device:${{ matrix.device }}" "simulator_udid:${{ steps.simulator.outputs.udid }}" derived_data_path:/tmp/screenshot_build
+        env:
+          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Device Screenshots
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: screenshots-${{ matrix.device }}
+          path: ~/Library/Caches/tools.fastlane/screenshots/*.png
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Run CI Diagnostics
+        if: failure()
+        run: ./Scripts/ci-diagnostics.sh
+
+  screenshots:
+    name: Screenshots
+    runs-on: macos-26
+    timeout-minutes: 10
+    needs: screenshot
+    if: always()
+    steps:
+      - name: Verify Screenshot Jobs
+        run: test "$SCREENSHOT_RESULT" = success
+        env:
+          SCREENSHOT_RESULT: ${{ needs.screenshot.result }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download All Screenshots
+        uses: actions/download-artifact@v8
+        with:
+          pattern: screenshots-*
+          path: ~/Library/Caches/tools.fastlane/screenshots/
+          merge-multiple: true
+
+      - name: Collect Screenshots
+        run: bundle exec fastlane collect_screenshots expected_count:8
+
+      - name: Upload Screenshots to Sentry
+        run: bundle exec fastlane upload_screenshots_to_sentry
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          LICENSE_PLIST_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Screenshots
         uses: actions/upload-artifact@v7
@@ -53,8 +152,5 @@ jobs:
         with:
           name: screenshots
           path: fastlane/screenshots/
+          if-no-files-found: error
           retention-days: 7
-
-      - name: Run CI Diagnostics
-        if: failure()
-        run: ./Scripts/ci-diagnostics.sh

@@ -32,6 +32,16 @@ jobs:
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
+      # Boot without build-settings warmup while the archive uses Xcode.
+      - name: Boot iOS Simulator
+        id: simulator_boot
+        background: true
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
+        with:
+          device: iPhone 17 Pro
+          boot: true
+          warm-xcodebuild-settings: false
+
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
 
@@ -60,6 +70,9 @@ jobs:
           LICENSE_PLIST_GITHUB_TOKEN: ${{ steps.github_app_token.outputs.token }}
           RELEASE_BOT_TOKEN: ${{ steps.github_app_token.outputs.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Wait for Simulator Boot
+        wait: simulator_boot
 
       - name: Wait for iOS Simulator
         id: simulator

@@ -13,7 +13,7 @@ repos:
         exclude: ^Targets/App/Sources/Resources/Settings\.bundle/Licenses\.latest_result\.txt$
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.2
+    rev: 0.39.0
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
