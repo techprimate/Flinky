@@ -41,13 +41,11 @@ struct LinkListInfoContainerView: View {
                     // Mirror link update pattern for consistent analytics across entity types
                     let breadcrumb = Breadcrumb(level: .info, category: "list_management")
                     breadcrumb.message = "List updated successfully"
-                    breadcrumb.data = [
-                        "list_id": list.id.uuidString,
-                        "color": color.rawValue,
-                        "symbol": symbol.rawValue,
-                        "color_changed": isColorChanged,  // Track customization engagement
-                        "symbol_changed": isSymbolChanged
-                    ]
+                    breadcrumb.setData(value: list.id.uuidString, key: "list_id")
+                    breadcrumb.setData(value: color.rawValue, key: "color")
+                    breadcrumb.setData(value: symbol.rawValue, key: "symbol")
+                    breadcrumb.setData(value: isColorChanged, key: "color_changed")  // Track customization engagement
+                    breadcrumb.setData(value: isSymbolChanged, key: "symbol_changed")
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track list color selection for customization feature analytics

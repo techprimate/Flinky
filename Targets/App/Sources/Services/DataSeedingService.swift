@@ -79,7 +79,7 @@ final class DataSeedingService {
             statusBreadcrumb.category = "database.query"
             statusBreadcrumb.level = .debug
             statusBreadcrumb.timestamp = Date()
-            statusBreadcrumb.data = ["is_seeded": isSeeded]
+            statusBreadcrumb.setData(value: isSeeded, key: "is_seeded")
             SentrySDK.addBreadcrumb(statusBreadcrumb)
 
             return isSeeded
@@ -123,10 +123,8 @@ final class DataSeedingService {
             successBreadcrumb.category = "database.metadata"
             successBreadcrumb.level = .info
             successBreadcrumb.timestamp = Date()
-            successBreadcrumb.data = [
-                "marker_id": seededMarker.id.uuidString,
-                "created_at": ISO8601DateFormatter().string(from: seededMarker.createdAt)
-            ]
+            successBreadcrumb.setData(value: seededMarker.id.uuidString, key: "marker_id")
+            successBreadcrumb.setData(value: ISO8601DateFormatter().string(from: seededMarker.createdAt), key: "created_at")
             SentrySDK.addBreadcrumb(successBreadcrumb)
         } catch {
             logger.error("Failed to mark database as seeded: \(error)")
@@ -164,11 +162,9 @@ final class DataSeedingService {
         myLinksBreadcrumb.category = "database.seeding"
         myLinksBreadcrumb.level = .info
         myLinksBreadcrumb.timestamp = Date()
-        myLinksBreadcrumb.data = [
-            "list_name": myLinksList.name,
-            "link_count": myLinksList.links.count,
-            "is_pinned": myLinksList.isPinned
-        ]
+        myLinksBreadcrumb.setData(value: myLinksList.name, key: "list_name")
+        myLinksBreadcrumb.setData(value: myLinksList.links.count, key: "link_count")
+        myLinksBreadcrumb.setData(value: myLinksList.isPinned, key: "is_pinned")
         SentrySDK.addBreadcrumb(myLinksBreadcrumb)
 
         // Create "Favorites" list with yellow color, star symbol, pinned, and 1 link
@@ -180,13 +176,11 @@ final class DataSeedingService {
         favoritesBreadcrumb.category = "database.seeding"
         favoritesBreadcrumb.level = .info
         favoritesBreadcrumb.timestamp = Date()
-        favoritesBreadcrumb.data = [
-            "list_name": favoritesList.name,
-            "link_count": favoritesList.links.count,
-            "is_pinned": favoritesList.isPinned,
-            "color": favoritesList.color?.rawValue ?? "none",
-            "symbol": favoritesList.symbol?.rawValue ?? "none"
-        ]
+        favoritesBreadcrumb.setData(value: favoritesList.name, key: "list_name")
+        favoritesBreadcrumb.setData(value: favoritesList.links.count, key: "link_count")
+        favoritesBreadcrumb.setData(value: favoritesList.isPinned, key: "is_pinned")
+        favoritesBreadcrumb.setData(value: favoritesList.color?.rawValue ?? "none", key: "color")
+        favoritesBreadcrumb.setData(value: favoritesList.symbol?.rawValue ?? "none", key: "symbol")
         SentrySDK.addBreadcrumb(favoritesBreadcrumb)
 
         // Save the context
@@ -199,10 +193,8 @@ final class DataSeedingService {
             successBreadcrumb.category = "database.seeding"
             successBreadcrumb.level = .info
             successBreadcrumb.timestamp = Date()
-            successBreadcrumb.data = [
-                "lists_created": 2,
-                "total_links_created": myLinksList.links.count + favoritesList.links.count
-            ]
+            successBreadcrumb.setData(value: 2, key: "lists_created")
+            successBreadcrumb.setData(value: myLinksList.links.count + favoritesList.links.count, key: "total_links_created")
             SentrySDK.addBreadcrumb(successBreadcrumb)
         } catch {
             logger.error("Failed to save seeded data: \(error)")
