@@ -3,6 +3,7 @@ excluded:
   - "**/SnapshotHelper.swift"
   - ".agents"
   - ".bundle"
+  - ".build"
   - "vendor"
   - ".build"
 

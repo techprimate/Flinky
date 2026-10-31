@@ -172,6 +172,17 @@ jobs:
           ref: ${{ needs.resolve-ref.outputs.sha }}
           submodules: true
 
+      - name: Wait for iOS Simulator
+        id: simulator
+        background: true
+        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
+        with:
+          device: ${{ matrix.device }}
+          boot: true
+          warm-xcodebuild-settings: true
+          project: Flinky.xcodeproj
+          scheme: ScreenshotUITests
+
       - name: Install Dependencies
         run: brew bundle --file Brewfile-ci
 
@@ -186,15 +197,8 @@ jobs:
           name: screenshot-test-bundle
           path: /tmp/screenshot_build/Build/Products/
 
-      - name: Wait for iOS Simulator
-        id: simulator
-        uses: kula-app/wait-for-services-action/ios-simulator@v1.3.0
-        with:
-          device: ${{ matrix.device }}
-          boot: true
-          warm-xcodebuild-settings: true
-          project: Flinky.xcodeproj
-          scheme: ScreenshotUITests
+      - name: Wait for Simulator Readiness
+        wait: simulator
 
       - name: Run Screenshots
         run: bundle exec fastlane run_screenshot_on_device "device:${{ matrix.device }}" "simulator_udid:${{ steps.simulator.outputs.udid }}" derived_data_path:/tmp/screenshot_build
