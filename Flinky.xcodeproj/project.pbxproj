@@ -2295,7 +2295,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-apple-swift-log";
 			requirement = {
 				kind = exactVersion;
-				version = 9.31.0;
+				version = 9.32.0;
 			};
 			traits = (
 				SentryFromSource,
@@ -2314,7 +2314,7 @@
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
 			requirement = {
 				kind = exactVersion;
-				version = 9.31.0;
+				version = 9.32.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
