@@ -188,8 +188,9 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         options.enableMetrics = true
 
         // Configure MetricKit
-        options.experimental.metrickit.enabledDiagnosticReports = [.cpuException, .diskWriteException, .hang, .appLaunch]
+        options.experimental.metrickit.enabledDiagnosticReports = Set(SentryMetricKit.DiagnosticReport.allCases)
         options.experimental.metrickit.hangReportingMode = .flamegraphAttachment
+        options.experimental.metrickit.enabledMetricReports = .all
         options.enableMetricKitRawPayload = true
 
         // Configure Other Options
