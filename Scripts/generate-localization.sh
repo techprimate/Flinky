@@ -64,8 +64,7 @@ generate_localization() {
             --templatePath ./Templates/l21strings.stencil \
             --output "${output_path}" \
             --param enumName=L10n \
-            --param publicAccess=true \
-            --param 'bundle=Bundle(url: Bundle.main.url(forResource: "FlinkyCoreResources", withExtension: "bundle")!)!'
+            --param publicAccess=true
     else
         swiftgen strings "${temp_strings}" \
             --templatePath ./Templates/l21strings.stencil \

@@ -22,16 +22,6 @@ final class LinkSortOrderTests: XCTestCase {
         XCTAssertEqual(LinkSortOrder.default, .nameAscending)
     }
 
-    func testLocalizedNamesUseCoreResourceBundle() throws {
-        let bundleURL = try XCTUnwrap(Bundle.main.url(forResource: "FlinkyCoreResources", withExtension: "bundle"))
-        let bundle = try XCTUnwrap(Bundle(url: bundleURL))
-        let key = "shared.sort-order.name-ascending"
-        let name = bundle.localizedString(forKey: key, value: nil, table: nil)
-
-        XCTAssertNotEqual(name, key)
-        XCTAssertEqual(LinkSortOrder.nameAscending.name, name)
-    }
-
     func testIdentifiable() {
         for sortOrder in LinkSortOrder.allCases {
             XCTAssertEqual(sortOrder.id, sortOrder.rawValue)

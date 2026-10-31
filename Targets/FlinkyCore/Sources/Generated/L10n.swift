@@ -155,8 +155,20 @@ public enum L10n {
 
 extension L10n {
     private static func tr(_ key: String, _ args: CVarArg..., fallback value: String) -> String {
-        let format = Bundle(url: Bundle.main.url(forResource: "FlinkyCoreResources", withExtension: "bundle")!)!.localizedString(forKey: key, value: value, table: nil)
+        let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: nil)
         return String(format: format, locale: Locale.current, arguments: args)
     }
 }
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+    static let bundle: Bundle = {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
+        return Bundle(for: BundleToken.self)
+        #endif
+    }()
+}
+// swiftlint:enable convenience_type
 // swiftlint:enable all
