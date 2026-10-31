@@ -51,7 +51,11 @@
     {
       "description": "Update Swift package references together",
       "groupName": "{{{replace 'https://github.com/' '' packageName}}}",
-      "groupSingleUpdates": true,
+      "matchFileNames": [
+        "**/Package.resolved",
+        "**/*.xcodeproj/project.pbxproj",
+        "project.yml"
+      ],
       "matchManagers": ["custom.regex", "xcodegen"]
     },
     {
