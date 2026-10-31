@@ -57,9 +57,7 @@ struct LinkDetailContainerView: View {
                         // Uses "link_interaction" category to distinguish from sharing actions
                         let breadcrumb = Breadcrumb(level: .info, category: "link_interaction")
                         breadcrumb.message = "Link opened in Safari"
-                        breadcrumb.data = [
-                            "link_id": item.id.uuidString  // Enables correlation with link usage patterns
-                        ]
+                        breadcrumb.setData(value: item.id.uuidString, key: "link_id")  // Enables correlation with link usage patterns
                         SentrySDK.addBreadcrumb(breadcrumb)
 
                         // Track link opened using metrics
@@ -77,10 +75,8 @@ struct LinkDetailContainerView: View {
                 // Link ID helps correlate with other actions on the same link
                 let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
                 breadcrumb.message = "Link URL copied to clipboard"
-                breadcrumb.data = [
-                    "link_id": item.id.uuidString,
-                    "sharing_method": "copy_url"
-                ]
+                breadcrumb.setData(value: item.id.uuidString, key: "link_id")
+                breadcrumb.setData(value: "copy_url", key: "sharing_method")
                 SentrySDK.addBreadcrumb(breadcrumb)
 
                 // Track sharing using metrics - better for aggregate counts than individual events
@@ -93,10 +89,8 @@ struct LinkDetailContainerView: View {
                 // Distinguishes from QR code save-to-photos for usage pattern analysis
                 let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
                 breadcrumb.message = "QR code shared"
-                breadcrumb.data = [
-                    "link_id": item.id.uuidString,
-                    "sharing_method": "qr_code_share"
-                ]
+                breadcrumb.setData(value: item.id.uuidString, key: "link_id")
+                breadcrumb.setData(value: "qr_code_share", key: "sharing_method")
                 SentrySDK.addBreadcrumb(breadcrumb)
 
                 // Track sharing using metrics - better for aggregate counts than individual events
@@ -179,10 +173,8 @@ struct LinkDetailContainerView: View {
                             // This indicates user wants to keep QR code for later use
                             let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
                             breadcrumb.message = "QR code saved to Photos"
-                            breadcrumb.data = [
-                                "link_id": item.id.uuidString,
-                                "sharing_method": "qr_code_save"
-                            ]
+                            breadcrumb.setData(value: item.id.uuidString, key: "link_id")
+                            breadcrumb.setData(value: "qr_code_save", key: "sharing_method")
                             SentrySDK.addBreadcrumb(breadcrumb)
 
                             // Track sharing using metrics - better for aggregate counts than individual events

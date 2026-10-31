@@ -47,13 +47,11 @@ struct LinkInfoContainerView: View {
                     // Boolean flags help understand which customization features are used
                     let breadcrumb = Breadcrumb(level: .info, category: "link_management")
                     breadcrumb.message = "Link updated successfully"
-                    breadcrumb.data = [
-                        "link_id": link.id.uuidString,
-                        "color": color.rawValue,
-                        "symbol": symbol.rawValue,
-                        "color_changed": isColorChanged,  // Track if users actually customize
-                        "symbol_changed": isSymbolChanged
-                    ]
+                    breadcrumb.setData(value: link.id.uuidString, key: "link_id")
+                    breadcrumb.setData(value: color.rawValue, key: "color")
+                    breadcrumb.setData(value: symbol.rawValue, key: "symbol")
+                    breadcrumb.setData(value: isColorChanged, key: "color_changed")  // Track if users actually customize
+                    breadcrumb.setData(value: isSymbolChanged, key: "symbol_changed")
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track color selection only when changed to avoid noise

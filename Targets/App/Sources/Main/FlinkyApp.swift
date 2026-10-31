@@ -90,7 +90,6 @@ struct FlinkyApp: App {
 
         // Configure Crash Reporting
         options.enableCrashHandler = true
-        options.enableSigtermReporting = true
         options.enableWatchdogTerminationTracking = true
         options.attachStacktrace = true
         options.enablePersistingTracesWhenCrashing = true
@@ -103,7 +102,6 @@ struct FlinkyApp: App {
 
         // Configure App Hang
         options.enableAppHangTracking = true
-        options.enableReportNonFullyBlockingAppHangs = false
 
         // Configure File I/O
         options.enableFileIOTracing = true
@@ -236,13 +234,13 @@ struct FlinkyApp: App {
         options.enableMetrics = true
 
         // Configure MetricKit
-        options.enableMetricKit = true
+        options.experimental.metrickit.enabledDiagnosticReports = [.cpuException, .diskWriteException, .hang, .appLaunch]
         options.experimental.metrickit.hangReportingMode = .flamegraphAttachment
+        options.experimental.metrickit.enabledMetricReports = .all
         options.enableMetricKitRawPayload = true
 
         // Configure Experimental Options
         options.experimental.enableUnhandledCPPExceptionsV2 = false
-        options.experimental.enableWatchdogTerminationsV2 = true
     }
 
     var body: some Scene {

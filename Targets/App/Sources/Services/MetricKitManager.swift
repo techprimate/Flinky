@@ -1,4 +1,3 @@
-// swiftlint:disable file_length type_body_length
 import Foundation
 import MetricKit
 import Logging
@@ -52,150 +51,17 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     // MARK: - Metric Payload Processing
 
     private func reportMetrics(from payload: MXMetricPayload) {
-        reportCPUMetrics(payload.cpuMetrics)
-        reportGPUMetrics(payload.gpuMetrics)
-        reportAppTimeMetrics(payload.applicationTimeMetrics)
-        reportLocationActivityMetrics(payload.locationActivityMetrics)
-        reportNetworkTransferMetrics(payload.networkTransferMetrics)
+        // Sentry reports scalar metrics and exit counters through enabledMetricReports.
+        // Keep histograms here until the SDK supports them.
         reportAppLaunchMetrics(payload.applicationLaunchMetrics)
         reportAppResponsivenessMetrics(payload.applicationResponsivenessMetrics)
-        reportDiskIOMetrics(payload.diskIOMetrics)
-        reportMemoryMetrics(payload.memoryMetrics)
-        reportDisplayMetrics(payload.displayMetrics)
-        reportAnimationMetrics(payload.animationMetrics)
         reportCellularConditionMetrics(payload.cellularConditionMetrics)
-        reportAppExitMetrics(payload.applicationExitMetrics)
-        if #available(iOS 26.0, *) {
-            reportDiskSpaceUsageMetrics(payload.diskSpaceUsageMetrics)
-        }
 
         let breadcrumb = Breadcrumb(level: .info, category: "metrickit")
         breadcrumb.message = "Received MXMetricPayload"
-        breadcrumb.data = [
-            "time_stamp_begin": payload.timeStampBegin.description,
-            "time_stamp_end": payload.timeStampEnd.description
-        ]
+        breadcrumb.setData(value: payload.timeStampBegin.description, key: "time_stamp_begin")
+        breadcrumb.setData(value: payload.timeStampEnd.description, key: "time_stamp_end")
         SentrySDK.addBreadcrumb(breadcrumb)
-    }
-
-    // MARK: - CPU Metrics
-
-    private func reportCPUMetrics(_ metrics: MXCPUMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting CPU metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.cpu.cumulative_time",
-            value: metrics.cumulativeCPUTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.cpu.cumulative_instructions",
-            value: metrics.cumulativeCPUInstructions.value,
-            unit: .generic("instructions")
-        )
-    }
-
-    // MARK: - GPU Metrics
-
-    private func reportGPUMetrics(_ metrics: MXGPUMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting GPU metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.gpu.cumulative_time",
-            value: metrics.cumulativeGPUTime.converted(to: .seconds).value,
-            unit: .second
-        )
-    }
-
-    // MARK: - App Time Metrics
-
-    private func reportAppTimeMetrics(_ metrics: MXAppRunTimeMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting App Time metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.app_time.foreground",
-            value: metrics.cumulativeForegroundTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.app_time.background",
-            value: metrics.cumulativeBackgroundTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.app_time.background_audio",
-            value: metrics.cumulativeBackgroundAudioTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.app_time.background_location",
-            value: metrics.cumulativeBackgroundLocationTime.converted(to: .seconds).value,
-            unit: .second
-        )
-    }
-
-    // MARK: - Location Activity Metrics
-
-    private func reportLocationActivityMetrics(_ metrics: MXLocationActivityMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Location Activity metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.best_accuracy_time",
-            value: metrics.cumulativeBestAccuracyTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.best_accuracy_for_nav_time",
-            value: metrics.cumulativeBestAccuracyForNavigationTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.nearest_ten_meters_time",
-            value: metrics.cumulativeNearestTenMetersAccuracyTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.hundred_meters_time",
-            value: metrics.cumulativeHundredMetersAccuracyTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.kilometer_time",
-            value: metrics.cumulativeKilometerAccuracyTime.converted(to: .seconds).value,
-            unit: .second
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.location.three_kilometers_time",
-            value: metrics.cumulativeThreeKilometersAccuracyTime.converted(to: .seconds).value,
-            unit: .second
-        )
-    }
-
-    // MARK: - Network Transfer Metrics
-
-    private func reportNetworkTransferMetrics(_ metrics: MXNetworkTransferMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Network Transfer metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.network.wifi_upload",
-            value: metrics.cumulativeWifiUpload.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.network.wifi_download",
-            value: metrics.cumulativeWifiDownload.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.network.cellular_upload",
-            value: metrics.cumulativeCellularUpload.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.distribution(
-            key: "metrickit.network.cellular_download",
-            value: metrics.cumulativeCellularDownload.converted(to: .bytes).value,
-            unit: .byte
-        )
     }
 
     // MARK: - App Launch Metrics
@@ -232,69 +98,6 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
         )
     }
 
-    // MARK: - Disk IO Metrics
-
-    private func reportDiskIOMetrics(_ metrics: MXDiskIOMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Disk IO metrics")
-        SentrySDK.metrics.distribution(
-            key: "metrickit.disk_io.logical_writes",
-            value: metrics.cumulativeLogicalWrites.converted(to: .bytes).value,
-            unit: .byte
-        )
-    }
-
-    // MARK: - Memory Metrics
-
-    private func reportMemoryMetrics(_ metrics: MXMemoryMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Memory metrics")
-        SentrySDK.metrics.gauge(
-            key: "metrickit.memory.peak_usage",
-            value: metrics.peakMemoryUsage.converted(to: .bytes).value,
-            unit: .byte
-        )
-        let avgMemory = metrics.averageSuspendedMemory
-        SentrySDK.metrics.gauge(
-            key: "metrickit.memory.avg_suspended",
-            value: avgMemory.averageMeasurement.converted(to: .bytes).value,
-            unit: .byte,
-            attributes: ["sample_count": String(avgMemory.sampleCount)]
-        )
-    }
-
-    // MARK: - Display Metrics
-
-    private func reportDisplayMetrics(_ metrics: MXDisplayMetric?) {
-        guard let metrics, let luminance = metrics.averagePixelLuminance else { return }
-        Self.logger.info("Reporting Display metrics")
-        SentrySDK.metrics.gauge(
-            key: "metrickit.display.avg_pixel_luminance",
-            value: luminance.averageMeasurement.value,
-            unit: .generic("apl"),
-            attributes: ["sample_count": String(luminance.sampleCount)]
-        )
-    }
-
-    // MARK: - Animation Metrics
-
-    private func reportAnimationMetrics(_ metrics: MXAnimationMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Animation metrics")
-        SentrySDK.metrics.gauge(
-            key: "metrickit.animation.scroll_hitch_time_ratio",
-            value: metrics.scrollHitchTimeRatio.value,
-            unit: .generic("ratio")
-        )
-        if #available(iOS 26.0, *) {
-            SentrySDK.metrics.gauge(
-                key: "metrickit.animation.hitch_time_ratio",
-                value: metrics.hitchTimeRatio.value,
-                unit: .generic("ratio")
-            )
-        }
-    }
-
     // MARK: - Cellular Condition Metrics
 
     private func reportCellularConditionMetrics(_ metrics: MXCellularConditionMetric?) {
@@ -303,83 +106,6 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
         reportSignalBarsHistogram(
             metrics.histogrammedCellularConditionTime,
             key: "metrickit.cellular.condition_time"
-        )
-    }
-
-    // MARK: - App Exit Metrics
-
-    private func reportAppExitMetrics(_ metrics: MXAppExitMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting App Exit metrics")
-
-        let foreground = metrics.foregroundExitData
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.normal", value: UInt(foreground.cumulativeNormalAppExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.memory_resource_limit", value: UInt(foreground.cumulativeMemoryResourceLimitExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.bad_access", value: UInt(foreground.cumulativeBadAccessExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.abnormal", value: UInt(foreground.cumulativeAbnormalExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.illegal_instruction", value: UInt(foreground.cumulativeIllegalInstructionExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.fg.watchdog", value: UInt(foreground.cumulativeAppWatchdogExitCount))
-
-        let background = metrics.backgroundExitData
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.normal", value: UInt(background.cumulativeNormalAppExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.memory_resource_limit", value: UInt(background.cumulativeMemoryResourceLimitExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.cpu_resource_limit", value: UInt(background.cumulativeCPUResourceLimitExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.memory_pressure", value: UInt(background.cumulativeMemoryPressureExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.bad_access", value: UInt(background.cumulativeBadAccessExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.abnormal", value: UInt(background.cumulativeAbnormalExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.illegal_instruction", value: UInt(background.cumulativeIllegalInstructionExitCount))
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.watchdog", value: UInt(background.cumulativeAppWatchdogExitCount))
-        let lockedFileExits = background.cumulativeSuspendedWithLockedFileExitCount
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.suspended_with_locked_file", value: UInt(lockedFileExits))
-        let taskTimeoutExits = background.cumulativeBackgroundTaskAssertionTimeoutExitCount
-        SentrySDK.metrics.count(key: "metrickit.exit.bg.background_task_timeout", value: UInt(taskTimeoutExits))
-    }
-
-    // MARK: - Disk Space Usage Metrics
-
-    @available(iOS 26.0, *)
-    private func reportDiskSpaceUsageMetrics(_ metrics: MXDiskSpaceUsageMetric?) {
-        guard let metrics else { return }
-        Self.logger.info("Reporting Disk Space Usage metrics")
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.binary_file_size",
-            value: metrics.totalBinaryFileSize.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.binary_file_count",
-            value: Double(metrics.totalBinaryFileCount),
-            unit: .generic("files")
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.data_file_size",
-            value: metrics.totalDataFileSize.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.data_file_count",
-            value: Double(metrics.totalDataFileCount),
-            unit: .generic("files")
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.cache_folder_size",
-            value: metrics.totalCacheFolderSize.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.clone_size",
-            value: metrics.totalCloneSize.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.total_used",
-            value: metrics.totalDiskSpaceUsedSize.converted(to: .bytes).value,
-            unit: .byte
-        )
-        SentrySDK.metrics.gauge(
-            key: "metrickit.disk_space.total_capacity",
-            value: metrics.totalDiskSpaceCapacity.converted(to: .bytes).value,
-            unit: .byte
         )
     }
 
@@ -394,15 +120,13 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 
         let breadcrumb = Breadcrumb(level: .warning, category: "metrickit")
         breadcrumb.message = "Received MXDiagnosticPayload"
-        breadcrumb.data = [
-            "time_stamp_begin": payload.timeStampBegin.description,
-            "time_stamp_end": payload.timeStampEnd.description,
-            "cpu_exceptions": String(payload.cpuExceptionDiagnostics?.count ?? 0),
-            "disk_write_exceptions": String(payload.diskWriteExceptionDiagnostics?.count ?? 0),
-            "hangs": String(payload.hangDiagnostics?.count ?? 0),
-            "crashes": String(payload.crashDiagnostics?.count ?? 0),
-            "app_launch_issues": String(payload.appLaunchDiagnostics?.count ?? 0)
-        ]
+        breadcrumb.setData(value: payload.timeStampBegin.description, key: "time_stamp_begin")
+        breadcrumb.setData(value: payload.timeStampEnd.description, key: "time_stamp_end")
+        breadcrumb.setData(value: String(payload.cpuExceptionDiagnostics?.count ?? 0), key: "cpu_exceptions")
+        breadcrumb.setData(value: String(payload.diskWriteExceptionDiagnostics?.count ?? 0), key: "disk_write_exceptions")
+        breadcrumb.setData(value: String(payload.hangDiagnostics?.count ?? 0), key: "hangs")
+        breadcrumb.setData(value: String(payload.crashDiagnostics?.count ?? 0), key: "crashes")
+        breadcrumb.setData(value: String(payload.appLaunchDiagnostics?.count ?? 0), key: "app_launch_issues")
         SentrySDK.addBreadcrumb(breadcrumb)
     }
 
@@ -411,21 +135,16 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     private func reportCPUExceptionDiagnostics(_ diagnostics: [MXCPUExceptionDiagnostic]?) {
         guard let diagnostics else { return }
         Self.logger.info("Reporting CPU Exception diagnostics")
-        SentrySDK.metrics.count(
-            key: "metrickit.diagnostic.cpu_exception",
-            value: UInt(diagnostics.count)
-        )
+        SentrySDK.metrics.count("metrickit.diagnostic.cpu_exception", value: UInt(diagnostics.count))
         for diagnostic in diagnostics {
-            SentrySDK.metrics.distribution(
-                key: "metrickit.diagnostic.cpu_exception.total_cpu_time",
-                value: diagnostic.totalCPUTime.converted(to: .seconds).value,
+            let totalCPUTime = diagnostic.totalCPUTime.converted(to: .seconds).value
+            SentrySDK.metrics.distribution("metrickit.diagnostic.cpu_exception.total_cpu_time", value: totalCPUTime, options: .init(
                 unit: .second
-            )
-            SentrySDK.metrics.distribution(
-                key: "metrickit.diagnostic.cpu_exception.total_sampled_time",
-                value: diagnostic.totalSampledTime.converted(to: .seconds).value,
+            ))
+            let totalSampledTime = diagnostic.totalSampledTime.converted(to: .seconds).value
+            SentrySDK.metrics.distribution("metrickit.diagnostic.cpu_exception.total_sampled_time", value: totalSampledTime, options: .init(
                 unit: .second
-            )
+            ))
         }
     }
 
@@ -434,16 +153,12 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     private func reportDiskWriteExceptionDiagnostics(_ diagnostics: [MXDiskWriteExceptionDiagnostic]?) {
         guard let diagnostics else { return }
         Self.logger.info("Reporting Disk Write Exception diagnostics")
-        SentrySDK.metrics.count(
-            key: "metrickit.diagnostic.disk_write_exception",
-            value: UInt(diagnostics.count)
-        )
+        SentrySDK.metrics.count("metrickit.diagnostic.disk_write_exception", value: UInt(diagnostics.count))
         for diagnostic in diagnostics {
-            SentrySDK.metrics.distribution(
-                key: "metrickit.diagnostic.disk_write_exception.total_writes",
-                value: diagnostic.totalWritesCaused.converted(to: .bytes).value,
+            let totalWrites = diagnostic.totalWritesCaused.converted(to: .bytes).value
+            SentrySDK.metrics.distribution("metrickit.diagnostic.disk_write_exception.total_writes", value: totalWrites, options: .init(
                 unit: .byte
-            )
+            ))
         }
     }
 
@@ -452,16 +167,12 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     private func reportHangDiagnostics(_ diagnostics: [MXHangDiagnostic]?) {
         guard let diagnostics else { return }
         Self.logger.info("Reporting Hang diagnostics")
-        SentrySDK.metrics.count(
-            key: "metrickit.diagnostic.hang",
-            value: UInt(diagnostics.count)
-        )
+        SentrySDK.metrics.count("metrickit.diagnostic.hang", value: UInt(diagnostics.count))
         for diagnostic in diagnostics {
-            SentrySDK.metrics.distribution(
-                key: "metrickit.diagnostic.hang.duration",
-                value: diagnostic.hangDuration.converted(to: .seconds).value,
+            let duration = diagnostic.hangDuration.converted(to: .seconds).value
+            SentrySDK.metrics.distribution("metrickit.diagnostic.hang.duration", value: duration, options: .init(
                 unit: .second
-            )
+            ))
         }
     }
 
@@ -470,10 +181,7 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     private func reportCrashDiagnostics(_ diagnostics: [MXCrashDiagnostic]?) {
         guard let diagnostics else { return }
         Self.logger.info("Reporting Crash diagnostics")
-        SentrySDK.metrics.count(
-            key: "metrickit.diagnostic.crash",
-            value: UInt(diagnostics.count)
-        )
+        SentrySDK.metrics.count("metrickit.diagnostic.crash", value: UInt(diagnostics.count))
     }
 
     // MARK: - App Launch Diagnostics
@@ -481,16 +189,12 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
     private func reportAppLaunchDiagnostics(_ diagnostics: [MXAppLaunchDiagnostic]?) {
         guard let diagnostics else { return }
         Self.logger.info("Reporting App Launch diagnostics")
-        SentrySDK.metrics.count(
-            key: "metrickit.diagnostic.app_launch",
-            value: UInt(diagnostics.count)
-        )
+        SentrySDK.metrics.count("metrickit.diagnostic.app_launch", value: UInt(diagnostics.count))
         for diagnostic in diagnostics {
-            SentrySDK.metrics.distribution(
-                key: "metrickit.diagnostic.app_launch.duration",
-                value: diagnostic.launchDuration.converted(to: .seconds).value,
+            let duration = diagnostic.launchDuration.converted(to: .seconds).value
+            SentrySDK.metrics.distribution("metrickit.diagnostic.app_launch.duration", value: duration, options: .init(
                 unit: .second
-            )
+            ))
         }
     }
 
@@ -507,13 +211,15 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
             let endSeconds = bucket.bucketEnd.converted(to: .seconds).value
             let midpoint = (startSeconds + endSeconds) / 2.0
             for _ in 0..<bucket.bucketCount {
-                SentrySDK.metrics.distribution(key: key, value: midpoint, unit: .second)
+                SentrySDK.metrics.distribution(key, value: midpoint, options: .init(
+                    unit: .second
+                ))
             }
             totalCount += bucket.bucketCount
         }
 
         if totalCount > 0 {
-            SentrySDK.metrics.count(key: "\(key).count", value: UInt(totalCount))
+            SentrySDK.metrics.count("\(key).count", value: UInt(totalCount))
         }
     }
 
@@ -526,13 +232,15 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
         while let bucket = enumerator.nextObject() as? MXHistogramBucket<MXUnitSignalBars> {
             let midpoint = (bucket.bucketStart.value + bucket.bucketEnd.value) / 2.0
             for _ in 0..<bucket.bucketCount {
-                SentrySDK.metrics.distribution(key: key, value: midpoint, unit: .generic("bars"))
+                SentrySDK.metrics.distribution(key, value: midpoint, options: .init(
+                    unit: .generic("bars")
+                ))
             }
             totalCount += bucket.bucketCount
         }
 
         if totalCount > 0 {
-            SentrySDK.metrics.count(key: "\(key).count", value: UInt(totalCount))
+            SentrySDK.metrics.count("\(key).count", value: UInt(totalCount))
         }
     }
 
@@ -542,4 +250,3 @@ final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
         stopReceiving()
     }
 }
-// swiftlint:enable file_length type_body_length
