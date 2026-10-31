@@ -63,6 +63,9 @@ targets:
           - group.com.techprimate.Flinky
     dependencies:
       - target: FlinkyCore
+        embed: false
+      - target: FlinkyCoreResources
+        embed: true
       - target: ShareExtension
       - package: SFSafeSymbols
       - package: SentryCocoa
@@ -196,8 +199,19 @@ targets:
         inputFiles:
           - "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
         runOnlyWhenInstalling: false
+  FlinkyCoreResources:
+    type: bundle
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - Targets/FlinkyCore/Sources/Resources/Localizable.xcstrings
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.techprimate.Flinky.Core.Resources
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGNING_ALLOWED: false
   FlinkyCore:
-    type: framework
+    type: framework.static
     platform: iOS
     deploymentTarget: "18.0"
     sources:
@@ -211,8 +225,6 @@ targets:
       - path: Targets/FlinkyCore/Sources
         excludes:
           - "**/*.xcstrings"
-    resources:
-      - Targets/FlinkyCore/Sources/Resources/Localizable.xcstrings
     dependencies:
       - package: SFSafeSymbols
       - package: SwiftLog
@@ -289,6 +301,10 @@ targets:
           - group.com.techprimate.Flinky
     dependencies:
       - target: FlinkyCore
+        embed: false
+      - target: FlinkyCoreResources
+        embed: true
+      - package: SFSafeSymbols
       - package: SentryCocoa
         product: SentrySPM
       - package: SwiftLog
@@ -780,6 +796,7 @@ settings:
       SWIFT_OPTIMIZATION_LEVEL: -Onone
     Preprod: &optimizedConfig
       COPY_PHASE_STRIP: true
+      DEAD_CODE_STRIPPING: true
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
       DEPLOYMENT_POSTPROCESSING: true
       ENABLE_NS_ASSERTIONS: false

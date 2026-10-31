@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		05582DF93304B1D434E21AF0 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = AE7122B036132C0461B34AF9 /* SFSafeSymbols */; };
+		0AE41C62EE8BDB787B464558 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B50D868ADEA7BA60F738D584 /* Localizable.xcstrings */; };
 		12DA7CC0AF980F25EA979B43 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2803E8EFE89B86291A9F548B /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = 2C01956AD6D5DCCAF3C28AEC /* SentrySPM */; };
 		2C6BD987973308B0243C414D /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = BAC933ED42E376C5EF3C8AE7 /* SFSafeSymbols */; };
-		3B216EA5ED761951EBFFB6FE /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = AA42B815646AE1E74D10A831 /* SentrySwiftLog */; };
-		4480C70093B663315F9CD190 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 9DD6C38D03AD861572720F94 /* Logging */; };
+		3B216EA5ED761951EBFFB6FE /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 9DD6C38D03AD861572720F94 /* Logging */; };
+		3E623E789AF88EF761F35460 /* FlinkyCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A8E924BC8ACC6D59973BBDF /* FlinkyCoreResources.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4480C70093B663315F9CD190 /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA689DC420160A093867FA6 /* SentrySPM */; };
 		44A98D85DE55F00485CF0BF7 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5E157AB4255CF94CE0CD0E /* SFSafeSymbols */; };
 		47F425A51946B30DC6A79C10 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; };
 		4CF5126445ED73B8B846D14E /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; };
@@ -22,12 +24,13 @@
 		8F5D59E3880583D5FA9623AD /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = 0DC16F5355750D54DF2684DC /* SentrySwiftLog */; };
 		9CF732548D0A7845812D0603 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = E760A0E7BDF6CA0712ABFAD0 /* Logging */; };
 		9E7275EF9F1526BF331CACC9 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A672FE160B683BA384D6108C /* SentrySPM in Frameworks */ = {isa = PBXBuildFile; productRef = 6CA689DC420160A093867FA6 /* SentrySPM */; };
-		B05A2599B67DE9E9EE6F9740 /* FlinkyCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A4201DFF6A1A92D96D32391E /* SentrySwiftLog in Frameworks */ = {isa = PBXBuildFile; productRef = AA42B815646AE1E74D10A831 /* SentrySwiftLog */; };
+		A672FE160B683BA384D6108C /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = A58B94482B777553EA89851C /* SFSafeSymbols */; };
 		B39E2B105C21799E412447E7 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = C575308CEAAD4A95163ADBBD /* SFSafeSymbols */; };
 		CB1BB79DA170E18EB4292621 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; };
 		D6D0A17BDDD289306B0FCCA7 /* FlinkyCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */; };
 		F5F988FA16D87E7E098A61A9 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ACA557858781CC46D5336CFC /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F6BBD67E20F2445B9D9D0A41 /* FlinkyCoreResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A8E924BC8ACC6D59973BBDF /* FlinkyCoreResources.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9198AA103876EC14A96930E2;
 			remoteInfo = Flinky;
+		};
+		3DE98D836B948CD7D09E6734 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 965CCBA3B785C83A5EEAFD09 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A34FD6F78711B0366C8F07E;
+			remoteInfo = FlinkyCoreResources;
+		};
+		4AF983C07D1AA87DCBF040B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 965CCBA3B785C83A5EEAFD09 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A34FD6F78711B0366C8F07E;
+			remoteInfo = FlinkyCoreResources;
 		};
 		6653690A7C9AF7A4451DB6A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -144,22 +161,12 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A895ACDE37F35E1ABEACEB2F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B05A2599B67DE9E9EE6F9740 /* FlinkyCore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		059BCB5750D9FA391DD12D81 /* ScreenshotUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ScreenshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		079EC5D290872123FB3932F7 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		0A8E924BC8ACC6D59973BBDF /* FlinkyCoreResources.bundle */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FlinkyCoreResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CD0E5B528681C37C5D9BFA8 /* Tests.xctestplan */ = {isa = PBXFileReference; path = Tests.xctestplan; sourceTree = "<group>"; };
 		0F0B94F3BDCFC52059CB276A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		17EA3DC70EB92B6918EB416D /* ScreenshotUITests.xctestplan */ = {isa = PBXFileReference; path = ScreenshotUITests.xctestplan; sourceTree = "<group>"; };
@@ -170,7 +177,7 @@
 		42A63C68C7CE52097D4D6A87 /* ShareExtensionUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShareExtensionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D5326755890014646F1A18 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		577A116C3CE64463030632D4 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
-		59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlinkyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = FlinkyCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A78BDEF1343DB01FD30C085 /* Flinky.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Flinky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63F2719A154E0F147F282342 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		6C12F45D5D5C165AEDD528B0 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -183,6 +190,7 @@
 		987257103FB94CF2DC77F06B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		A72A23B2DF367F098C641658 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		ACA557858781CC46D5336CFC /* ShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50D868ADEA7BA60F738D584 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C125331DA10E849935655F97 /* ShareExtensionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShareExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E29C2ADD1C55FDD65047F6 /* FlinkyCoreTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = FlinkyCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A18AE1941697EAE2F5D108 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -333,9 +341,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6D0A17BDDD289306B0FCCA7 /* FlinkyCore.framework in Frameworks */,
-				A672FE160B683BA384D6108C /* SentrySPM in Frameworks */,
-				4480C70093B663315F9CD190 /* Logging in Frameworks */,
-				3B216EA5ED761951EBFFB6FE /* SentrySwiftLog in Frameworks */,
+				A672FE160B683BA384D6108C /* SFSafeSymbols in Frameworks */,
+				4480C70093B663315F9CD190 /* SentrySPM in Frameworks */,
+				3B216EA5ED761951EBFFB6FE /* Logging in Frameworks */,
+				A4201DFF6A1A92D96D32391E /* SentrySwiftLog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +445,7 @@
 			children = (
 				7408F0D1BE0A8C567CE518C1 /* Config */,
 				05F6990A0720A8E9C7410F13 /* Generated */,
+				BB1E75B646A8C04DA8EE1327 /* Sources */,
 				C806D5E5F780EFAF23B190B9 /* Sources */,
 			);
 			path = FlinkyCore;
@@ -502,6 +512,14 @@
 			path = ScreenshotUITests;
 			sourceTree = "<group>";
 		};
+		46D959543C850FDA1DD2CDFB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B50D868ADEA7BA60F738D584 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		49535E498560B1274F786DF2 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +583,14 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		BB1E75B646A8C04DA8EE1327 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				46D959543C850FDA1DD2CDFB /* Resources */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		BFB02730826A464D54B00F64 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +630,7 @@
 			children = (
 				5A78BDEF1343DB01FD30C085 /* Flinky.app */,
 				59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */,
+				0A8E924BC8ACC6D59973BBDF /* FlinkyCoreResources.bundle */,
 				D0E29C2ADD1C55FDD65047F6 /* FlinkyCoreTests.xctest */,
 				059BCB5750D9FA391DD12D81 /* ScreenshotUITests.xctest */,
 				ACA557858781CC46D5336CFC /* ShareExtension.appex */,
@@ -698,7 +725,7 @@
 			);
 			productName = FlinkyCore;
 			productReference = 59B6AC6754A0DDA42CA41FC9 /* FlinkyCore.framework */;
-			productType = "com.apple.product-type.framework";
+			productType = "com.apple.product-type.framework.static";
 		};
 		4693EB40E5A585A7709559FF /* FlinkyCoreTests */ = {
 			isa = PBXNativeTarget;
@@ -765,12 +792,14 @@
 			);
 			dependencies = (
 				A5BF53BEB3DBF1380DD8ADE5 /* PBXTargetDependency */,
+				A3C882E60F894A6703889CC4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				A04DE5BF04B0E902D35CBE03 /* Sources */,
 			);
 			name = ShareExtension;
 			packageProductDependencies = (
+				A58B94482B777553EA89851C /* SFSafeSymbols */,
 				6CA689DC420160A093867FA6 /* SentrySPM */,
 				9DD6C38D03AD861572720F94 /* Logging */,
 				AA42B815646AE1E74D10A831 /* SentrySwiftLog */,
@@ -801,6 +830,23 @@
 			productReference = 059BCB5750D9FA391DD12D81 /* ScreenshotUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		6A34FD6F78711B0366C8F07E /* FlinkyCoreResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02FC968978622D5ED046828A /* Build configuration list for PBXNativeTarget "FlinkyCoreResources" */;
+			buildPhases = (
+				C87B40BF927A4AD71ABB43E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlinkyCoreResources;
+			packageProductDependencies = (
+			);
+			productName = FlinkyCoreResources;
+			productReference = 0A8E924BC8ACC6D59973BBDF /* FlinkyCoreResources.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		9198AA103876EC14A96930E2 /* Flinky */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D645BE068D7345DC6FE4BA36 /* Build configuration list for PBXNativeTarget "Flinky" */;
@@ -810,7 +856,6 @@
 				5E4CB8F8BA60E646BDA49630 /* Resources */,
 				FBFACB88D9CA43FE8A1BBBE7 /* Frameworks */,
 				300593F2D75D50AE9B613D60 /* Embed Foundation Extensions */,
-				A895ACDE37F35E1ABEACEB2F /* Embed Frameworks */,
 				4086B9DF7AC999CC3119B8B0 /* Lint */,
 				68B17CC7F0009840C7087143 /* Upload Debug Symbols to Sentry */,
 			);
@@ -818,6 +863,7 @@
 			);
 			dependencies = (
 				CDE075573320016E0C7E6986 /* PBXTargetDependency */,
+				65CEDB905B5FD60D23551395 /* PBXTargetDependency */,
 				A84479D92F7ACC81EDDAD250 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -950,6 +996,7 @@
 			projectRoot = "";
 			targets = (
 				9198AA103876EC14A96930E2 /* Flinky */,
+				6A34FD6F78711B0366C8F07E /* FlinkyCoreResources */,
 				43502ECD46B23B0DE3807D91 /* FlinkyCore */,
 				5DE7B4773E669E09577A0496 /* ShareExtension */,
 				5251C822963952BF41D07C48 /* Tests */,
@@ -981,6 +1028,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6BBD67E20F2445B9D9D0A41 /* FlinkyCoreResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,6 +1036,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E623E789AF88EF761F35460 /* FlinkyCoreResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,6 +1044,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C87B40BF927A4AD71ABB43E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AE41C62EE8BDB787B464558 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,10 +1258,20 @@
 			target = 43502ECD46B23B0DE3807D91 /* FlinkyCore */;
 			targetProxy = B95311C7917B142FE0424297 /* PBXContainerItemProxy */;
 		};
+		65CEDB905B5FD60D23551395 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A34FD6F78711B0366C8F07E /* FlinkyCoreResources */;
+			targetProxy = 3DE98D836B948CD7D09E6734 /* PBXContainerItemProxy */;
+		};
 		A25E8AC4D9389C9C5FEA8555 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9198AA103876EC14A96930E2 /* Flinky */;
 			targetProxy = 22753C479E53007CBFD19241 /* PBXContainerItemProxy */;
+		};
+		A3C882E60F894A6703889CC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A34FD6F78711B0366C8F07E /* FlinkyCoreResources */;
+			targetProxy = 4AF983C07D1AA87DCBF040B7 /* PBXContainerItemProxy */;
 		};
 		A5BF53BEB3DBF1380DD8ADE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1356,6 +1423,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1441,6 +1509,38 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		255A2B16ED77A1C4BD2C0A86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Core.Resources;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		371FA67A8B6BC025271EF00C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Core.Resources;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1779,6 +1879,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1874,6 +1975,22 @@
 				TEST_TARGET_NAME = Flinky;
 			};
 			name = Debug;
+		};
+		87412FA4FB68735F0D896C6F /* Preprod */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.techprimate.Flinky.Core.Resources;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Preprod;
 		};
 		8BDB07AC338ECEAFF13F4208 /* Preprod */ = {
 			isa = XCBuildConfiguration;
@@ -2192,6 +2309,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		02FC968978622D5ED046828A /* Build configuration list for PBXNativeTarget "FlinkyCoreResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				371FA67A8B6BC025271EF00C /* Debug */,
+				87412FA4FB68735F0D896C6F /* Preprod */,
+				255A2B16ED77A1C4BD2C0A86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		10D2290FDEB16E147B7AE5E3 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2370,6 +2497,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2BD5450736CBAA5A3F03FC71 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		A58B94482B777553EA89851C /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F413361543B0C4B43037DC13 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
 		};
 		AA42B815646AE1E74D10A831 /* SentrySwiftLog */ = {
 			isa = XCSwiftPackageProductDependency;
