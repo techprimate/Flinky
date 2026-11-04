@@ -2287,7 +2287,7 @@
 			repositoryURL = "https://github.com/apple/swift-log";
 			requirement = {
 				kind = exactVersion;
-				version = 1.16.2;
+				version = 1.17.0;
 			};
 		};
 		7B5068BE3B9DF3B043402747 /* XCRemoteSwiftPackageReference "sentry-apple-swift-log" */ = {
