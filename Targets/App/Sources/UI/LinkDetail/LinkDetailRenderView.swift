@@ -145,10 +145,8 @@ struct LinkDetailRenderView: View {
                         // Track system share sheet usage for debugging user interaction patterns
                         let breadcrumb = Breadcrumb(level: .info, category: "link_sharing")
                         breadcrumb.message = "System share sheet opened"
-                        breadcrumb.data = [
-                            "link_id": linkId.uuidString,
-                            "sharing_method": "system_share"
-                        ]
+                        breadcrumb.setData(value: linkId.uuidString, key: "link_id")
+                        breadcrumb.setData(value: "system_share", key: "sharing_method")
                         SentrySDK.addBreadcrumb(breadcrumb)
 
                         // Track sharing using metrics - better for aggregate counts than individual events

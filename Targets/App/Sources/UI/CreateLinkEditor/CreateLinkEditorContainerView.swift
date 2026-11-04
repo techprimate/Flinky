@@ -38,12 +38,10 @@ struct CreateLinkEditorContainerView: View {
                     // Include both link_id and list_id to track relationships between entities
                     let breadcrumb = Breadcrumb(level: .info, category: "link_management")
                     breadcrumb.message = "Link created successfully"
-                    breadcrumb.data = [
-                        "link_id": link.id.uuidString,
-                        "list_id": list.id.uuidString,
-                        "has_color": false,  // Track customization level for UX insights
-                        "has_symbol": false
-                    ]
+                    breadcrumb.setData(value: link.id.uuidString, key: "link_id")
+                    breadcrumb.setData(value: list.id.uuidString, key: "list_id")
+                    breadcrumb.setData(value: false, key: "has_color")  // Track customization level for UX insights
+                    breadcrumb.setData(value: false, key: "has_symbol")
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track link creation using metrics - better for aggregate counts than individual events

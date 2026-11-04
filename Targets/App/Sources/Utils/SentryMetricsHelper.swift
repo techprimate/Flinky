@@ -30,14 +30,12 @@ enum SentryMetricsHelper {
     /// - Parameter cacheSizeAtWarning: Number of items in cache when warning received
     /// - Parameter appState: Current app state ("foreground" or "background")
     static func trackMemoryWarningReceived(cacheSizeAtWarning: Int, appState: String = "foreground") {
-        SentrySDK.metrics.count(
-            key: "memory.warning.received",
-            value: 1,
+        SentrySDK.metrics.count("memory.warning.received", value: 1, options: .init(
             attributes: [
                 "cache_size_at_warning": String(cacheSizeAtWarning),
                 "app_state": appState
             ]
-        )
+        ))
     }
 
     /// Tracks thermal state transitions.
@@ -55,15 +53,13 @@ enum SentryMetricsHelper {
     ///   - toState: New thermal state after transition
     ///   - isEscalation: True if thermal state worsened
     static func trackThermalStateTransition(fromState: String, toState: String, isEscalation: Bool) {
-        SentrySDK.metrics.count(
-            key: "device.thermal.transition",
-            value: 1,
+        SentrySDK.metrics.count("device.thermal.transition", value: 1, options: .init(
             attributes: [
                 "from_state": fromState,
                 "to_state": toState,
                 "is_escalation": String(isEscalation)
             ]
-        )
+        ))
     }
 
     /// Tracks network reachability changes.
@@ -87,16 +83,14 @@ enum SentryMetricsHelper {
         isExpensive: Bool,
         isConstrained: Bool
     ) {
-        SentrySDK.metrics.count(
-            key: "network.reachability.changed",
-            value: 1,
+        SentrySDK.metrics.count("network.reachability.changed", value: 1, options: .init(
             attributes: [
                 "status": status,
                 "interface": interfaceType,
                 "is_expensive": String(isExpensive),
                 "is_constrained": String(isConstrained)
             ]
-        )
+        ))
     }
 
     /// Tracks app state transitions (foreground/background).
@@ -112,14 +106,12 @@ enum SentryMetricsHelper {
     ///   - toState: New app state ("active", "inactive", "background")
     ///   - fromState: Previous app state
     static func trackAppStateTransition(toState: String, fromState: String) {
-        SentrySDK.metrics.count(
-            key: "app.state.transition",
-            value: 1,
+        SentrySDK.metrics.count("app.state.transition", value: 1, options: .init(
             attributes: [
                 "to_state": toState,
                 "from_state": fromState
             ]
-        )
+        ))
     }
 
     // MARK: - Background Task Lifecycle
@@ -131,14 +123,12 @@ enum SentryMetricsHelper {
     ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
     ///   - taskIdentifier: The registered task identifier
     static func trackBackgroundTaskCompleted(taskType: String, taskIdentifier: String) {
-        SentrySDK.metrics.count(
-            key: "background.task.completed",
-            value: 1,
+        SentrySDK.metrics.count("background.task.completed", value: 1, options: .init(
             attributes: [
                 "task_type": taskType,
                 "task_identifier": taskIdentifier
             ]
-        )
+        ))
     }
 
     /// Tracks background task expiration.
@@ -146,14 +136,12 @@ enum SentryMetricsHelper {
     ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
     ///   - timeRemaining: Seconds remaining when task expired
     static func trackBackgroundTaskExpired(taskType: String, timeRemaining: Double) {
-        SentrySDK.metrics.count(
-            key: "background.task.expired",
-            value: 1,
+        SentrySDK.metrics.count("background.task.expired", value: 1, options: .init(
             attributes: [
                 "task_type": taskType,
                 "time_remaining": String(format: "%.1f", timeRemaining)
             ]
-        )
+        ))
     }
 
     /// Tracks background task duration.
@@ -162,15 +150,13 @@ enum SentryMetricsHelper {
     ///   - taskType: Type of task ("app_refresh", "processing", "legacy")
     ///   - outcome: Result of the task ("completed", "expired", "cancelled")
     static func trackBackgroundTaskDuration(duration: Double, taskType: String, outcome: String) {
-        SentrySDK.metrics.distribution(
-            key: "background.task.duration",
-            value: duration,
+        SentrySDK.metrics.distribution("background.task.duration", value: duration, options: .init(
             unit: .second,
             attributes: [
                 "task_type": taskType,
                 "outcome": outcome
             ]
-        )
+        ))
     }
 
     // MARK: - Link Creation
@@ -181,15 +167,13 @@ enum SentryMetricsHelper {
     ///   - creationFlow: The flow used to create the link (e.g., "direct", "list_picker", "share_extension")
     ///   - listId: The ID of the list the link was added to
     static func trackLinkCreated(creationFlow: String, listId: String) {
-        SentrySDK.metrics.count(
-            key: "link.created",
-            value: 1,
+        SentrySDK.metrics.count("link.created", value: 1, options: .init(
             attributes: [
                 "creation_flow": creationFlow,
                 "entity_type": "link",
                 "list_id": listId
             ]
-        )
+        ))
     }
 
     // MARK: - List Creation
@@ -199,15 +183,13 @@ enum SentryMetricsHelper {
     ///   - creationFlow: The flow used to create the list (e.g., "direct", "share_extension")
     ///   - autoCreated: Whether the list was auto-created (e.g., default list in share extension)
     static func trackListCreated(creationFlow: String, autoCreated: Bool = false) {
-        SentrySDK.metrics.count(
-            key: "list.created",
-            value: 1,
+        SentrySDK.metrics.count("list.created", value: 1, options: .init(
             attributes: [
                 "creation_flow": creationFlow,
                 "entity_type": "list",
                 "auto_created": String(autoCreated)
             ]
-        )
+        ))
     }
 
     // MARK: - Link Sharing
@@ -217,14 +199,12 @@ enum SentryMetricsHelper {
     ///   - sharingMethod: The method used to share (e.g., "copy_url", "qr_code_share", "qr_code_save", "system_share")
     ///   - linkId: The ID of the link being shared
     static func trackLinkShared(sharingMethod: String, linkId: String) {
-        SentrySDK.metrics.count(
-            key: "link.shared",
-            value: 1,
+        SentrySDK.metrics.count("link.shared", value: 1, options: .init(
             attributes: [
                 "sharing_method": sharingMethod,
                 "link_id": linkId
             ]
-        )
+        ))
     }
 
     // MARK: - Customization
@@ -235,14 +215,12 @@ enum SentryMetricsHelper {
     ///   - entityType: The type of entity ("link" or "list")
     static func trackColorSelected(color: String, entityType: String) {
         let metricKey = entityType == "link" ? "link.color.selected" : "list.color.selected"
-        SentrySDK.metrics.count(
-            key: metricKey,
-            value: 1,
+        SentrySDK.metrics.count(metricKey, value: 1, options: .init(
             attributes: [
                 "color": color,
                 "entity_type": entityType
             ]
-        )
+        ))
     }
 
     /// Tracks symbol selection for links or lists.
@@ -251,50 +229,36 @@ enum SentryMetricsHelper {
     ///   - entityType: The type of entity ("link" or "list")
     static func trackSymbolSelected(symbol: String, entityType: String) {
         let metricKey = entityType == "link" ? "link.symbol.selected" : "list.symbol.selected"
-        SentrySDK.metrics.count(
-            key: metricKey,
-            value: 1,
+        SentrySDK.metrics.count(metricKey, value: 1, options: .init(
             attributes: [
                 "symbol": symbol,
                 "entity_type": entityType
             ]
-        )
+        ))
     }
 
     // MARK: - Feedback
 
     /// Tracks feedback form opening.
     static func trackFeedbackFormOpened() {
-        SentrySDK.metrics.count(
-            key: "feedback.form.opened",
-            value: 1,
-        )
+        SentrySDK.metrics.count("feedback.form.opened", value: 1)
     }
 
     /// Tracks feedback form closing.
     static func trackFeedbackFormClosed() {
-        SentrySDK.metrics.count(
-            key: "feedback.form.closed",
-            value: 1
-        )
+        SentrySDK.metrics.count("feedback.form.closed", value: 1)
     }
 
     // MARK: - Database Seeding
 
     /// Tracks database seeding start.
     static func trackDatabaseSeedingStarted() {
-        SentrySDK.metrics.count(
-            key: "database.seeding.started",
-            value: 1
-        )
+        SentrySDK.metrics.count("database.seeding.started", value: 1)
     }
 
     /// Tracks database seeding completion.
     static func trackDatabaseSeedingCompleted() {
-        SentrySDK.metrics.count(
-            key: "database.seeding.completed",
-            value: 1
-        )
+        SentrySDK.metrics.count("database.seeding.completed", value: 1)
     }
 
     // MARK: - QR Code Performance
@@ -308,43 +272,33 @@ enum SentryMetricsHelper {
     ///   - cacheHit: Whether the QR code was served from cache
     ///   - imageSize: Image dimensions as string (e.g., "200x200")
     static func trackQRCodeGenerationDuration(duration: Double, cacheHit: Bool, imageSize: String) {
-        SentrySDK.metrics.distribution(
-            key: "qr_code.generation.duration",
-            value: duration,
+        SentrySDK.metrics.distribution("qr_code.generation.duration", value: duration, options: .init(
             unit: .second,
             attributes: [
                 "cache_hit": String(cacheHit),
                 "image_size": imageSize
             ]
-        )
+        ))
     }
 
     /// Tracks QR code cache hit.
     static func trackQRCodeCacheHit() {
-        SentrySDK.metrics.count(
-            key: "qr_code.cache.hit",
-            value: 1
-        )
+        SentrySDK.metrics.count("qr_code.cache.hit", value: 1)
     }
 
     /// Tracks QR code cache miss.
     static func trackQRCodeCacheMiss() {
-        SentrySDK.metrics.count(
-            key: "qr_code.cache.miss",
-            value: 1
-        )
+        SentrySDK.metrics.count("qr_code.cache.miss", value: 1)
     }
 
     /// Tracks QR code cache eviction.
     /// - Parameter reason: Reason for eviction ("memory_warning" | "size_limit")
     static func trackQRCodeCacheEviction(reason: String) {
-        SentrySDK.metrics.count(
-            key: "qr_code.cache.eviction",
-            value: 1,
+        SentrySDK.metrics.count("qr_code.cache.eviction", value: 1, options: .init(
             attributes: [
                 "reason": reason
             ]
-        )
+        ))
     }
 
     // MARK: - Link Metadata (LinkPresentation Framework)
@@ -362,16 +316,14 @@ enum SentryMetricsHelper {
         hasVideo: Bool,
         contentType: String
     ) {
-        SentrySDK.metrics.count(
-            key: "link.metadata.fetched",
-            value: 1,
+        SentrySDK.metrics.count("link.metadata.fetched", value: 1, options: .init(
             attributes: [
                 "outcome": outcome,
                 "has_image": String(hasImage),
                 "has_video": String(hasVideo),
                 "content_type": contentType
             ]
-        )
+        ))
     }
 
     /// Tracks link metadata fetch duration.
@@ -379,14 +331,12 @@ enum SentryMetricsHelper {
     ///   - duration: Fetch duration in seconds
     ///   - outcome: Result of fetch ("success", "failed", "cached")
     static func trackLinkMetadataFetchDuration(duration: Double, outcome: String) {
-        SentrySDK.metrics.distribution(
-            key: "link.metadata.fetch.duration",
-            value: duration,
+        SentrySDK.metrics.distribution("link.metadata.fetch.duration", value: duration, options: .init(
             unit: .second,
             attributes: [
                 "outcome": outcome
             ]
-        )
+        ))
     }
 
     // MARK: - Error Rate Metrics
@@ -394,13 +344,11 @@ enum SentryMetricsHelper {
     /// Tracks error rate by type.
     /// - Parameter errorType: Type of error ("persistence" | "qr_generation" | "validation" | "data_corruption")
     static func trackErrorRate(errorType: String) {
-        SentrySDK.metrics.count(
-            key: "error.rate",
-            value: 1,
+        SentrySDK.metrics.count("error.rate", value: 1, options: .init(
             attributes: [
                 "error_type": errorType
             ]
-        )
+        ))
     }
 
     /// Captures an error and tracks error rate metric.
@@ -449,14 +397,12 @@ enum SentryMetricsHelper {
     ///   - searchContext: Context of search ("lists" | "links")
     ///   - resultCount: Number of results returned
     static func trackSearchPerformed(searchContext: String, resultCount: Int) {
-        SentrySDK.metrics.count(
-            key: "search.performed",
-            value: 1,
+        SentrySDK.metrics.count("search.performed", value: 1, options: .init(
             attributes: [
                 "search_context": searchContext,
                 "result_count": String(resultCount)
             ]
-        )
+        ))
     }
 
     /// Tracks search query length.
@@ -464,56 +410,44 @@ enum SentryMetricsHelper {
     ///   - length: Length of search query
     ///   - searchContext: Context of search ("lists" | "links")
     static func trackSearchQueryLength(length: Int, searchContext: String) {
-        SentrySDK.metrics.distribution(
-            key: "search.query.length",
-            value: Double(length),
+        SentrySDK.metrics.distribution("search.query.length", value: Double(length), options: .init(
             unit: .generic("character"),
             attributes: [
                 "search_context": searchContext
             ]
-        )
+        ))
     }
 
     // MARK: - List Management
 
     /// Tracks list pinning action.
     static func trackListPinned() {
-        SentrySDK.metrics.count(
-            key: "list.pinned",
-            value: 1
-        )
+        SentrySDK.metrics.count("list.pinned", value: 1)
     }
 
     /// Tracks list unpinning action.
     static func trackListUnpinned() {
-        SentrySDK.metrics.count(
-            key: "list.unpinned",
-            value: 1
-        )
+        SentrySDK.metrics.count("list.unpinned", value: 1)
     }
 
     /// Tracks list deletion.
     /// - Parameter linkCount: Number of links in deleted list
     static func trackListDeleted(linkCount: Int) {
-        SentrySDK.metrics.count(
-            key: "list.deleted",
-            value: 1,
+        SentrySDK.metrics.count("list.deleted", value: 1, options: .init(
             attributes: [
                 "link_count": String(linkCount)
             ]
-        )
+        ))
     }
 
     /// Tracks bulk list deletion.
     /// - Parameter count: Number of lists deleted
     static func trackListDeletedBulk(count: Int) {
-        SentrySDK.metrics.count(
-            key: "list.deleted.bulk",
-            value: 1,
+        SentrySDK.metrics.count("list.deleted.bulk", value: 1, options: .init(
             attributes: [
                 "count": String(count)
             ]
-        )
+        ))
     }
 
     // MARK: - Link Management
@@ -521,13 +455,11 @@ enum SentryMetricsHelper {
     /// Tracks link deletion.
     /// - Parameter listLinkCount: Total links in list after deletion
     static func trackLinkDeleted(listLinkCount: Int) {
-        SentrySDK.metrics.count(
-            key: "link.deleted",
-            value: 1,
+        SentrySDK.metrics.count("link.deleted", value: 1, options: .init(
             attributes: [
                 "list_link_count": String(listLinkCount)
             ]
-        )
+        ))
     }
 
     /// Tracks bulk link deletion.
@@ -535,14 +467,12 @@ enum SentryMetricsHelper {
     ///   - count: Number of links deleted
     ///   - listId: UUID of the list
     static func trackLinkDeletedBulk(count: Int, listId: String) {
-        SentrySDK.metrics.count(
-            key: "link.deleted.bulk",
-            value: 1,
+        SentrySDK.metrics.count("link.deleted.bulk", value: 1, options: .init(
             attributes: [
                 "count": String(count),
                 "list_id": listId
             ]
-        )
+        ))
     }
 
     /// Tracks link opened in Safari.
@@ -556,11 +486,9 @@ enum SentryMetricsHelper {
         if let sharingMethod = sharingMethod {
             attributes["sharing_method"] = sharingMethod
         }
-        SentrySDK.metrics.count(
-            key: "link.opened",
-            value: 1,
+        SentrySDK.metrics.count("link.opened", value: 1, options: .init(
             attributes: attributes
-        )
+        ))
     }
 
     // MARK: - Share Extension
@@ -572,11 +500,9 @@ enum SentryMetricsHelper {
         if let sourceApp = sourceApp {
             attributes["source_app"] = sourceApp
         }
-        SentrySDK.metrics.count(
-            key: "share_extension.opened",
-            value: 1,
+        SentrySDK.metrics.count("share_extension.opened", value: 1, options: .init(
             attributes: attributes
-        )
+        ))
     }
 
     /// Tracks share extension completion.
@@ -584,26 +510,22 @@ enum SentryMetricsHelper {
     ///   - listSelected: Whether user selected a list
     ///   - nameEdited: Whether user edited the name
     static func trackShareExtensionCompleted(listSelected: Bool, nameEdited: Bool) {
-        SentrySDK.metrics.count(
-            key: "share_extension.completed",
-            value: 1,
+        SentrySDK.metrics.count("share_extension.completed", value: 1, options: .init(
             attributes: [
                 "list_selected": String(listSelected),
                 "name_edited": String(nameEdited)
             ]
-        )
+        ))
     }
 
     /// Tracks share extension cancellation.
     /// - Parameter step: Step where cancellation occurred ("initial" | "after_list_selection" | "after_name_edit")
     static func trackShareExtensionCancelled(step: String) {
-        SentrySDK.metrics.count(
-            key: "share_extension.cancelled",
-            value: 1,
+        SentrySDK.metrics.count("share_extension.cancelled", value: 1, options: .init(
             attributes: [
                 "step": step
             ]
-        )
+        ))
     }
 
     // MARK: - Database Performance
@@ -615,14 +537,12 @@ enum SentryMetricsHelper {
     ///   - duration: Query duration in seconds
     ///   - queryType: Type of query ("fetch_lists" | "fetch_links" | "save" | "delete")
     static func trackDatabaseQueryDuration(duration: Double, queryType: String) {
-        SentrySDK.metrics.distribution(
-            key: "database.query.duration",
-            value: duration,
+        SentrySDK.metrics.distribution("database.query.duration", value: duration, options: .init(
             unit: .second,
             attributes: [
                 "query_type": queryType
             ]
-        )
+        ))
     }
 
     /// Tracks database save duration.
@@ -631,15 +551,13 @@ enum SentryMetricsHelper {
     ///   - entityType: Type of entity ("link" | "list")
     ///   - operation: Type of operation ("create" | "update" | "delete")
     static func trackDatabaseSaveDuration(duration: Double, entityType: String, operation: String) {
-        SentrySDK.metrics.distribution(
-            key: "database.save.duration",
-            value: duration,
+        SentrySDK.metrics.distribution("database.save.duration", value: duration, options: .init(
             unit: .second,
             attributes: [
                 "entity_type": entityType,
                 "operation": operation
             ]
-        )
+        ))
     }
 
     // MARK: - Spotlight Search (CoreSpotlight)
@@ -650,13 +568,11 @@ enum SentryMetricsHelper {
     ///   - count: Number of items indexed
     ///   - contentType: Type of content indexed
     static func trackSpotlightItemIndexed(count: Int, contentType: String) {
-        SentrySDK.metrics.count(
-            key: "spotlight.item.indexed",
-            value: UInt(count),
+        SentrySDK.metrics.count("spotlight.item.indexed", value: UInt(count), options: .init(
             attributes: [
                 "content_type": contentType
             ]
-        )
+        ))
     }
 
     /// Tracks Spotlight search performed from system.
@@ -664,14 +580,12 @@ enum SentryMetricsHelper {
     ///   - resultCountBucket: Bucketed result count ("0", "1-10", "10-50", "50+")
     ///   - querySource: Source of query ("in_app", "system_spotlight")
     static func trackSpotlightSearchPerformed(resultCountBucket: String, querySource: String) {
-        SentrySDK.metrics.count(
-            key: "spotlight.search.performed",
-            value: 1,
+        SentrySDK.metrics.count("spotlight.search.performed", value: 1, options: .init(
             attributes: [
                 "result_count_bucket": resultCountBucket,
                 "query_source": querySource
             ]
-        )
+        ))
     }
 }
 

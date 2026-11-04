@@ -28,10 +28,8 @@ struct CreateLinkListEditorContainerView: View {
                     // Privacy-conscious breadcrumb - no PII (list names, URLs) included
                     let breadcrumb = Breadcrumb(level: .info, category: "list_management")
                     breadcrumb.message = "List created successfully"
-                    breadcrumb.data = [
-                        "list_id": newItem.id.uuidString
-                            // Note: Removed list_name to protect user privacy
-                    ]
+                    breadcrumb.setData(value: newItem.id.uuidString, key: "list_id")
+                    // Note: Removed list_name to protect user privacy
                     SentrySDK.addBreadcrumb(breadcrumb)
 
                     // Track list creation using metrics - better for aggregate counts than individual events

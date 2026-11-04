@@ -63,12 +63,10 @@ struct CreateLinkWithListPickerEditorContainerView: View {
                         // Track both entities to understand which lists are popular for new links
                         let breadcrumb = Breadcrumb(level: .info, category: "link_management")
                         breadcrumb.message = "Link created successfully"
-                        breadcrumb.data = [
-                            "link_id": newItem.id.uuidString,
-                            "list_id": list.id.uuidString,
-                            "has_color": false,  // Currently no customization in this flow
-                            "has_symbol": false
-                        ]
+                        breadcrumb.setData(value: newItem.id.uuidString, key: "link_id")
+                        breadcrumb.setData(value: list.id.uuidString, key: "list_id")
+                        breadcrumb.setData(value: false, key: "has_color")  // Currently no customization in this flow
+                        breadcrumb.setData(value: false, key: "has_symbol")
                         SentrySDK.addBreadcrumb(breadcrumb)
 
                         // Track link creation using metrics - better for aggregate counts than individual events

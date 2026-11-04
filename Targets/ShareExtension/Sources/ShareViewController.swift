@@ -82,10 +82,7 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         super.viewDidLoad()
 
         // Track share extension opened
-        SentrySDK.metrics.count(
-            key: "share_extension.opened",
-            value: 1
-        )
+        SentrySDK.metrics.count("share_extension.opened", value: 1)
 
         setupUI()
         loadShareItem()
@@ -148,7 +145,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure Crash Reporting
         options.enableCrashHandler = true
-        options.enableSigtermReporting = true
         options.enableWatchdogTerminationTracking = true
         options.attachStacktrace = true
         options.enablePersistingTracesWhenCrashing = true
@@ -161,7 +157,6 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
         // Configure App Hang
         options.enableAppHangTracking = false
-        options.enableReportNonFullyBlockingAppHangs = false
 
         // Configure File I/O
         options.enableFileIOTracing = true
@@ -193,8 +188,9 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         options.enableMetrics = true
 
         // Configure MetricKit
-        options.enableMetricKit = true
+        options.experimental.metrickit.enabledDiagnosticReports = Set(SentryMetricKit.DiagnosticReport.allCases)
         options.experimental.metrickit.hangReportingMode = .flamegraphAttachment
+        options.experimental.metrickit.enabledMetricReports = .all
         options.enableMetricKitRawPayload = true
 
         // Configure Other Options
@@ -264,22 +260,18 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
                 // Breadcrumb for debugging context
                 let breadcrumb = Breadcrumb(level: .info, category: "list_management")
                 breadcrumb.message = "Default list created in share extension"
-                breadcrumb.data = [
-                    "list_id": defaultList.id.uuidString
-                ]
+                breadcrumb.setData(value: defaultList.id.uuidString, key: "list_id")
                 SentrySDK.addBreadcrumb(breadcrumb)
 
                 // Track list creation using metrics - better for aggregate counts than individual events
-                SentrySDK.metrics.count(
-                    key: "list.created",
-                    value: 1,
+                SentrySDK.metrics.count("list.created", value: 1, options: .init(
                     attributes: [
                         "list_id": defaultList.id.uuidString,
                         "entity_type": "list",
                         "creation_flow": "share_extension",
                         "auto_created": true
                     ]
-                )
+                ))
             }
 
             self.lists = .success(lists)
@@ -512,34 +504,28 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
 
             let breadcrumb = Breadcrumb(level: .info, category: "link_management")
             breadcrumb.message = "Link created successfully via share extension"
-            breadcrumb.data = [
-                "link_id": newLink.id.uuidString,
-                "list_id": list.id.uuidString,
-                "creation_flow": "share_extension"
-            ]
+            breadcrumb.setData(value: newLink.id.uuidString, key: "link_id")
+            breadcrumb.setData(value: list.id.uuidString, key: "list_id")
+            breadcrumb.setData(value: "share_extension", key: "creation_flow")
             SentrySDK.addBreadcrumb(breadcrumb)
 
             // Track link creation using metrics - better for aggregate counts than individual events
-            SentrySDK.metrics.count(
-                key: "link.created",
-                value: 1,
+            SentrySDK.metrics.count("link.created", value: 1, options: .init(
                 attributes: [
                     "link_id": newLink.id.uuidString,
                     "list_id": list.id.uuidString,
                     "entity_type": "link",
                     "creation_flow": "share_extension"
                 ]
-            )
+            ))
 
             // Track share extension completion
-            SentrySDK.metrics.count(
-                key: "share_extension.completed",
-                value: 1,
+            SentrySDK.metrics.count("share_extension.completed", value: 1, options: .init(
                 attributes: [
                     "list_selected": wasListSelected,
                     "name_edited": wasNameEdited
                 ]
-            )
+            ))
 
             // Post an accessibility announcement to inform users, especially those using VoiceOver or other assistive technologies,
             // that the link has been successfully saved. This ensures that users with visual impairments receive immediate, audible feedback
@@ -584,13 +570,11 @@ class ShareViewController: SLComposeServiceViewController { // swiftlint:disable
         }
 
         // Track share extension cancellation
-        SentrySDK.metrics.count(
-            key: "share_extension.cancelled",
-            value: 1,
+        SentrySDK.metrics.count("share_extension.cancelled", value: 1, options: .init(
             attributes: [
                 "step": step
             ]
-        )
+        ))
 
         // Post an accessibility announcement to inform users that the share action was cancelled.
         // This is especially useful for users relying on VoiceOver or other assistive technologies,

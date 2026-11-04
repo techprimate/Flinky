@@ -101,11 +101,9 @@ final class AppHealthObserver {
         // Add breadcrumb for debugging context
         let breadcrumb = Breadcrumb(level: isEscalation ? .warning : .info, category: "device_health")
         breadcrumb.message = "Thermal state changed: \(fromString) → \(toString)"
-        breadcrumb.data = [
-            "from_state": fromString,
-            "to_state": toString,
-            "is_escalation": isEscalation
-        ]
+        breadcrumb.setData(value: fromString, key: "from_state")
+        breadcrumb.setData(value: toString, key: "to_state")
+        breadcrumb.setData(value: isEscalation, key: "is_escalation")
         SentrySDK.addBreadcrumb(breadcrumb)
 
         previousThermalState = newState
@@ -159,12 +157,10 @@ final class AppHealthObserver {
         // Add breadcrumb for debugging context
         let breadcrumb = Breadcrumb(level: .info, category: "network")
         breadcrumb.message = "Network changed: \(statusString) via \(interfaceType)"
-        breadcrumb.data = [
-            "status": statusString,
-            "interface": interfaceType,
-            "is_expensive": path.isExpensive,
-            "is_constrained": path.isConstrained
-        ]
+        breadcrumb.setData(value: statusString, key: "status")
+        breadcrumb.setData(value: interfaceType, key: "interface")
+        breadcrumb.setData(value: path.isExpensive, key: "is_expensive")
+        breadcrumb.setData(value: path.isConstrained, key: "is_constrained")
         SentrySDK.addBreadcrumb(breadcrumb)
 
         previousNetworkStatus = status
