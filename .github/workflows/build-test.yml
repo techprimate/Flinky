@@ -48,7 +48,10 @@ jobs:
 
       - name: Run CI Diagnostics
         if: failure()
-        run: ./Scripts/ci-diagnostics.sh
+        uses: philprime/diagnostics-action@v0.0.1
+        with:
+          project: Flinky.xcodeproj
+          scheme: App
 
   test:
     name: Test
@@ -102,7 +105,10 @@ jobs:
 
       - name: Run CI Diagnostics
         if: failure()
-        run: ./Scripts/ci-diagnostics.sh
+        uses: philprime/diagnostics-action@v0.0.1
+        with:
+          project: Flinky.xcodeproj
+          scheme: App
 
   test-ui:
     name: Test UI
@@ -156,4 +162,7 @@ jobs:
 
       - name: Run CI Diagnostics
         if: failure()
-        run: ./Scripts/ci-diagnostics.sh
+        uses: philprime/diagnostics-action@v0.0.1
+        with:
+          project: Flinky.xcodeproj
+          scheme: App
