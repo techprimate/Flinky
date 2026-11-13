@@ -2,7 +2,7 @@
 
 import FlinkyCore
 import Logging
-import SentrySwift
+import Sentry
 import SentrySwiftLog
 import Social
 import SwiftData

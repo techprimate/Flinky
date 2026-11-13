@@ -1,7 +1,7 @@
 import Foundation
 import MetricKit
 import Logging
-import SentrySwift
+import Sentry
 
 final class MetricKitManager: NSObject, MXMetricManagerSubscriber {
 

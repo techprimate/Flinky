@@ -61,8 +61,8 @@ end
 
 desc <<~DESC
   Release beta: prepare version, deploy to TestFlight, then commit and tag on main
-  Single CI lane used by release-beta.yml (scheduled/manual). No PR.
-  Creates a signed, verified commit via the GitHub API linked to the GitHub App.
+  Single CI lane used by release-beta.yml (scheduled/manual).
+  Creates a signed, verified version commit only for main. Branch runs skip commit/tag.
 DESC
 lane :beta_ci do
   setup_ci if is_ci
@@ -87,8 +87,12 @@ lane :beta_ci do
   )
   _finalize_sentry_release(version: version_number, build: build_number)
 
-  # Commit and tag on main via GitHub API (creates a signed, verified commit)
-  _commit_and_tag_version_signed(version: version_number, build: build_number)
+  release_ref = ENV.fetch("RELEASE_REF", "main")
+  if release_ref == "main"
+    _commit_and_tag_version_signed(version: version_number, build: build_number)
+  else
+    UI.important "Skipping commit+tag: dispatched from ref '#{release_ref}', not main"
+  end
 end
 
 desc <<~DESC
@@ -140,8 +144,9 @@ desc <<~DESC
   Prepares version, builds IPA, validates, and sets up Sentry release.
   Outputs version and build number for downstream jobs.
   Used by the parallel release workflow (release.yml).
+  Set validation_only:true to stop after validation without setting up a release.
 DESC
-lane :publish_ci_build do
+lane :publish_ci_build do |options|
   setup_ci if is_ci
 
   # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
@@ -154,6 +159,10 @@ lane :publish_ci_build do
   _setup_code_signing
   _build_app_for_store
   _validate_app
+  if options[:validation_only].to_s == "true"
+    UI.success "App Store Connect validation complete: #{version_number} (#{build_number})"
+    next
+  end
   _setup_sentry_release(version: version_number, build: build_number)
 
   # Write version info for downstream jobs

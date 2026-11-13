@@ -1,7 +1,7 @@
 import CoreImage.CIFilterBuiltins
 import FlinkyCore
 import Photos
-import SentrySwift
+import Sentry
 import SwiftUI
 
 struct LinkDetailRenderView: View {
