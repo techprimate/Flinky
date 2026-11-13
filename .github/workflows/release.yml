@@ -8,11 +8,15 @@ on:
         required: false
         default: main
         type: string
+      validation_only:
+        description: "Build and validate only, without publishing or creating a Sentry release."
+        required: false
+        default: false
+        type: boolean
 
-# Static concurrency group: only one release may run at a time, regardless of ref,
-# to avoid App Store Connect contention.
+# Serialize releases and isolate validation runs so they cannot cancel a release.
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}${{ inputs.validation_only && format('-validation-{0}', inputs.ref) || '' }}
   cancel-in-progress: true
 
 permissions:
@@ -84,9 +88,10 @@ jobs:
             --arg key "$APP_STORE_CONNECT_API_PRIVATE_KEY" \
             '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > fastlane/api-key.json
 
-      - name: Build, Validate, and Setup Sentry
-        run: bundle exec fastlane publish_ci_build
+      - name: Build and Validate
+        run: bundle exec fastlane publish_ci_build validation_only:${{ inputs.validation_only }}
         env:
+          SENTRY_URL: ${{ inputs.validation_only && 'http://127.0.0.1:9' || 'https://sentry.io/' }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
@@ -95,6 +100,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Upload Release Artifacts
+        if: ${{ !inputs.validation_only }}
         uses: actions/upload-artifact@v7
         with:
           name: release-build
@@ -116,6 +122,7 @@ jobs:
           scheme: App
 
   build-screenshots:
+    if: ${{ !inputs.validation_only }}
     name: Build Screenshots
     runs-on: macos-26
     timeout-minutes: 30
@@ -229,6 +236,7 @@ jobs:
   # ============================================================================
 
   release-upload:
+    if: ${{ !inputs.validation_only }}
     name: Upload to App Store
     runs-on: macos-26
     timeout-minutes: 60

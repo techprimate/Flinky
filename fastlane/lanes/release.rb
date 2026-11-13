@@ -140,8 +140,9 @@ desc <<~DESC
   Prepares version, builds IPA, validates, and sets up Sentry release.
   Outputs version and build number for downstream jobs.
   Used by the parallel release workflow (release.yml).
+  Set validation_only:true to stop after validation without setting up a release.
 DESC
-lane :publish_ci_build do
+lane :publish_ci_build do |options|
   setup_ci if is_ci
 
   # Prepare: check App Store Connect, bump patch if needed, get next build from TestFlight
@@ -154,6 +155,10 @@ lane :publish_ci_build do
   _setup_code_signing
   _build_app_for_store
   _validate_app
+  if options[:validation_only].to_s == "true"
+    UI.success "App Store Connect validation complete: #{version_number} (#{build_number})"
+    next
+  end
   _setup_sentry_release(version: version_number, build: build_number)
 
   # Write version info for downstream jobs
