@@ -27,7 +27,7 @@ configs:
 packages:
   SentryCocoa:
     url: https://github.com/getsentry/sentry-cocoa
-    exactVersion: 9.33.0
+    exactVersion: 9.34.0
   OnLaunch:
     url: https://github.com/kula-app/OnLaunch-iOS-Client
     exactVersion: 0.0.6
@@ -37,8 +37,6 @@ packages:
   SentrySwiftLog:
     url: https://github.com/getsentry/sentry-apple-swift-log
     exactVersion: 9.33.0
-    traits:
-      - SentryFromSource
 targets:
   Flinky:
     type: application
@@ -62,7 +60,7 @@ targets:
       - target: FlinkyCore
       - target: ShareExtension
       - package: SentryCocoa
-        product: SentrySPM
+        product: Sentry
       - package: OnLaunch
       - package: SwiftLog
         product: Logging
@@ -285,7 +283,7 @@ targets:
     dependencies:
       - target: FlinkyCore
       - package: SentryCocoa
-        product: SentrySPM
+        product: Sentry
       - package: SwiftLog
         product: Logging
       - package: SentrySwiftLog

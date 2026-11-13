@@ -2,7 +2,7 @@ name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, 
 
 name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.33.0, source: https://github.com/getsentry/sentry-apple-swift-log
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.33.0, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.34.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.17.0, source: https://github.com/apple/swift-log
 
@@ -10,7 +10,7 @@ name: OnLaunch-iOS-Client, nameSpecified: OnLaunch-iOS-Client, owner: kula-app, 
 
 name: sentry-apple-swift-log, nameSpecified: SentrySwiftLog, owner: getsentry, version: 9.33.0, source: https://github.com/getsentry/sentry-apple-swift-log
 
-name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.33.0, source: https://github.com/getsentry/sentry-cocoa
+name: sentry-cocoa, nameSpecified: Sentry, owner: getsentry, version: 9.34.0, source: https://github.com/getsentry/sentry-cocoa
 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.17.0, source: https://github.com/apple/swift-log
 

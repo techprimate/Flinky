@@ -1,7 +1,7 @@
 import FlinkyCore
 import Logging
 import OnLaunch
-import SentrySwift
+import Sentry
 import SentrySwiftLog
 import SwiftData
 import SwiftUI

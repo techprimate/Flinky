@@ -1,7 +1,7 @@
 import Foundation
 import Network
 import Logging
-import SentrySwift
+import Sentry
 import UIKit
 
 /// Observes app health signals and reports them as Sentry metrics.
