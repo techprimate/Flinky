@@ -61,8 +61,8 @@ end
 
 desc <<~DESC
   Release beta: prepare version, deploy to TestFlight, then commit and tag on main
-  Single CI lane used by release-beta.yml (scheduled/manual). No PR.
-  Creates a signed, verified commit via the GitHub API linked to the GitHub App.
+  Single CI lane used by release-beta.yml (scheduled/manual).
+  Creates a signed, verified version commit only for main. Branch runs skip commit/tag.
 DESC
 lane :beta_ci do
   setup_ci if is_ci
@@ -87,8 +87,12 @@ lane :beta_ci do
   )
   _finalize_sentry_release(version: version_number, build: build_number)
 
-  # Commit and tag on main via GitHub API (creates a signed, verified commit)
-  _commit_and_tag_version_signed(version: version_number, build: build_number)
+  release_ref = ENV.fetch("RELEASE_REF", "main")
+  if release_ref == "main"
+    _commit_and_tag_version_signed(version: version_number, build: build_number)
+  else
+    UI.important "Skipping commit+tag: dispatched from ref '#{release_ref}', not main"
+  end
 end
 
 desc <<~DESC

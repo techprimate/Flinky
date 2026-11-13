@@ -28,7 +28,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.sha }}
           submodules: true
           token: ${{ steps.github_app_token.outputs.token }}
 
@@ -64,6 +64,7 @@ jobs:
 
       - run: bundle exec fastlane beta_ci
         env:
+          RELEASE_REF: ${{ github.ref_name }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
