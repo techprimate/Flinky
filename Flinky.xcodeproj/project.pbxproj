@@ -192,6 +192,7 @@
 			membershipExceptions = (
 				Resources/Info.plist,
 				Resources/Localizable.xcstrings,
+				Resources/ShareExtension.entitlements,
 			);
 			target = 5DE7B4773E669E09577A0496 /* ShareExtension */;
 		};
@@ -205,6 +206,7 @@
 		F9F9BCB70222C50340A32881 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Resources/App.entitlements,
 				Resources/Info.plist,
 			);
 			target = 9198AA103876EC14A96930E2 /* Flinky */;
